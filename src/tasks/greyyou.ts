@@ -1,336 +1,270 @@
 import { CombatStrategy, step } from "grimoire-kolmafia";
 import {
-  autosell,
-  buy,
-  buyUsingStorage,
-  cliExecute,
-  descToItem,
-  getFuel,
-  getWorkshed,
-  hippyStoneBroken,
-  itemAmount,
-  myAdventures,
-  myAscensions,
-  myClass,
-  myLevel,
-  myStorageMeat,
-  myTurncount,
-  restoreMp,
-  runChoice,
-  storageAmount,
-  toInt,
-  totalTurnsPlayed,
-  use,
-  visitUrl,
+	buyUsingStorage,
+	canEat,
+	cliExecute,
+	equip,
+	getCampground,
+	getDwelling,
+	haveEquipped,
+	hippyStoneBroken,
+	Item,
+	maximize,
+	myAdventures,
+	myClass,
+	myLevel,
+	myStorageMeat,
+	myTurncount,
+	pvpAttacksLeft,
+	retrieveItem,
+	storageAmount,
+	use,
+	useFamiliar,
+	visitUrl,
 } from "kolmafia";
 import {
-  $class,
-  $effect,
-  $effects,
-  $familiar,
-  $item,
-  $location,
-  $skill,
-  ascend,
-  AsdonMartin,
-  ensureEffect,
-  get,
-  getKramcoWandererChance,
-  have,
-  Lifestyle,
-  Macro,
-  Pantogram,
-  Paths,
-  prepareAscension,
-  RetroCape,
-  set,
-  SourceTerminal,
+	$class,
+	$effect,
+	$familiar,
+	$item,
+	$items,
+	$location,
+	$skill,
+	$slot,
+	ensureEffect,
+	get,
+	have,
+	Macro,
 } from "libram";
-import { getCurrentLeg, Leg, Quest, Task } from "./structure";
 import { args } from "../main";
-import { garboAscend, pvp } from "./aftercore";
+import { getCurrentLeg, haveAll, Leg, Quest, stooperDrunk } from "./structure";
 
-const gear: Task[] = [
-  {
-    name: "Pants",
-    after: [],
-    completed: () => have($item`pantogram pants`),
-    do: () => {
-      if (step("questM05Toot") === -1) visitUrl("council.php");
-      if (step("questM05Toot") === 0) visitUrl("tutorial.php?action=toot");
-      if (have($item`letter from King Ralph XI`)) use($item`letter from King Ralph XI`);
-      if (have($item`pork elf goodies sack`)) use($item`pork elf goodies sack`);
-      if (!have($item`porquoise`)) {
-        if (storageAmount($item`porquoise`) === 0) buyUsingStorage($item`porquoise`);
-        cliExecute("pull 1 porquoise");
-      }
-      Pantogram.makePants(
-        "Muscle",
-        "Stench Resistance: 2",
-        "Maximum MP: 20",
-        "Combat Rate: 5",
-        "Meat Drop: 60"
-      );
-      autosell($item`hamethyst`, itemAmount($item`hamethyst`));
-      autosell($item`baconstone`, itemAmount($item`baconstone`));
-    },
-    limit: { tries: 1 },
-  },
-  {
-    name: "Lucky Gold Ring",
-    after: [],
-    completed: () => have($item`lucky gold ring`),
-    do: () => cliExecute("pull lucky gold ring"),
-    limit: { tries: 1 },
-  },
-  {
-    name: "Pointer Finger",
-    after: [],
-    completed: () => have($item`mafia pointer finger ring`),
-    do: () => cliExecute("pull mafia pointer finger ring"),
-    limit: { tries: 1 },
-  },
-  {
-    name: "Asdon",
-    after: [],
-    completed: () => have($item`Asdon Martin keyfob`) || have($item`cold medicine cabinet`),
-    do: () => cliExecute("pull Asdon Martin keyfob"),
-    limit: { tries: 1 },
-  },
-];
+const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles`;
 
 export const GyouQuest: Quest = {
-  name: "Grey You",
-  completed: () => getCurrentLeg() > Leg.GreyYou,
-  tasks: [
-    {
-      name: "Ascend",
-      completed: () => getCurrentLeg() >= Leg.GreyYou,
-      after: ["Aftercore/Overdrunk", "Aftercore/Fights"],
-      do: (): void => {
-        prepareAscension({
-          eudora: "Our Daily Candles™ order form",
-        });
-        ascend(
-          Paths.GreyYou,
-          // eslint-disable-next-line libram/verify-constants
-          $class`Grey Goo`,
-          Lifestyle.softcore,
-          "vole",
-          $item`astral six-pack`,
-          $item`astral pistol`
-        );
-        if (visitUrl("main.php").includes("somewhat-human-shaped mass of grey goo nanites"))
-          runChoice(-1);
-      },
-      limit: { tries: 1 },
-    },
-    ...gear,
-    {
-      name: "Break Stone",
-      completed: () => hippyStoneBroken() || !args.pvp,
-      do: (): void => {
-        visitUrl("peevpee.php?action=smashstone&pwd&confirm=on", true);
-        visitUrl("peevpee.php?place=fight");
-      },
-      limit: { tries: 1 },
-    },
-    {
-      name: "Run",
-      after: ["Ascend", "Break Stone", ...gear.map((task) => task.name)],
-      completed: () =>
-        step("questL13Final") !== -1 && get("gooseReprocessed").split(",").length === 73,
-      do: () => cliExecute("loopgyou delaytower tune=wombat"),
-      limit: { tries: 1 },
-      tracking: "Run",
-    },
-    {
-      name: "In-Run Farm Initial",
-      after: ["Ascend", "Run", ...gear.map((task) => task.name)],
-      completed: () => myTurncount() >= 1000,
-      do: $location`Barf Mountain`,
-      acquire: [{ item: $item`wad of used tape` }],
-      prepare: (): void => {
-        RetroCape.tuneToSkill($skill`Precision Shot`);
-
-        if (have($item`How to Avoid Scams`)) ensureEffect($effect`How to Scam Tourists`);
-
-        // Use only the first source terminal enhance, save the others for aftercore
-        if (get("_sourceTerminalEnhanceUses") === 0) SourceTerminal.enhance($effect`meat.enh`);
-
-        // Prepare latte
-        if (
-          have($item`latte lovers member's mug`) &&
-          !get("latteModifier").includes("Meat Drop: 40") &&
-          get("_latteRefillsUsed") < 2
-        ) {
-          const modifiers = [];
-          if (get("latteUnlocks").includes("wing")) modifiers.push("wing");
-          if (get("latteUnlocks").includes("cajun")) modifiers.push("cajun");
-          modifiers.push("cinnamon", "pumpkin", "vanilla");
-          cliExecute(`latte refill ${modifiers.slice(0, 3).join(" ")}`); // Always unlocked
-        }
-
-        // Swap to asdon when all extrovermectins are done
-        if (
-          have($item`Asdon Martin keyfob`) &&
-          getWorkshed() === $item`cold medicine cabinet` &&
-          get("_coldMedicineConsults") >= 5
-        ) {
-          use($item`Asdon Martin keyfob`);
-        }
-
-        // Prepare Asdon buff
-        if (AsdonMartin.installed() && !have($effect`Driving Observantly`)) {
-          if (getFuel() < 37 && itemAmount($item`wad of dough`) < 8) {
-            // Get more wads of dough. We must do this ourselves since
-            // retrieveItem($item`loaf of soda bread`) in libram will not
-            // consider all-purpose flower.
-            buy($item`all-purpose flower`);
-            use($item`all-purpose flower`);
-          }
-          AsdonMartin.drive(AsdonMartin.Driving.Observantly);
-        }
-      },
-      post: getExtros,
-      outfit: {
-        back: $item`unwrapped knock-off retro superhero cape`,
-        weapon: $item`astral pistol`,
-        offhand:
-          getKramcoWandererChance() > 0.05
-            ? $item`Kramco Sausage-o-Matic™`
-            : $item`latte lovers member's mug`,
-        acc1: $item`lucky gold ring`,
-        acc2: $item`mafia pointer finger ring`,
-        acc3: $item`mafia thumb ring`,
-        familiar: $familiar`Space Jellyfish`,
-        modifier: "meat",
-      },
-      combat: new CombatStrategy().macro(
-        new Macro()
-          .trySkill($skill`Bowl Straight Up`)
-          .skill($skill`Extract Jelly`)
-          .skill($skill`Sing Along`)
-          .skill($skill`Precision Shot`)
-          .skill($skill`Double Nanovision`)
-          .repeat()
-      ),
-      limit: { tries: 550 },
-      tracking: "GooFarming",
-    },
-    {
-      name: "Pull All",
-      after: ["Ascend", "In-Run Farm Initial"],
-      completed: () => myStorageMeat() === 0 && storageAmount($item`festive warbear bank`) === 0, // arbitrary item,
-      do: (): void => {
-        cliExecute("pull all");
-        cliExecute("refresh all");
-      },
-      limit: { tries: 1 },
-      tracking: "Run",
-    },
-    {
-      name: "Tower",
-      after: ["Ascend", "Pull All", "In-Run Farm Initial"],
-      completed: () => step("questL13Final") > 11,
-      do: () => cliExecute("loopgyou delaytower"),
-      limit: { tries: 1 },
-      tracking: "Run",
-    },
-    {
-      name: "In-Run Farm Final",
-      after: ["Ascend", "Tower", ...gear.map((task) => task.name)],
-      // eslint-disable-next-line libram/verify-constants
-      completed: () => myAdventures() <= 40 || myClass() !== $class`Grey Goo`,
-      prepare: (): void => {
-        restoreMp(10);
-
-        // Prepare Asdon buff
-        if (AsdonMartin.installed() && !have($effect`Driving Observantly`))
-          AsdonMartin.drive(AsdonMartin.Driving.Observantly);
-      },
-      do: $location`Barf Mountain`,
-      outfit: {
-        modifier: "meat",
-        weapon: $item`haiku katana`,
-        offhand:
-          getKramcoWandererChance() > 0.05
-            ? $item`Kramco Sausage-o-Matic™`
-            : $item`latte lovers member's mug`,
-        acc1: $item`lucky gold ring`,
-        acc2: $item`mafia pointer finger ring`,
-        familiar: $familiar`Space Jellyfish`,
-      },
-      effects: $effects`How to Scam Tourists`,
-      combat: new CombatStrategy().macro(
-        new Macro()
-          .trySkill($skill`Bowl Straight Up`)
-          .skill($skill`Extract Jelly`)
-          .skill($skill`Sing Along`)
-          .skill($skill`Summer Siesta`)
-          .skill($skill`Double Nanovision`)
-          .repeat()
-      ),
-      limit: { tries: 150 },
-      tracking: "GooFarming",
-    },
-    {
-      name: "Prism",
-      after: ["Ascend", "In-Run Farm Final"],
-      // eslint-disable-next-line libram/verify-constants
-      completed: () => myClass() !== $class`Grey Goo`,
-      do: () => cliExecute("loopgyou class=1"),
-      limit: { tries: 1 },
-    },
-    {
-      name: "Level",
-      after: ["Ascend", "Prism", "Pull All"],
-      // eslint-disable-next-line libram/verify-constants
-      completed: () => myClass() !== $class`Grey Goo` && myLevel() >= 13,
-      do: () => cliExecute("loopcasual goal=level"),
-      limit: { tries: 1 },
-    },
-    {
-      name: "Duplicate",
-      after: ["Ascend", "Prism", "Pull All", "Level"],
-      ready: () => have(args.duplicate),
-      completed: () => get("lastDMTDuplication") === myAscensions(),
-      prepare: () => set("choiceAdventure1125", `1&iid=${toInt(args.duplicate)}`),
-      do: $location`The Deep Machine Tunnels`,
-      choices: { 1119: 4 },
-      combat: new CombatStrategy().macro(new Macro().attack().repeat()),
-      outfit: { familiar: $familiar`Machine Elf`, modifier: "muscle" },
-      limit: { tries: 6 },
-    },
-    {
-      name: "Breakfast",
-      after: ["Ascend", "Prism", "Pull All", "Level"],
-      completed: () => get("breakfastCompleted"),
-      do: () => cliExecute("breakfast"),
-      limit: { tries: 1 },
-    },
-    ...garboAscend(
-      ["Ascend", "Prism", "Pull All", "Level", "Duplicate", "Breakfast"],
-      "garbo yachtzeechain ascend"
-    ),
-    ...pvp(["Overdrunk"]),
-  ],
+	name: "Grey You",
+	completed: () => getCurrentLeg() > Leg.GreyYou,
+	tasks: [
+		{
+			name: "Farming Pulls",
+			completed: () => haveAll(myPulls),
+			do: () => myPulls.forEach((it: Item) => {
+				if(storageAmount(it) !== 0 && !have(it))
+					cliExecute(`pull ${it}`);
+			}),
+		},
+		{
+			name: "LGR Seed",
+			completed: () => get("_stenchAirportToday") || !have($item`lucky gold ring`),
+			do: (): void => {
+				if(!have($item`one-day ticket to Dinseylandfill`)) {
+					if(storageAmount($item`one-day ticket to Dinseylandfill`) === 0)
+						buyUsingStorage($item`one-day ticket to Dinseylandfill`);
+					cliExecute(`pull ${$item`one-day ticket to Dinseylandfill`}`);
+				}
+				use($item`one-day ticket to Dinseylandfill`);
+			},
+		},
+		{
+			name: "Break Stone",
+			completed: () => hippyStoneBroken() || !args.pvp,
+			do: (): void => {
+			  visitUrl("peevpee.php?action=smashstone&pwd&confirm=on", true);
+			  visitUrl("peevpee.php?place=fight");
+			},
+		},
+		{
+			name: "Run",
+			completed: () =>
+				step("questL13Final") !== -1 && get("gooseReprocessed").split(",").length === 73,
+			do: () => cliExecute("loopgyou delaytower tune=wombat chargegoose=20"),
+			tracking: "Run",
+		},
+		{
+			name: "In-Run Farm Initial",
+			completed: () => myTurncount() >= 1000,
+			do: $location`Barf Mountain`,
+			prepare: (): void => {
+				if (have($item`How to Avoid Scams`))
+					ensureEffect($effect`How to Scam Tourists`);
+				retrieveItem($item`seal tooth`);
+			},
+			outfit: {
+				familiar: $familiar`Hobo Monkey`,
+				modifier: "2.5 meat, 0.6 items, 175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
+			},
+			combat: new CombatStrategy().macro(
+				new Macro()
+				.trySkill($skill`Bowl Straight Up`)
+				.trySkill($skill`Sing Along`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.skill($skill`Double Nanovision`)
+				.repeat()
+			),
+			limit: { tries: 550 },
+			tracking: "GooFarming",
+		},
+		{
+			name: "Pull All",
+			completed: () => myStorageMeat() === 0 && storageAmount($item`old sweatpants`) === 0, // arbitrary item
+			do: (): void => {
+				cliExecute("pull all");
+				cliExecute("refresh all");
+			},
+			tracking: "Run",
+		},
+		{
+			name: "Tower",
+			completed: () => step("questL13Final") > 11,
+			do: () => cliExecute("loopgyou delaytower chargegoose=20"),
+			tracking: "Run",
+		},
+		{
+			name: "In-Run Farm Final",
+			completed: () => myAdventures() <= 40 || myClass() !== $class`Grey Goo`,
+			do: $location`Barf Mountain`,
+			prepare: (): void => {
+				if (have($item`How to Avoid Scams`))
+					ensureEffect($effect`How to Scam Tourists`);
+				retrieveItem($item`seal tooth`);
+			},
+			outfit: {
+				familiar: $familiar`Hobo Monkey`,
+				modifier: "2.5 meat, 0.6 items, 175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
+			},
+			combat: new CombatStrategy().macro(
+				new Macro()
+				.trySkill($skill`Bowl Straight Up`)
+				.trySkill($skill`Sing Along`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.tryItem($item`seal tooth`)
+				.skill($skill`Double Nanovision`)
+				.repeat()
+			),
+			limit: { tries: 150 },
+			tracking: "GooFarming",
+		},
+		{
+			name: "Get Dressed",
+			completed: () => haveEquipped($item`discarded swimming trunks`),
+			do: (): void => {
+				useFamiliar($familiar`Grey Goose`);
+				equip($item`giant yellow hat`);
+				equip($item`yule hatchet`);
+				equip($item`battered hubcap`);
+				equip($item`discarded swimming trunks`);
+				equip($slot`acc1`, $item`teacher's pen`);
+				equip($slot`acc2`, $item`teacher's pen`);
+				equip($slot`acc3`, $item`teacher's pen`);
+				equip($item`grey down vest`);
+				maximize("muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min", false);
+			},
+		},
+		{
+			name: "Free King",
+			completed: () => myClass() !== $class`Grey Goo`,
+			prepare: (): void => {
+				cliExecute("mcd 1");
+				useFamiliar($familiar`Grey Goose`);
+				equip($item`giant yellow hat`);
+				equip($item`yule hatchet`);
+				equip($item`battered hubcap`);
+				equip($item`discarded swimming trunks`);
+				equip($slot`acc1`, $item`teacher's pen`);
+				equip($slot`acc2`, $item`teacher's pen`);
+				equip($slot`acc3`, $item`teacher's pen`);
+				equip($item`grey down vest`);
+				maximize("muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min", false);
+			},
+			do: () => cliExecute("loopgyou class=1; refresh all"),
+		},
+		{
+			name: "Buff Up",
+			completed: () => false,
+			do: (): void => {
+				false;
+			},
+		},
+		{
+			name: "Strange Leaflet",
+			completed: () => get("leafletCompleted"),
+			do: () => cliExecute("leaflet"),
+		},
+		{
+			name: "Frobozz",
+			completed: () => getDwelling() !== $item`Frobozz Real-Estate Company Instant House (TM)`,
+			do: () => use($item`Frobozz Real-Estate Company Instant House (TM)`),
+		},
+		{
+			name: "Bonerdagon Chest",
+			completed: () => !have($item`chest of the Bonerdagon`),
+			do: () => use($item`chest of the Bonerdagon`),
+		},
+		{
+			name: "Gators",
+			completed: () => myClass() !== $class`Grey Goo` && myLevel() >= 13,
+			do: () => $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
+			outfit: {
+				familiar: $familiar`Grey Goose`,
+				modifier: "0.125 muscle, muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min",
+			},
+			combat: new CombatStrategy().macro(
+				new Macro()
+				.trySkill($skill`Curse of Weaksauce`)
+				.externalIf($familiar`Grey Goose`.experience >= 400, "skill convert matter to protein; ")
+				.attack()
+				.repeat()
+			),
+			limit: { tries: 30 },
+		},
+		{
+			name: "Breakfast",
+			completed: () => get("breakfastCompleted"),
+			do: () => cliExecute("breakfast"),
+		},
+		{
+			name: "Garbo",
+			completed: () => (myAdventures() === 0 && !canEat()) || stooperDrunk(),
+			do: () => cliExecute("garbo ascend"),
+			tracking: "Garbo",
+		},
+		{
+			name: "PvP",
+			completed: () => pvpAttacksLeft() === 0 || !hippyStoneBroken(),
+			do: (): void => {
+				cliExecute("unequip");
+				cliExecute("UberPvPOptimizer");
+				cliExecute("swagger");
+			},
+		},
+		{
+			name: "Nightcap",
+			completed: () => stooperDrunk(),
+			do: () => cliExecute("CONSUME NIGHTCAP"),
+		},
+		{
+			name: "Pajamas",
+			completed: () => getCampground()[$item`clockwork maid`.name] === 1,
+			do: (): void => {
+				if(args.pvp)
+					maximize("adventures, 0.3 fites", false);
+				else
+					maximize("adventures", false);
+				use($item`clockwork maid`);
+			},
+		},
+	],
 };
-
-function getExtros(): void {
-  if (getWorkshed() !== $item`cold medicine cabinet`) return;
-  if (get("_coldMedicineConsults") >= 5 || get("_nextColdMedicineConsult") > totalTurnsPlayed()) {
-    return;
-  }
-  const options = visitUrl("campground.php?action=workshed");
-  let match;
-  const regexp = /descitem\((\d+)\)/g;
-  while ((match = regexp.exec(options)) !== null) {
-    const item = descToItem(match[1]);
-    if (item === $item`Extrovermectin™`) {
-      visitUrl("campground.php?action=workshed");
-      runChoice(5);
-      return;
-    }
-  }
-}
