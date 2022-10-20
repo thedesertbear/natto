@@ -1,18 +1,27 @@
+import { CombatStrategy } from "grimoire-kolmafia";
 import {
 	canEat,
 	cliExecute,
 	hippyStoneBroken,
+	itemAmount,
 	myAdventures,
+	putCloset,
 	pvpAttacksLeft,
+	retrieveItem,
 	runChoice,
 	visitUrl,
 } from "kolmafia";
 import {
 	$class,
+	$familiar,
 	$item,
+	$location,
+	$skill,
 	ascend,
 	get,
+	have,
 	Lifestyle,
+	Macro,
 	Paths,
 } from "libram";
 import { getCurrentLeg, Leg, Quest, stooperDrunk } from "./structure";
@@ -33,25 +42,25 @@ export const AftercoreQuest: Quest = {
 				if(!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
 					retrieveItem(1, $item`daily dungeon malware`);
 				retrieveItem(1, $item`eleven-foot pole`);
-				retrieveItem(1, $item`pick-o-matic lockpicks`);
-				retrieveItem(1, $item`ring of detect boring doors`);
-			}
+				retrieveItem(1, $item`Pick-O-Matic lockpicks`);
+				retrieveItem(1, $item`ring of Detect Boring Doors`);
+			},
 			do: $location`The Daily Dungeon`,
 			outfit: {
 		 		familiar: $familiar`Grey Goose`,
-		 		weapon: (have($item`the Jokester's Gun`) && !get("_firedJokestersGun")) ? $item`the Jokester's Gun` : undefined,
-		 		acc1: (get("_lastDailyDungeonRoom") % 5 === 4) ? $item`ring of detect boring doors` : undefined,
+		 		weapon: (have($item`The Jokester's gun`) && !get("_firedJokestersGun")) ? $item`The Jokester's gun` : undefined,
+		 		acc1: (get("_lastDailyDungeonRoom") % 5 === 4) ? $item`ring of Detect Boring Doors` : undefined,
 				modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			},
 			combat: new CombatStrategy().macro(
 				new Macro()
 				.tryItem($item`daily dungeon malware`)
 				.tryItem($item`porquoise-handled sixgun`)
-				.trySkill($skill`fire the Jokester's Gun`)
+				.trySkill($skill`Fire the Jokester's Gun`)
 				.attack()
 				.repeat()
 			),
-			limit: { tries: 18 }; //+3 for unaccounted for wanderers, etc.
+			limit: { tries: 18 }, //+3 for unaccounted for wanderers, etc.
 		},
 		{	name: "Garbo",
 			completed: () => (myAdventures() === 0 && !canEat()) || stooperDrunk(),

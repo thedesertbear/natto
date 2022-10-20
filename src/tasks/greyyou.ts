@@ -1,25 +1,40 @@
 import { CombatStrategy, step } from "grimoire-kolmafia";
 import {
+	availableAmount,
 	buyUsingStorage,
 	canEat,
+	chew,
 	cliExecute,
+	closetAmount,
 	equip,
 	getCampground,
 	getDwelling,
+	haveEffect,
 	hippyStoneBroken,
 	Item,
+	itemAmount,
 	maximize,
 	myAdventures,
+	myBasestat,
+	myBuffedstat,
 	myClass,
 	myLevel,
+	myMaxhp,
+	myPrimestat,
+	mySpleenUse,
 	myStorageMeat,
 	myTurncount,
+	putCloset,
 	pvpAttacksLeft,
+	restoreHp,
+	restoreMp,
 	retrieveItem,
+	spleenLimit,
 	storageAmount,
 	use,
 	useFamiliar,
 	visitUrl,
+	wait,
 } from "kolmafia";
 import {
 	$class,
@@ -127,7 +142,7 @@ export const GyouQuest: Quest = {
 				retrieveItem(1, $item`eleven-foot pole`);
 				retrieveItem(1, $item`pick-o-matic lockpicks`);
 				retrieveItem(1, $item`ring of detect boring doors`);
-			}
+			},
 			do: $location`The Daily Dungeon`,
 			outfit: {
 		 		familiar: $familiar`Grey Goose`,
@@ -143,7 +158,7 @@ export const GyouQuest: Quest = {
 				.skill($skill`Infinite Loop`)
 				.repeat()
 			),
-			limit: { tries: 18 }; //+3 for unaccounted for wanderers, etc.
+			limit: { tries: 18 }, //+3 for unaccounted for wanderers, etc.
 		},
 		{	name: "Mourn",
 			completed: () => 
@@ -165,7 +180,7 @@ export const GyouQuest: Quest = {
 			ready: ():boolean => {
 				let sum = 0;
 				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
-				.foreach((it: Item) => if(have(it)) sum++)
+				.forEach((it: Item) => { if(have(it)) sum++; });
 				return sum >= 4;
 			},
 			do: () => 
@@ -180,7 +195,7 @@ export const GyouQuest: Quest = {
 		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
 		 	prepare: (): void => {
 				//add casting of +com skills here. Also request buffs from buffy?
-			}
+			},
 			do: $location`The Laugh Floor`,
 			outfit: {
 		 		familiar: $familiar`Grey Goose`,
@@ -192,7 +207,7 @@ export const GyouQuest: Quest = {
 				.skill($skill`Double Nanovision`)
 				.repeat()
 			),
-			limit: { tries: 15 };
+			limit: { tries: 15 },
 		},
 		{	name: "Infernal Rackets Backstage",
 			completed: () =>
@@ -203,7 +218,7 @@ export const GyouQuest: Quest = {
 		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
 		 	prepare: (): void => {
 				//add casting of -com skills here. Also request buffs from buffy?
-			}
+			},
 			do: $location`Infernal Rackets Backstage`,
 			outfit: {
 		 		familiar: $familiar`Grey Goose`,
@@ -215,7 +230,7 @@ export const GyouQuest: Quest = {
 				.skill($skill`Double Nanovision`)
 				.repeat()
 			),
-			limit: { tries: 15 };
+			limit: { tries: 15 },
 		},
 		{	name: "Moaning Panda",
 			after: ["Mourn", "Sven Golly"],
@@ -228,7 +243,7 @@ export const GyouQuest: Quest = {
 			prepare: (): void => {
 				retrieveItem(5, $item`bus pass`);
 				retrieveItem(5, $item`imp air`);
-			}
+			},
 			do: () => 
 		},
 		{	name: "Steel Margarita",
@@ -278,7 +293,7 @@ export const GyouQuest: Quest = {
 		},
 		{	name: "Hatter Buff",
 			completed: () => get("_madTeaParty"),
-		 	prepare: () => retrieveItem($item`oil cap`);
+		 	prepare: () => retrieveItem($item`oil cap`),
 			do: () => cliExecute(`hatter ${$item`oil cap`}`),
 		},
 		{	name: "Free King",
@@ -322,8 +337,8 @@ export const GyouQuest: Quest = {
 			do: (): void => {
 				if(mySpleenUse() === spleenLimit())
 					use(1, $item`mojo filter`)
-				chew(1, $item`vial of humanoid growth hormone`), //lasts for 30 turns
-			}
+				chew(1, $item`vial of humanoid growth hormone`); //lasts for 30 turns
+			},
 		 	limit: { tries: Math.ceil(levelingTurns/30) },
 		},
 		{	name: "Purpose",
@@ -331,8 +346,8 @@ export const GyouQuest: Quest = {
 			do: (): void => {
 				if(mySpleenUse() === spleenLimit())
 					use(1, $item`mojo filter`)
-				chew(1, $item`abstraction: purpose`), //lasts for 50 turns
-			}
+				chew(1, $item`abstraction: purpose`); //lasts for 50 turns
+			},
 		 	limit: { tries: Math.ceil(levelingTurns/50) },
 		},
 		{	name: "Expert Vacationer",
@@ -370,11 +385,11 @@ export const GyouQuest: Quest = {
 		{	name: "Gators",
 			completed: () => myClass() !== $class`Grey Goo` && myLevel() >= 13,
 			prepare: (): void => {
-				restoreMP(8);
-				restoreHP(0.75 * myMaxHP());
+				restoreMp(8);
+				restoreHp(0.75 * myMaxhp());
 				if(availableAmount($item`porquoise-handled sixgun`) > 0)
 					retrieveItem($item`porquoise-handled sixgun`);
-			}
+			},
 			do: () => $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
 			outfit: {
 				familiar: $familiar`Grey Goose`,
