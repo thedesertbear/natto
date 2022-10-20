@@ -86,7 +86,7 @@ export const GyouQuest: Quest = {
 			},
 			outfit: {
 				familiar: $familiar`Hobo Monkey`,
-				modifier: "2.5 meat, 0.6 items, 175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
+				modifier: "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
 			},
 			combat: new CombatStrategy().macro(
 				new Macro()
@@ -133,7 +133,7 @@ export const GyouQuest: Quest = {
 		 		familiar: $familiar`Grey Goose`,
 		 		weapon: (have($item`the Jokester's Gun`) && !get("_firedJokestersGun")) ? $item`the Jokester's Gun` : undefined,
 		 		acc1: (get("_lastDailyDungeonRoom") % 5 === 4) ? $item`ring of detect boring doors` : undefined,
-				modifier: "175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+				modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			},
 			combat: new CombatStrategy().macro(
 				new Macro()
@@ -184,7 +184,7 @@ export const GyouQuest: Quest = {
 			do: $location`The Laugh Floor`,
 			outfit: {
 		 		familiar: $familiar`Grey Goose`,
-				modifier: "+10 combat rate, 3 item, 175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+				modifier: "+10 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			},
 			combat: new CombatStrategy().macro(
 				new Macro()
@@ -207,7 +207,7 @@ export const GyouQuest: Quest = {
 			do: $location`Infernal Rackets Backstage`,
 			outfit: {
 		 		familiar: $familiar`Grey Goose`,
-				modifier: "-10 combat rate, 3 item, 175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+				modifier: "-10 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			},
 			combat: new CombatStrategy().macro(
 				new Macro()
@@ -255,7 +255,7 @@ export const GyouQuest: Quest = {
 			},
 			outfit: {
 				familiar: $familiar`Hobo Monkey`,
-				modifier: "2.5 meat, 0.6 items, 175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
+				modifier: "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
 			},
 			combat: new CombatStrategy().macro(
 				new Macro()
