@@ -51,7 +51,7 @@ import {
 	Macro,
 } from "libram";
 import { args } from "../main";
-import { getCurrentLeg, haveAll, Leg, Quest, stooperDrunk } from "./structure";
+import { getCurrentLeg, haveAll, Leg, Quest, stooperDrunk, backstageItemsDone } from "./structure";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles`;
 const levelingTurns = 30;
@@ -193,8 +193,7 @@ export const GyouQuest: Quest = {
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's unicorn`) ||
-				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
-				.reduce((a: number, it: Item) => a + (have(it)?1:0), 0) >= 4,
+				backstageItemsDone(),
 		 	prepare: (): void => {
 				//add casting of -com skills here. Also request buffs from buffy?
 			},
@@ -324,20 +323,23 @@ export const GyouQuest: Quest = {
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's lollipop`),
-			do: () => {},
+			do: () => cliExecute("panda comedy insult; panda comedy observational; panda comedy prop"),
 		},
 		{	name: "Sven Golly",
-			ready: () => 
-				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
-				.reduce((a: number, it: Item) => a + (have(it)?1:0), 0) >= 4,
+			ready: () => backstageItemsDone(),
 			completed: () => 
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's unicorn`),
-			do: () => 
+			do: (): void => {
+				cliExecute(`panda Bognort ${$items`giant marshmallow, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda Stinkface ${$items`beer-scented teddy bear, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda Flargwurm ${$items`booze-soaked cherry, sponge cake`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda Jim ${$items`comfy pillow, sponge cake`.filter((a: Item) => have(a))[0]}`);
+			},
 		},
 		{	name: "Moaning Panda",
-			after: ["Mourn", "Sven Golly"],
+		 	ready: haveAll($items`Azazel's lollipop, Azazel's unicorn`),
 			completed: () => 
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
@@ -346,21 +348,20 @@ export const GyouQuest: Quest = {
 				retrieveItem(5, $item`bus pass`);
 				retrieveItem(5, $item`imp air`);
 			},
-			do: () => 
+			do: () => cliExecute("panda moan"),
+			limit: { tries: 3 },
 		},
 		{	name: "Steel Margarita",
-			after: ["Mourn", "Sven Golly", "Moaning Panda"],
+		 	ready: haveAll($items`Azazel's tutu, Azazel's lollipop, Azazel's unicorn`),
 			completed: () => 
 				have($skill`liver of steel`) ||
-				have($item`steel margarita`) ||
-		 		myLevel() < 13 ||
-		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
-			do: () => 
+				have($item`steel margarita`),
+			do: () => cliExecute("panda temple"),
 		},
 		{	name: "Liver of Steel",
 			completed: () => have($skill`liver of steel`),
 			ready: () => myClass() !== $class`Grey Goo` && have($item`steel margarita`),
-			do: () => 
+			do: () => drink(1, $item`steel margarita`),
 		},
 		{	name: "Heart of White",
 			completed: () => myLevel() >= 13 || have($effect`Heart of White`),
