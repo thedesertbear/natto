@@ -53,7 +53,7 @@ import {
 import { args } from "../main";
 import { getCurrentLeg, haveAll, Leg, Quest, stooperDrunk, backstageItemsDone } from "./structure";
 
-const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles`;
+const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;
 const targetLevel = 13;
 
@@ -62,7 +62,8 @@ export const GyouQuest: Quest = {
 	completed: () => getCurrentLeg() > Leg.GreyYou,
 	tasks: [
 		{	name: "Farming Pulls",
-			completed: () => haveAll(myPulls),
+			completed: () => myPulls.reduce((b: boolean, it: Item) =>
+				b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
 			do: () => myPulls.forEach((it: Item) => {
 				if(storageAmount(it) !== 0 && !have(it))
 					cliExecute(`pull ${it}`);
@@ -108,6 +109,7 @@ export const GyouQuest: Quest = {
 				new Macro()
 				.trySkill($skill`Bowl Straight Up`)
 				.trySkill($skill`Sing Along`)
+				.tryItem($item`porquoise-handled sixgun`)
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
@@ -238,7 +240,7 @@ export const GyouQuest: Quest = {
 			completed: () => myAdventures() <= 40 || myClass() !== $class`Grey Goo`,
 			do: $location`Barf Mountain`,
 			prepare: (): void => {
-				if (have($item`How to Avoid Scams`))
+				if(have($item`How to Avoid Scams`))
 					ensureEffect($effect`How to Scam Tourists`);
 				retrieveItem($item`seal tooth`);
 			},
