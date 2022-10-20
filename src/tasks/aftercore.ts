@@ -21,19 +21,16 @@ export const AftercoreQuest: Quest = {
 	name: "Aftercore",
 	completed: () => getCurrentLeg() > Leg.Aftercore,
 	tasks: [
-		{
-			name: "Breakfast",
+		{	name: "Breakfast",
 			completed: () => get("breakfastCompleted"),
 			do: () => cliExecute("breakfast"),
 		},
-		{
-			name: "Garbo",
+		{	name: "Garbo",
 			completed: () => (myAdventures() === 0 && !canEat()) || stooperDrunk(),
 			do: () => cliExecute("garbo ascend"),
 			tracking: "Garbo",
 		},
-		{
-			name: "PvP",
+		{	name: "PvP",
 			completed: () => pvpAttacksLeft() === 0 || !hippyStoneBroken(),
 			do: (): void => {
 				cliExecute("unequip");
@@ -41,8 +38,7 @@ export const AftercoreQuest: Quest = {
 				cliExecute("swagger");
 			},
 		},
-		{
-			name: "Ascend",
+		{	name: "Ascend",
 			completed: () => getCurrentLeg() >= Leg.GreyYou,
 			do: (): void => {
 				ascend(
