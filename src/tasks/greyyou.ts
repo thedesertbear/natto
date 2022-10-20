@@ -82,13 +82,13 @@ export const GyouQuest: Quest = {
 		{	name: "Break Stone",
 			completed: () => hippyStoneBroken() || !args.pvp,
 			do: (): void => {
-			  visitUrl("peevpee.php?action=smashstone&pwd&confirm=on", true);
-			  visitUrl("peevpee.php?place=fight");
+				visitUrl("peevpee.php?action=smashstone&pwd&confirm=on", true);
+				visitUrl("peevpee.php?place=fight");
 			},
 		},
 		{	name: "Run",
 			completed: () =>
-				step("questL13Final") !== -1 && get("gooseReprocessed").split(",").length === 73,
+				step("questL13Final") !== -1 && get("gooseReprocessed").split(",").length >= 69, //There are 73 total targets
 			do: () => cliExecute("loopgyou delaytower tune=wombat chargegoose=20"),
 			tracking: "Run",
 		},
