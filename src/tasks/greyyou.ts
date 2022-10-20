@@ -55,6 +55,7 @@ import { getCurrentLeg, haveAll, Leg, Quest, stooperDrunk, backstageItemsDone } 
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles`;
 const levelingTurns = 30;
+const targetLevel = 13;
 
 export const GyouQuest: Quest = {
 	name: "Grey You",
@@ -132,7 +133,7 @@ export const GyouQuest: Quest = {
 		{	name: "Daily Dungeon",
 		 	ready: () => 
 		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
-		 		(myClass() !== $class`Grey Goo` && myLevel() >= 13),
+		 		(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () => get("dailyDungeonDone"),
 		 	prepare: (): void => {
 				if(have($item`daily dungeon malware`) && get("_dailyDungeonMalwareUsed"))
@@ -163,7 +164,7 @@ export const GyouQuest: Quest = {
 		{	name: "Laugh Floor",
 		 	ready: () => 
 		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
-		 		(myClass() !== $class`Grey Goo` && myLevel() >= 13),
+		 		(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () =>
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
@@ -188,7 +189,7 @@ export const GyouQuest: Quest = {
 		{	name: "Infernal Rackets Backstage",
 		 	ready: () => 
 		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
-		 		(myClass() !== $class`Grey Goo` && myLevel() >= 13),
+		 		(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () =>
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
@@ -283,7 +284,7 @@ export const GyouQuest: Quest = {
 			},
 		},
 		{	name: "HGH-Charged",
-			completed: () => myLevel() >= 13 || have($effect`HGH-Charged`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
+			completed: () => myLevel() >= targetLevel || have($effect`HGH-Charged`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
 			do: (): void => {
 				if(mySpleenUse() === spleenLimit())
 					use(1, $item`mojo filter`)
@@ -292,7 +293,7 @@ export const GyouQuest: Quest = {
 		 	limit: { tries: Math.ceil(levelingTurns/30) },
 		},
 		{	name: "Purpose",
-			completed: () => myLevel() >= 13 || have($effect`Purpose`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
+			completed: () => myLevel() >= targetLevel || have($effect`Purpose`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
 			do: (): void => {
 				if(mySpleenUse() === spleenLimit())
 					use(1, $item`mojo filter`)
@@ -301,7 +302,7 @@ export const GyouQuest: Quest = {
 		 	limit: { tries: Math.ceil(levelingTurns/50) },
 		},
 		{	name: "Expert Vacationer",
-			completed: () => myLevel() >= 13 || have($effect`Expert Vacationer`),
+			completed: () => myLevel() >= targetLevel || have($effect`Expert Vacationer`),
 			do: () => use(1, $item`exotic travel brochure`), //lasts for 20 turns each
 		 	limit: { tries: Math.ceil(levelingTurns/20) },
 		},
@@ -364,22 +365,22 @@ export const GyouQuest: Quest = {
 			do: () => drink(1, $item`steel margarita`),
 		},
 		{	name: "Heart of White",
-			completed: () => myLevel() >= 13 || have($effect`Heart of White`),
+			completed: () => myLevel() >= targetLevel || have($effect`Heart of White`),
 			do: () => use(1, $item`white candy heart`), //lasts for 10 turns
 		 	limit: { tries: Math.ceil(levelingTurns/10) },
 		},
 		{	name: "Orange Crusher",
-			completed: () => myLevel() >= 13 || have($effect`Orange Crusher`),
+			completed: () => myLevel() >= targetLevel || have($effect`Orange Crusher`),
 			do: () => use(Math.ceil((50 - haveEffect($effect`Orange Crusher`))/10), $item`pulled orange taffy`), //lasts for 10 turns each
 		 	limit: { tries: Math.ceil(levelingTurns/10) },
 		},
 		{	name: "Buff Muscle",
-			completed: () => myLevel() >= 13 || myBuffedstat(myPrimestat()) < 10 * myBasestat(myPrimestat()),
+			completed: () => myLevel() >= targetLevel || myBuffedstat(myPrimestat()) < 10 * myBasestat(myPrimestat()),
 			do: () => cliExecute(`gain ${10 * myBasestat(myPrimestat())} ${myPrimestat()}`),
 			limit: { tries: levelingTurns },
 		},
 		{	name: "Gators",
-			completed: () => myClass() !== $class`Grey Goo` && myLevel() >= 13,
+			completed: () => myClass() !== $class`Grey Goo` && myLevel() >= targetLevel,
 			prepare: (): void => {
 				restoreMp(8);
 				restoreHp(0.75 * myMaxhp());
