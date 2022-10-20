@@ -130,10 +130,10 @@ export const GyouQuest: Quest = {
 			tracking: "Run",
 		},
 		{	name: "Daily Dungeon",
-			completed: () =>
-		 		get("dailyDungeonDone") ||
-		 		myLevel() < 13 ||
-		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+		 	ready: () => 
+		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
+		 		(myClass() !== $class`Grey Goo` && myLevel() >= 13),
+			completed: () => get("dailyDungeonDone"),
 		 	prepare: (): void => {
 				if(have($item`daily dungeon malware`) && get("_dailyDungeonMalwareUsed"))
 					putCloset($item`daily dungeon malware`);
@@ -160,39 +160,15 @@ export const GyouQuest: Quest = {
 			),
 			limit: { tries: 18 }, //+3 for unaccounted for wanderers, etc.
 		},
-		{	name: "Mourn",
-			completed: () => 
-				have($skill`liver of steel`) ||
-				have($item`steel margarita`) ||
-				have($item`Azazel's lollipop`) ||
-		 		myLevel() < 13 ||
-		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
-			ready: () => have($item`Observational glasses`),
-			do: () => 
-		},
-		{	name: "Sven Golly",
-			completed: () => 
-				have($skill`liver of steel`) ||
-				have($item`steel margarita`) ||
-				have($item`Azazel's unicorn`) ||
-		 		myLevel() < 13 ||
-		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
-			ready: ():boolean => {
-				let sum = 0;
-				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
-				.forEach((it: Item) => { if(have(it)) sum++; });
-				return sum >= 4;
-			},
-			do: () => 
-		},
 		{	name: "Laugh Floor",
+		 	ready: () => 
+		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
+		 		(myClass() !== $class`Grey Goo` && myLevel() >= 13),
 			completed: () =>
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's lollipop`) ||
-				have($item`Observational glasses`) ||
-		 		myLevel() < 13 ||
-		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+				have($item`Observational glasses`),
 		 	prepare: (): void => {
 				//add casting of +com skills here. Also request buffs from buffy?
 			},
@@ -210,12 +186,15 @@ export const GyouQuest: Quest = {
 			limit: { tries: 15 },
 		},
 		{	name: "Infernal Rackets Backstage",
+		 	ready: () => 
+		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
+		 		(myClass() !== $class`Grey Goo` && myLevel() >= 13),
 			completed: () =>
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's unicorn`) ||
-		 		myLevel() < 13 ||
-		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
+				.reduce((a: number, it: Item) => a + have(b)?1:0, 0) >= 4,
 		 	prepare: (): void => {
 				//add casting of -com skills here. Also request buffs from buffy?
 			},
@@ -231,29 +210,6 @@ export const GyouQuest: Quest = {
 				.repeat()
 			),
 			limit: { tries: 15 },
-		},
-		{	name: "Moaning Panda",
-			after: ["Mourn", "Sven Golly"],
-			completed: () => 
-				have($skill`liver of steel`) ||
-				have($item`steel margarita`) ||
-				have($item`Azazel's tutu`) ||
-		 		myLevel() < 13 ||
-		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
-			prepare: (): void => {
-				retrieveItem(5, $item`bus pass`);
-				retrieveItem(5, $item`imp air`);
-			},
-			do: () => 
-		},
-		{	name: "Steel Margarita",
-			after: ["Mourn", "Sven Golly", "Moaning Panda"],
-			completed: () => 
-				have($skill`liver of steel`) ||
-				have($item`steel margarita`) ||
-		 		myLevel() < 13 ||
-		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
-			do: () => 
 		},
 		{	name: "Tower",
 			completed: () => step("questL13Final") > 11,
@@ -327,11 +283,6 @@ export const GyouQuest: Quest = {
 				cliExecute("refresh effects");
 			},
 		},
-		{	name: "Liver of Steel",
-			completed: () => have($skill`liver of steel`),
-			ready: () => myClass() !== $class`Grey Goo` && have($item`steel margarita`),
-			do: () => 
-		},
 		{	name: "HGH-Charged",
 			completed: () => myLevel() >= 13 || have($effect`HGH-Charged`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
 			do: (): void => {
@@ -366,6 +317,50 @@ export const GyouQuest: Quest = {
 		{	name: "Bonerdagon Chest",
 			completed: () => !have($item`chest of the Bonerdagon`),
 			do: () => use($item`chest of the Bonerdagon`),
+		},
+		{	name: "Mourn",
+			ready: () => have($item`Observational glasses`),
+			completed: () => 
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's lollipop`),
+			do: () => {},
+		},
+		{	name: "Sven Golly",
+			ready: () => 
+				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
+				.reduce((a: number, it: Item) => a + have(b)?1:0, 0) >= 4,
+			completed: () => 
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's unicorn`),
+			do: () => 
+		},
+		{	name: "Moaning Panda",
+			after: ["Mourn", "Sven Golly"],
+			completed: () => 
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's tutu`),
+			prepare: (): void => {
+				retrieveItem(5, $item`bus pass`);
+				retrieveItem(5, $item`imp air`);
+			},
+			do: () => 
+		},
+		{	name: "Steel Margarita",
+			after: ["Mourn", "Sven Golly", "Moaning Panda"],
+			completed: () => 
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+		 		myLevel() < 13 ||
+		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+			do: () => 
+		},
+		{	name: "Liver of Steel",
+			completed: () => have($skill`liver of steel`),
+			ready: () => myClass() !== $class`Grey Goo` && have($item`steel margarita`),
+			do: () => 
 		},
 		{	name: "Heart of White",
 			completed: () => myLevel() >= 13 || have($effect`Heart of White`),
