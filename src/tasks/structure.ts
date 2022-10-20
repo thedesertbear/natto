@@ -41,3 +41,15 @@ export function stooperDrunk(): boolean {
 		(myInebriety() === inebrietyLimit() && myFamiliar() === $familiar`Stooper`)
 	);
 }
+
+export function backstageItemsDone(): boolean {
+	return (
+		(have($item`giant marshmallow`)?1:0)
+		+ (have($item`beer-scented teddy bear`)?1:0)
+		+ itemAmount($item`gin-soaked blotter paper`)
+		   >= 2 &&
+		(have($item`booze-soaked cherry`)?1:0)
+		+ (have($item`comfy pillow`)?1:0)
+		+ itemAmount($item`sponge cake`) >= 2
+	);
+}
