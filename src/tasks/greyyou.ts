@@ -6,6 +6,7 @@ import {
 	chew,
 	cliExecute,
 	closetAmount,
+	drink,
 	equip,
 	getCampground,
 	getDwelling,
@@ -51,7 +52,7 @@ import {
 	Macro,
 } from "libram";
 import { args } from "../main";
-import { getCurrentLeg, haveAll, Leg, Quest, stooperDrunk, backstageItemsDone } from "./structure";
+import { backstageItemsDone, getCurrentLeg, haveAll, Leg, Quest, stooperDrunk } from "./structure";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles`;
 const levelingTurns = 30;
@@ -131,7 +132,7 @@ export const GyouQuest: Quest = {
 			tracking: "Run",
 		},
 		{	name: "Daily Dungeon",
-		 	ready: () => 
+		 	ready: () =>
 		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
 		 		(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () => get("dailyDungeonDone"),
@@ -141,35 +142,35 @@ export const GyouQuest: Quest = {
 				if(!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
 					retrieveItem(1, $item`daily dungeon malware`);
 				retrieveItem(1, $item`eleven-foot pole`);
-				retrieveItem(1, $item`pick-o-matic lockpicks`);
-				retrieveItem(1, $item`ring of detect boring doors`);
+				retrieveItem(1, $item`Pick-O-Matic lockpicks`);
+				retrieveItem(1, $item`ring of Detect Boring Doors`);
 			},
 			do: $location`The Daily Dungeon`,
 			outfit: {
 		 		familiar: $familiar`Grey Goose`,
-		 		weapon: (have($item`the Jokester's Gun`) && !get("_firedJokestersGun")) ? $item`the Jokester's Gun` : undefined,
-		 		acc1: (get("_lastDailyDungeonRoom") % 5 === 4) ? $item`ring of detect boring doors` : undefined,
+		 		weapon: (have($item`The Jokester's gun`) && !get("_firedJokestersGun")) ? $item`The Jokester's gun` : undefined,
+		 		acc1: (get("_lastDailyDungeonRoom") % 5 === 4) ? $item`ring of Detect Boring Doors` : undefined,
 				modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			},
 			combat: new CombatStrategy().macro(
 				new Macro()
 				.tryItem($item`daily dungeon malware`)
 				.tryItem($item`porquoise-handled sixgun`)
-				.trySkill($skill`fire the Jokester's Gun`)
+				.trySkill($skill`Fire the Jokester's Gun`)
 				.skill($skill`Infinite Loop`)
 				.repeat()
 			),
 			limit: { tries: 18 }, //+3 for unaccounted for wanderers, etc.
 		},
 		{	name: "Laugh Floor",
-		 	ready: () => 
+		 	ready: () =>
 		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
 		 		(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () =>
-				have($skill`liver of steel`) ||
+				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's lollipop`) ||
-				have($item`Observational glasses`),
+				have($item`observational glasses`),
 		 	prepare: (): void => {
 				//add casting of +com skills here. Also request buffs from buffy?
 			},
@@ -187,11 +188,11 @@ export const GyouQuest: Quest = {
 			limit: { tries: 15 },
 		},
 		{	name: "Infernal Rackets Backstage",
-		 	ready: () => 
+		 	ready: () =>
 		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
 		 		(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () =>
-				have($skill`liver of steel`) ||
+				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's unicorn`) ||
 				backstageItemsDone(),
@@ -271,7 +272,7 @@ export const GyouQuest: Quest = {
 			do: (): void => {
 				cliExecute("loopgyou class=1");
 				cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
-				if(closetAmount($item`special seasoning`) > 0)
+				if(closetAmount($item`Special Seasoning`) > 0)
 					cliExecute("closet take * special seasoning");
 			},
 		},
@@ -284,7 +285,7 @@ export const GyouQuest: Quest = {
 			},
 		},
 		{	name: "HGH-Charged",
-			completed: () => myLevel() >= targetLevel || have($effect`HGH-Charged`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
+			completed: () => myLevel() >= targetLevel || have($effect`HGH-charged`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
 			do: (): void => {
 				if(mySpleenUse() === spleenLimit())
 					use(1, $item`mojo filter`)
@@ -319,17 +320,17 @@ export const GyouQuest: Quest = {
 			do: () => use($item`chest of the Bonerdagon`),
 		},
 		{	name: "Mourn",
-			ready: () => have($item`Observational glasses`),
-			completed: () => 
-				have($skill`liver of steel`) ||
+			ready: () => have($item`observational glasses`),
+			completed: () =>
+				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's lollipop`),
 			do: () => cliExecute("panda comedy insult; panda comedy observational; panda comedy prop"),
 		},
 		{	name: "Sven Golly",
 			ready: () => backstageItemsDone(),
-			completed: () => 
-				have($skill`liver of steel`) ||
+			completed: () =>
+				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's unicorn`),
 			do: (): void => {
@@ -340,9 +341,9 @@ export const GyouQuest: Quest = {
 			},
 		},
 		{	name: "Moaning Panda",
-		 	ready: haveAll($items`Azazel's lollipop, Azazel's unicorn`),
-			completed: () => 
-				have($skill`liver of steel`) ||
+		 	ready: () => haveAll($items`Azazel's lollipop, Azazel's unicorn`),
+			completed: () =>
+				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's tutu`),
 			prepare: (): void => {
@@ -353,14 +354,14 @@ export const GyouQuest: Quest = {
 			limit: { tries: 3 },
 		},
 		{	name: "Steel Margarita",
-		 	ready: haveAll($items`Azazel's tutu, Azazel's lollipop, Azazel's unicorn`),
-			completed: () => 
-				have($skill`liver of steel`) ||
+		 	ready: () => haveAll($items`Azazel's tutu, Azazel's lollipop, Azazel's unicorn`),
+			completed: () =>
+				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`),
 			do: () => cliExecute("panda temple"),
 		},
 		{	name: "Liver of Steel",
-			completed: () => have($skill`liver of steel`),
+			completed: () => have($skill`Liver of Steel`),
 			ready: () => myClass() !== $class`Grey Goo` && have($item`steel margarita`),
 			do: () => drink(1, $item`steel margarita`),
 		},
