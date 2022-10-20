@@ -39,6 +39,7 @@ import { args } from "../main";
 import { getCurrentLeg, haveAll, Leg, Quest, stooperDrunk } from "./structure";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles`;
+const levelingTurns = 30;
 
 export const GyouQuest: Quest = {
 	name: "Grey You",
@@ -148,6 +149,11 @@ export const GyouQuest: Quest = {
 			limit: { tries: 150 },
 			tracking: "GooFarming",
 		},
+		{	name: "Hatter Buff",
+			completed: () => get("_madTeaParty"),
+		 	prepare: () => retrieveItem($item`oil cap`);
+			do: () => cliExecute(`hatter ${$item`oil cap`}`),
+		},
 		{	name: "Free King",
 			completed: () => myClass() !== $class`Grey Goo`,
 			prepare: (): void => {
@@ -166,11 +172,28 @@ export const GyouQuest: Quest = {
 			},
 			do: () => cliExecute("loopgyou class=1; refresh all"),
 		},
-		{	name: "Buff Up",
-			completed: () => false,
+		{	name: "HGH-Charged",
+			completed: () => myLevel() >= 13 || have($effect`HGH-Charged`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
 			do: (): void => {
-				false;
-			},
+				if(mySpleenUse() === spleenLimit())
+					use(1, $item`mojo filter`)
+				chew(1, $item`vial of humanoid growth hormone`), //lasts for 30 turns
+			}
+		 	limit: { tries: Math.ceil(levelingTurns/30) },
+		},
+		{	name: "Purpose",
+			completed: () => myLevel() >= 13 || have($effect`Purpose`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
+			do: (): void => {
+				if(mySpleenUse() === spleenLimit())
+					use(1, $item`mojo filter`)
+				chew(1, $item`abstraction: purpose`), //lasts for 50 turns
+			}
+		 	limit: { tries: Math.ceil(levelingTurns/50) },
+		},
+		{	name: "Expert Vacationer",
+			completed: () => myLevel() >= 13 || have($effect`Expert Vacationer`),
+			do: () => use(1, $item`exotic travel brochure`), //lasts for 20 turns each
+		 	limit: { tries: Math.ceil(levelingTurns/20) },
 		},
 		{	name: "Strange Leaflet",
 			completed: () => get("leafletCompleted"),
@@ -183,6 +206,21 @@ export const GyouQuest: Quest = {
 		{	name: "Bonerdagon Chest",
 			completed: () => !have($item`chest of the Bonerdagon`),
 			do: () => use($item`chest of the Bonerdagon`),
+		},
+		{	name: "Heart of White",
+			completed: () => myLevel() >= 13 || have($effect`Heart of White`),
+			do: () => use(1, $item`white candy heart`), //lasts for 10 turns
+		 	limit: { tries: Math.ceil(levelingTurns/10) },
+		},
+		{	name: "Orange Crusher",
+			completed: () => myLevel() >= 13 || have($effect`Orange Crusher`),
+			do: () => use(Math.ceil((50 - haveEffect($effect`Orange Crusher`))/10), $item`pulled orange taffy`), //lasts for 10 turns each
+		 	limit: { tries: Math.ceil(levelingTurns/10) },
+		},
+		{	name: "Buff Muscle",
+			completed: () => myLevel() >= 13 || myBuffedstat(myPrimestat()) < 10 * myBasestat(myPrimestat()),
+			do: () => cliExecute(`gain ${10 * myBasestat(myPrimestat())} ${myPrimestat()}`),
+			limit: { tries: levelingTurns },
 		},
 		{	name: "Gators",
 			completed: () => myClass() !== $class`Grey Goo` && myLevel() >= 13,
@@ -198,7 +236,7 @@ export const GyouQuest: Quest = {
 				.attack()
 				.repeat()
 			),
-			limit: { tries: 30 },
+			limit: { tries: levelingTurns },
 		},
 		{	name: "Breakfast",
 			completed: () => get("breakfastCompleted"),
