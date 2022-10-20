@@ -28,7 +28,7 @@ export const AftercoreQuest: Quest = {
 		{	name: "Daily Dungeon",
 			completed: () => get("dailyDungeonDone"),
 		 	prepare: (): void => {
-				if(itemAmount($item`daily dungeon malware`) > 0)
+				if(have($item`daily dungeon malware`) && get("_dailyDungeonMalwareUsed"))
 					putCloset($item`daily dungeon malware`);
 				if(!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
 					retrieveItem(1, $item`daily dungeon malware`);
