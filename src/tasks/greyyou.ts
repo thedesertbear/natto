@@ -172,6 +172,14 @@ export const GyouQuest: Quest = {
 				have($item`Observational glasses`),
 		 	prepare: (): void => {
 				//add casting of +com skills here. Also request buffs from buffy?
+				if(!have($effect`Cantata of Confrontation`)) {
+					cliExecute("kmail to buffy || 10 Cantata of Confrontation");
+					wait(15);
+					cliExecute("refresh effects");
+				}
+				if(have($skill`Piezoelectric Honk` && !have($effect`Hooooooooonk!`))
+					useSkill($skill`Piezoelectric Honk`);
+				$effects`Sonata of Sneakiness, Darkened Photons, Shifted Phase`.forEach((ef: Effect) => cliExecute(`uneffect ${ef}`));
 			},
 			do: $location`The Laugh Floor`,
 			outfit: {
@@ -197,6 +205,16 @@ export const GyouQuest: Quest = {
 				backstageItemsDone(),
 		 	prepare: (): void => {
 				//add casting of -com skills here. Also request buffs from buffy?
+				if(!have($effect`Cantata of Confrontation`)) {
+					cliExecute("kmail to buffy || 10 Sonata of Sneakiness");
+					wait(15);
+					cliExecute("refresh effects");
+				}
+				if(have($skill`Photonic Shroud` && !have($effect`Darkened Photons`))
+					useSkill($skill`Photonic Shroud`);
+				if(have($skill`Phase Shift` && !have($effect`Shifted Phase`))
+					useSkill($skill`Phase Shift`);
+				$effects`Cantata of Confrontation, Hooooooooonk!`.forEach((ef: Effect) => cliExecute(`uneffect ${ef}`));
 			},
 			do: $location`Infernal Rackets Backstage`,
 			outfit: {
