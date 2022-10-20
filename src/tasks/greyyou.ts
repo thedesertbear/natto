@@ -194,7 +194,7 @@ export const GyouQuest: Quest = {
 				have($item`steel margarita`) ||
 				have($item`Azazel's unicorn`) ||
 				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
-				.reduce((a: number, it: Item) => a + have(b)?1:0, 0) >= 4,
+				.reduce((a: number, it: Item) => a + (have(it)?1:0), 0) >= 4,
 		 	prepare: (): void => {
 				//add casting of -com skills here. Also request buffs from buffy?
 			},
@@ -329,7 +329,7 @@ export const GyouQuest: Quest = {
 		{	name: "Sven Golly",
 			ready: () => 
 				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
-				.reduce((a: number, it: Item) => a + have(b)?1:0, 0) >= 4,
+				.reduce((a: number, it: Item) => a + (have(it)?1:0), 0) >= 4,
 			completed: () => 
 				have($skill`liver of steel`) ||
 				have($item`steel margarita`) ||
