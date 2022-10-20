@@ -114,6 +114,132 @@ export const GyouQuest: Quest = {
 			},
 			tracking: "Run",
 		},
+		{	name: "Daily Dungeon",
+			completed: () =>
+		 		get("dailyDungeonDone") ||
+		 		myLevel() < 13 ||
+		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+		 	prepare: (): void => {
+				if(itemAmount($item`daily dungeon malware`) > 0)
+					putCloset($item`daily dungeon malware`);
+				if(!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
+					retrieveItem(1, $item`daily dungeon malware`);
+				retrieveItem(1, $item`eleven-foot pole`);
+				retrieveItem(1, $item`pick-o-matic lockpicks`);
+				retrieveItem(1, $item`ring of detect boring doors`);
+			}
+			do: $location`The Daily Dungeon`,
+			outfit: {
+		 		familiar: $familiar`Grey Goose`,
+		 		weapon: (have($item`the Jokester's Gun`) && !get("_firedJokestersGun")) ? $item`the Jokester's Gun` : undefined,
+		 		acc1: (get("_lastDailyDungeonRoom") % 5 === 4) ? $item`ring of detect boring doors` : undefined,
+				modifier: "175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+			},
+			combat: new CombatStrategy().macro(
+				new Macro()
+				.tryItem($item`daily dungeon malware`)
+				.tryItem($item`porquoise-handled sixgun`)
+				.trySkill($skill`fire the Jokester's Gun`)
+				.skill($skill`Infinite Loop`)
+				.repeat()
+			),
+			limit: { tries: 18 }; //+3 for unaccounted for wanderers, etc.
+		},
+		{	name: "Mourn",
+			completed: () => 
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's lollipop`) ||
+		 		myLevel() < 13 ||
+		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+			ready: () => have($item`Observational glasses`),
+			do: () => 
+		},
+		{	name: "Sven Golly",
+			completed: () => 
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's unicorn`) ||
+		 		myLevel() < 13 ||
+		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+			ready: ():boolean => {
+				let sum = 0;
+				$items`giant marshmallow, gin-soaked blotter paper, beer-scented teddy bear, booze-soaked cherry, sponge cake, comfy pillow`
+				.foreach((it: Item) => if(have(it)) sum++)
+				return sum >= 4;
+			},
+			do: () => 
+		},
+		{	name: "Laugh Floor",
+			completed: () =>
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's lollipop`) ||
+				have($item`Observational glasses`) ||
+		 		myLevel() < 13 ||
+		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+		 	prepare: (): void => {
+				//add casting of +com skills here. Also request buffs from buffy?
+			}
+			do: $location`The Laugh Floor`,
+			outfit: {
+		 		familiar: $familiar`Grey Goose`,
+				modifier: "+10 combat rate, 3 item, 175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+			},
+			combat: new CombatStrategy().macro(
+				new Macro()
+				.tryItem($item`porquoise-handled sixgun`)
+				.skill($skill`Double Nanovision`)
+				.repeat()
+			),
+			limit: { tries: 15 };
+		},
+		{	name: "Infernal Rackets Backstage",
+			completed: () =>
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's unicorn`) ||
+		 		myLevel() < 13 ||
+		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+		 	prepare: (): void => {
+				//add casting of -com skills here. Also request buffs from buffy?
+			}
+			do: $location`Infernal Rackets Backstage`,
+			outfit: {
+		 		familiar: $familiar`Grey Goose`,
+				modifier: "-10 combat rate, 3 item, 175 bonus June Cleaver, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+			},
+			combat: new CombatStrategy().macro(
+				new Macro()
+				.tryItem($item`porquoise-handled sixgun`)
+				.skill($skill`Double Nanovision`)
+				.repeat()
+			),
+			limit: { tries: 15 };
+		},
+		{	name: "Moaning Panda",
+			after: ["Mourn", "Sven Golly"],
+			completed: () => 
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's tutu`) ||
+		 		myLevel() < 13 ||
+		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+			prepare: (): void => {
+				retrieveItem(5, $item`bus pass`);
+				retrieveItem(5, $item`imp air`);
+			}
+			do: () => 
+		},
+		{	name: "Steel Margarita",
+			after: ["Mourn", "Sven Golly", "Moaning Panda"],
+			completed: () => 
+				have($skill`liver of steel`) ||
+				have($item`steel margarita`) ||
+		 		myLevel() < 13 ||
+		 		(myClass() === $class`Grey Goo` && myAdventures() <= 40),
+			do: () => 
+		},
 		{	name: "Tower",
 			completed: () => step("questL13Final") > 11,
 			do: () => cliExecute("loopgyou delaytower chargegoose=20"),
@@ -135,6 +261,7 @@ export const GyouQuest: Quest = {
 				new Macro()
 				.trySkill($skill`Bowl Straight Up`)
 				.trySkill($skill`Sing Along`)
+				.tryItem($item`porquoise-handled sixgun`)
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
@@ -170,7 +297,25 @@ export const GyouQuest: Quest = {
 				equip($item`grey down vest`);
 				maximize("muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min", false);
 			},
-			do: () => cliExecute("loopgyou class=1; refresh all"),
+			do: (): void => {
+				cliExecute("loopgyou class=1");
+				cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
+				if(closetAmount($item`special seasoning`) > 0)
+					cliExecute("closet take * special seasoning");
+			},
+		},
+		{	name: "Call Buffy",
+			completed: () => 0 !== haveEffect($effect`Ghostly Shell`),
+			do: (): void => {
+				cliExecute(`kmail to buffy || 10 ode to booze, ${levelingTurns} Ghostly Shell, Reptilian Fortitude, Empathy of the Newt, Tenacity of the Snapper, Astral Shell, Elemental Saucesphere, Stevedave's Shanty of Superiority, Power Ballad of the Arrowsmith, Aloysius's Antiphon of Aptitude`);
+				wait(15);
+				cliExecute("refresh effects");
+			},
+		},
+		{	name: "Liver of Steel",
+			completed: () => have($skill`liver of steel`),
+			ready: () => myClass() !== $class`Grey Goo` && have($item`steel margarita`),
+			do: () => 
 		},
 		{	name: "HGH-Charged",
 			completed: () => myLevel() >= 13 || have($effect`HGH-Charged`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
@@ -224,6 +369,12 @@ export const GyouQuest: Quest = {
 		},
 		{	name: "Gators",
 			completed: () => myClass() !== $class`Grey Goo` && myLevel() >= 13,
+			prepare: (): void => {
+				restoreMP(8);
+				restoreHP(0.75 * myMaxHP());
+				if(availableAmount($item`porquoise-handled sixgun`) > 0)
+					retrieveItem($item`porquoise-handled sixgun`);
+			}
 			do: () => $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
 			outfit: {
 				familiar: $familiar`Grey Goose`,
@@ -233,10 +384,11 @@ export const GyouQuest: Quest = {
 				new Macro()
 				.trySkill($skill`Curse of Weaksauce`)
 				.externalIf($familiar`Grey Goose`.experience >= 400, "skill convert matter to protein; ")
+				.tryItem($item`porquoise-handled sixgun`)
 				.attack()
 				.repeat()
 			),
-			limit: { tries: levelingTurns },
+			limit: { tries: levelingTurns + 3 }, //+3 for unaccounted for wanderers, etc.
 		},
 		{	name: "Breakfast",
 			completed: () => get("breakfastCompleted"),
