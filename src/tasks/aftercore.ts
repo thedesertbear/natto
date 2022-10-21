@@ -1,6 +1,5 @@
 import { AcquireItem, CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
-	canEat,
 	cliExecute,
 	hippyStoneBroken,
 	Item,
@@ -78,7 +77,7 @@ export const AftercoreQuest: Quest = {
 			limit: { tries: 15 },
 		},
 		{	name: "Garbo",
-			completed: () => (myAdventures() === 0 && !canEat()) || stooperDrunk(),
+			completed: () => myAdventures() === 0 || stooperDrunk(),
 			do: () => cliExecute("garbo ascend"),
 			tracking: "Garbo",
 		},

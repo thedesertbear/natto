@@ -104,6 +104,8 @@ export const GyouQuest: Quest = {
 				if (have($item`How to Avoid Scams`))
 					ensureEffect($effect`How to Scam Tourists`);
 				retrieveItem($item`seal tooth`);
+				if(have($item`SongBoom™ BoomBox`) && get("boomBoxSong") !== "Total Eclipse of Your Meat")
+					cliExecute("boombox meat");
 			},
 			outfit: {
 				familiar: $familiar`Hobo Monkey`,
@@ -122,7 +124,8 @@ export const GyouQuest: Quest = {
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
-				.skill($skill`Double Nanovision`)
+				.trySkill($skill`Double Nanovision`)
+				.attack()
 				.repeat()
 			),
 			limit: { tries: 550 },
@@ -246,6 +249,8 @@ export const GyouQuest: Quest = {
 				if(have($item`How to Avoid Scams`))
 					ensureEffect($effect`How to Scam Tourists`);
 				retrieveItem($item`seal tooth`);
+				if(have($item`SongBoom™ BoomBox`) && get("boomBoxSong") !== "Total Eclipse of Your Meat")
+					cliExecute("boombox meat");
 			},
 			outfit: {
 				familiar: $familiar`Hobo Monkey`,
@@ -264,7 +269,8 @@ export const GyouQuest: Quest = {
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
-				.skill($skill`Double Nanovision`)
+				.trySkill($skill`Double Nanovision`)
+				.attack()
 				.repeat()
 			),
 			limit: { tries: 150 },
