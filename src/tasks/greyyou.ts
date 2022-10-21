@@ -414,10 +414,8 @@ export const GyouQuest: Quest = {
 			prepare: (): void => {
 				restoreMp(8);
 				restoreHp(0.75 * myMaxhp());
-				if(availableAmount($item`porquoise-handled sixgun`) > 0)
-					retrieveItem($item`porquoise-handled sixgun`);
 			},
-			do: () => $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
+			do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
 			outfit: {
 				familiar: $familiar`Grey Goose`,
 				modifier: "0.125 muscle, muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min",
@@ -427,6 +425,7 @@ export const GyouQuest: Quest = {
 				.trySkill($skill`Curse of Weaksauce`)
 				.externalIf($familiar`Grey Goose`.experience >= 400, Macro.trySkill($skill`Convert Matter to Protein`))
 				.tryItem($item`porquoise-handled sixgun`)
+				.trySkill($skill`Sing Along`)
 				.attack()
 				.repeat()
 			),
