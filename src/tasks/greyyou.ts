@@ -1,4 +1,4 @@
-import { CombatStrategy, step } from "grimoire-kolmafia";
+import { CombatStrategy, OutfitSpec, step } from "grimoire-kolmafia";
 import {
 	availableAmount,
 	buyUsingStorage,
@@ -151,12 +151,12 @@ export const GyouQuest: Quest = {
 				retrieveItem(1, $item`ring of Detect Boring Doors`);
 			},
 			do: $location`The Daily Dungeon`,
-			outfit: () => {
+			outfit: (): OutfitSpec => { return {
 		 		familiar: $familiar`Grey Goose`,
 		 		weapon: (have($item`The Jokester's gun`) && !get("_firedJokestersGun")) ? $item`The Jokester's gun` : undefined,
 		 		acc1: (get("_lastDailyDungeonRoom") % 5 === 4) ? $item`ring of Detect Boring Doors` : undefined,
 				modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
-			},
+			}},
 			combat: new CombatStrategy().macro(
 				new Macro()
 				.tryItem($item`daily dungeon malware`)
