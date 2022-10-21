@@ -237,6 +237,41 @@ export const GyouQuest: Quest = {
 			),
 			limit: { tries: 15 },
 		},
+		{	name: "Mourn",
+			ready: () => have($item`observational glasses`),
+			completed: () =>
+				have($skill`Liver of Steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's lollipop`),
+		 	outfit: {
+				equip: $items`hilarious comedy prop, observational glasses, Victor, the Insult Comic Hellhound Puppet`
+			}
+			do: () => cliExecute("panda comedy insult; panda comedy observe; panda comedy prop"),
+		},
+		{	name: "Sven Golly",
+			ready: () => backstageItemsDone(),
+			completed: () =>
+				have($skill`Liver of Steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's unicorn`),
+			do: (): void => {
+				cliExecute(`panda Bognort ${$items`giant marshmallow, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda Stinkface ${$items`beer-scented teddy bear, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda Flargwurm ${$items`booze-soaked cherry, sponge cake`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda Jim ${$items`comfy pillow, sponge cake`.filter((a: Item) => have(a))[0]}`);
+			},
+		},
+		{	name: "Moaning Panda",
+		 	ready: () => haveAll($items`Azazel's lollipop, Azazel's unicorn`),
+			completed: () =>
+				have($skill`Liver of Steel`) ||
+				have($item`steel margarita`) ||
+				have($item`Azazel's tutu`),
+			acquire: $items`bus pass, imp air`
+				.map(i => ({ item: i, num: 5 })),
+			do: () => cliExecute("panda moan"),
+			limit: { tries: 3 },
+		},
 		{	name: "Tower",
 			completed: () => step("questL13Final") > 11,
 			do: () => cliExecute("loopgyou delaytower chargegoose=20"),
@@ -346,40 +381,6 @@ export const GyouQuest: Quest = {
 		{	name: "Bonerdagon Chest",
 			completed: () => !have($item`chest of the Bonerdagon`),
 			do: () => use($item`chest of the Bonerdagon`),
-		},
-		{	name: "Mourn",
-			ready: () => have($item`observational glasses`),
-			completed: () =>
-				have($skill`Liver of Steel`) ||
-				have($item`steel margarita`) ||
-				have($item`Azazel's lollipop`),
-			do: () => cliExecute("panda comedy insult; panda comedy observational; panda comedy prop"),
-		},
-		{	name: "Sven Golly",
-			ready: () => backstageItemsDone(),
-			completed: () =>
-				have($skill`Liver of Steel`) ||
-				have($item`steel margarita`) ||
-				have($item`Azazel's unicorn`),
-			do: (): void => {
-				cliExecute(`panda Bognort ${$items`giant marshmallow, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
-				cliExecute(`panda Stinkface ${$items`beer-scented teddy bear, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
-				cliExecute(`panda Flargwurm ${$items`booze-soaked cherry, sponge cake`.filter((a: Item) => have(a))[0]}`);
-				cliExecute(`panda Jim ${$items`comfy pillow, sponge cake`.filter((a: Item) => have(a))[0]}`);
-			},
-		},
-		{	name: "Moaning Panda",
-		 	ready: () => haveAll($items`Azazel's lollipop, Azazel's unicorn`),
-			completed: () =>
-				have($skill`Liver of Steel`) ||
-				have($item`steel margarita`) ||
-				have($item`Azazel's tutu`),
-			prepare: (): void => {
-				retrieveItem(5, $item`bus pass`);
-				retrieveItem(5, $item`imp air`);
-			},
-			do: () => cliExecute("panda moan"),
-			limit: { tries: 3 },
 		},
 		{	name: "Steel Margarita",
 		 	ready: () => haveAll($items`Azazel's tutu, Azazel's lollipop, Azazel's unicorn`),
