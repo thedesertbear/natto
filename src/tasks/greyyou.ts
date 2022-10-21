@@ -1,6 +1,5 @@
 import { AcquireItem, CombatStrategy, OutfitSpec, step } from "grimoire-kolmafia";
 import {
-	availableAmount,
 	buyUsingStorage,
 	canEat,
 	chew,
@@ -420,8 +419,7 @@ export const GyouQuest: Quest = {
 				familiar: $familiar`Grey Goose`,
 				modifier: "0.125 muscle, muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min",
 			},
-			combat: new CombatStrategy().macro(
-				new Macro()
+			combat: new CombatStrategy().macro(() => Macro
 				.trySkill($skill`Curse of Weaksauce`)
 				.externalIf($familiar`Grey Goose`.experience >= 400, Macro.trySkill($skill`Convert Matter to Protein`))
 				.tryItem($item`porquoise-handled sixgun`)
