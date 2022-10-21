@@ -425,7 +425,7 @@ export const GyouQuest: Quest = {
 			combat: new CombatStrategy().macro(
 				new Macro()
 				.trySkill($skill`Curse of Weaksauce`)
-				.externalIf($familiar`Grey Goose`.experience >= 400, "skill convert matter to protein; ")
+				.externalIf($familiar`Grey Goose`.experience >= 400, Macro.trySkill($skill`convert matter to protein`))
 				.tryItem($item`porquoise-handled sixgun`)
 				.attack()
 				.repeat()
