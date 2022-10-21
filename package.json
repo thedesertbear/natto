@@ -1,8 +1,8 @@
 {
-  "name": "loop",
+  "name": "goorbo",
   "version": "0.1.0",
-  "description": "Full-day looping script for Kasekopf.",
-  "main": "KoLmafia/scripts/loop/loop.js",
+  "description": "A half-gloop script that does garbo - for the masses.",
+  "main": "KoLmafia/scripts/goorbo/goorbo.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "yarn run build:types && yarn run build:js",
@@ -35,11 +35,11 @@
     "kolmafia": "3.4.0",
     "libram": "0.6.24"
   },
-  "author": "Kasekopf",
+  "author": "frazazel",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kasekopf/loop.git"
+    "url": "git+https://github.com/frazazel/goorbo.git"
   },
   "keywords": [
     "KoLMafia",
@@ -47,7 +47,7 @@
     "TS"
   ],
   "bugs": {
-    "url": "https://github.com/Kasekopf/loop/issues"
+    "url": "https://github.com/frazazel/goorbo/issues"
   },
-  "homepage": "https://github.com/Kasekopf/loop#readme"
+  "homepage": "https://github.com/frazazel/goorbo#readme"
 }
