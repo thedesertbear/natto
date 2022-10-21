@@ -255,10 +255,10 @@ export const GyouQuest: Quest = {
 				have($item`steel margarita`) ||
 				have($item`Azazel's unicorn`),
 			do: (): void => {
-				cliExecute(`panda Bognort ${$items`giant marshmallow, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
-				cliExecute(`panda Stinkface ${$items`beer-scented teddy bear, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
-				cliExecute(`panda Flargwurm ${$items`booze-soaked cherry, sponge cake`.filter((a: Item) => have(a))[0]}`);
-				cliExecute(`panda Jim ${$items`comfy pillow, sponge cake`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda arena Bognort ${$items`giant marshmallow, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda arena Stinkface ${$items`beer-scented teddy bear, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda arena Flargwurm ${$items`booze-soaked cherry, sponge cake`.filter((a: Item) => have(a))[0]}`);
+				cliExecute(`panda arena Jim ${$items`comfy pillow, sponge cake`.filter((a: Item) => have(a))[0]}`);
 			},
 		},
 		{	name: "Moaning Panda",
