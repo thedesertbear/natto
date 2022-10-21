@@ -54,7 +54,7 @@ import {
 import { args } from "../main";
 import { backstageItemsDone, getCurrentLeg, haveAll, Leg, Quest, stooperDrunk } from "./structure";
 
-const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles`;
+const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;
 const targetLevel = 13;
 
@@ -63,7 +63,8 @@ export const GyouQuest: Quest = {
 	completed: () => getCurrentLeg() > Leg.GreyYou,
 	tasks: [
 		{	name: "Farming Pulls",
-			completed: () => haveAll(myPulls),
+			completed: () => myPulls.reduce((b: boolean, it: Item) =>
+				b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
 			do: () => myPulls.forEach((it: Item) => {
 				if(storageAmount(it) !== 0 && !have(it))
 					cliExecute(`pull ${it}`);
@@ -83,13 +84,13 @@ export const GyouQuest: Quest = {
 		{	name: "Break Stone",
 			completed: () => hippyStoneBroken() || !args.pvp,
 			do: (): void => {
-			  visitUrl("peevpee.php?action=smashstone&pwd&confirm=on", true);
-			  visitUrl("peevpee.php?place=fight");
+				visitUrl("peevpee.php?action=smashstone&pwd&confirm=on", true);
+				visitUrl("peevpee.php?place=fight");
 			},
 		},
 		{	name: "Run",
 			completed: () =>
-				step("questL13Final") !== -1 && get("gooseReprocessed").split(",").length === 73,
+				step("questL13Final") !== -1 && get("gooseReprocessed").split(",").length >= 69, //There are 73 total targets
 			do: () => cliExecute("loopgyou delaytower tune=wombat chargegoose=20"),
 			tracking: "Run",
 		},
@@ -109,6 +110,7 @@ export const GyouQuest: Quest = {
 				new Macro()
 				.trySkill($skill`Bowl Straight Up`)
 				.trySkill($skill`Sing Along`)
+				.tryItem($item`porquoise-handled sixgun`)
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
 				.tryItem($item`seal tooth`)
@@ -173,6 +175,14 @@ export const GyouQuest: Quest = {
 				have($item`observational glasses`),
 		 	prepare: (): void => {
 				//add casting of +com skills here. Also request buffs from buffy?
+				if(!have($effect`Cantata of Confrontation`)) {
+					cliExecute("kmail to buffy || 10 Cantata of Confrontation");
+					wait(15);
+					cliExecute("refresh effects");
+				}
+				if(have($skill`Piezoelectric Honk` && !have($effect`Hooooooooonk!`))
+					useSkill($skill`Piezoelectric Honk`);
+				$effects`Sonata of Sneakiness, Darkened Photons, Shifted Phase`.forEach((ef: Effect) => cliExecute(`uneffect ${ef}`));
 			},
 			do: $location`The Laugh Floor`,
 			outfit: {
@@ -198,6 +208,16 @@ export const GyouQuest: Quest = {
 				backstageItemsDone(),
 		 	prepare: (): void => {
 				//add casting of -com skills here. Also request buffs from buffy?
+				if(!have($effect`Cantata of Confrontation`)) {
+					cliExecute("kmail to buffy || 10 Sonata of Sneakiness");
+					wait(15);
+					cliExecute("refresh effects");
+				}
+				if(have($skill`Photonic Shroud` && !have($effect`Darkened Photons`))
+					useSkill($skill`Photonic Shroud`);
+				if(have($skill`Phase Shift` && !have($effect`Shifted Phase`))
+					useSkill($skill`Phase Shift`);
+				$effects`Cantata of Confrontation, Hooooooooonk!`.forEach((ef: Effect) => cliExecute(`uneffect ${ef}`));
 			},
 			do: $location`Infernal Rackets Backstage`,
 			outfit: {
@@ -221,7 +241,7 @@ export const GyouQuest: Quest = {
 			completed: () => myAdventures() <= 40 || myClass() !== $class`Grey Goo`,
 			do: $location`Barf Mountain`,
 			prepare: (): void => {
-				if (have($item`How to Avoid Scams`))
+				if(have($item`How to Avoid Scams`))
 					ensureEffect($effect`How to Scam Tourists`);
 				retrieveItem($item`seal tooth`);
 			},
