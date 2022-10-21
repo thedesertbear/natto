@@ -1,4 +1,4 @@
-import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
+import { AcquireItem, CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
 	canEat,
 	cliExecute,
@@ -16,6 +16,7 @@ import {
 	$class,
 	$familiar,
 	$item,
+	$items,
 	$location,
 	$skill,
 	ascend,
@@ -57,7 +58,8 @@ export const AftercoreQuest: Quest = {
 					retrieveItem(1, $item`daily dungeon malware`);
 			},
 			do: $location`The Daily Dungeon`,
-		 	acquire: $items`eleven-foot pole,Pick-O-Matic lockpicks,ring of Detect Boring Doors`,
+		 	acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`
+		 		.reduce((a: AcquireItem[], b: Item): AcquireItem[] => { return {...a, { item: b }} }, {}), //convert to AcquireItem[]
 			outfit: (): OutfitSpec => { return {
 		 		familiar: $familiar`Grey Goose`,
 		 		...have($item`The Jokester's gun`) && !get("_firedJokestersGun") ? { weapon: $item`The Jokester's gun` } : {},
