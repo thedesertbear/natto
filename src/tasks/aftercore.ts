@@ -80,7 +80,6 @@ export const AftercoreQuest: Quest = {
 			do: (): void => {
 				ascend(
 					Paths.GreyYou,
-					// eslint-disable-next-line libram/verify-constants
 					$class`Grey Goo`,
 					Lifestyle.softcore,
 					"vole",

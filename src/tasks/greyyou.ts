@@ -335,7 +335,7 @@ export const GyouQuest: Quest = {
 			do: () => cliExecute("leaflet"),
 		},
 		{	name: "Frobozz",
-			completed: () => getDwelling() !== $item`Frobozz Real-Estate Company Instant House (TM)`,
+			completed: () => getDwelling() === $item`Frobozz Real-Estate Company Instant House (TM)`,
 			do: () => use($item`Frobozz Real-Estate Company Instant House (TM)`),
 		},
 		{	name: "Bonerdagon Chest",
