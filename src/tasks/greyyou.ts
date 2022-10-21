@@ -244,8 +244,8 @@ export const GyouQuest: Quest = {
 				have($item`steel margarita`) ||
 				have($item`Azazel's lollipop`),
 		 	outfit: {
-				equip: $items`hilarious comedy prop, observational glasses, Victor, the Insult Comic Hellhound Puppet`
-			}
+				equip: $items`hilarious comedy prop, observational glasses, Victor\, the Insult Comic Hellhound Puppet`
+			},
 			do: () => cliExecute("panda comedy insult; panda comedy observe; panda comedy prop"),
 		},
 		{	name: "Sven Golly",
@@ -405,7 +405,7 @@ export const GyouQuest: Quest = {
 		 	limit: { tries: Math.ceil(levelingTurns/10) },
 		},
 		{	name: "Buff Muscle",
-			completed: () => myLevel() >= targetLevel || myBuffedstat(myPrimestat()) < 10 * myBasestat(myPrimestat()),
+			completed: () => myLevel() >= targetLevel || myBuffedstat(myPrimestat()) >= 10 * myBasestat(myPrimestat()),
 			do: () => cliExecute(`gain ${10 * myBasestat(myPrimestat())} ${myPrimestat()}`),
 			limit: { tries: levelingTurns },
 		},
@@ -425,7 +425,7 @@ export const GyouQuest: Quest = {
 			combat: new CombatStrategy().macro(
 				new Macro()
 				.trySkill($skill`Curse of Weaksauce`)
-				.externalIf($familiar`Grey Goose`.experience >= 400, Macro.trySkill($skill`convert matter to protein`))
+				.externalIf($familiar`Grey Goose`.experience >= 400, Macro.trySkill($skill`Convert Matter to Protein`))
 				.tryItem($item`porquoise-handled sixgun`)
 				.attack()
 				.repeat()
