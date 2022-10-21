@@ -75,7 +75,7 @@ export const AftercoreQuest: Quest = {
 				.attack()
 				.repeat()
 			),
-			limit: { tries: 8 }, //+3 for unaccounted for wanderers, etc.
+			limit: { tries: 15 },
 		},
 		{	name: "Garbo",
 			completed: () => (myAdventures() === 0 && !canEat()) || stooperDrunk(),

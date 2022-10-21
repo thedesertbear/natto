@@ -164,7 +164,7 @@ export const GyouQuest: Quest = {
 				.attack()
 				.repeat()
 			),
-			limit: { tries: 8 }, //+3 for unaccounted for wanderers, etc.
+			limit: { tries: 15 },
 		},
 		{	name: "Laugh Floor",
 		 	ready: () =>
