@@ -19,6 +19,10 @@ export function getCurrentLeg(): number {
 	return Leg.Aftercore;
 }
 
+export function setChoice(choice: number, setting: number): void {
+	set(`choiceAdventure${choice}`, setting);
+}
+
 export function haveAll(its: Item[]): boolean {
 	for(const it of its)
 		if(!have(it))
