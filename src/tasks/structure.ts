@@ -1,6 +1,6 @@
 import { Quest as BaseQuest, Task as BaseTask, Limit } from "grimoire-kolmafia";
 import { fullnessLimit, inebrietyLimit, Item, itemAmount, myClass, myDaycount, myFamiliar, myFullness, myInebriety, mySpleenUse, spleenLimit } from "kolmafia";
-import { $class, $familiar, $item, get, have } from "libram";
+import { $class, $familiar, $item, get, have, set } from "libram";
 
 export type Task = BaseTask & {
 	tracking?: string;

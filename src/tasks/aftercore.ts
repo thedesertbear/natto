@@ -3,6 +3,7 @@ import {
 	canEat,
 	cliExecute,
 	hippyStoneBroken,
+	Item,
 	itemAmount,
 	myAdventures,
 	nowToInt,
@@ -59,7 +60,7 @@ export const AftercoreQuest: Quest = {
 			},
 			do: $location`The Daily Dungeon`,
 		 	acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`
-		 		.reduce((a: AcquireItem[], b: Item): AcquireItem[] => { return {...a, { item: b }} }, {}), //convert to AcquireItem[]
+		 		.reduce((a: AcquireItem[], b: Item) => [...a, { item: b }], []), //convert to AcquireItem[]
 			outfit: (): OutfitSpec => { return {
 		 		familiar: $familiar`Grey Goose`,
 		 		...have($item`The Jokester's gun`) && !get("_firedJokestersGun") ? { weapon: $item`The Jokester's gun` } : {},
