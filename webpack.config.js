@@ -18,7 +18,7 @@ module.exports = {
   mode: "production",
   devtool: false,
   output: {
-    path: path.resolve(__dirname, "KoLmafia", "scripts", packageData.name),
+    path: path.resolve(__dirname, "scripts", packageData.name),
     filename: "[name].js",
     libraryTarget: "commonjs",
   },

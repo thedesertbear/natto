@@ -2,7 +2,7 @@
   "name": "goorbo",
   "version": "0.1.0",
   "description": "A half-gloop script that does garbo - for the masses.",
-  "main": "KoLmafia/scripts/goorbo/goorbo.js",
+  "main": "scripts/goorbo/goorbo.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "yarn run build:types && yarn run build:js",
