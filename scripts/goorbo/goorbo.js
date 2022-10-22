@@ -7227,6 +7227,11 @@ var GyouQuest = {
     },
     tracking: "Run"
   }, {
+    name: "Tower",
+    completed: () => step("questL13Final") > 11,
+    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("loopgyou delaytower chargegoose=20"),
+    tracking: "Run"
+  }, {
     name: "Daily Dungeon",
     ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(greyyou_templateObject27 || (greyyou_templateObject27 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myAdventures)() > 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(greyyou_templateObject28 || (greyyou_templateObject28 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= targetLevel,
     completed: () => property_get("dailyDungeonDone"),
@@ -7331,11 +7336,6 @@ var GyouQuest = {
     limit: {
       tries: 3
     }
-  }, {
-    name: "Tower",
-    completed: () => step("questL13Final") > 11,
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("loopgyou delaytower chargegoose=20"),
-    tracking: "Run"
   }, {
     name: "In-Run Farm Final",
     completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() <= 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject91 || (_templateObject91 = greyyou_taggedTemplateLiteral(["Grey Goo"]))),
@@ -7493,7 +7493,7 @@ var GyouQuest = {
   }, {
     name: "Garbo",
     completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() === 0 && !(0,external_kolmafia_namespaceObject.canEat)() || stooperDrunk(),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("garbo ascend"),
+    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("garbo"),
     tracking: "Garbo"
   }, {
     name: "PvP",
