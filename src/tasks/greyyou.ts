@@ -143,19 +143,19 @@ export const GyouQuest: Quest = {
 				(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
 				(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () => get("dailyDungeonDone"),
-		 	prepare: (): void => {
+			prepare: (): void => {
 				if(have($item`daily dungeon malware`) && get("_dailyDungeonMalwareUsed"))
 					putCloset($item`daily dungeon malware`);
 				if(!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
 					retrieveItem(1, $item`daily dungeon malware`);
 			},
 			do: $location`The Daily Dungeon`,
-		 	acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`
-		 		.reduce((a: AcquireItem[], b: Item) => [...a, { item: b }], []), //convert to AcquireItem[]
+			acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`
+				.reduce((a: AcquireItem[], b: Item) => [...a, { item: b }], []), //convert to AcquireItem[]
 			outfit: (): OutfitSpec => { return {
-		 		familiar: $familiar`Grey Goose`,
-		 		...have($item`The Jokester's gun`) && !get("_firedJokestersGun") ? { weapon: $item`The Jokester's gun` } : {},
-		 		...get("_lastDailyDungeonRoom") % 5 === 4 ? { acc1: $item`ring of Detect Boring Doors` } : {},
+				familiar: $familiar`Grey Goose`,
+				...have($item`The Jokester's gun`) && !get("_firedJokestersGun") ? { weapon: $item`The Jokester's gun` } : {},
+				...get("_lastDailyDungeonRoom") % 5 === 4 ? { acc1: $item`ring of Detect Boring Doors` } : {},
 				modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			}},
 			combat: new CombatStrategy().macro(
@@ -169,15 +169,15 @@ export const GyouQuest: Quest = {
 			limit: { tries: 15 },
 		},
 		{	name: "Laugh Floor",
-		 	ready: () =>
-		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
-		 		(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
+			ready: () =>
+				(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
+				(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () =>
 				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's lollipop`) ||
 				have($item`observational glasses`),
-		 	prepare: (): void => {
+			prepare: (): void => {
 				//add casting of +com skills here. Also request buffs from buffy?
 				if(!have($effect`Carlweather's Cantata of Confrontation`)) {
 					cliExecute("kmail to buffy || 10 Cantata of Confrontation");
@@ -190,7 +190,7 @@ export const GyouQuest: Quest = {
 			},
 			do: $location`The Laugh Floor`,
 			outfit: {
-		 		familiar: $familiar`Grey Goose`,
+				familiar: $familiar`Grey Goose`,
 				modifier: "+10 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			},
 			combat: new CombatStrategy().macro(
@@ -202,15 +202,15 @@ export const GyouQuest: Quest = {
 			limit: { tries: 15 },
 		},
 		{	name: "Infernal Rackets Backstage",
-		 	ready: () =>
-		 		(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
-		 		(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
+			ready: () =>
+				(myClass() === $class`Grey Goo` && myAdventures() > 40) ||
+				(myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
 			completed: () =>
 				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's unicorn`) ||
 				backstageItemsDone(),
-		 	prepare: (): void => {
+			prepare: (): void => {
 				//add casting of -com skills here. Also request buffs from buffy?
 				if(!have($effect`The Sonata of Sneakiness`)) {
 					cliExecute("kmail to buffy || 10 Sonata of Sneakiness");
@@ -225,7 +225,7 @@ export const GyouQuest: Quest = {
 			},
 			do: $location`Infernal Rackets Backstage`,
 			outfit: {
-		 		familiar: $familiar`Grey Goose`,
+				familiar: $familiar`Grey Goose`,
 				modifier: "-10 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			},
 			combat: new CombatStrategy().macro(
@@ -242,7 +242,7 @@ export const GyouQuest: Quest = {
 				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
 				have($item`Azazel's lollipop`),
-		 	outfit: {
+			outfit: {
 				equip: $items`hilarious comedy prop, observational glasses, Victor\, the Insult Comic Hellhound Puppet`
 			},
 			do: () => cliExecute("panda comedy insult; panda comedy observe; panda comedy prop"),
@@ -261,7 +261,7 @@ export const GyouQuest: Quest = {
 			},
 		},
 		{	name: "Moaning Panda",
-		 	ready: () => haveAll($items`Azazel's lollipop, Azazel's unicorn`),
+			ready: () => haveAll($items`Azazel's lollipop, Azazel's unicorn`),
 			completed: () =>
 				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`) ||
@@ -312,7 +312,7 @@ export const GyouQuest: Quest = {
 		},
 		{	name: "Hatter Buff",
 			completed: () => get("_madTeaParty"),
-		 	prepare: () => retrieveItem($item`oil cap`),
+			prepare: () => retrieveItem($item`oil cap`),
 			do: () => cliExecute(`hatter ${$item`oil cap`}`),
 		},
 		{	name: "Free King",
@@ -353,7 +353,8 @@ export const GyouQuest: Quest = {
 					use(1, $item`mojo filter`)
 				chew(1, $item`vial of humanoid growth hormone`); //lasts for 30 turns
 			},
-		 	limit: { tries: Math.ceil(levelingTurns/30) },
+			limit: { tries: Math.ceil(levelingTurns/30) },
+			tracking: "potions",
 		},
 		{	name: "Purpose",
 			completed: () => myLevel() >= targetLevel || have($effect`Purpose`) || mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
@@ -362,12 +363,14 @@ export const GyouQuest: Quest = {
 					use(1, $item`mojo filter`)
 				chew(1, $item`abstraction: purpose`); //lasts for 50 turns
 			},
-		 	limit: { tries: Math.ceil(levelingTurns/50) },
+			limit: { tries: Math.ceil(levelingTurns/50) },
+			 tracking: "potions",
 		},
 		{	name: "Expert Vacationer",
 			completed: () => myLevel() >= targetLevel || have($effect`Expert Vacationer`),
 			do: () => use(1, $item`exotic travel brochure`), //lasts for 20 turns each
-		 	limit: { tries: Math.ceil(levelingTurns/20) },
+			limit: { tries: Math.ceil(levelingTurns/20) },
+			 tracking: "potions",
 		},
 		{	name: "Strange Leaflet",
 			completed: () => get("leafletCompleted"),
@@ -382,7 +385,7 @@ export const GyouQuest: Quest = {
 			do: () => use($item`chest of the Bonerdagon`),
 		},
 		{	name: "Steel Margarita",
-		 	ready: () => haveAll($items`Azazel's tutu, Azazel's lollipop, Azazel's unicorn`),
+			ready: () => haveAll($items`Azazel's tutu, Azazel's lollipop, Azazel's unicorn`),
 			completed: () =>
 				have($skill`Liver of Steel`) ||
 				have($item`steel margarita`),
@@ -396,17 +399,20 @@ export const GyouQuest: Quest = {
 		{	name: "Heart of White",
 			completed: () => myLevel() >= targetLevel || have($effect`Heart of White`),
 			do: () => use(1, $item`white candy heart`), //lasts for 10 turns
-		 	limit: { tries: Math.ceil(levelingTurns/10) },
+			limit: { tries: Math.ceil(levelingTurns/10) },
+			 tracking: "potions",
 		},
 		{	name: "Orange Crusher",
 			completed: () => myLevel() >= targetLevel || have($effect`Orange Crusher`),
 			do: () => use(Math.ceil((50 - haveEffect($effect`Orange Crusher`))/10), $item`pulled orange taffy`), //lasts for 10 turns each
-		 	limit: { tries: Math.ceil(levelingTurns/10) },
+			limit: { tries: Math.ceil(levelingTurns/10) },
+			 tracking: "potions",
 		},
 		{	name: "Buff Muscle",
 			completed: () => myLevel() >= targetLevel || myBuffedstat(myPrimestat()) >= 10 * myBasestat(myPrimestat()),
 			do: () => cliExecute(`gain ${10 * myBasestat(myPrimestat())} ${myPrimestat()}`),
 			limit: { tries: levelingTurns },
+			tracking: "potions",
 		},
 		{	name: "Gators",
 			completed: () => myClass() !== $class`Grey Goo` && myLevel() >= targetLevel,

@@ -38,7 +38,7 @@ export const AftercoreQuest: Quest = {
 			do: () => cliExecute("breakfast"),
 		},
 		{	name: "Set Choices",
-		 	completed: () => get("_goorboRunStart", undefined) !== undefined,
+			completed: () => get("_goorboRunStart", undefined) !== undefined,
 			do: (): void => {
 				if(get("choiceAdventure692") !== 7) //dd door: PYEC
 					setChoice(692, 3); //dd door: lockpicks
@@ -51,19 +51,19 @@ export const AftercoreQuest: Quest = {
 		},
 		{	name: "Daily Dungeon",
 			completed: () => get("dailyDungeonDone"),
-		 	prepare: (): void => {
+			prepare: (): void => {
 				if(have($item`daily dungeon malware`) && get("_dailyDungeonMalwareUsed"))
 					putCloset($item`daily dungeon malware`);
 				if(!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
 					retrieveItem(1, $item`daily dungeon malware`);
 			},
 			do: $location`The Daily Dungeon`,
-		 	acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`
-		 		.reduce((a: AcquireItem[], b: Item) => [...a, { item: b }], []), //convert to AcquireItem[]
+			acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`
+				.reduce((a: AcquireItem[], b: Item) => [...a, { item: b }], []), //convert to AcquireItem[]
 			outfit: (): OutfitSpec => { return {
-		 		familiar: $familiar`Grey Goose`,
-		 		...have($item`The Jokester's gun`) && !get("_firedJokestersGun") ? { weapon: $item`The Jokester's gun` } : {},
-		 		...get("_lastDailyDungeonRoom") % 5 === 4 ? { acc1: $item`ring of Detect Boring Doors` } : {},
+				familiar: $familiar`Grey Goose`,
+				...have($item`The Jokester's gun`) && !get("_firedJokestersGun") ? { weapon: $item`The Jokester's gun` } : {},
+				...get("_lastDailyDungeonRoom") % 5 === 4 ? { acc1: $item`ring of Detect Boring Doors` } : {},
 				modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
 			}},
 			combat: new CombatStrategy().macro(
