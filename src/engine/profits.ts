@@ -332,6 +332,7 @@ export function printProfits(records: Records): void {
   printProfitSegment("* Run", records["1@Run"], "green");
   printProfitSegment("* GooFarming", records["1@GooFarming"], "green");
   printProfitSegment("* Garbo", records["1@Garbo"], "green");
+  printProfitSegment("* Potions", records["1@Potions"], "green");
   printProfitSegment("* Other", records["1@Other"], "green");
   printProfitSegment(
     "Total",
