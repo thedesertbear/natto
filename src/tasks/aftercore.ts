@@ -1,11 +1,9 @@
-import { AcquireItem, CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
+import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   cliExecute,
   hippyStoneBroken,
-  Item,
   itemAmount,
   myAdventures,
-  nowToInt,
   putCloset,
   pvpAttacksLeft,
   retrieveItem,
@@ -25,9 +23,8 @@ import {
   Lifestyle,
   Macro,
   Paths,
-  set,
 } from "libram";
-import { getCurrentLeg, Leg, Quest, setChoice, stooperDrunk } from "./structure";
+import { getCurrentLeg, Leg, Quest, stooperDrunk } from "./structure";
 
 export const AftercoreQuest: Quest = {
   name: "Aftercore",
@@ -39,20 +36,6 @@ export const AftercoreQuest: Quest = {
       do: () => cliExecute("breakfast"),
     },
     {
-      name: "Set Choices",
-      completed: () => get("_goorboRunStart", undefined) !== undefined,
-      do: (): void => {
-        if (get("choiceAdventure692") !== 7)
-          //dd door: PYEC
-          setChoice(692, 3); //dd door: lockpicks
-        setChoice(689, 1); //dd final chest : open
-        setChoice(690, 2); //dd chest 1: boring door
-        setChoice(691, 2); //dd chest 2: boring door
-        setChoice(693, 2); //dd trap: skip
-        set("_goorboRunStart", nowToInt());
-      },
-    },
-    {
       name: "Daily Dungeon",
       completed: () => get("dailyDungeonDone"),
       prepare: (): void => {
@@ -62,10 +45,16 @@ export const AftercoreQuest: Quest = {
           retrieveItem(1, $item`daily dungeon malware`);
       },
       do: $location`The Daily Dungeon`,
-      acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.reduce(
-        (a: AcquireItem[], b: Item) => [...a, { item: b }],
-        []
-      ), //convert to AcquireItem[]
+      choices: {
+        692: 3, //dd door: lockpicks
+        689: 1, //dd final chest : open
+        690: 2, //dd chest 1: boring door
+        691: 2, //dd chest 2: boring door
+        693: 2, //dd trap: skip
+      },
+      acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
+        (it) => ({ item: it })
+      ),
       outfit: (): OutfitSpec => {
         return {
           familiar: $familiar`Grey Goose`,
@@ -80,7 +69,10 @@ export const AftercoreQuest: Quest = {
         };
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.tryItem($item`daily dungeon malware`)
+        Macro.externalIf(
+          !get("_dailyDungeonMalwareUsed"),
+          Macro.tryItem($item`daily dungeon malware`)
+        )
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Fire the Jokester's Gun`)
           .attack()

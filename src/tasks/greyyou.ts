@@ -1,4 +1,4 @@
-import { AcquireItem, CombatStrategy, OutfitSpec, step } from "grimoire-kolmafia";
+import { CombatStrategy, OutfitSpec, step } from "grimoire-kolmafia";
 import {
   buyUsingStorage,
   canEat,
@@ -12,7 +12,6 @@ import {
   getDwelling,
   haveEffect,
   hippyStoneBroken,
-  Item,
   itemAmount,
   maximize,
   myAdventures,
@@ -66,10 +65,9 @@ export const GyouQuest: Quest = {
   tasks: [
     {
       name: "Farming Pulls",
-      completed: () =>
-        myPulls.reduce((b: boolean, it: Item) => b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
+      completed: () => myPulls.reduce((b, it) => b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
       do: () =>
-        myPulls.forEach((it: Item) => {
+        myPulls.forEach((it) => {
           if (storageAmount(it) !== 0 && !have(it)) cliExecute(`pull ${it}`);
         }),
     },
@@ -164,10 +162,16 @@ export const GyouQuest: Quest = {
           retrieveItem(1, $item`daily dungeon malware`);
       },
       do: $location`The Daily Dungeon`,
-      acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.reduce(
-        (a: AcquireItem[], b: Item) => [...a, { item: b }],
-        []
-      ), //convert to AcquireItem[]
+      choices: {
+        692: 3, //dd door: lockpicks
+        689: 1, //dd final chest : open
+        690: 2, //dd chest 1: boring door
+        691: 2, //dd chest 2: boring door
+        693: 2, //dd trap: skip
+      },
+      acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
+        (it) => ({ item: it })
+      ),
       outfit: (): OutfitSpec => {
         return {
           familiar: $familiar`Grey Goose`,
@@ -182,7 +186,10 @@ export const GyouQuest: Quest = {
         };
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.tryItem($item`daily dungeon malware`)
+        Macro.externalIf(
+          !get("_dailyDungeonMalwareUsed"),
+          Macro.tryItem($item`daily dungeon malware`)
+        )
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Fire the Jokester's Gun`)
           .attack()
@@ -287,25 +294,19 @@ export const GyouQuest: Quest = {
         have($item`Azazel's unicorn`),
       do: (): void => {
         cliExecute(
-          `panda arena Bognort ${
-            $items`giant marshmallow, gin-soaked blotter paper`.filter((a: Item) => have(a))[0]
-          }`
+          `panda arena Bognort ${$items`giant marshmallow, gin-soaked blotter paper`.find((a) =>
+            have(a)
+          )}`
         );
         cliExecute(
-          `panda arena Stinkface ${
-            $items`beer-scented teddy bear, gin-soaked blotter paper`.filter((a: Item) =>
-              have(a)
-            )[0]
-          }`
+          `panda arena Stinkface ${$items`beer-scented teddy bear, gin-soaked blotter paper`.find(
+            (a) => have(a)
+          )}`
         );
         cliExecute(
-          `panda arena Flargwurm ${
-            $items`booze-soaked cherry, sponge cake`.filter((a: Item) => have(a))[0]
-          }`
+          `panda arena Flargwurm ${$items`booze-soaked cherry, sponge cake`.find((a) => have(a))}`
         );
-        cliExecute(
-          `panda arena Jim ${$items`comfy pillow, sponge cake`.filter((a: Item) => have(a))[0]}`
-        );
+        cliExecute(`panda arena Jim ${$items`comfy pillow, sponge cake`.find((a) => have(a))}`);
       },
     },
     {
@@ -313,7 +314,7 @@ export const GyouQuest: Quest = {
       ready: () => haveAll($items`Azazel's lollipop, Azazel's unicorn`),
       completed: () =>
         have($skill`Liver of Steel`) || have($item`steel margarita`) || have($item`Azazel's tutu`),
-      acquire: $items`bus pass, imp air`.map((i) => ({ item: i, num: 5 })),
+      acquire: $items`bus pass, imp air`.map((it) => ({ item: it, num: 5 })),
       do: () => cliExecute("panda moan"),
       limit: { tries: 3 },
     },
