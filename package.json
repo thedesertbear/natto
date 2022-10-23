@@ -1,6 +1,6 @@
 {
   "name": "goorbo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A half-gloop script that does garbo - for the masses.",
   "main": "scripts/goorbo/goorbo.js",
   "scripts": {
