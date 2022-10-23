@@ -7034,7 +7034,7 @@ function getCurrentLeg() {
   return Leg.Aftercore;
 }
 function setChoice(choice, setting) {
-  _set("choiceAdventure".concat(choice), setting);
+  set("choiceAdventure".concat(choice), setting);
 }
 function haveAll(its) {
   var _iterator = structure_createForOfIteratorHelper(its),
@@ -7065,12 +7065,6 @@ var aftercore_templateObject, aftercore_templateObject2, aftercore_templateObjec
 function aftercore_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function aftercore_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? aftercore_ownKeys(Object(source), !0).forEach(function (key) { aftercore_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : aftercore_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function aftercore_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function aftercore_toConsumableArray(arr) { return aftercore_arrayWithoutHoles(arr) || aftercore_iterableToArray(arr) || aftercore_unsupportedIterableToArray(arr) || aftercore_nonIterableSpread(); }
-function aftercore_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function aftercore_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return aftercore_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return aftercore_arrayLikeToArray(o, minLen); }
-function aftercore_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function aftercore_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return aftercore_arrayLikeToArray(arr); }
-function aftercore_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function aftercore_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
@@ -7084,19 +7078,6 @@ var AftercoreQuest = {
     completed: () => property_get("breakfastCompleted"),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("breakfast")
   }, {
-    name: "Set Choices",
-    completed: () => property_get("_goorboRunStart", undefined) !== undefined,
-    do: () => {
-      if (property_get("choiceAdventure692") !== 7)
-        //dd door: PYEC
-        setChoice(692, 3); //dd door: lockpicks
-      setChoice(689, 1); //dd final chest : open
-      setChoice(690, 2); //dd chest 1: boring door
-      setChoice(691, 2); //dd chest 2: boring door
-      setChoice(693, 2); //dd trap: skip
-      _set("_goorboRunStart", (0,external_kolmafia_namespaceObject.nowToInt)());
-    }
-  }, {
     name: "Daily Dungeon",
     completed: () => property_get("dailyDungeonDone"),
     prepare: () => {
@@ -7104,10 +7085,21 @@ var AftercoreQuest = {
       if (!property_get("_dailyDungeonMalwareUsed") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(aftercore_templateObject3 || (aftercore_templateObject3 = aftercore_taggedTemplateLiteral(["fat loot token"])))) < 3) (0,external_kolmafia_namespaceObject.retrieveItem)(1, template_string_$item(aftercore_templateObject4 || (aftercore_templateObject4 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))));
     },
     do: $location(aftercore_templateObject5 || (aftercore_templateObject5 = aftercore_taggedTemplateLiteral(["The Daily Dungeon"]))),
-    acquire: template_string_$items(aftercore_templateObject6 || (aftercore_templateObject6 = aftercore_taggedTemplateLiteral(["eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors"]))).reduce((a, b) => [].concat(aftercore_toConsumableArray(a), [{
-      item: b
-    }]), []),
-    //convert to AcquireItem[]
+    choices: {
+      692: 3,
+      //dd door: lockpicks
+      689: 1,
+      //dd final chest : open
+      690: 2,
+      //dd chest 1: boring door
+      691: 2,
+      //dd chest 2: boring door
+      693: 2 //dd trap: skip
+    },
+
+    acquire: template_string_$items(aftercore_templateObject6 || (aftercore_templateObject6 = aftercore_taggedTemplateLiteral(["eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors"]))).map(it => ({
+      item: it
+    })),
     outfit: () => {
       return aftercore_objectSpread(aftercore_objectSpread(aftercore_objectSpread({
         familiar: template_string_$familiar(aftercore_templateObject7 || (aftercore_templateObject7 = aftercore_taggedTemplateLiteral(["Grey Goose"])))
@@ -7119,7 +7111,7 @@ var AftercoreQuest = {
         modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience"
       });
     },
-    combat: new CombatStrategy().macro(() => Macro.tryItem(template_string_$item(aftercore_templateObject11 || (aftercore_templateObject11 = aftercore_taggedTemplateLiteral(["daily dungeon malware"])))).tryItem(template_string_$item(aftercore_templateObject12 || (aftercore_templateObject12 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(aftercore_templateObject13 || (aftercore_templateObject13 = aftercore_taggedTemplateLiteral(["Fire the Jokester's Gun"])))).attack().repeat()),
+    combat: new CombatStrategy().macro(() => Macro.externalIf(!property_get("_dailyDungeonMalwareUsed"), Macro.tryItem(template_string_$item(aftercore_templateObject11 || (aftercore_templateObject11 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(aftercore_templateObject12 || (aftercore_templateObject12 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(aftercore_templateObject13 || (aftercore_templateObject13 = aftercore_taggedTemplateLiteral(["Fire the Jokester's Gun"])))).attack().repeat()),
     limit: {
       tries: 15
     }
@@ -7151,12 +7143,6 @@ var greyyou_templateObject, greyyou_templateObject2, greyyou_templateObject3, gr
 function greyyou_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function greyyou_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? greyyou_ownKeys(Object(source), !0).forEach(function (key) { greyyou_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : greyyou_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function greyyou_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function greyyou_toConsumableArray(arr) { return greyyou_arrayWithoutHoles(arr) || greyyou_iterableToArray(arr) || greyyou_unsupportedIterableToArray(arr) || greyyou_nonIterableSpread(); }
-function greyyou_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function greyyou_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return greyyou_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return greyyou_arrayLikeToArray(o, minLen); }
-function greyyou_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function greyyou_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return greyyou_arrayLikeToArray(arr); }
-function greyyou_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function greyyou_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
@@ -7240,10 +7226,21 @@ var GyouQuest = {
       if (!property_get("_dailyDungeonMalwareUsed") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(greyyou_templateObject31 || (greyyou_templateObject31 = greyyou_taggedTemplateLiteral(["fat loot token"])))) < 3) (0,external_kolmafia_namespaceObject.retrieveItem)(1, template_string_$item(greyyou_templateObject32 || (greyyou_templateObject32 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))));
     },
     do: $location(greyyou_templateObject33 || (greyyou_templateObject33 = greyyou_taggedTemplateLiteral(["The Daily Dungeon"]))),
-    acquire: template_string_$items(greyyou_templateObject34 || (greyyou_templateObject34 = greyyou_taggedTemplateLiteral(["eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors"]))).reduce((a, b) => [].concat(greyyou_toConsumableArray(a), [{
-      item: b
-    }]), []),
-    //convert to AcquireItem[]
+    choices: {
+      692: 3,
+      //dd door: lockpicks
+      689: 1,
+      //dd final chest : open
+      690: 2,
+      //dd chest 1: boring door
+      691: 2,
+      //dd chest 2: boring door
+      693: 2 //dd trap: skip
+    },
+
+    acquire: template_string_$items(greyyou_templateObject34 || (greyyou_templateObject34 = greyyou_taggedTemplateLiteral(["eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors"]))).map(it => ({
+      item: it
+    })),
     outfit: () => {
       return greyyou_objectSpread(greyyou_objectSpread(greyyou_objectSpread({
         familiar: template_string_$familiar(greyyou_templateObject35 || (greyyou_templateObject35 = greyyou_taggedTemplateLiteral(["Grey Goose"])))
@@ -7255,7 +7252,7 @@ var GyouQuest = {
         modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience"
       });
     },
-    combat: new CombatStrategy().macro(() => Macro.tryItem(template_string_$item(greyyou_templateObject39 || (greyyou_templateObject39 = greyyou_taggedTemplateLiteral(["daily dungeon malware"])))).tryItem(template_string_$item(greyyou_templateObject40 || (greyyou_templateObject40 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(greyyou_templateObject41 || (greyyou_templateObject41 = greyyou_taggedTemplateLiteral(["Fire the Jokester's Gun"])))).attack().repeat()),
+    combat: new CombatStrategy().macro(() => Macro.externalIf(!property_get("_dailyDungeonMalwareUsed"), Macro.tryItem(template_string_$item(greyyou_templateObject39 || (greyyou_templateObject39 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(greyyou_templateObject40 || (greyyou_templateObject40 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(greyyou_templateObject41 || (greyyou_templateObject41 = greyyou_taggedTemplateLiteral(["Fire the Jokester's Gun"])))).attack().repeat()),
     limit: {
       tries: 15
     }
@@ -7319,17 +7316,17 @@ var GyouQuest = {
     ready: () => backstageItemsDone(),
     completed: () => have(template_string_$skill(_templateObject79 || (_templateObject79 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || have(template_string_$item(_templateObject80 || (_templateObject80 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || have(template_string_$item(_templateObject81 || (_templateObject81 = greyyou_taggedTemplateLiteral(["Azazel's unicorn"])))),
     do: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Bognort ".concat(template_string_$items(_templateObject82 || (_templateObject82 = greyyou_taggedTemplateLiteral(["giant marshmallow, gin-soaked blotter paper"]))).filter(a => have(a))[0]));
-      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Stinkface ".concat(template_string_$items(_templateObject83 || (_templateObject83 = greyyou_taggedTemplateLiteral(["beer-scented teddy bear, gin-soaked blotter paper"]))).filter(a => have(a))[0]));
-      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Flargwurm ".concat(template_string_$items(_templateObject84 || (_templateObject84 = greyyou_taggedTemplateLiteral(["booze-soaked cherry, sponge cake"]))).filter(a => have(a))[0]));
-      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Jim ".concat(template_string_$items(_templateObject85 || (_templateObject85 = greyyou_taggedTemplateLiteral(["comfy pillow, sponge cake"]))).filter(a => have(a))[0]));
+      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Bognort ".concat(template_string_$items(_templateObject82 || (_templateObject82 = greyyou_taggedTemplateLiteral(["giant marshmallow, gin-soaked blotter paper"]))).find(a => have(a))));
+      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Stinkface ".concat(template_string_$items(_templateObject83 || (_templateObject83 = greyyou_taggedTemplateLiteral(["beer-scented teddy bear, gin-soaked blotter paper"]))).find(a => have(a))));
+      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Flargwurm ".concat(template_string_$items(_templateObject84 || (_templateObject84 = greyyou_taggedTemplateLiteral(["booze-soaked cherry, sponge cake"]))).find(a => have(a))));
+      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Jim ".concat(template_string_$items(_templateObject85 || (_templateObject85 = greyyou_taggedTemplateLiteral(["comfy pillow, sponge cake"]))).find(a => have(a))));
     }
   }, {
     name: "Moaning Panda",
     ready: () => haveAll(template_string_$items(_templateObject86 || (_templateObject86 = greyyou_taggedTemplateLiteral(["Azazel's lollipop, Azazel's unicorn"])))),
     completed: () => have(template_string_$skill(_templateObject87 || (_templateObject87 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || have(template_string_$item(_templateObject88 || (_templateObject88 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || have(template_string_$item(_templateObject89 || (_templateObject89 = greyyou_taggedTemplateLiteral(["Azazel's tutu"])))),
-    acquire: template_string_$items(_templateObject90 || (_templateObject90 = greyyou_taggedTemplateLiteral(["bus pass, imp air"]))).map(i => ({
-      item: i,
+    acquire: template_string_$items(_templateObject90 || (_templateObject90 = greyyou_taggedTemplateLiteral(["bus pass, imp air"]))).map(it => ({
+      item: it,
       num: 5
     })),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("panda moan"),
