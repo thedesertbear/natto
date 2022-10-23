@@ -395,6 +395,7 @@ export const GyouQuest: Quest = {
         cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
         if (closetAmount($item`Special Seasoning`) > 0)
           cliExecute("closet take * special seasoning");
+        print(`Grey Goose exp at prism break: ${$familiar`Grey Goose`.experience}/400`);
       },
     },
     {
@@ -490,9 +491,17 @@ export const GyouQuest: Quest = {
     {
       name: "Buff Muscle",
       completed: () =>
-        myLevel() >= targetLevel || myBuffedstat(myPrimestat()) >= 10 * myBasestat(myPrimestat()),
-      do: () => cliExecute(`gain ${10 * myBasestat(myPrimestat())} ${myPrimestat()}`),
+        myLevel() >= targetLevel || myBuffedstat(myPrimestat()) >= 11 * myBasestat(myPrimestat()),
+      effects: $effects`Trivia Master`,
+      do: () => cliExecute(`gain ${11 * myBasestat(myPrimestat())} ${myPrimestat()}`),
       limit: { tries: levelingTurns },
+      tracking: "Potions",
+    },
+    {
+      name: "Ghost Dog Chow",
+      completed: () => myLevel() >= 8 || $familiar`Grey Goose`.experience >= 400,
+      prepare: () => useFamiliar($familiar`Grey Goose`),
+      do: () => use(Math.ceil(400 - $familiar`Grey Goose`.experience), $item`Ghost Dog Chow`),
       tracking: "Potions",
     },
     {

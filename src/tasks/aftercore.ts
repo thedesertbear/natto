@@ -8,6 +8,7 @@ import {
   pvpAttacksLeft,
   retrieveItem,
   runChoice,
+  use,
   visitUrl,
 } from "kolmafia";
 import {
@@ -34,6 +35,12 @@ export const AftercoreQuest: Quest = {
       name: "Breakfast",
       completed: () => get("breakfastCompleted"),
       do: () => cliExecute("breakfast"),
+    },
+    {
+      name: "LGR Seed",
+      completed: () =>
+        get("_stenchAirportToday") || get("stenchAirportAlways") || !have($item`lucky gold ring`),
+      do: () => use($item`one-day ticket to Dinseylandfill`),
     },
     {
       name: "Daily Dungeon",
