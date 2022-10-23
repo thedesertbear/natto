@@ -1,6 +1,6 @@
 {
   "name": "goorbo",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A half-gloop script that does garbo, optimized for low-shiny accounts.",
   "main": "scripts/goorbo/goorbo.js",
   "scripts": {
