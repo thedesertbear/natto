@@ -389,9 +389,13 @@ export const GyouQuest: Quest = {
     {
       name: "Call Buffy",
       completed: () => 0 !== haveEffect($effect`Ghostly Shell`),
+      prepare: () =>
+        $effects`Carlweather's Cantata of Confrontation, The Sonata of Sneakiness, Polka of Plenty, Fat Leon's Phat Loot Lyric`.forEach(
+          (ef) => cliExecute(`uneffect ${ef}`)
+        ),
       do: (): void => {
         cliExecute(
-          `kmail to buffy || 10 ode to booze, ${levelingTurns} Ghostly Shell, Reptilian Fortitude, Empathy of the Newt, Tenacity of the Snapper, Astral Shell, Elemental Saucesphere, Stevedave's Shanty of Superiority, Power Ballad of the Arrowsmith, Aloysius's Antiphon of Aptitude`
+          `kmail to buffy || ${levelingTurns} Ghostly Shell, Reptilian Fortitude, Empathy of the Newt, Tenacity of the Snapper, Astral Shell, Elemental Saucesphere, Stevedave's Shanty of Superiority, Power Ballad of the Arrowsmith, Aloysius's Antiphon of Aptitude`
         );
         wait(15);
         cliExecute("refresh effects");
