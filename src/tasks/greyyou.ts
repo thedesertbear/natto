@@ -1,7 +1,6 @@
 import { CombatStrategy, OutfitSpec, step } from "grimoire-kolmafia";
 import {
   buyUsingStorage,
-  canEat,
   chew,
   cliExecute,
   closetAmount,
@@ -24,6 +23,9 @@ import {
   mySpleenUse,
   myStorageMeat,
   myTurncount,
+  nowToString,
+  numericModifier,
+  print,
   putCloset,
   pvpAttacksLeft,
   restoreHp,
@@ -53,7 +55,16 @@ import {
   Macro,
 } from "libram";
 import { args } from "../main";
-import { backstageItemsDone, getCurrentLeg, haveAll, Leg, Quest, stooperDrunk } from "./structure";
+import {
+  backstageItemsDone,
+  canDiet,
+  getCurrentLeg,
+  haveAll,
+  Leg,
+  Quest,
+  readyForBed,
+  stooperDrunk,
+} from "./structure";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;
@@ -517,12 +528,24 @@ export const GyouQuest: Quest = {
     },
     {
       name: "Garbo",
-      completed: () => (myAdventures() === 0 && !canEat()) || stooperDrunk(),
+      ready: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
+      completed: () => (myAdventures() === 0 && !canDiet()) || stooperDrunk(),
       do: () => cliExecute("garbo"),
       tracking: "Garbo",
     },
     {
+      name: "Garbo Nobarf",
+      ready: () => !(get("_stenchAirportToday") || get("stenchAirportAlways")),
+      completed: () =>
+        (myAdventures() === 0 && !canDiet()) ||
+        stooperDrunk() ||
+        get("garboResultsDate", "") === nowToString("YYYYMMdd"),
+      do: () => cliExecute("garbo nobarf"),
+      tracking: "Garbo",
+    },
+    {
       name: "PvP",
+      ready: () => readyForBed(),
       completed: () => pvpAttacksLeft() === 0 || !hippyStoneBroken(),
       do: (): void => {
         cliExecute("unequip");
@@ -530,7 +553,6 @@ export const GyouQuest: Quest = {
         cliExecute("swagger");
       },
     },
-    { name: "Nightcap", completed: () => stooperDrunk(), do: () => cliExecute("CONSUME NIGHTCAP") },
     {
       name: "Pajamas",
       completed: () => getCampground()[$item`clockwork maid`.name] === 1,
@@ -538,6 +560,27 @@ export const GyouQuest: Quest = {
         if (args.pvp) maximize("adventures, 0.3 fites", false);
         else maximize("adventures", false);
         use($item`clockwork maid`);
+      },
+    },
+    {
+      name: "Nightcap",
+      ready: () => readyForBed(),
+      completed: () => stooperDrunk(),
+      do: () => cliExecute("CONSUME NIGHTCAP"),
+    },
+    {
+      name: "Alert",
+      ready: () => !readyForBed(),
+      completed: () => stooperDrunk(),
+      do: (): void => {
+        const targetAdvs = 100 - numericModifier("adventures");
+        print("goorbo completed, but did not overdrink.", "red");
+        if (targetAdvs < myAdventures() && targetAdvs > 0)
+          print(
+            `Rerun with fewer than ${targetAdvs} adventures for goorbo to handle your diet`,
+            "red"
+          );
+        else print("Something went wrong.", "red");
       },
     },
   ],
