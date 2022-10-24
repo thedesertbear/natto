@@ -1,5 +1,6 @@
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
+  buy,
   cliExecute,
   hippyStoneBroken,
   itemAmount,
@@ -13,7 +14,7 @@ import {
 } from "kolmafia";
 import {
   $class,
-  $familiar,
+  $coinmaster,
   $item,
   $items,
   $location,
@@ -64,7 +65,6 @@ export const AftercoreQuest: Quest = {
       ),
       outfit: (): OutfitSpec => {
         return {
-          familiar: $familiar`Grey Goose`,
           ...(have($item`The Jokester's gun`) && !get("_firedJokestersGun")
             ? { weapon: $item`The Jokester's gun` }
             : {}),
@@ -72,7 +72,7 @@ export const AftercoreQuest: Quest = {
             ? { acc1: $item`ring of Detect Boring Doors` }
             : {}),
           modifier:
-            "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+            "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant",
         };
       },
       combat: new CombatStrategy().macro(() =>
@@ -91,6 +91,14 @@ export const AftercoreQuest: Quest = {
       name: "Garbo",
       completed: () => myAdventures() === 0 || stooperDrunk(),
       do: () => cliExecute("garbo ascend"),
+      tracking: "Garbo",
+    },
+    {
+      name: "Turn in FunFunds",
+      ready: () => get("_stenchAirportToday") && itemAmount($item`FunFunds™`) >= 20,
+      completed: () => have($item`one-day ticket to Dinseylandfill`),
+      do: () =>
+        buy($coinmaster`The Dinsey Company Store`, 1, $item`one-day ticket to Dinseylandfill`),
       tracking: "Garbo",
     },
     {

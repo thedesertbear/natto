@@ -1,5 +1,6 @@
 import { CombatStrategy, OutfitSpec, step } from "grimoire-kolmafia";
 import {
+  buy,
   buyUsingStorage,
   chew,
   cliExecute,
@@ -41,6 +42,7 @@ import {
 } from "kolmafia";
 import {
   $class,
+  $coinmaster,
   $effect,
   $effects,
   $familiar,
@@ -221,7 +223,7 @@ export const GyouQuest: Quest = {
       prepare: (): void => {
         //add casting of +com skills here. Also request buffs from buffy?
         if (!have($effect`Carlweather's Cantata of Confrontation`)) {
-          cliExecute("kmail to buffy || 10 Cantata of Confrontation");
+          cliExecute("kmail to Buffy || 10 Cantata of Confrontation");
           wait(15);
           cliExecute("refresh effects");
         }
@@ -235,7 +237,7 @@ export const GyouQuest: Quest = {
       outfit: {
         familiar: $familiar`Grey Goose`,
         modifier:
-          "+10 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+          "+100 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
       },
       combat: new CombatStrategy().macro(
         new Macro()
@@ -258,7 +260,7 @@ export const GyouQuest: Quest = {
       prepare: (): void => {
         //add casting of -com skills here. Also request buffs from buffy?
         if (!have($effect`The Sonata of Sneakiness`)) {
-          cliExecute("kmail to buffy || 10 Sonata of Sneakiness");
+          cliExecute("kmail to Buffy || 10 Sonata of Sneakiness");
           wait(15);
           cliExecute("refresh effects");
         }
@@ -274,7 +276,7 @@ export const GyouQuest: Quest = {
       outfit: {
         familiar: $familiar`Grey Goose`,
         modifier:
-          "-10 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+          "-100 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
       },
       combat: new CombatStrategy().macro(
         new Macro()
@@ -292,9 +294,9 @@ export const GyouQuest: Quest = {
         have($item`steel margarita`) ||
         have($item`Azazel's lollipop`),
       outfit: {
-        equip: $items`hilarious comedy prop, observational glasses, Victor\, the Insult Comic Hellhound Puppet`,
+        equip: $items`observational glasses, Victor\, the Insult Comic Hellhound Puppet`,
       },
-      do: () => cliExecute("panda comedy insult; panda comedy observe; panda comedy prop"),
+      do: () => cliExecute("panda comedy insult; panda comedy observe"),
     },
     {
       name: "Sven Golly",
@@ -367,7 +369,7 @@ export const GyouQuest: Quest = {
     {
       name: "Hatter Buff",
       completed: () => get("_madTeaParty"),
-      prepare: () => retrieveItem($item`oil cap`),
+      acquire: () => $items`oil cap, "DRINK ME" potion`.map((it) => ({ item: it })),
       do: () => cliExecute(`hatter ${$item`oil cap`}`),
     },
     {
@@ -400,7 +402,7 @@ export const GyouQuest: Quest = {
     },
     {
       name: "Call Buffy",
-      completed: () => 0 !== haveEffect($effect`Ghostly Shell`),
+      completed: () => 0 !== haveEffect($effect`Ghostly Shell`) || myLevel() >= targetLevel,
       prepare: () =>
         $effects`Carlweather's Cantata of Confrontation, The Sonata of Sneakiness, Polka of Plenty, Fat Leon's Phat Loot Lyric`.forEach(
           (ef) => cliExecute(`uneffect ${ef}`)
@@ -424,7 +426,7 @@ export const GyouQuest: Quest = {
         chew(1, $item`vial of humanoid growth hormone`); //lasts for 30 turns
       },
       limit: { tries: Math.ceil(levelingTurns / 30) },
-      tracking: "Potions",
+      tracking: "Leveling",
     },
     {
       name: "Purpose",
@@ -437,14 +439,14 @@ export const GyouQuest: Quest = {
         chew(1, $item`abstraction: purpose`); //lasts for 50 turns
       },
       limit: { tries: Math.ceil(levelingTurns / 50) },
-      tracking: "Potions",
+      tracking: "Leveling",
     },
     {
       name: "Expert Vacationer",
       completed: () => myLevel() >= targetLevel || have($effect`Expert Vacationer`),
       do: () => use(1, $item`exotic travel brochure`), //lasts for 20 turns each
       limit: { tries: Math.ceil(levelingTurns / 20) },
-      tracking: "Potions",
+      tracking: "Leveling",
     },
     {
       name: "Strange Leaflet",
@@ -478,7 +480,7 @@ export const GyouQuest: Quest = {
       completed: () => myLevel() >= targetLevel || have($effect`Heart of White`),
       do: () => use(1, $item`white candy heart`), //lasts for 10 turns
       limit: { tries: Math.ceil(levelingTurns / 10) },
-      tracking: "Potions",
+      tracking: "Leveling",
     },
     {
       name: "Orange Crusher",
@@ -486,7 +488,7 @@ export const GyouQuest: Quest = {
       do: () =>
         use(Math.ceil((50 - haveEffect($effect`Orange Crusher`)) / 10), $item`pulled orange taffy`), //lasts for 10 turns each
       limit: { tries: Math.ceil(levelingTurns / 10) },
-      tracking: "Potions",
+      tracking: "Leveling",
     },
     {
       name: "Buff Muscle",
@@ -495,14 +497,15 @@ export const GyouQuest: Quest = {
       effects: $effects`Trivia Master`,
       do: () => cliExecute(`gain ${11 * myBasestat(myPrimestat())} ${myPrimestat()}`),
       limit: { tries: levelingTurns },
-      tracking: "Potions",
+      tracking: "Leveling",
     },
     {
       name: "Ghost Dog Chow",
-      completed: () => myLevel() >= 8 || $familiar`Grey Goose`.experience >= 400,
+      completed: () => myLevel() >= 8 || $familiar`Grey Goose`.experience > 380,
       prepare: () => useFamiliar($familiar`Grey Goose`),
-      do: () => use(Math.ceil(400 - $familiar`Grey Goose`.experience), $item`Ghost Dog Chow`),
-      tracking: "Potions",
+      do: () =>
+        use(Math.floor((400 - $familiar`Grey Goose`.experience) / 20), $item`Ghost Dog Chow`),
+      tracking: "Leveling",
     },
     {
       name: "Gators",
@@ -529,6 +532,7 @@ export const GyouQuest: Quest = {
           .repeat()
       ),
       limit: { tries: levelingTurns + 3 }, //+3 for unaccounted for wanderers, etc.
+      tracking: "Leveling",
     },
     {
       name: "Breakfast",
@@ -550,6 +554,14 @@ export const GyouQuest: Quest = {
         stooperDrunk() ||
         get("garboResultsDate", "") === nowToString("YYYYMMdd"),
       do: () => cliExecute("garbo nobarf"),
+      tracking: "Garbo",
+    },
+    {
+      name: "Turn in FunFunds",
+      ready: () => get("_stenchAirportToday") && itemAmount($item`FunFunds™`) >= 20,
+      completed: () => have($item`one-day ticket to Dinseylandfill`),
+      do: () =>
+        buy($coinmaster`The Dinsey Company Store`, 1, $item`one-day ticket to Dinseylandfill`),
       tracking: "Garbo",
     },
     {

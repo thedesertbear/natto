@@ -16,6 +16,7 @@ import {
   spleenLimit,
 } from "kolmafia";
 import { $class, $familiar, $item, get, have, set } from "libram";
+import { garboValue } from "../engine/profits";
 
 export type Task = BaseTask & {
   tracking?: string;
@@ -48,7 +49,13 @@ export function canDiet(): boolean {
     myFullness() < fullnessLimit() ||
     mySpleenUse() < spleenLimit() ||
     myInebriety() < inebrietyLimit() ||
-    get("currentMojoFilters") < 3
+    (have($item`distention pill`) && !get("_distentionPillUsed")) ||
+    (have($item`synthetic dog hair pill`) && !get("_syntheticDogHairPillUsed")) ||
+    (have($item`designer sweatpants`) && get("_sweatOutSomeBoozeUsed") < 3 && get("sweat") >= 25) ||
+    (have($item`mime army shotglass`) && !get("_mimeArmyShotglassUsed")) ||
+    (get("currentMojoFilters") < 3 &&
+      garboValue($item`mojo filter`) + garboValue($item`transdermal smoke patch`) <
+        2.5 * get("valueOfAdventure"))
   );
 }
 
