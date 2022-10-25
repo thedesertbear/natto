@@ -7495,13 +7495,38 @@ function printProfits(records) {
 }
 ;// CONCATENATED MODULE: ./src/tasks/structure.ts
 var structure_templateObject, structure_templateObject2, structure_templateObject3, structure_templateObject4, structure_templateObject5, structure_templateObject6, structure_templateObject7, structure_templateObject8, structure_templateObject9, structure_templateObject10, structure_templateObject11, structure_templateObject12, structure_templateObject13, structure_templateObject14;
-function structure_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = structure_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function structure_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return structure_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return structure_arrayLikeToArray(o, minLen); }
-function structure_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function structure_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function structure_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function structure_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function structure_createClass(Constructor, protoProps, staticProps) { if (protoProps) structure_defineProperties(Constructor.prototype, protoProps); if (staticProps) structure_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function structure_get() { if (typeof Reflect !== "undefined" && Reflect.get) { structure_get = Reflect.get.bind(); } else { structure_get = function _get(target, property, receiver) { var base = structure_superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return structure_get.apply(this, arguments); }
+function structure_superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = structure_getPrototypeOf(object); if (object === null) break; } return object; }
+function structure_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) structure_setPrototypeOf(subClass, superClass); }
+function structure_setPrototypeOf(o, p) { structure_setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return structure_setPrototypeOf(o, p); }
+function structure_createSuper(Derived) { var hasNativeReflectConstruct = structure_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = structure_getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = structure_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return structure_possibleConstructorReturn(this, result); }; }
+function structure_possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return structure_assertThisInitialized(self); }
+function structure_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function structure_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function structure_getPrototypeOf(o) { structure_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return structure_getPrototypeOf(o); }
 
 
 
+var structure_Macro = /*#__PURE__*/function (_BaseMacro) {
+  structure_inherits(Macro, _BaseMacro);
+  var _super = structure_createSuper(Macro);
+  function Macro() {
+    structure_classCallCheck(this, Macro);
+    return _super.apply(this, arguments);
+  }
+  structure_createClass(Macro, [{
+    key: "setAutoAttack",
+    value: function setAutoAttack() {
+      structure_get(structure_getPrototypeOf(Macro.prototype), "setAutoAttack", this).call(this);
+      return this;
+    }
+  }]);
+  return Macro;
+}(Macro);
 var Leg;
 (function (Leg) {
   Leg[Leg["Aftercore"] = 0] = "Aftercore";
@@ -7516,19 +7541,7 @@ function setChoice(choice, setting) {
   set("choiceAdventure".concat(choice), setting);
 }
 function haveAll(its) {
-  var _iterator = structure_createForOfIteratorHelper(its),
-    _step;
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var it = _step.value;
-      if (!have(it)) return false;
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-  return true;
+  return its.reduce((a, it) => a && have(it), true);
 }
 function canDiet() {
   return (0,external_kolmafia_namespaceObject.myFullness)() < (0,external_kolmafia_namespaceObject.fullnessLimit)() || (0,external_kolmafia_namespaceObject.mySpleenUse)() < (0,external_kolmafia_namespaceObject.spleenLimit)() || (0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)() || have(template_string_$item(structure_templateObject2 || (structure_templateObject2 = structure_taggedTemplateLiteral(["distention pill"])))) && !property_get("_distentionPillUsed") || have(template_string_$item(structure_templateObject3 || (structure_templateObject3 = structure_taggedTemplateLiteral(["synthetic dog hair pill"])))) && !property_get("_syntheticDogHairPillUsed") || have(template_string_$item(structure_templateObject4 || (structure_templateObject4 = structure_taggedTemplateLiteral(["designer sweatpants"])))) && property_get("_sweatOutSomeBoozeUsed") < 3 && property_get("sweat") >= 25 || have(template_string_$item(structure_templateObject5 || (structure_templateObject5 = structure_taggedTemplateLiteral(["mime army shotglass"])))) && !property_get("_mimeArmyShotglassUsed") || property_get("currentMojoFilters") < 3 && garboValue(template_string_$item(structure_templateObject6 || (structure_templateObject6 = structure_taggedTemplateLiteral(["mojo filter"])))) + garboValue(template_string_$item(structure_templateObject7 || (structure_templateObject7 = structure_taggedTemplateLiteral(["transdermal smoke patch"])))) < 2.5 * property_get("valueOfAdventure");
@@ -7595,7 +7608,7 @@ var AftercoreQuest = {
         modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant"
       });
     },
-    combat: new CombatStrategy().macro(() => Macro.externalIf(!property_get("_dailyDungeonMalwareUsed"), Macro.tryItem(template_string_$item(aftercore_templateObject12 || (aftercore_templateObject12 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(aftercore_templateObject13 || (aftercore_templateObject13 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(aftercore_templateObject14 || (aftercore_templateObject14 = aftercore_taggedTemplateLiteral(["Fire the Jokester's Gun"])))).attack().repeat()),
+    combat: new CombatStrategy().macro(() => structure_Macro.step("if pastround 2; abort Macro did not complete; endif; ").externalIf(!property_get("_dailyDungeonMalwareUsed"), structure_Macro.tryItem(template_string_$item(aftercore_templateObject12 || (aftercore_templateObject12 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(aftercore_templateObject13 || (aftercore_templateObject13 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(aftercore_templateObject14 || (aftercore_templateObject14 = aftercore_taggedTemplateLiteral(["Fire the Jokester's Gun"])))).attack().repeat().setAutoAttack()),
     limit: {
       tries: 15
     }
@@ -7688,7 +7701,7 @@ var GyouQuest = {
       familiar: template_string_$familiar(greyyou_templateObject13 || (greyyou_templateObject13 = greyyou_taggedTemplateLiteral(["Hobo Monkey"]))),
       modifier: "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring"
     },
-    combat: new CombatStrategy().macro(new Macro().trySkill(template_string_$skill(greyyou_templateObject14 || (greyyou_templateObject14 = greyyou_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(greyyou_templateObject15 || (greyyou_templateObject15 = greyyou_taggedTemplateLiteral(["Sing Along"])))).tryItem(template_string_$item(greyyou_templateObject16 || (greyyou_templateObject16 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).tryItem(template_string_$item(greyyou_templateObject17 || (greyyou_templateObject17 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject18 || (greyyou_templateObject18 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject19 || (greyyou_templateObject19 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject20 || (greyyou_templateObject20 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject21 || (greyyou_templateObject21 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject22 || (greyyou_templateObject22 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject23 || (greyyou_templateObject23 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject24 || (greyyou_templateObject24 = greyyou_taggedTemplateLiteral(["seal tooth"])))).trySkill(template_string_$skill(greyyou_templateObject25 || (greyyou_templateObject25 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat()),
+    combat: new CombatStrategy().macro(structure_Macro.step("if pastround 2; abort Macro did not complete; endif;").trySkill(template_string_$skill(greyyou_templateObject14 || (greyyou_templateObject14 = greyyou_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(greyyou_templateObject15 || (greyyou_templateObject15 = greyyou_taggedTemplateLiteral(["Sing Along"])))).tryItem(template_string_$item(greyyou_templateObject16 || (greyyou_templateObject16 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).tryItem(template_string_$item(greyyou_templateObject17 || (greyyou_templateObject17 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject18 || (greyyou_templateObject18 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject19 || (greyyou_templateObject19 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject20 || (greyyou_templateObject20 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject21 || (greyyou_templateObject21 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject22 || (greyyou_templateObject22 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject23 || (greyyou_templateObject23 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject24 || (greyyou_templateObject24 = greyyou_taggedTemplateLiteral(["seal tooth"])))).trySkill(template_string_$skill(greyyou_templateObject25 || (greyyou_templateObject25 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat().setAutoAttack()),
     limit: {
       tries: 550
     },
@@ -7742,7 +7755,7 @@ var GyouQuest = {
         modifier: "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience"
       });
     },
-    combat: new CombatStrategy().macro(() => Macro.externalIf(!property_get("_dailyDungeonMalwareUsed"), Macro.tryItem(template_string_$item(greyyou_templateObject39 || (greyyou_templateObject39 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(greyyou_templateObject40 || (greyyou_templateObject40 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(greyyou_templateObject41 || (greyyou_templateObject41 = greyyou_taggedTemplateLiteral(["Fire the Jokester's Gun"])))).attack().repeat()),
+    combat: new CombatStrategy().macro(() => structure_Macro.step("if pastround 2; abort Macro did not complete; endif;").externalIf(!property_get("_dailyDungeonMalwareUsed"), structure_Macro.tryItem(template_string_$item(greyyou_templateObject39 || (greyyou_templateObject39 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(greyyou_templateObject40 || (greyyou_templateObject40 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(greyyou_templateObject41 || (greyyou_templateObject41 = greyyou_taggedTemplateLiteral(["Fire the Jokester's Gun"])))).attack().repeat().setAutoAttack()),
     limit: {
       tries: 15
     }
@@ -7765,7 +7778,7 @@ var GyouQuest = {
       familiar: template_string_$familiar(_templateObject54 || (_templateObject54 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
       modifier: "+100 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience"
     },
-    combat: new CombatStrategy().macro(new Macro().tryItem(template_string_$item(_templateObject55 || (_templateObject55 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).skill(template_string_$skill(_templateObject56 || (_templateObject56 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).repeat()),
+    combat: new CombatStrategy().macro(structure_Macro.step("if pastround 2; abort Macro did not complete; endif;").tryItem(template_string_$item(_templateObject55 || (_templateObject55 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).skill(template_string_$skill(_templateObject56 || (_templateObject56 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).repeat().setAutoAttack()),
     limit: {
       tries: 15
     }
@@ -7789,7 +7802,7 @@ var GyouQuest = {
       familiar: template_string_$familiar(_templateObject71 || (_templateObject71 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
       modifier: "-100 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience"
     },
-    combat: new CombatStrategy().macro(new Macro().tryItem(template_string_$item(_templateObject72 || (_templateObject72 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).skill(template_string_$skill(_templateObject73 || (_templateObject73 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).repeat()),
+    combat: new CombatStrategy().macro(structure_Macro.step("if pastround 2; abort Macro did not complete; endif;").tryItem(template_string_$item(_templateObject72 || (_templateObject72 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).skill(template_string_$skill(_templateObject73 || (_templateObject73 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).repeat().setAutoAttack()),
     limit: {
       tries: 15
     }
@@ -7836,7 +7849,7 @@ var GyouQuest = {
       familiar: template_string_$familiar(_templateObject97 || (_templateObject97 = greyyou_taggedTemplateLiteral(["Hobo Monkey"]))),
       modifier: "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring"
     },
-    combat: new CombatStrategy().macro(new Macro().trySkill(template_string_$skill(_templateObject98 || (_templateObject98 = greyyou_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(_templateObject99 || (_templateObject99 = greyyou_taggedTemplateLiteral(["Sing Along"])))).tryItem(template_string_$item(_templateObject100 || (_templateObject100 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).tryItem(template_string_$item(_templateObject101 || (_templateObject101 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject102 || (_templateObject102 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject103 || (_templateObject103 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject104 || (_templateObject104 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject105 || (_templateObject105 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject106 || (_templateObject106 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject107 || (_templateObject107 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject108 || (_templateObject108 = greyyou_taggedTemplateLiteral(["seal tooth"])))).trySkill(template_string_$skill(_templateObject109 || (_templateObject109 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat()),
+    combat: new CombatStrategy().macro(structure_Macro.step("if pastround 2; abort Macro did not complete; endif;").trySkill(template_string_$skill(_templateObject98 || (_templateObject98 = greyyou_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(_templateObject99 || (_templateObject99 = greyyou_taggedTemplateLiteral(["Sing Along"])))).tryItem(template_string_$item(_templateObject100 || (_templateObject100 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).tryItem(template_string_$item(_templateObject101 || (_templateObject101 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject102 || (_templateObject102 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject103 || (_templateObject103 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject104 || (_templateObject104 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject105 || (_templateObject105 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject106 || (_templateObject106 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject107 || (_templateObject107 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject108 || (_templateObject108 = greyyou_taggedTemplateLiteral(["seal tooth"])))).trySkill(template_string_$skill(_templateObject109 || (_templateObject109 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat().setAutoAttack()),
     limit: {
       tries: 150
     },
@@ -7980,7 +7993,7 @@ var GyouQuest = {
       familiar: template_string_$familiar(_templateObject161 || (_templateObject161 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
       modifier: "0.125 muscle, muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min"
     },
-    combat: new CombatStrategy().macro(() => Macro.trySkill(template_string_$skill(_templateObject162 || (_templateObject162 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))).externalIf(template_string_$familiar(_templateObject163 || (_templateObject163 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience >= 400, Macro.trySkill(template_string_$skill(_templateObject164 || (_templateObject164 = greyyou_taggedTemplateLiteral(["Convert Matter to Protein"]))))).tryItem(template_string_$item(_templateObject165 || (_templateObject165 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(_templateObject166 || (_templateObject166 = greyyou_taggedTemplateLiteral(["Sing Along"])))).attack().repeat()),
+    combat: new CombatStrategy().macro(() => structure_Macro.step("if pastround 2; abort Macro did not complete; endif;").trySkill(template_string_$skill(_templateObject162 || (_templateObject162 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))).externalIf(template_string_$familiar(_templateObject163 || (_templateObject163 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience >= 400, structure_Macro.trySkill(template_string_$skill(_templateObject164 || (_templateObject164 = greyyou_taggedTemplateLiteral(["Convert Matter to Protein"]))))).tryItem(template_string_$item(_templateObject165 || (_templateObject165 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(_templateObject166 || (_templateObject166 = greyyou_taggedTemplateLiteral(["Sing Along"])))).attack().repeat().setAutoAttack()),
     limit: {
       tries: levelingTurns + 3
     },
@@ -8059,6 +8072,16 @@ function engine_defineProperty(obj, key, value) { if (key in obj) { Object.defin
 
 
 
+
+//const grimoireCCS = "grimoire_macro";
+
+// export class CombatStrategy extends BaseCombatStrategy {
+// 	public autoattackccs(mac: Macro): void {
+// 		this.autoattack(mac);
+// 		this.macro(mac).macro(Macro.step(`"if pastround 2; abort; endif; "`), undefined, true);
+// 	}
+// }
+
 var ProfitTrackingEngine = /*#__PURE__*/function (_Engine) {
   engine_inherits(ProfitTrackingEngine, _Engine);
   var _super = engine_createSuper(ProfitTrackingEngine);
@@ -8079,6 +8102,37 @@ var ProfitTrackingEngine = /*#__PURE__*/function (_Engine) {
         }
       }, task)); //sets the default value of limit
     }
+
+    // cachedCcs = "";
+    // setCombat(
+    //   task: Task,
+    //   task_combat: CombatStrategy<CombatActions>,
+    //   task_resources: CombatResources<CombatActions>
+    // ): void {
+    //   // Save regular combat macro
+    //   const macro = task_combat.compile(
+    //     task_resources,
+    //     this.options?.combat_defaults,
+    //     task.do instanceof Location ? task.do : undefined
+    //   );
+
+    //   if (macro.toString() !== this.cachedCcs) {
+    //     // Use the macro through a CCS file
+    //     this.cachedCcs = macro.toString();
+    //     writeCcs(`[ default ]\n"${macro.toString()}"`, grimoireCCS);
+    //     cliExecute(`ccs ${grimoireCCS}`); // force Mafia to reparse the ccs
+    //   }
+
+    //   // Save autoattack combat macro
+    //   const autoattack = task_combat.compileAutoattack().step(macro);
+
+    //   if (autoattack.toString().length > 1) {
+    //     autoattack.save();
+    //     autoattack.setAutoAttack();
+    //   } else {
+    //     setAutoAttack(0);
+    //   }
+    // }
   }, {
     key: "execute",
     value: function execute(task) {
