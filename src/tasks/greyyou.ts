@@ -54,7 +54,6 @@ import {
   ensureEffect,
   get,
   have,
-  Macro,
 } from "libram";
 import { args } from "../main";
 import {
@@ -63,6 +62,7 @@ import {
   getCurrentLeg,
   haveAll,
   Leg,
+  Macro,
   Quest,
   readyForBed,
   stooperDrunk,
@@ -128,7 +128,7 @@ export const GyouQuest: Quest = {
           "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
       },
       combat: new CombatStrategy().macro(
-        new Macro()
+        Macro.step(`"if pastround 2; abort Macro did not complete; endif;"`)
           .trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
           .tryItem($item`porquoise-handled sixgun`)
@@ -143,6 +143,7 @@ export const GyouQuest: Quest = {
           .trySkill($skill`Double Nanovision`)
           .attack()
           .repeat()
+          .setAutoAttack()
       ),
       limit: { tries: 550 },
       tracking: "GooFarming",
@@ -347,7 +348,7 @@ export const GyouQuest: Quest = {
           "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
       },
       combat: new CombatStrategy().macro(
-        new Macro()
+        Macro.step(`"if pastround 2; abort Macro did not complete; endif;"`)
           .trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
           .tryItem($item`porquoise-handled sixgun`)
@@ -362,6 +363,7 @@ export const GyouQuest: Quest = {
           .trySkill($skill`Double Nanovision`)
           .attack()
           .repeat()
+          .setAutoAttack()
       ),
       limit: { tries: 150 },
       tracking: "GooFarming",

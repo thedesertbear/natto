@@ -15,7 +15,7 @@ import {
   numericModifier,
   spleenLimit,
 } from "kolmafia";
-import { $class, $familiar, $item, get, have, set } from "libram";
+import { $class, $familiar, $item, Macro as BaseMacro, get, have, set } from "libram";
 import { garboValue } from "../engine/profits";
 
 export type Task = BaseTask & {
@@ -23,6 +23,13 @@ export type Task = BaseTask & {
   limit?: Limit;
 };
 export type Quest = BaseQuest<Task>;
+
+export class Macro extends BaseMacro {
+  public setAutoAttack(): Macro {
+    super.setAutoAttack();
+    return this;
+  }
+}
 
 export enum Leg {
   Aftercore = 0,
@@ -40,8 +47,7 @@ export function setChoice(choice: number, setting: number): void {
 }
 
 export function haveAll(its: Item[]): boolean {
-  for (const it of its) if (!have(it)) return false;
-  return true;
+  return its.reduce((a, it) => a && have(it), true);
 }
 
 export function canDiet(): boolean {
