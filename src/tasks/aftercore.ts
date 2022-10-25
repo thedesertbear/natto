@@ -75,7 +75,7 @@ export const AftercoreQuest: Quest = {
         };
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.step(`"if pastround 2; abort Macro did not complete; endif;"`)
+        Macro.step(`if pastround 2; abort Macro did not complete; endif; `)
           .externalIf(!get("_dailyDungeonMalwareUsed"), Macro.tryItem($item`daily dungeon malware`))
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Fire the Jokester's Gun`)

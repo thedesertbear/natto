@@ -128,7 +128,7 @@ export const GyouQuest: Quest = {
           "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
       },
       combat: new CombatStrategy().macro(
-        Macro.step(`"if pastround 2; abort Macro did not complete; endif;"`)
+        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
           .tryItem($item`porquoise-handled sixgun`)
@@ -200,14 +200,13 @@ export const GyouQuest: Quest = {
         };
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.externalIf(
-          !get("_dailyDungeonMalwareUsed"),
-          Macro.tryItem($item`daily dungeon malware`)
-        )
+        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
+          .externalIf(!get("_dailyDungeonMalwareUsed"), Macro.tryItem($item`daily dungeon malware`))
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Fire the Jokester's Gun`)
           .attack()
           .repeat()
+          .setAutoAttack()
       ),
       limit: { tries: 15 },
     },
@@ -241,10 +240,11 @@ export const GyouQuest: Quest = {
           "+100 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
       },
       combat: new CombatStrategy().macro(
-        new Macro()
+        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .tryItem($item`porquoise-handled sixgun`)
           .skill($skill`Double Nanovision`)
           .repeat()
+          .setAutoAttack()
       ),
       limit: { tries: 15 },
     },
@@ -280,10 +280,11 @@ export const GyouQuest: Quest = {
           "-100 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
       },
       combat: new CombatStrategy().macro(
-        new Macro()
+        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .tryItem($item`porquoise-handled sixgun`)
           .skill($skill`Double Nanovision`)
           .repeat()
+          .setAutoAttack()
       ),
       limit: { tries: 15 },
     },
@@ -348,7 +349,7 @@ export const GyouQuest: Quest = {
           "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
       },
       combat: new CombatStrategy().macro(
-        Macro.step(`"if pastround 2; abort Macro did not complete; endif;"`)
+        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
           .tryItem($item`porquoise-handled sixgun`)
@@ -523,7 +524,8 @@ export const GyouQuest: Quest = {
           "0.125 muscle, muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min",
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.trySkill($skill`Curse of Weaksauce`)
+        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
+          .trySkill($skill`Curse of Weaksauce`)
           .externalIf(
             $familiar`Grey Goose`.experience >= 400,
             Macro.trySkill($skill`Convert Matter to Protein`)
@@ -532,6 +534,7 @@ export const GyouQuest: Quest = {
           .trySkill($skill`Sing Along`)
           .attack()
           .repeat()
+          .setAutoAttack()
       ),
       limit: { tries: levelingTurns + 3 }, //+3 for unaccounted for wanderers, etc.
       tracking: "Leveling",
