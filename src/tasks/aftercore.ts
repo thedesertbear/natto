@@ -128,8 +128,9 @@ export const AftercoreQuest: Quest = {
     {
       name: "Guild Skill Training",
       ready: () => guildStoreAvailable() && false,
-      completed: () => !nextPerms().find((sk) => !have(sk) || sk.level > myLevel()),
-      do: () => nextPerms().forEach((sk) => sk),
+      completed: () => !nextPerms(myClass()).find((sk) => !have(sk) || sk.level > myLevel()),
+      do: () => nextPerms(myClass()).filter((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level).forEach((sk) => visitUrl(`guild.php?action=buyskill&skillid=${sk.id}`, true)),
+      limit: {tries: 3}, //a few, in case your level is too low and you level up over the course of the day
     },
     {
       name: "Stock Up on MMJs",
