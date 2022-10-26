@@ -2,6 +2,7 @@ import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   buy,
   cliExecute,
+  getPermedSkills,
   hippyStoneBroken,
   itemAmount,
   myAdventures,
@@ -18,14 +19,27 @@ import {
   $item,
   $items,
   $location,
+  $path,
   $skill,
+  $skills,
   ascend,
   get,
   have,
   Lifestyle,
   Paths,
+  prepareAscension,
 } from "libram";
 import { getCurrentLeg, Leg, Macro, Quest, stooperDrunk } from "./structure";
+
+const defaultPermList = [
+  $skills`Natural Born Scrabbler, Thrift and Grift, Abs of Tin, Marginally Insane, Club Earth, Carbohydrate Cudgel, Splattersmash, Grab a Cold One, Song of the North, Turtleini, Sauceshell, Conspiratorial Whispers, Song of Slowness, Spaghetti Breakfast, Shadow Noodles, Song of Starch, Splashdance, Song of Sauce, Song of Bravado, Walberg's Dim Bulb, Singer's Faithful Ocelot, Drescher's Annoying Noise, Deep Dark Visions, Shattering Punch, Snokebomb, Shivering Monkey Technique, Bow-Legged Swagger, Bend Hell, Steely-Eyed Squint, Astute Angler, Lock Picking, Long Winter's Nap, Bowl Full of Jelly, Ashes and Soot, Eye and a Twist, Dimples\, How Merry!, Chubby and Plump, Dead Nostrils, Brain Games, Slimy Sinews, Slimy Synapses, Slimy Shoulders, Tick-skinned, Blood Bubble, Object Quasi-Permanence, Grease Up, 5-D Earning Potential, Hypersane, Refusal to Freeze, Olfactory Burnout, Asbestos Heart, Unoffendable, Gingerbread Mob Hit, Fashionably Late, Ancestral Recall, Giant Growth, Disintegrate, Expert Corner-Cutter, Rapid Prototyping, Executive Narcolepsy, Prevent Scurvy and Sobriety, The Spirit of Taking, Blood Frenzy, `,
+  $skills`Curse of Weaksauce, Itchy Curse Finger, Torso Awareness, Canneloni Cocoon`,
+  $skills`Nimble Fingers, Amphibian Sympathy, Leash of Linguini, Thief Among the Honorable, Expert Panhandling, Discor Leer, Five Finger Discount, Double-Fisted Skull Smashing, Impetuous Sauciness, Tao of the Terrapin, Saucestorm`,
+  $skills`Tongue of the Walrus, Mad Looting Skillz, Smooth Movements, Musk of the Moose, The Polka of Plenty, The Sonata of Sneakiness, Carlweather's Cantata of Confrontation, Mariachi Memory`,
+  $skills`Gnefarious Pickpocketing, Powers of Observation, Gnomish Hardigness, Cosmic Ugnderstanding, Ambidextrous Funkslinging, The Long View, Wisdom of the Elder Tortoises, Inner Sauce, Pulverize, Springy Fusilli, Overdeveloped Sense of Self Preservation`,
+  $skills`Pastamastery, Advanced Cocktailcrafting, The Ode to Booze, Advanced Saucecrafting, Saucemaven, The Way of Sauce, Fat Leon's Phat Loot Lyric, Empathy of the Newt, Superhuman Cocktailcrafting, Transcendental Noodlecraft, Super-Advanced Meatsmithing, Patient Smite, Wry Smile, Knowing Smile, Aloysius' Antiphon of Aptitude, Pride of the Puffin, Ur-Kel's Aria of Annoyance, Sensitive Fingers, Master Accordion Master Thief, The Moxious Madrigal, Stuffed Mortar Shell, Flavour of Magic, Skin of the Leatherback, Hide of the Walrus, Astral Shell, Ghostly Shell, Elemental Saucesphere, Subtle and Quick to Anger, Master Saucier, Spirit of Ravioli, Lunging Thrust-Smack, Entangling Noodles, Hero of the Half-Shell, Cold-Blooded Fearlessness, Northern Exposure, Diminished Gag Reflex, Tolerance of the Kitchen, Heart of Polyester, Shield of the Pastalord, Saucy Salve, Power Ballad of the Arrowsmith, Jalapeno Saucesphere, Irrepressible Spunk, Saucegeyser, Claws of the Walrus, Shell Up, Scarysauce, Disco Fever, Rage of the Reindeer, Brawnee's Anthem of Absorption, Reptilian Fortitude, The Psalm of Pointiness, Spiky Shell, Stiff Upper Lip, Blubber Up, Disco Smirk, The Magical Mojomuscular Melody, Blood Sugar Sauce Nagic, Cletus's Canticle of Celerity, Suspicious Gaze, Icy Glare, Dirge of Dreadfulness, Snarl of the Timberwolf, Testudinal Teachings, Disco Nap, Adventurer of Leisure, Stevedave's Shanty of Superiority, Northern Explosion, Armorcraftiness`,
+  $skills``,
+];
 
 export const AftercoreQuest: Quest = {
   name: "Aftercore",
@@ -109,16 +123,23 @@ export const AftercoreQuest: Quest = {
       },
     },
     {
-      name: "Ascend",
+      name: "AscendGyou",
       completed: () => getCurrentLeg() >= Leg.GreyYou,
       do: (): void => {
+        const skillsToPerm = new Map();
+        defaultPermList
+          .flat()
+          .filter((sk) => have(sk) && sk.permable && !(sk.name in getPermedSkills()))
+          .slice(0, Math.floor((get("bankedKarma") + 100) / 100))
+          .forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
         ascend(
-          Paths.GreyYou,
+          $path`Grey You`,
           $class`Grey Goo`,
           Lifestyle.softcore,
           "vole",
           $item`astral six-pack`,
-          $item`astral pet sweater`
+          $item`astral pet sweater`,
+          { permSkills: skillsToPerm, neverAbort: false }
         );
         if (visitUrl("main.php").includes("somewhat-human-shaped mass of grey goo nanites"))
           runChoice(-1);
