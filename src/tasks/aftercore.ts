@@ -25,6 +25,7 @@ import {
   $location,
   $path,
   $skill,
+  $stat,
   ascend,
   get,
   have,
@@ -127,6 +128,20 @@ export const AftercoreQuest: Quest = {
       ready: () => guildStoreAvailable() && false,
       completed: () => !nextPerms().find((sk) => !have(sk) || sk.level > myLevel()),
       do: () => nextPerms().forEach((sk) => sk),
+    },
+    {
+      name: "Stock Up on MMJs",
+      ready: () =>
+        (myClass().primestat === $stat`Mysticality` && guildStoreAvailable()) ||
+        (myClass() === $class`Accordion Thief` && myLevel() >= 9),
+      completed: () => availableAmount($item`magical mystery juice`) >= 500,
+      acquire: [
+        {
+          item: $item`magical mystery juice`,
+          num: 500,
+        },
+      ],
+      do: () => false,
     },
     {
       name: "Buy Seal Summoning Supplies",

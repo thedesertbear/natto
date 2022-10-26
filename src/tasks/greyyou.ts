@@ -131,6 +131,7 @@ export const GyouQuest: Quest = {
       do: () => cliExecute("loopgyou delaytower tune=wombat chargegoose=20"),
       tracking: "Run",
     },
+    // Add Torso Awareness Here, if the plan is to perm it?
     {
       name: "In-Run Farm Initial",
       completed: () => myTurncount() >= 1000,
