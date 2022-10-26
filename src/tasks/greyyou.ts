@@ -164,6 +164,8 @@ export const GyouQuest: Quest = {
         retrieveItem($item`seal tooth`);
         if (have($item`SongBoom™ BoomBox`) && get("boomBoxSong") !== "Total Eclipse of Your Meat")
           cliExecute("boombox meat");
+        restoreHp(0.75 * myMaxhp());
+        restoreMp(20);
       },
       outfit: {
         familiar: $familiars`Robortender, Space Jellyfish, Hobo Monkey, Leprechaun`.find((f) =>
@@ -220,6 +222,8 @@ export const GyouQuest: Quest = {
           putCloset($item`daily dungeon malware`);
         if (!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
           retrieveItem(1, $item`daily dungeon malware`);
+        restoreHp(0.75 * myMaxhp());
+        restoreMp(20);
       },
       do: $location`The Daily Dungeon`,
       choices: {
@@ -272,6 +276,8 @@ export const GyouQuest: Quest = {
           cliExecute("kmail to Buffy || 10 Cantata of Confrontation");
           wait(15);
           cliExecute("refresh effects");
+          restoreHp(0.75 * myMaxhp());
+          restoreMp(20);
         }
         if (have($skill`Piezoelectric Honk`) && !have($effect`Hooooooooonk!`))
           useSkill($skill`Piezoelectric Honk`);
@@ -288,7 +294,8 @@ export const GyouQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .tryItem($item`porquoise-handled sixgun`)
-          .skill($skill`Double Nanovision`)
+          .trySkill($skill`Double Nanovision`)
+          .attack()
           .repeat()
           .setAutoAttack()
       ),
@@ -310,6 +317,8 @@ export const GyouQuest: Quest = {
           cliExecute("kmail to Buffy || 10 Sonata of Sneakiness");
           wait(15);
           cliExecute("refresh effects");
+          restoreHp(0.75 * myMaxhp());
+          restoreMp(20);
         }
         if (have($skill`Photonic Shroud`) && !have($effect`Darkened Photons`))
           useSkill($skill`Photonic Shroud`);
@@ -328,7 +337,7 @@ export const GyouQuest: Quest = {
       combat: new CombatStrategy().macro(
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .tryItem($item`porquoise-handled sixgun`)
-          .skill($skill`Double Nanovision`)
+          .trySkill($skill`Double Nanovision`)
           .repeat()
           .setAutoAttack()
       ),
@@ -388,6 +397,8 @@ export const GyouQuest: Quest = {
         retrieveItem($item`seal tooth`);
         if (have($item`SongBoom™ BoomBox`) && get("boomBoxSong") !== "Total Eclipse of Your Meat")
           cliExecute("boombox meat");
+        restoreHp(0.75 * myMaxhp());
+        restoreMp(20);
       },
       outfit: {
         familiar: $familiars`Robortender, Space Jellyfish, Hobo Monkey, Leprechaun`.find((f) =>
