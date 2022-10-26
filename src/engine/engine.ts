@@ -9,8 +9,8 @@ export class ProfitTrackingEngine extends Engine<never, Task> {
     this.profits = new ProfitTracker(key);
   }
 
-  public checkLimits(task: Task): void {
-    super.checkLimits({limit: {tries: 1}, ...task}) //sets the default value of limit
+  public checkLimits(task: Task, postcondition: (() => boolean) | undefined): void {
+    super.checkLimits({ limit: { tries: 1 }, ...task }, postcondition); //sets the default value of limit
   }
 
   execute(task: Task): void {
