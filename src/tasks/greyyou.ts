@@ -131,7 +131,13 @@ export const GyouQuest: Quest = {
       do: () => cliExecute("loopgyou delaytower tune=wombat chargegoose=20"),
       tracking: "Run",
     },
-    // Add Torso Awareness Here, if the plan is to perm it?
+    {
+      name: "Train Gnome Skills",
+      ready: () => myMeat() >= 5000 && gnomadsAvailable(),
+      completed: () => nextPerms(nextClass).filter(sk => $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(sk) && !have(sk)).length === 0)
+      do: () => visitUrl(`gnomes.php?action=trainskill&whichskill=${nextPerms(nextClass).find(sk => $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(sk) && !have(sk))}`),
+      limit: { tries: 5 },
+    },
     {
       name: "In-Run Farm Initial",
       completed: () => myTurncount() >= 1000,
