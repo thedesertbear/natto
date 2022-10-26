@@ -47,6 +47,7 @@ import {
   $effect,
   $effects,
   $familiar,
+  $familiars,
   $item,
   $items,
   $location,
@@ -141,7 +142,9 @@ export const GyouQuest: Quest = {
           cliExecute("boombox meat");
       },
       outfit: {
-        familiar: $familiar`Hobo Monkey`,
+        familiar: $familiars`Robortender, Space Jellyfish, Hobo Monkey, Leprechaun`.find((f) =>
+          have(f)
+        ),
         modifier:
           "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
       },
@@ -149,6 +152,7 @@ export const GyouQuest: Quest = {
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
+          .trySkill($skill`Extract Jelly`)
           .tryItem($item`porquoise-handled sixgun`)
           .tryItem($item`seal tooth`)
           .tryItem($item`seal tooth`)
@@ -362,7 +366,9 @@ export const GyouQuest: Quest = {
           cliExecute("boombox meat");
       },
       outfit: {
-        familiar: $familiar`Hobo Monkey`,
+        familiar: $familiars`Robortender, Space Jellyfish, Hobo Monkey, Leprechaun`.find((f) =>
+          have(f)
+        ),
         modifier:
           "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
       },
@@ -370,6 +376,7 @@ export const GyouQuest: Quest = {
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
+          .trySkill($skill`Extract Jelly`)
           .tryItem($item`porquoise-handled sixgun`)
           .tryItem($item`seal tooth`)
           .tryItem($item`seal tooth`)
