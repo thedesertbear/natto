@@ -10,6 +10,7 @@ import {
   Effect,
   getCampground,
   getDwelling,
+  gnomadsAvailable,
   haveEffect,
   hippyStoneBroken,
   itemAmount,
@@ -20,6 +21,7 @@ import {
   myClass,
   myLevel,
   myMaxhp,
+  myMeat,
   myPrimestat,
   mySpleenUse,
   myStorageMeat,
@@ -52,6 +54,7 @@ import {
   $items,
   $location,
   $skill,
+  $skills,
   $stat,
   ensureEffect,
   get,
@@ -134,8 +137,22 @@ export const GyouQuest: Quest = {
     {
       name: "Train Gnome Skills",
       ready: () => myMeat() >= 5000 && gnomadsAvailable(),
-      completed: () => nextPerms(nextClass).filter(sk => $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(sk) && !have(sk)).length === 0)
-      do: () => visitUrl(`gnomes.php?action=trainskill&whichskill=${nextPerms(nextClass).find(sk => $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(sk) && !have(sk))}`),
+      completed: () =>
+        nextPerms(nextClass).filter(
+          (sk) =>
+            $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+              sk
+            ) && !have(sk)
+        ).length === 0,
+      do: () =>
+        visitUrl(
+          `gnomes.php?action=trainskill&whichskill=${nextPerms(nextClass).find(
+            (sk) =>
+              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+                sk
+              ) && !have(sk)
+          )}`
+        ),
       limit: { tries: 5 },
     },
     {
