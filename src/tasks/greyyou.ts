@@ -3,11 +3,11 @@ import {
   buy,
   buyUsingStorage,
   chew,
+  Class,
   cliExecute,
   closetAmount,
   drink,
   Effect,
-  equip,
   getCampground,
   getDwelling,
   haveEffect,
@@ -34,6 +34,7 @@ import {
   retrieveItem,
   spleenLimit,
   storageAmount,
+  toInt,
   use,
   useFamiliar,
   useSkill,
@@ -50,7 +51,7 @@ import {
   $items,
   $location,
   $skill,
-  $slot,
+  $stat,
   ensureEffect,
   get,
   have,
@@ -58,11 +59,13 @@ import {
 import { args } from "../main";
 import {
   backstageItemsDone,
+  baseClasses,
   canDiet,
   getCurrentLeg,
   haveAll,
   Leg,
   Macro,
+  nextPerms,
   Quest,
   readyForBed,
   stooperDrunk,
@@ -71,11 +74,26 @@ import {
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;
 const targetLevel = 13;
+let nextClass: Class = $class`none`;
 
 export const GyouQuest: Quest = {
   name: "Grey You",
   completed: () => getCurrentLeg() > Leg.GreyYou,
   tasks: [
+    {
+      name: "Choose Class",
+      completed: () => myClass() !== $class`Grey Goo` || baseClasses.includes(nextClass),
+      do: () =>
+        (nextClass = (nextPerms().find((sk) => baseClasses.includes(sk.class)) || $skill`Clobber`)
+          .class),
+      post: () =>
+        print(
+          `Skill perming plan for this run - Class: [${nextClass}], Skills: [${nextPerms(
+            nextClass
+          ).join(", ")}]`,
+          "green"
+        ),
+    },
     {
       name: "Farming Pulls",
       completed: () => myPulls.reduce((b, it) => b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
@@ -378,25 +396,34 @@ export const GyouQuest: Quest = {
     {
       name: "Free King",
       completed: () => myClass() !== $class`Grey Goo`,
-      prepare: (): void => {
-        retrieveItem(3, $item`teacher's pen`);
+      acquire: [
+        { item: $item`teacher's pen`, num: 3 },
+        ...(nextClass.primestat === $stat`Muscle`
+          ? $items`discarded swimming trunks, battered hubcap`.map((it) => ({ item: it }))
+          : []),
+        ...(nextClass.primestat === $stat`Mysticality` ? $items``.map((it) => ({ item: it })) : []),
+        ...(nextClass.primestat === $stat`Moxie`
+          ? $items`noir fedora, KoL Con 13 T-shirt`.map((it) => ({ item: it }))
+          : []),
+      ],
+      outfit: (): OutfitSpec => ({
+        familiar: $familiar`Grey Goose`,
+        hat: $item`giant yellow hat`,
+        weapon: $item`yule hatchet`,
+        acc1: $item`teacher's pen`,
+        acc2: $item`teacher's pen`,
+        acc3: $item`teacher's pen`,
+        famequip: $item`grey down vest`,
+      }),
+      prepare: () => {
         cliExecute("mcd 1");
-        useFamiliar($familiar`Grey Goose`);
-        equip($item`giant yellow hat`);
-        equip($item`yule hatchet`);
-        equip($item`battered hubcap`);
-        equip($item`discarded swimming trunks`);
-        equip($slot`acc1`, $item`teacher's pen`);
-        equip($slot`acc2`, $item`teacher's pen`);
-        equip($slot`acc3`, $item`teacher's pen`);
-        equip($item`grey down vest`);
         maximize(
-          "muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min",
+          `${nextClass.primestat} experience, 5 ${nextClass.primestat} experience percent, 10 familiar experience, -10 ml 1 min`,
           false
         );
       },
       do: (): void => {
-        cliExecute("loopgyou class=1");
+        cliExecute(`loopgyou class=${toInt(nextClass)}`);
         cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
         if (closetAmount($item`Special Seasoning`) > 0)
           cliExecute("closet take * special seasoning");
@@ -419,36 +446,57 @@ export const GyouQuest: Quest = {
       },
     },
     {
-      name: "HGH-Charged",
+      name: "Snapper Spleen Exp %",
       completed: () =>
         myLevel() >= targetLevel ||
-        have($effect`HGH-charged`) ||
+        $effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.reduce(
+          (a, ef) => a || have(ef),
+          false
+        ) ||
         mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
       do: (): void => {
         if (mySpleenUse() === spleenLimit()) use(1, $item`mojo filter`);
-        chew(1, $item`vial of humanoid growth hormone`); //lasts for 30 turns
+        chew(
+          1,
+          myClass().primestat === $stat`Muscle`
+            ? $item`vial of humanoid growth hormone`
+            : myClass().primestat === $stat`Mysticality`
+            ? $item`non-Euclidean angle`
+            : $item`Shantix™`
+        );
       },
       limit: { tries: Math.ceil(levelingTurns / 30) },
       tracking: "Leveling",
     },
     {
-      name: "Purpose",
+      name: "Inscrutable Gaze",
       completed: () =>
         myLevel() >= targetLevel ||
-        have($effect`Purpose`) ||
-        mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
-      do: (): void => {
-        if (mySpleenUse() === spleenLimit()) use(1, $item`mojo filter`);
-        chew(1, $item`abstraction: purpose`); //lasts for 50 turns
-      },
-      limit: { tries: Math.ceil(levelingTurns / 50) },
+        myClass().primestat !== $stat`Mysticality` ||
+        have($effect`Inscrutable Gaze`) ||
+        !have($skill`Inscrutable Gaze`),
+      do: () => useSkill($skill`Inscrutable Gaze`),
+      limit: { tries: Math.ceil(levelingTurns / 10) },
       tracking: "Leveling",
     },
     {
-      name: "Expert Vacationer",
-      completed: () => myLevel() >= targetLevel || have($effect`Expert Vacationer`),
-      do: () => use(1, $item`exotic travel brochure`), //lasts for 20 turns each
-      limit: { tries: Math.ceil(levelingTurns / 20) },
+      name: "Abstraction",
+      completed: () =>
+        myLevel() >= targetLevel ||
+        $effects`Purpose, Category, Perception`.reduce((a, ef) => a || have(ef), false) ||
+        mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
+      do: (): void => {
+        if (mySpleenUse() === spleenLimit()) use(1, $item`mojo filter`);
+        chew(
+          1,
+          myClass().primestat === $stat`Muscle`
+            ? $item`abstraction: purpose`
+            : myClass().primestat === $stat`Mysticality`
+            ? $item`abstraction: category`
+            : $item`abstraction: perception`
+        );
+      },
+      limit: { tries: Math.ceil(levelingTurns / 50) },
       tracking: "Leveling",
     },
     {
@@ -479,22 +527,32 @@ export const GyouQuest: Quest = {
       do: () => drink(1, $item`steel margarita`),
     },
     {
-      name: "Heart of White",
-      completed: () => myLevel() >= targetLevel || have($effect`Heart of White`),
-      do: () => use(1, $item`white candy heart`), //lasts for 10 turns
+      name: "Taffy Effects",
+      completed: () =>
+        myLevel() >= targetLevel ||
+        $effects`Orange Crusher, Purple Reign, Cinnamon Challenger`.reduce(
+          (a, ef) => a || haveEffect(ef) >= 50,
+          false
+        ),
+      do: () => {
+        if (myPrimestat() === $stat`Muscle`)
+          use(
+            Math.ceil((50 - haveEffect($effect`Orange Crusher`)) / 10),
+            $item`pulled orange taffy`
+          ); //lasts for 10 turns each
+        if (myPrimestat() === $stat`Mysticality`)
+          use(Math.ceil((50 - haveEffect($effect`Purple Reign`)) / 10), $item`pulled violet taffy`); //lasts for 10 turns each
+        if (myPrimestat() === $stat`Moxie`)
+          use(
+            Math.ceil((50 - haveEffect($effect`Cinnamon Challenger`)) / 10),
+            $item`pulled red taffy`
+          ); //lasts for 10 turns each
+      },
       limit: { tries: Math.ceil(levelingTurns / 10) },
       tracking: "Leveling",
     },
     {
-      name: "Orange Crusher",
-      completed: () => myLevel() >= targetLevel || have($effect`Orange Crusher`),
-      do: () =>
-        use(Math.ceil((50 - haveEffect($effect`Orange Crusher`)) / 10), $item`pulled orange taffy`), //lasts for 10 turns each
-      limit: { tries: Math.ceil(levelingTurns / 10) },
-      tracking: "Leveling",
-    },
-    {
-      name: "Buff Muscle",
+      name: "Buff Mainstat",
       completed: () =>
         myLevel() >= targetLevel || myBuffedstat(myPrimestat()) >= 11 * myBasestat(myPrimestat()),
       effects: $effects`Trivia Master`,
@@ -513,22 +571,28 @@ export const GyouQuest: Quest = {
     {
       name: "Gators",
       completed: () => myClass() !== $class`Grey Goo` && myLevel() >= targetLevel,
+      effects: $effects`Heart of White, Expert Vacationer`,
       prepare: (): void => {
-        restoreMp(8);
         restoreHp(0.75 * myMaxhp());
+        restoreMp(8);
       },
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
       outfit: {
         familiar: $familiar`Grey Goose`,
-        modifier:
-          "0.125 muscle, muscle experience, 5 muscle experience percent, 10 familiar experience, -10 ml 1 min",
+        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -10 ml 1 min`,
       },
       combat: new CombatStrategy().macro(() =>
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .trySkill($skill`Curse of Weaksauce`)
           .externalIf(
             $familiar`Grey Goose`.experience >= 400,
-            Macro.trySkill($skill`Convert Matter to Protein`)
+            Macro.trySkill(
+              myPrimestat() === $stat`Muscle`
+                ? $skill`Convert Matter to Protein`
+                : myPrimestat() === $stat`Mysticality`
+                ? $skill`Convert Matter to Energy`
+                : $skill`Convert Matter to Pomade`
+            )
           )
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Sing Along`)

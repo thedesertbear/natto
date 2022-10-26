@@ -1,11 +1,15 @@
 import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
+  availableAmount,
   buy,
   cliExecute,
   getPermedSkills,
+  guildStoreAvailable,
   hippyStoneBroken,
   itemAmount,
   myAdventures,
+  myClass,
+  myLevel,
   putCloset,
   pvpAttacksLeft,
   retrieveItem,
@@ -21,25 +25,20 @@ import {
   $location,
   $path,
   $skill,
-  $skills,
   ascend,
   get,
   have,
   Lifestyle,
-  Paths,
-  prepareAscension,
 } from "libram";
-import { getCurrentLeg, Leg, Macro, Quest, stooperDrunk } from "./structure";
-
-const defaultPermList = [
-  $skills`Natural Born Scrabbler, Thrift and Grift, Abs of Tin, Marginally Insane, Club Earth, Carbohydrate Cudgel, Splattersmash, Grab a Cold One, Song of the North, Turtleini, Sauceshell, Conspiratorial Whispers, Song of Slowness, Spaghetti Breakfast, Shadow Noodles, Song of Starch, Splashdance, Song of Sauce, Song of Bravado, Walberg's Dim Bulb, Singer's Faithful Ocelot, Drescher's Annoying Noise, Deep Dark Visions, Shattering Punch, Snokebomb, Shivering Monkey Technique, Bow-Legged Swagger, Bend Hell, Steely-Eyed Squint, Astute Angler, Lock Picking, Long Winter's Nap, Bowl Full of Jelly, Ashes and Soot, Eye and a Twist, Dimples\, How Merry!, Chubby and Plump, Dead Nostrils, Brain Games, Slimy Sinews, Slimy Synapses, Slimy Shoulders, Tick-skinned, Blood Bubble, Object Quasi-Permanence, Grease Up, 5-D Earning Potential, Hypersane, Refusal to Freeze, Olfactory Burnout, Asbestos Heart, Unoffendable, Gingerbread Mob Hit, Fashionably Late, Ancestral Recall, Giant Growth, Disintegrate, Expert Corner-Cutter, Rapid Prototyping, Executive Narcolepsy, Prevent Scurvy and Sobriety, The Spirit of Taking, Blood Frenzy, `,
-  $skills`Curse of Weaksauce, Itchy Curse Finger, Torso Awareness, Canneloni Cocoon`,
-  $skills`Nimble Fingers, Amphibian Sympathy, Leash of Linguini, Thief Among the Honorable, Expert Panhandling, Discor Leer, Five Finger Discount, Double-Fisted Skull Smashing, Impetuous Sauciness, Tao of the Terrapin, Saucestorm`,
-  $skills`Tongue of the Walrus, Mad Looting Skillz, Smooth Movements, Musk of the Moose, The Polka of Plenty, The Sonata of Sneakiness, Carlweather's Cantata of Confrontation, Mariachi Memory`,
-  $skills`Gnefarious Pickpocketing, Powers of Observation, Gnomish Hardigness, Cosmic Ugnderstanding, Ambidextrous Funkslinging, The Long View, Wisdom of the Elder Tortoises, Inner Sauce, Pulverize, Springy Fusilli, Overdeveloped Sense of Self Preservation`,
-  $skills`Pastamastery, Advanced Cocktailcrafting, The Ode to Booze, Advanced Saucecrafting, Saucemaven, The Way of Sauce, Fat Leon's Phat Loot Lyric, Empathy of the Newt, Superhuman Cocktailcrafting, Transcendental Noodlecraft, Super-Advanced Meatsmithing, Patient Smite, Wry Smile, Knowing Smile, Aloysius' Antiphon of Aptitude, Pride of the Puffin, Ur-Kel's Aria of Annoyance, Sensitive Fingers, Master Accordion Master Thief, The Moxious Madrigal, Stuffed Mortar Shell, Flavour of Magic, Skin of the Leatherback, Hide of the Walrus, Astral Shell, Ghostly Shell, Elemental Saucesphere, Subtle and Quick to Anger, Master Saucier, Spirit of Ravioli, Lunging Thrust-Smack, Entangling Noodles, Hero of the Half-Shell, Cold-Blooded Fearlessness, Northern Exposure, Diminished Gag Reflex, Tolerance of the Kitchen, Heart of Polyester, Shield of the Pastalord, Saucy Salve, Power Ballad of the Arrowsmith, Jalapeno Saucesphere, Irrepressible Spunk, Saucegeyser, Claws of the Walrus, Shell Up, Scarysauce, Disco Fever, Rage of the Reindeer, Brawnee's Anthem of Absorption, Reptilian Fortitude, The Psalm of Pointiness, Spiky Shell, Stiff Upper Lip, Blubber Up, Disco Smirk, The Magical Mojomuscular Melody, Blood Sugar Sauce Nagic, Cletus's Canticle of Celerity, Suspicious Gaze, Icy Glare, Dirge of Dreadfulness, Snarl of the Timberwolf, Testudinal Teachings, Disco Nap, Adventurer of Leisure, Stevedave's Shanty of Superiority, Northern Explosion, Armorcraftiness`,
-  $skills``,
-];
+import {
+  defaultPermList,
+  getCurrentLeg,
+  Leg,
+  Macro,
+  nextPerms,
+  Quest,
+  stooperDrunk,
+} from "./structure";
 
 export const AftercoreQuest: Quest = {
   name: "Aftercore",
@@ -98,6 +97,51 @@ export const AftercoreQuest: Quest = {
           .setAutoAttack()
       ),
       limit: { tries: 15 },
+    },
+    {
+      name: "Unlock Guild",
+      ready: () =>
+        nextPerms().reduce((a, sk) => a || sk.class === myClass(), false) ||
+        (myClass() === $class`Seal Clubber` &&
+          Math.min(
+            ...$items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) =>
+              availableAmount(it)
+            )
+          ) < 20),
+      completed: () => guildStoreAvailable(),
+      do: () => cliExecute("guild"),
+      outfit: (): OutfitSpec => ({
+        modifier:
+          "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant",
+      }),
+      combat: new CombatStrategy().macro(() =>
+        Macro.step(`if pastround 2; abort Macro did not complete; endif; `)
+          .tryItem($item`porquoise-handled sixgun`)
+          .attack()
+          .repeat()
+          .setAutoAttack()
+      ),
+    },
+    {
+      name: "Guild Skill Training",
+      ready: () => guildStoreAvailable() && false,
+      completed: () => !nextPerms().find((sk) => !have(sk) || sk.level > myLevel()),
+      do: () => nextPerms().forEach((sk) => sk),
+    },
+    {
+      name: "Buy Seal Summoning Supplies",
+      ready: () => myClass() === $class`Seal Clubber` && guildStoreAvailable(),
+      completed: () =>
+        Math.min(
+          ...$items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) =>
+            availableAmount(it)
+          )
+        ) >= 20,
+      acquire: $items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) => ({
+        item: it,
+        num: 500,
+      })),
+      do: () => false,
     },
     {
       name: "Garbo",
