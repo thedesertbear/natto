@@ -25,6 +25,7 @@ import {
   $location,
   $path,
   $skill,
+  $skills,
   $stat,
   ascend,
   get,
@@ -33,6 +34,7 @@ import {
 } from "libram";
 import {
   defaultPermList,
+  expectedKarma,
   getCurrentLeg,
   Leg,
   Macro,
@@ -182,20 +184,30 @@ export const AftercoreQuest: Quest = {
       },
     },
     {
-      name: "AscendGyou",
+      name: "Ascend Grey You",
+      ready: () => !nextPerms().find((sk) => !have(sk)),
       completed: () => getCurrentLeg() >= Leg.GreyYou,
       do: (): void => {
         const skillsToPerm = new Map();
         defaultPermList
           .flat()
           .filter((sk) => have(sk) && sk.permable && !(sk.name in getPermedSkills()))
-          .slice(0, Math.floor((get("bankedKarma") + 100) / 100))
+          .slice(0, Math.floor(expectedKarma() / 100))
           .forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
+        const moonsign = have($item`hewn moon-rune spoon`)
+          ? "vole"
+          : $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+              defaultPermList
+                .flat()
+                .filter((sk) => !have(sk) && sk.permable && !(sk.name in getPermedSkills()))[0]
+            ) // See if any gnome skills will be our first priority next run
+          ? "wombat"
+          : "vole";
         ascend(
           $path`Grey You`,
           $class`Grey Goo`,
           Lifestyle.softcore,
-          "vole",
+          moonsign,
           $item`astral six-pack`,
           $item`astral pet sweater`,
           { permSkills: skillsToPerm, neverAbort: false }

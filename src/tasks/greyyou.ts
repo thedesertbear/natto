@@ -79,10 +79,10 @@ let nextClass: Class = $class`none`;
 
 export const GyouQuest: Quest = {
   name: "Grey You",
-  completed: () => getCurrentLeg() > Leg.GreyYou,
+  completed: () => getCurrentLeg() !== Leg.GreyYou,
   tasks: [
     {
-      name: "Choose Class",
+      name: "Plan Aftercore Class",
       completed: () => myClass() !== $class`Grey Goo` || baseClasses.includes(nextClass),
       do: () =>
         (nextClass = (nextPerms().find((sk) => baseClasses.includes(sk.class)) || $skill`Clobber`)
