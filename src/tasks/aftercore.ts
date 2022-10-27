@@ -3,24 +3,32 @@ import {
   availableAmount,
   buy,
   cliExecute,
+  drink,
   getPermedSkills,
   guildStoreAvailable,
   hippyStoneBroken,
+  inebrietyLimit,
   itemAmount,
   myAdventures,
   myClass,
+  myInebriety,
   myLevel,
+  myMaxhp,
   putCloset,
   pvpAttacksLeft,
+  restoreHp,
+  restoreMp,
   retrieveItem,
   runChoice,
   toInt,
   use,
   visitUrl,
+  wait,
 } from "kolmafia";
 import {
   $class,
   $coinmaster,
+  $effect,
   $item,
   $items,
   $location,
@@ -34,6 +42,7 @@ import {
   Lifestyle,
 } from "libram";
 import {
+  canDiet,
   defaultPermList,
   expectedKarma,
   getCurrentLeg,
@@ -67,6 +76,8 @@ export const AftercoreQuest: Quest = {
           putCloset($item`daily dungeon malware`);
         if (!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
           retrieveItem(1, $item`daily dungeon malware`);
+        restoreHp(0.75 * myMaxhp());
+        restoreMp(8);
       },
       do: $location`The Daily Dungeon`,
       choices: {
@@ -96,6 +107,7 @@ export const AftercoreQuest: Quest = {
           .externalIf(!get("_dailyDungeonMalwareUsed"), Macro.tryItem($item`daily dungeon malware`))
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Fire the Jokester's Gun`)
+          .trySkill($skill`Saucestorm`)
           .attack()
           .repeat()
           .setAutoAttack()
@@ -167,7 +179,7 @@ export const AftercoreQuest: Quest = {
     },
     {
       name: "Garbo",
-      completed: () => myAdventures() === 0 || stooperDrunk(),
+      completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
       do: () => cliExecute("garbo ascend"),
       tracking: "Garbo",
     },
