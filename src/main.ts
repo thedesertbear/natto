@@ -3,20 +3,42 @@ import { Args, getTasks } from "grimoire-kolmafia";
 import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
+import { $skill, get } from "libram";
+import { baseClasses, nextPerms } from "./tasks/structure";
 
-export const args = Args.create("goorbo", "A script for farming barf mountain while half-glooping.", {
-  actions: Args.number({
-    help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time.",
-  }),
-  pvp: Args.flag({ help: "If true, break hippy stone and do pvp.", default: false }),
-  abort: Args.string({
-    help: "If given, abort during the prepare() step for the task with matching name.",
-  }),
-});
+export const args = Args.create(
+  "goorbo",
+  "A script for farming barf mountain while half-glooping.",
+  {
+    actions: Args.number({
+      help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time.",
+    }),
+    pvp: Args.flag({ help: "If true, break hippy stone and do pvp.", default: false }),
+    simperms: Args.flag({
+      help: "If true, see the current plan for perms this run and return.",
+      default: false,
+    }),
+    abort: Args.string({
+      help: "If given, abort during the prepare() step for the task with matching name.",
+    }),
+  }
+);
 export function main(command?: string): void {
   Args.fill(args, command);
   if (args.help) {
     Args.showHelp(args);
+    return;
+  }
+  if (args.simperms) {
+    const perms = nextPerms();
+    const nextClass = (perms.find((sk) => baseClasses.includes(sk.class)) || $skill`Clobber`).class;
+    if (perms.length > 0)
+      print(
+        `Perm plan: [${perms.join(", ")}] - Class: ${nextClass}, Karma: ${get("bankedKarma")}`,
+        "green"
+      );
+    else
+      print(`Perm Plan: bank karma - Class: ${nextClass}, Karma: ${get("bankedKarma")}`, "green");
     return;
   }
 
