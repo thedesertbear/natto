@@ -1,9 +1,9 @@
-import { print, printHtml } from "kolmafia";
+import { getPermedSkills, print, printHtml } from "kolmafia";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
-import { $class, get, have, permedSkills } from "libram";
+import { $class, get, have } from "libram";
 import { defaultPermList, nextClass, nextPerms } from "./tasks/structure";
 
 export const args = Args.create(
@@ -43,8 +43,6 @@ export function main(command?: string): void {
         "green"
       );
     else print(`Perm Plan: bank karma - Class: ${nClass}, Karma: ${get("bankedKarma")}`, "green");
-    print("~~ Permed Skills ~~");
-    permedSkills().forEach((ls, sk) => print(`${sk}: ${ls}`));
     print("~~ Default Perm List ~~", "green");
     printHtml(
       `~ Legend <span color="black">black: permed</span>, <span color="fuchsia">fuchsia: targeted/known</span>, <span color="blue">blue: targeted/unknown</span>, <span color="purple">purple: known</span>, <span color="navy">navy: class skills</span>, <span color="gray">gray: other</span>`
@@ -54,7 +52,7 @@ export function main(command?: string): void {
       printHtml(
         `Tier ${tier++}: ${sks
           .map((sk) => {
-            if (sk.name in permedSkills()) return spanWrap(sk.name, "black");
+            if (sk.name in getPermedSkills()) return spanWrap(sk.name, "black");
             if (nPerms.includes(sk) && have(sk)) return spanWrap(sk.name, "fuchsia");
             if (nPerms.includes(sk)) return spanWrap(sk.name, "blue");
             if (have(sk)) return spanWrap(sk.name, "purple");

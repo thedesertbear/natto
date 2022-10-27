@@ -61,8 +61,15 @@ export function getCurrentLeg(): number {
 export const baseClasses = $classes`Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief`;
 
 export const defaultPermList = [
-  //tier 0 - never actually target these, but perm them as top priority if you happen to know them
-  $skills`Natural Born Scrabbler, Thrift and Grift, Abs of Tin, Marginally Insane, Club Earth, Carbohydrate Cudgel, Splattersmash, Grab a Cold One, Song of the North, Turtleini, Sauceshell, Conspiratorial Whispers, Song of Slowness, Spaghetti Breakfast, Shadow Noodles, Song of Starch, Splashdance, Song of Sauce, Song of Bravado, Walberg's Dim Bulb, Singer's Faithful Ocelot, Drescher's Annoying Noise, Deep Dark Visions, Shattering Punch, Snokebomb, Shivering Monkey Technique, Bow-Legged Swagger, Bend Hell, Steely-Eyed Squint, Astute Angler, Lock Picking, Long Winter's Nap, Bowl Full of Jelly, Ashes and Soot, Eye and a Twist, Dimples\, How Merry!, Chubby and Plump, Dead Nostrils, Brain Games, Slimy Sinews, Slimy Synapses, Slimy Shoulders, Thick-Skinned, Blood Bubble, Object Quasi-Permanence, Grease Up, 5-D Earning Potential, Hypersane, Refusal to Freeze, Olfactory Burnout, Asbestos Heart, Unoffendable, Gingerbread Mob Hit, Fashionably Late, Ancestral Recall, Giant Growth, Disintegrate, Expert Corner-Cutter, Rapid Prototyping, Executive Narcolepsy, Prevent Scurvy and Sobriety, The Spirit of Taking, Blood Frenzy`,
+  //tier 0 - all permable non-guild, non-gnome skills - never actually target these, but perm them as top priority if you happen to know them
+  $skills``.filter(
+    (sk) =>
+      sk.permable &&
+      sk.level === -1 &&
+      !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding, Torso Awareness`.includes(
+        sk
+      )
+  ),
   //tier 1 - needed for the script to run at its best
   $skills`Curse of Weaksauce, Itchy Curse Finger, Torso Awareness, Cannelloni Cocoon`,
   //tier 2 - great skills
@@ -75,9 +82,7 @@ export const defaultPermList = [
   $skills`Pastamastery, Advanced Cocktailcrafting, The Ode to Booze, Advanced Saucecrafting, Saucemaven, The Way of Sauce, Fat Leon's Phat Loot Lyric, Empathy of the Newt, The Moxious Madrigal, Stuffed Mortar Shell, Flavour of Magic, Elemental Saucesphere, Spirit of Ravioli, Lunging Thrust-Smack, Entangling Noodles, Cold-Blooded Fearlessness, Northern Exposure, Diminished Gag Reflex, Tolerance of the Kitchen, Heart of Polyester, Irrepressible Spunk, Saucegeyser, Scarysauce, Disco Fever, Rage of the Reindeer, The Magical Mojomuscular Melody, Testudinal Teachings, Disco Nap, Adventurer of Leisure, Armorcraftiness`,
   //tier 6 - skills with non-zero utility
   $skills`Superhuman Cocktailcrafting, Transcendental Noodlecraft, Super-Advanced Meatsmithing, Patient Smile, Wry Smile, Knowing Smile, Aloysius' Antiphon of Aptitude, Pride of the Puffin, Ur-Kel's Aria of Annoyance, Sensitive Fingers, Master Accordion Master Thief, Skin of the Leatherback, Hide of the Walrus, Astral Shell, Ghostly Shell, Subtle and Quick to Anger, Master Saucier, Hero of the Half-Shell, Shield of the Pastalord, Saucy Salve, The Power Ballad of the Arrowsmith, Jalapeño Saucesphere, Claws of the Walrus, Shell Up, Brawnee's Anthem of Absorption, Reptilian Fortitude, The Psalm of Pointiness, Spiky Shell, Stiff Upper Lip, Blubber Up, Disco Smirk, Blood Sugar Sauce Magic, Cletus's Canticle of Celerity, Suspicious Gaze, Icy Glare, Dirge of Dreadfulness, Snarl of the Timberwolf, Stevedave's Shanty of Superiority, Northern Explosion`,
-  //tier 7 - all other non-guild skills
-  $skills``.filter((sk) => sk.permable && sk.level === -1),
-  //tier 8 - all other guild skills
+  //tier 7 - all other guild skills
   $skills``.filter((sk) => sk.permable && sk.level >= 0),
 ];
 
