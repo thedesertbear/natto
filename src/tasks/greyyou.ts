@@ -3,7 +3,6 @@ import {
   buy,
   buyUsingStorage,
   chew,
-  Class,
   cliExecute,
   closetAmount,
   drink,
@@ -69,6 +68,7 @@ import {
   haveAll,
   Leg,
   Macro,
+  nextClass,
   nextPerms,
   Quest,
   readyForBed,
@@ -78,25 +78,26 @@ import {
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;
 const targetLevel = 13;
-let nextClass: Class = $class`none`;
+let nClass = $class`none`;
 
 export const GyouQuest: Quest = {
   name: "Grey You",
   completed: () => getCurrentLeg() !== Leg.GreyYou,
   tasks: [
     {
-      name: "Plan Aftercore Class",
-      completed: () => myClass() !== $class`Grey Goo` || baseClasses.includes(nextClass),
-      do: () =>
-        (nextClass = (nextPerms().find((sk) => baseClasses.includes(sk.class)) || $skill`Clobber`)
-          .class),
-      post: () =>
-        print(
-          `Skill perming plan for this run - Class: [${nextClass}], Skills: [${nextPerms(
-            nextClass
-          ).join(", ")}]`,
-          "green"
-        ),
+      name: "Print Perm Plan",
+      completed: () => myClass() !== $class`Grey Goo` || baseClasses.includes(nClass),
+      do: () => {
+        const nPerms = nextPerms();
+        nClass = nextClass();
+        if (nPerms.length > 0)
+          print(
+            `Perm plan: [${nPerms.join(", ")}] - Class: ${nClass}, Karma: ${get("bankedKarma")}`,
+            "green"
+          );
+        else
+          print(`Perm Plan: bank karma - Class: ${nClass}, Karma: ${get("bankedKarma")}`, "green");
+      },
     },
     {
       name: "Farming Pulls",
@@ -138,15 +139,15 @@ export const GyouQuest: Quest = {
       name: "Train Gnome Skills",
       ready: () => myMeat() >= 5000 && gnomadsAvailable(),
       completed: () =>
-        nextPerms(nextClass).filter(
+        !nextPerms().find(
           (sk) =>
             $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
               sk
             ) && !have(sk)
-        ).length === 0,
+        ),
       do: () =>
         visitUrl(
-          `gnomes.php?action=trainskill&whichskill=${nextPerms(nextClass).find(
+          `gnomes.php?action=trainskill&whichskill=${nextPerms().find(
             (sk) =>
               $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
                 sk
@@ -440,11 +441,11 @@ export const GyouQuest: Quest = {
       completed: () => myClass() !== $class`Grey Goo`,
       acquire: [
         { item: $item`teacher's pen`, num: 3 },
-        ...(nextClass.primestat === $stat`Muscle`
+        ...(nClass.primestat === $stat`Muscle`
           ? $items`discarded swimming trunks, battered hubcap`.map((it) => ({ item: it }))
           : []),
-        ...(nextClass.primestat === $stat`Mysticality` ? $items``.map((it) => ({ item: it })) : []),
-        ...(nextClass.primestat === $stat`Moxie`
+        ...(nClass.primestat === $stat`Mysticality` ? $items``.map((it) => ({ item: it })) : []),
+        ...(nClass.primestat === $stat`Moxie`
           ? $items`noir fedora, KoL Con 13 T-shirt`.map((it) => ({ item: it }))
           : []),
       ],
@@ -460,12 +461,12 @@ export const GyouQuest: Quest = {
       prepare: () => {
         cliExecute("mcd 1");
         maximize(
-          `${nextClass.primestat} experience, 5 ${nextClass.primestat} experience percent, 10 familiar experience, -10 ml 1 min`,
+          `${nClass.primestat} experience, 5 ${nClass.primestat} experience percent, 10 familiar experience, -10 ml 1 min`,
           false
         );
       },
       do: (): void => {
-        cliExecute(`loopgyou class=${toInt(nextClass)}`);
+        cliExecute(`loopgyou class=${toInt(nClass)}`);
         cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
         if (closetAmount($item`Special Seasoning`) > 0)
           cliExecute("closet take * special seasoning");
