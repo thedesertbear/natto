@@ -229,13 +229,11 @@ export const AftercoreQuest: Quest = {
 
         const moonsign = have($item`hewn moon-rune spoon`)
           ? "vole"
-          : $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
-              defaultPermList
-                .flat()
-                .find((sk) => !have(sk) && sk.permable && !(sk.name in getPermedSkills()))
-            ) // See if any gnome skills will be our first priority next run
-          ? "wombat"
-          : "vole";
+          : !targetPerms(true).find(sk =>
+                $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(sk))
+           // See if any gnome skills are planned for next run
+          ? "vole"
+          : "wombat";
         ascend(
           $path`Grey You`,
           $class`Grey Goo`,
