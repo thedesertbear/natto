@@ -65,15 +65,13 @@ export function permOptions(planning: boolean): Skill[][] {
               (classChoices.includes(sk.class) && sk.level > 0))
         )
       ) //for current run, include skills that we know or that we can train in this run.
-    :
-      defaultPermList.map((sks) =>
+    : defaultPermList.map((sks) =>
         sks.filter(
           (sk) =>
             !(sk.name in getPermedSkills() || targetPerms(false).includes(sk)) &&
             (gnomeSkills.includes(sk) || (classChoices.includes(sk.class) && sk.level >= 0))
         )
       ); //for next run, exclude all skills that we are planning to perm this run, and allow all guild and gnome skills.
-  
 }
 
 export function permTier(planning: boolean) {
