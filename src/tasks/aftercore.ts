@@ -4,6 +4,7 @@ import {
   buy,
   cliExecute,
   getPermedSkills,
+  gnomadsAvailable,
   guildStoreAvailable,
   hippyStoneBroken,
   itemAmount,
@@ -47,7 +48,9 @@ import {
 import {
   defaultPermList,
   expectedKarma,
-  nextPerms,
+  targetClass,
+  targetPerms,
+  printPermPlan,
 } from "./perm";
 
 export const AftercoreQuest: Quest = {
@@ -114,7 +117,7 @@ export const AftercoreQuest: Quest = {
     {
       name: "Unlock Guild",
       ready: () =>
-        nextPerms().reduce((a, sk) => a || sk.class === myClass(), false) ||
+        targetPerms().reduce((a, sk) => a || sk.class === myClass(), false) ||
         (myClass() === $class`Seal Clubber` &&
           Math.min(
             ...$items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) =>
@@ -138,9 +141,9 @@ export const AftercoreQuest: Quest = {
     {
       name: "Guild Skill Training",
       ready: () => guildStoreAvailable() && false,
-      completed: () => !nextPerms(myClass()).find((sk) => !have(sk) || sk.level > myLevel()),
+      completed: () => !targetPerms().find((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level),
       do: () =>
-        nextPerms(myClass())
+        targetPerms()
           .filter((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level)
           .forEach((sk) => visitUrl(`guild.php?action=buyskill&skillid=${toInt(sk)}`, true)),
       limit: { tries: 3 }, //a few, in case your level is too low and you level up over the course of the day
@@ -175,6 +178,27 @@ export const AftercoreQuest: Quest = {
       do: () => false,
     },
     {
+      name: "Train Gnome Skills",
+      ready: () => myMeat() >= 5000 && gnomadsAvailable(),
+      completed: () =>
+        !targetPerms().find(
+          (sk) =>
+            $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+              sk
+            ) && !have(sk)
+        ),
+      do: () =>
+        visitUrl(
+          `gnomes.php?action=trainskill&whichskill=${toInt(targetPerms().find(
+            (sk) =>
+              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+                sk
+              ) && !have(sk)
+          ))}`
+        ),
+      limit: { tries: 5 },
+    },
+    {
       name: "Garbo",
       completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
       do: () => cliExecute("garbo ascend"),
@@ -199,21 +223,20 @@ export const AftercoreQuest: Quest = {
     },
     {
       name: "Ascend Grey You",
-      ready: () => !nextPerms().find((sk) => !have(sk)),
+      ready: () => !targetPerms().find((sk) => !have(sk)),
       completed: () => getCurrentLeg() >= Leg.GreyYou,
       do: (): void => {
+        printPermPlan();
+        const nClass = targetClass(true);
         const skillsToPerm = new Map();
-        defaultPermList
-          .flat()
-          .filter((sk) => have(sk) && sk.permable && !(sk.name in getPermedSkills()))
-          .slice(0, Math.floor(expectedKarma() / 100))
-          .forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
+        targetPerms().forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
+
         const moonsign = have($item`hewn moon-rune spoon`)
           ? "vole"
           : $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
               defaultPermList
                 .flat()
-                .filter((sk) => !have(sk) && sk.permable && !(sk.name in getPermedSkills()))[0]
+                .find((sk) => !have(sk) && sk.permable && !(sk.name in getPermedSkills()))
             ) // See if any gnome skills will be our first priority next run
           ? "wombat"
           : "vole";
@@ -229,6 +252,7 @@ export const AftercoreQuest: Quest = {
         if (visitUrl("main.php").includes("somewhat-human-shaped mass of grey goo nanites"))
           runChoice(-1);
         cliExecute("refresh all");
+        set("_goorboNextClass", nClass);
       },
     },
   ],

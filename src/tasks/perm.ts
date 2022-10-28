@@ -16,6 +16,7 @@ import {
 } from "libram";
 
 export const baseClasses = $classes`Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief`;
+export const gnomeSkills = $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`;
 
 export const defaultPermList = [
   //tier 0 - all permable non-guild, non-gnome skills - never actually target these, but perm them as top priority if you happen to know them
@@ -43,46 +44,74 @@ export const defaultPermList = [
   $skills``.filter((sk) => sk.permable && sk.level >= 0),
 ];
 
-export function expectedKarma(): number {
-  return get("bankedKarma") + (inHardcore() ? 200 : inCasual() ? 0 : 100);
+export function permOptions(planning = false) {
+  //planning = true: next run, false: this run
+  const classChoices = planning
+    ? baseClasses
+    : baseClasses.includes(myClass())
+    ? [myClass()]
+    : [get("_goorboNextClass", get("goorboDefaultClass", $class`Seal Clubber`))];
+
+    return !planning
+    ? defaultPermList.map(sks => sks.filter(sk => !(sk.name in getPermedSkills()) &&
+    (have(sk) || (gnomeSkills.includes(sk) && gnomadsAvailable()) ||
+      ((classChoices.includes(sk.class) && sk.level > 0)))))
+    //for current run, include skills that we know or that we can get in this run.
+    : defaultPermList.map(sks => sks.filter(sk => !(sk.name in getPermedSkills() || targetPerms().includes(sk)) && gnomeSkills.includes(sk) ||
+      ((classChoices.includes(sk.class) && sk.level >= 0))));
+    //for next run, exclude all skills that we are planning to perm this run, and allow all guild and gnome skills.
 }
 
-export function nextClass(): Class {
-  return (nextPerms().find((sk) => !have(sk) && baseClasses.includes(sk.class)) || $skill`Clobber`)
-    .class;
+export function permTier(planning = false) {
+  // the highest tier of unpermed skills available. Returns 0 if no non-tier 0 skills are available
+  return permOptions(planning).slice(1).findIndex((sks) => sks.length !== 0) + 1; 
 }
-export function nextPerms(nextClass?: Class): Skill[] {
-  const classChoices = baseClasses.includes(myClass())
-    ? [myClass()]
-    : nextClass && nextClass !== $class`none`
-    ? [nextClass]
-    : baseClasses;
-  const permOptions = defaultPermList
-    .slice(1) //remove skillbook perms
-    .map((sks) =>
-      sks.filter(
-        (sk) =>
-          sk.permable &&
-          !(sk.name in getPermedSkills()) &&
-          (have(sk) ||
-            ((classChoices.includes(sk.class) || sk === $skill`Torso Awareness`) && //remove non-core-class skills (add gnome skills back sometime)
-              sk.level > 0)) //only include guild-learnable skills (and starting class skills)
-      )
-    );
-  const qty = permOptions.findIndex((sks) => sks.length !== 0) + 1; //qty = the tier of your best perm target
-  if (qty > expectedKarma() / 100 || qty === 0)
-    //don't perm anything (bank karma), but do perm high-priority skills you happen to already know (probably due to Big Book or skillbooks)
-    return permOptions
-      .slice(0, qty + 1) //skills in tiers <= your current best perm target
+
+export function expectedKarma(planning = false): number {
+  return !planning
+    ? get("bankedKarma") + (inHardcore() ? 200 : inCasual() ? 0 : 100)
+    : expectedKarma(false) - targetPerms(false) * 100 + (inHardcore() ? 200 : inCasual() ? 0 : 100);
+}
+
+export function targetClass(planning = false): Class | undefined {
+  if(myClass() === $class`Grey Goo`)
+    return get("_goorboNextClass", get("goorboDefaultClass", $class`Seal Clubber`));
+  //can't access permed skill status in grey goo
+
+  const sk = permOptions(planning).find((sk) => baseClasses.includes(sk.class));
+  return sk
+    ? sk.class
+    : get("goorboDefaultClass", $class`Seal Clubber`);
+}
+
+export function targetPerms(planning = false): Skill[] {
+  const pOptions = permOptions(planning);
+  const tier = permTier(planning);
+  if(tier > expectedKarma(planning) / 100 || tier === 0)
+    //don't perm anything (bank karma), but do perm high-tier skills you happen to already know (probably due to Big Book or manually used skillbooks)
+    return !planning
+    ? pOptions
+      .slice(0, tier + 1) //skills in tiers <= your current best perm target
       .flat()
       .filter((sk) => have(sk))
-      .slice(0, Math.floor(expectedKarma() / 100)); //don't plan to perm more than we have karma for
-
-  const topSkill =
-    permOptions.flat().find((sk) => !have(sk) && classChoices.includes(sk.class)) || $skill`none`; //top skill will define our class choice.
-  return permOptions
-    .flat()
-    .filter((sk) => sk === $skill`Torso Awareness` || have(sk) || sk.class === topSkill.class)
-    .slice(0, qty + Math.ceil(Math.sqrt(expectedKarma() / 100 - qty))); //select 1 or more skills from the same class to perm
+      .slice(0, Math.floor(expectedKarma() / 100)) //don't plan to perm more than we have karma for
+    : []; //don't plan to perm anything next run if we plan to bank karma
+  
+  const qty = tier + Math.ceil(Math.sqrt(Math.max(0, expectedKarma(planning) / 100 - tier)));
+  return (!planning
+    ? pOptions.flat() //return first X perm ptions
+    : pOptions.flat().filter(sk => sk.class === targetClass(planning) || gnomeSkills.includes(sk))
+  ).slice(0, qty);
 }
 
+function planHelper(perms: Skill[], cls: Class, karma: number) {
+  if (perms.length > 0)
+    return `Perm plan: [${perms.join(", ")}] - Class: ${cls}, Expected Karma: ${karma}`;
+  else
+    return `Perm Plan: bank karma - Class: ${cls}, Expected Karma: ${karma}`;
+}
+
+export function printPermPlan() {
+  print(`Current ${planHelper(targetPerms(), targetClass(), expectedKarma())}`, "green");
+  print(`Next ${planHelper(targetPerms(true), targetClass(true), expectedKarma(true))}`, "green");
+}

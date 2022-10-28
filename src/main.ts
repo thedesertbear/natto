@@ -4,7 +4,7 @@ import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
 import { $class, get, have } from "libram";
-import { defaultPermList, nextClass, nextPerms } from "./tasks/perm";
+import { defaultPermList, targetClass, targetPerms, printPermPlan } from "./tasks/perm";
 
 export const args = Args.create(
   "goorbo",
@@ -35,32 +35,32 @@ export function main(command?: string): void {
     return;
   }
   if (args.simperms) {
-    const nPerms = nextPerms();
-    const nClass = nextClass();
-    if (nPerms.length > 0)
-      print(
-        `Perm plan: [${nPerms.join(", ")}] - Class: ${nClass}, Karma: ${get("bankedKarma")}`,
-        "green"
-      );
-    else print(`Perm Plan: bank karma - Class: ${nClass}, Karma: ${get("bankedKarma")}`, "green");
+    printPermPlan();
+    const nPerms = targetPerms();
+    const nClass = targetClass();
     print("~~ Default Perm List ~~", "green");
     printHtml(
-      `~ Legend <span color="black">black: permed</span>, <span color="fuchsia">fuchsia: targeted/known</span>, <span color="blue">blue: targeted/unknown</span>, <span color="purple">purple: known</span>, <span color="navy">navy: class skills</span>, <span color="gray">gray: other</span>`
+      `Legend: <span color="black">[permed]</span>, <span color="fuchsia">[targeted/known]</span>, <span color="blue">[targeted/unknown]</span>, <span color="purple">[known]</span>, <span color="navy">[class skills]</span>, <span color="gray">[other]</span>`
     );
     let tier = 0;
     defaultPermList.forEach((sks) =>
       printHtml(
-        `Tier ${tier++}: ${sks
-          .map((sk) => {
-            if (sk.name in getPermedSkills()) return spanWrap(sk.name, "black");
-            if (nPerms.includes(sk) && have(sk)) return spanWrap(sk.name, "fuchsia");
-            if (nPerms.includes(sk)) return spanWrap(sk.name, "blue");
-            if (have(sk)) return spanWrap(sk.name, "purple");
-            if (nClass && nClass === sk.class && nClass !== $class`none`)
-              return spanWrap(sk.name, "navy");
-            return spanWrap(sk.name, "gray");
-          })
-          .join(", ")}`
+        `~ Tier ${tier++} ~<br> ${sks
+          .map((sk) => (
+            sk.name in getPermedSkills()
+            ? spanWrap(sk.name, "black")
+            : nPerms.includes(sk) && have(sk)
+            ? spanWrap(sk.name, "fuchsia")
+            : nPerms.includes(sk)
+            ? spanWrap(sk.name, "blue")
+            : have(sk)
+            ? spanWrap(sk.name, "purple")
+            : nClass && nClass === sk.class && nClass !== $class`none`
+            ? spanWrap(sk.name, "navy")
+            : spanWrap(sk.name, "gray")
+          )
+          .join(", "))
+        }`
       )
     );
     return;

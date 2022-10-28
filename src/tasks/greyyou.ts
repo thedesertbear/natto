@@ -72,35 +72,18 @@ import {
   stooperDrunk,
 } from "./structure";
 import {
-  baseClasses,
-  nextClass,
-  nextPerms,
+  targetClass,
+  targetPerms,
 } from "./perm";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;
 const targetLevel = 13;
-let nClass = $class`none`;
 
 export const GyouQuest: Quest = {
   name: "Grey You",
   completed: () => getCurrentLeg() !== Leg.GreyYou,
   tasks: [
-    {
-      name: "Print Perm Plan",
-      completed: () => myClass() !== $class`Grey Goo` || baseClasses.includes(nClass),
-      do: () => {
-        const nPerms = nextPerms();
-        nClass = nextClass();
-        if (nPerms.length > 0)
-          print(
-            `Perm plan: [${nPerms.join(", ")}] - Class: ${nClass}, Karma: ${get("bankedKarma")}`,
-            "green"
-          );
-        else
-          print(`Perm Plan: bank karma - Class: ${nClass}, Karma: ${get("bankedKarma")}`, "green");
-      },
-    },
     {
       name: "Farming Pulls",
       completed: () => myPulls.reduce((b, it) => b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
@@ -140,23 +123,11 @@ export const GyouQuest: Quest = {
     {
       name: "Train Gnome Skills",
       ready: () => myMeat() >= 5000 && gnomadsAvailable(),
-      completed: () =>
-        !nextPerms().find(
-          (sk) =>
-            $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
-              sk
-            ) && !have(sk)
-        ),
+      completed: () => have($skill`Torso Awareness`),
       do: () =>
         visitUrl(
-          `gnomes.php?action=trainskill&whichskill=${nextPerms().find(
-            (sk) =>
-              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
-                sk
-              ) && !have(sk)
-          )}`
+          `gnomes.php?action=trainskill&whichskill=${toInt($skill`Torso Awareness`)}`
         ),
-      limit: { tries: 5 },
     },
     {
       name: "In-Run Farm Initial",
@@ -443,11 +414,11 @@ export const GyouQuest: Quest = {
       completed: () => myClass() !== $class`Grey Goo`,
       acquire: [
         { item: $item`teacher's pen`, num: 3 },
-        ...(nClass.primestat === $stat`Muscle`
+        ...(targetClass().primestat === $stat`Muscle`
           ? $items`discarded swimming trunks, battered hubcap`.map((it) => ({ item: it }))
           : []),
-        ...(nClass.primestat === $stat`Mysticality` ? $items``.map((it) => ({ item: it })) : []),
-        ...(nClass.primestat === $stat`Moxie`
+        ...(targetClass().primestat === $stat`Mysticality` ? $items``.map((it) => ({ item: it })) : []),
+        ...(targetClass().primestat === $stat`Moxie`
           ? $items`noir fedora, KoL Con 13 T-shirt`.map((it) => ({ item: it }))
           : []),
       ],
