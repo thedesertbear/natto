@@ -53,7 +53,6 @@ import {
   $items,
   $location,
   $skill,
-  $skills,
   $stat,
   ensureEffect,
   get,
@@ -71,10 +70,7 @@ import {
   readyForBed,
   stooperDrunk,
 } from "./structure";
-import {
-  targetClass,
-  targetPerms,
-} from "./perm";
+import { targetClass } from "./perm";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;
@@ -125,9 +121,7 @@ export const GyouQuest: Quest = {
       ready: () => myMeat() >= 5000 && gnomadsAvailable(),
       completed: () => have($skill`Torso Awareness`),
       do: () =>
-        visitUrl(
-          `gnomes.php?action=trainskill&whichskill=${toInt($skill`Torso Awareness`)}`
-        ),
+        visitUrl(`gnomes.php?action=trainskill&whichskill=${toInt($skill`Torso Awareness`)}`),
     },
     {
       name: "In-Run Farm Initial",
@@ -417,7 +411,9 @@ export const GyouQuest: Quest = {
         ...(targetClass().primestat === $stat`Muscle`
           ? $items`discarded swimming trunks, battered hubcap`.map((it) => ({ item: it }))
           : []),
-        ...(targetClass().primestat === $stat`Mysticality` ? $items``.map((it) => ({ item: it })) : []),
+        ...(targetClass().primestat === $stat`Mysticality`
+          ? $items``.map((it) => ({ item: it }))
+          : []),
         ...(targetClass().primestat === $stat`Moxie`
           ? $items`noir fedora, KoL Con 13 T-shirt`.map((it) => ({ item: it }))
           : []),
@@ -434,12 +430,14 @@ export const GyouQuest: Quest = {
       prepare: () => {
         cliExecute("mcd 1");
         maximize(
-          `${nClass.primestat} experience, 5 ${nClass.primestat} experience percent, 10 familiar experience, -10 ml 1 min`,
+          `${targetClass().primestat} experience, 5 ${
+            targetClass().primestat
+          } experience percent, 10 familiar experience, -10 ml 1 min`,
           false
         );
       },
       do: (): void => {
-        cliExecute(`loopgyou class=${toInt(nClass)}`);
+        cliExecute(`loopgyou class=${toInt(targetClass())}`);
         cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
         if (closetAmount($item`Special Seasoning`) > 0)
           cliExecute("closet take * special seasoning");
