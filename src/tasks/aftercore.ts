@@ -104,7 +104,7 @@ export const AftercoreQuest: Quest = {
     {
       name: "Unlock Guild",
       ready: () =>
-        targetPerms().reduce((a, sk) => a || sk.class === myClass(), false) ||
+        targetPerms(false).reduce((a, sk) => a || sk.class === myClass(), false) ||
         (myClass() === $class`Seal Clubber` &&
           Math.min(
             ...$items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) =>
@@ -129,9 +129,11 @@ export const AftercoreQuest: Quest = {
       name: "Guild Skill Training",
       ready: () => guildStoreAvailable() && false,
       completed: () =>
-        !targetPerms().find((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level),
+        !targetPerms(false).find(
+          (sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level
+        ),
       do: () =>
-        targetPerms()
+        targetPerms(false)
           .filter((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level)
           .forEach((sk) => visitUrl(`guild.php?action=buyskill&skillid=${toInt(sk)}`, true)),
       limit: { tries: 3 }, //a few, in case your level is too low and you level up over the course of the day
@@ -169,7 +171,7 @@ export const AftercoreQuest: Quest = {
       name: "Train Gnome Skills",
       ready: () => myMeat() >= 5000 && gnomadsAvailable(),
       completed: () =>
-        !targetPerms().find(
+        !targetPerms(false).find(
           (sk) =>
             !have(sk) &&
             $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
@@ -177,7 +179,7 @@ export const AftercoreQuest: Quest = {
             )
         ),
       do: () =>
-        targetPerms()
+        targetPerms(false)
           .filter(
             (sk) =>
               !have(sk) &&
@@ -213,13 +215,13 @@ export const AftercoreQuest: Quest = {
     },
     {
       name: "Ascend Grey You",
-      ready: () => !targetPerms().find((sk) => !have(sk)),
+      ready: () => !targetPerms(false).find((sk) => !have(sk)),
       completed: () => getCurrentLeg() >= Leg.GreyYou,
       do: (): void => {
         printPermPlan();
         const nClass = targetClass(true);
         setClass("goorboNextClass", nClass);
-        
+
         const skillsToPerm = new Map();
         targetPerms(false).forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
 

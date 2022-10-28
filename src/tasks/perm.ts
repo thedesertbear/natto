@@ -115,7 +115,7 @@ export function targetPerms(planning: boolean): Skill[] {
           .slice(0, tier + 1) //skills in tiers <= your current best perm target
           .flat()
           .filter((sk) => have(sk))
-          .slice(0, Math.floor(expectedKarma() / 100)) //don't plan to perm more than we have karma for
+          .slice(0, Math.floor(expectedKarma(false) / 100)) //don't plan to perm more than we have karma for
       : []; //don't plan to perm anything next run if we plan to bank karma
 
   const qty = tier + Math.ceil(Math.sqrt(Math.max(0, expectedKarma(planning) / 100 - tier)));
@@ -135,6 +135,9 @@ function planHelper(perms: Skill[], cls: Class, karma: number) {
 }
 
 export function printPermPlan() {
-  print(`Current ${planHelper(targetPerms(false), targetClass(false), expectedKarma(false))}`, "green");
+  print(
+    `Current ${planHelper(targetPerms(false), targetClass(false), expectedKarma(false))}`,
+    "green"
+  );
   print(`Next ${planHelper(targetPerms(true), targetClass(true), expectedKarma(true))}`, "green");
 }

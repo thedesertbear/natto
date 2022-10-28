@@ -36,8 +36,8 @@ export function main(command?: string): void {
   }
   if (args.simperms) {
     printPermPlan();
-    const nPerms = targetPerms();
-    const nClass = targetClass();
+    const nPerms = targetPerms(false);
+    const nClass = targetClass(false);
     print("~~ Default Perm List ~~", "green");
     printHtml(
       `Legend: <span color="black">[permed]</span>, <span color="fuchsia">[targeted/known]</span>, <span color="blue">[targeted/unknown]</span>, <span color="purple">[known]</span>, <span color="navy">[class skills]</span>, <span color="gray">[other]</span>`
