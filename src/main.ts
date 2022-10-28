@@ -4,7 +4,7 @@ import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
 import { $class, get, have } from "libram";
-import { defaultPermList, nextClass, nextPerms } from "./tasks/structure";
+import { defaultPermList, nextClass, nextPerms } from "./tasks/perm";
 
 export const args = Args.create(
   "goorbo",

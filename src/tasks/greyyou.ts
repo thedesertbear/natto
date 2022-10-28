@@ -62,18 +62,20 @@ import {
 import { args } from "../main";
 import {
   backstageItemsDone,
-  baseClasses,
   canDiet,
   getCurrentLeg,
   haveAll,
   Leg,
   Macro,
-  nextClass,
-  nextPerms,
   Quest,
   readyForBed,
   stooperDrunk,
 } from "./structure";
+import {
+  baseClasses,
+  nextClass,
+  nextPerms,
+} from "./perm";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;

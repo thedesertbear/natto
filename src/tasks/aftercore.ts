@@ -38,15 +38,17 @@ import {
 } from "libram";
 import {
   canDiet,
-  defaultPermList,
-  expectedKarma,
   getCurrentLeg,
   Leg,
   Macro,
-  nextPerms,
   Quest,
   stooperDrunk,
 } from "./structure";
+import {
+  defaultPermList,
+  expectedKarma,
+  nextPerms,
+} from "./perm";
 
 export const AftercoreQuest: Quest = {
   name: "Aftercore",
