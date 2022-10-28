@@ -183,19 +183,15 @@ export const AftercoreQuest: Quest = {
       completed: () =>
         !targetPerms().find(
           (sk) =>
+            !have(sk) &&
             $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
               sk
-            ) && !have(sk)
+            )
         ),
-      do: () =>
-        visitUrl(
-          `gnomes.php?action=trainskill&whichskill=${toInt(targetPerms().find(
-            (sk) =>
-              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
-                sk
-              ) && !have(sk)
-          ))}`
-        ),
+      do: () => 
+      targetPerms()
+        .filter((sk) => !have(sk) && $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(sk))
+        .forEach((sk) => visitUrl(`gnomes.php?action=trainskill&whichskill=${toInt(sk)}`, true)),
       limit: { tries: 5 },
     },
     {
