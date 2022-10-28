@@ -7,15 +7,15 @@ import {
   myClass,
   print,
   Skill,
-  toString,
+  toClass,
 } from "kolmafia";
 import { $class, $classes, $skills, get, have, set } from "libram";
 
 export function getClass(property: string, _default: Class): Class {
-  return Class.get(get(property, toString(_default)));
+  return toClass(get(property, _default.toString()));
 }
 export function setClass(property: string, value: Class): void {
-  set(property, toString(value));
+  set(property, value.toString());
 }
 
 export const baseClasses = $classes`Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief`;
