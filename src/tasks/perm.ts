@@ -47,13 +47,13 @@ export const defaultPermList = [
   $skills``.filter((sk) => sk.permable && sk.level >= 0),
 ];
 
-export function permOptions(planning = false): Skill[][] {
+export function permOptions(planning: boolean): Skill[][] {
   //planning = true: next run, false: this run
   const classChoices = planning
     ? baseClasses
     : baseClasses.includes(myClass())
     ? [myClass()]
-    : [getClass("_goorboNextClass", getClass("goorboDefaultClass", $class`Seal Clubber`))];
+    : [getClass("goorboNextClass", getClass("goorboDefaultClass", $class`Seal Clubber`))];
 
   return !planning
     ? defaultPermList.map((sks) =>
@@ -69,7 +69,7 @@ export function permOptions(planning = false): Skill[][] {
       defaultPermList.map((sks) =>
         sks.filter(
           (sk) =>
-            (!(sk.name in getPermedSkills() || targetPerms().includes(sk)) &&
+            (!(sk.name in getPermedSkills() || targetPerms(false).includes(sk)) &&
               gnomeSkills.includes(sk)) ||
             (classChoices.includes(sk.class) && sk.level >= 0)
         )
@@ -77,7 +77,7 @@ export function permOptions(planning = false): Skill[][] {
   //for next run, exclude all skills that we are planning to perm this run, and allow all guild and gnome skills.
 }
 
-export function permTier(planning = false) {
+export function permTier(planning: boolean) {
   // the highest tier of unpermed skills available. Returns 0 if no non-tier 0 skills are available
   return (
     permOptions(planning)
@@ -86,7 +86,7 @@ export function permTier(planning = false) {
   );
 }
 
-export function expectedKarma(planning = false): number {
+export function expectedKarma(planning: boolean): number {
   return !planning
     ? get("bankedKarma") + (inHardcore() ? 200 : inCasual() ? 0 : 100)
     : expectedKarma(false) -
@@ -94,9 +94,9 @@ export function expectedKarma(planning = false): number {
         (inHardcore() ? 200 : inCasual() ? 0 : 100);
 }
 
-export function targetClass(planning = false): Class {
+export function targetClass(planning: boolean): Class {
   if (myClass() === $class`Grey Goo`)
-    return getClass("_goorboNextClass", getClass("goorboDefaultClass", $class`Seal Clubber`));
+    return getClass("goorboNextClass", getClass("goorboDefaultClass", $class`Seal Clubber`));
   //can't access permed skill status in grey goo
 
   const sk = permOptions(planning)
@@ -105,7 +105,7 @@ export function targetClass(planning = false): Class {
   return sk ? sk.class : getClass("goorboDefaultClass", $class`Seal Clubber`);
 }
 
-export function targetPerms(planning = false): Skill[] {
+export function targetPerms(planning: boolean): Skill[] {
   const pOptions = permOptions(planning);
   const tier = permTier(planning);
   if (tier > expectedKarma(planning) / 100 || tier === 0)
@@ -135,6 +135,6 @@ function planHelper(perms: Skill[], cls: Class, karma: number) {
 }
 
 export function printPermPlan() {
-  print(`Current ${planHelper(targetPerms(), targetClass(), expectedKarma())}`, "green");
+  print(`Current ${planHelper(targetPerms(false), targetClass(false), expectedKarma(false))}`, "green");
   print(`Next ${planHelper(targetPerms(true), targetClass(true), expectedKarma(true))}`, "green");
 }

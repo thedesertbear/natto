@@ -408,13 +408,13 @@ export const GyouQuest: Quest = {
       completed: () => myClass() !== $class`Grey Goo`,
       acquire: [
         { item: $item`teacher's pen`, num: 3 },
-        ...(targetClass().primestat === $stat`Muscle`
+        ...(targetClass(false).primestat === $stat`Muscle`
           ? $items`discarded swimming trunks, battered hubcap`.map((it) => ({ item: it }))
           : []),
-        ...(targetClass().primestat === $stat`Mysticality`
+        ...(targetClass(false).primestat === $stat`Mysticality`
           ? $items``.map((it) => ({ item: it }))
           : []),
-        ...(targetClass().primestat === $stat`Moxie`
+        ...(targetClass(false).primestat === $stat`Moxie`
           ? $items`noir fedora, KoL Con 13 T-shirt`.map((it) => ({ item: it }))
           : []),
       ],
@@ -430,8 +430,8 @@ export const GyouQuest: Quest = {
       prepare: () => {
         cliExecute("mcd 1");
         maximize(
-          `${targetClass().primestat} experience, 5 ${
-            targetClass().primestat
+          `${targetClass(false).primestat} experience, 5 ${
+            targetClass(false).primestat
           } experience percent, 10 familiar experience, -10 ml 1 min`,
           false
         );

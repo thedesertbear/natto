@@ -218,8 +218,10 @@ export const AftercoreQuest: Quest = {
       do: (): void => {
         printPermPlan();
         const nClass = targetClass(true);
+        setClass("goorboNextClass", nClass);
+        
         const skillsToPerm = new Map();
-        targetPerms().forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
+        targetPerms(false).forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
 
         const moonsign = have($item`hewn moon-rune spoon`)
           ? "vole"
@@ -243,7 +245,6 @@ export const AftercoreQuest: Quest = {
         if (visitUrl("main.php").includes("somewhat-human-shaped mass of grey goo nanites"))
           runChoice(-1);
         cliExecute("refresh all");
-        setClass("_goorboNextClass", nClass);
       },
     },
   ],
