@@ -3,8 +3,8 @@ import { Args, getTasks } from "grimoire-kolmafia";
 import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
-import { $class, get, have } from "libram";
-import { defaultPermList, targetClass, targetPerms, printPermPlan } from "./tasks/perm";
+import { $class, have } from "libram";
+import { defaultPermList, printPermPlan, targetClass, targetPerms } from "./tasks/perm";
 
 export const args = Args.create(
   "goorbo",
@@ -46,21 +46,20 @@ export function main(command?: string): void {
     defaultPermList.forEach((sks) =>
       printHtml(
         `~ Tier ${tier++} ~<br> ${sks
-          .map((sk) => (
+          .map((sk) =>
             sk.name in getPermedSkills()
-            ? spanWrap(sk.name, "black")
-            : nPerms.includes(sk) && have(sk)
-            ? spanWrap(sk.name, "fuchsia")
-            : nPerms.includes(sk)
-            ? spanWrap(sk.name, "blue")
-            : have(sk)
-            ? spanWrap(sk.name, "purple")
-            : nClass && nClass === sk.class && nClass !== $class`none`
-            ? spanWrap(sk.name, "navy")
-            : spanWrap(sk.name, "gray")
+              ? spanWrap(sk.name, "black")
+              : nPerms.includes(sk) && have(sk)
+              ? spanWrap(sk.name, "fuchsia")
+              : nPerms.includes(sk)
+              ? spanWrap(sk.name, "blue")
+              : have(sk)
+              ? spanWrap(sk.name, "purple")
+              : nClass && nClass === sk.class && nClass !== $class`none`
+              ? spanWrap(sk.name, "navy")
+              : spanWrap(sk.name, "gray")
           )
-          .join(", "))
-        }`
+          .join(", ")}`
       )
     );
     return;

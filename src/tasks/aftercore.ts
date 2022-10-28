@@ -3,7 +3,6 @@ import {
   availableAmount,
   buy,
   cliExecute,
-  getPermedSkills,
   gnomadsAvailable,
   guildStoreAvailable,
   hippyStoneBroken,
@@ -12,6 +11,7 @@ import {
   myClass,
   myLevel,
   myMaxhp,
+  myMeat,
   putCloset,
   pvpAttacksLeft,
   restoreHp,
@@ -37,21 +37,8 @@ import {
   have,
   Lifestyle,
 } from "libram";
-import {
-  canDiet,
-  getCurrentLeg,
-  Leg,
-  Macro,
-  Quest,
-  stooperDrunk,
-} from "./structure";
-import {
-  defaultPermList,
-  expectedKarma,
-  targetClass,
-  targetPerms,
-  printPermPlan,
-} from "./perm";
+import { canDiet, getCurrentLeg, Leg, Macro, Quest, stooperDrunk } from "./structure";
+import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 
 export const AftercoreQuest: Quest = {
   name: "Aftercore",
@@ -141,7 +128,8 @@ export const AftercoreQuest: Quest = {
     {
       name: "Guild Skill Training",
       ready: () => guildStoreAvailable() && false,
-      completed: () => !targetPerms().find((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level),
+      completed: () =>
+        !targetPerms().find((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level),
       do: () =>
         targetPerms()
           .filter((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level)
@@ -188,10 +176,16 @@ export const AftercoreQuest: Quest = {
               sk
             )
         ),
-      do: () => 
-      targetPerms()
-        .filter((sk) => !have(sk) && $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(sk))
-        .forEach((sk) => visitUrl(`gnomes.php?action=trainskill&whichskill=${toInt(sk)}`, true)),
+      do: () =>
+        targetPerms()
+          .filter(
+            (sk) =>
+              !have(sk) &&
+              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+                sk
+              )
+          )
+          .forEach((sk) => visitUrl(`gnomes.php?action=trainskill&whichskill=${toInt(sk)}`, true)),
       limit: { tries: 5 },
     },
     {
@@ -229,10 +223,13 @@ export const AftercoreQuest: Quest = {
 
         const moonsign = have($item`hewn moon-rune spoon`)
           ? "vole"
-          : !targetPerms(true).find(sk =>
-                $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(sk))
-           // See if any gnome skills are planned for next run
-          ? "vole"
+          : !targetPerms(true).find((sk) =>
+              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+                sk
+              )
+            )
+          ? // See if any gnome skills are planned for next run
+            "vole"
           : "wombat";
         ascend(
           $path`Grey You`,
@@ -246,7 +243,7 @@ export const AftercoreQuest: Quest = {
         if (visitUrl("main.php").includes("somewhat-human-shaped mass of grey goo nanites"))
           runChoice(-1);
         cliExecute("refresh all");
-        set("_goorboNextClass", nClass);
+        setClass("_goorboNextClass", nClass);
       },
     },
   ],
