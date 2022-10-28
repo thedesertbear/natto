@@ -21,15 +21,16 @@ export function setClass(property: string, value: Class): void {
 export const baseClasses = $classes`Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief`;
 export const gnomeSkills = $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`;
 
+const permBlockList = $skills`CLEESH`;
+
 export const defaultPermList = [
   //tier 0 - all permable non-guild, non-gnome skills - never actually target these, but perm them as top priority if you happen to know them
   $skills``.filter(
     (sk) =>
       sk.permable &&
       sk.level === -1 &&
-      !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding, Torso Awareness`.includes(
-        sk
-      )
+      !permBlockList.includes(sk) &&
+      !gnomeSkills.includes(sk)
   ),
   //tier 1 - needed for the script to run at its best
   $skills`Curse of Weaksauce, Itchy Curse Finger, Torso Awareness, Cannelloni Cocoon`,
