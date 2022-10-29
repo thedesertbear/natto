@@ -38,14 +38,14 @@ export function main(command?: string): void {
     printPermPlan();
     const nPerms = targetPerms(false);
     const nClass = targetClass(false);
-    print("~~ Default Perm List ~~", "green");
+    print("~~ Default Perm List ~~", "black");
     printHtml(
       `Legend: <span color="black">[permed]</span>, <span color="fuchsia">[targeted/known]</span>, <span color="blue">[targeted/unknown]</span>, <span color="purple">[known]</span>, <span color="navy">[class skills]</span>, <span color="gray">[other]</span>`
     );
-    let tier = 0;
+    let count = 0;
     defaultPermList.forEach((sks) =>
       printHtml(
-        `~ Tier ${tier++} ~<br> ${sks
+        `~ Tier ${count++} ~<br> ${sks
           .map((sk) =>
             sk.name in getPermedSkills()
               ? spanWrap(sk.name, "black")

@@ -5,7 +5,7 @@ import {
   inCasual,
   inHardcore,
   myClass,
-  print,
+  printHtml,
   Skill,
   toClass,
 } from "kolmafia";
@@ -26,10 +26,7 @@ export const defaultPermList = [
   //tier 0 - all permable non-guild, non-gnome skills - never actually target these, but perm them as top priority if you happen to know them
   $skills``.filter(
     (sk) =>
-      sk.permable &&
-      sk.level === -1 &&
-      !permBlockList.includes(sk) &&
-      !gnomeSkills.includes(sk)
+      sk.permable && sk.level === -1 && !permBlockList.includes(sk) && !gnomeSkills.includes(sk)
   ),
   //tier 1 - needed for the script to run at its best
   $skills`Curse of Weaksauce, Itchy Curse Finger, Torso Awareness, Cannelloni Cocoon`,
@@ -56,7 +53,7 @@ export function permOptions(planning: boolean): Skill[][] {
     : baseClasses.includes(myClass())
     ? [myClass()]
     : [getClass("goorboNextClass", getClass("goorboDefaultClass", $class`Seal Clubber`))];
-
+  const ctPerms = planning ? targetPerms(false) : [];
   return !planning //current run
     ? defaultPermList.map((sks) =>
         sks.filter(
@@ -70,7 +67,7 @@ export function permOptions(planning: boolean): Skill[][] {
     : defaultPermList.map((sks) =>
         sks.filter(
           (sk) =>
-            !(sk.name in getPermedSkills() || targetPerms(false).includes(sk)) &&
+            !(sk.name in getPermedSkills() || ctPerms.includes(sk)) &&
             (gnomeSkills.includes(sk) || (classChoices.includes(sk.class) && sk.level >= 0))
         )
       ); //for next run, exclude all skills that we are planning to perm this run, and allow all guild and gnome skills.
@@ -118,25 +115,24 @@ export function targetPerms(planning: boolean): Skill[] {
       : []; //don't plan to perm anything next run if we plan to bank karma
 
   const qty = tier + Math.ceil(Math.sqrt(Math.max(0, expectedKarma(planning) / 100 - tier)));
+  const tClass = planning ? targetClass(true) : $class`none`;
   return (
     !planning
       ? pOptions.flat() //return first X perm ptions
-      : pOptions
-          .flat()
-          .filter((sk) => sk.class === targetClass(planning) || gnomeSkills.includes(sk))
+      : pOptions.flat().filter((sk) => sk.class === tClass || gnomeSkills.includes(sk))
   ).slice(0, qty);
 }
 
 function planHelper(perms: Skill[], cls: Class, karma: number) {
   if (perms.length > 0)
-    return `Perm plan: [${perms.join(", ")}] - Class: ${cls}, Expected Karma: ${karma}`;
-  else return `Perm Plan: bank karma - Class: ${cls}, Expected Karma: ${karma}`;
+    return `Perm plan: [${perms.join(
+      ", "
+    )}] - Class: <span color="blue">${cls}</span>, Expected Karma: ${karma}`;
+  else
+    return `Perm Plan: bank karma - Class: <span color="blue">${cls}</span>, Expected Karma: ${karma}`;
 }
 
 export function printPermPlan() {
-  print(
-    `Current ${planHelper(targetPerms(false), targetClass(false), expectedKarma(false))}`,
-    "green"
-  );
-  print(`Next ${planHelper(targetPerms(true), targetClass(true), expectedKarma(true))}`, "green");
+  printHtml(`Current ${planHelper(targetPerms(false), targetClass(false), expectedKarma(false))}`);
+  printHtml(`Next ${planHelper(targetPerms(true), targetClass(true), expectedKarma(true))}`);
 }
