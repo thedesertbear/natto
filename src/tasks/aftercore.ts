@@ -26,6 +26,7 @@ import {
 import {
   $class,
   $coinmaster,
+  $effects,
   $item,
   $items,
   $location,
@@ -37,6 +38,7 @@ import {
   get,
   have,
   Lifestyle,
+  uneffect,
 } from "libram";
 import { canDiet, getCurrentLeg, Leg, Macro, Quest, stooperDrunk } from "./structure";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
@@ -195,6 +197,10 @@ export const AftercoreQuest: Quest = {
       name: "Garbo",
       completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
       do: () => cliExecute("garbo ascend"),
+      post: () =>
+        $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+          .filter((ef) => have(ef))
+          .forEach((ef) => uneffect(ef)),
       tracking: "Garbo",
     },
     {
