@@ -7251,484 +7251,6 @@ function prepareAscension() {
     }
   }
 }
-;// CONCATENATED MODULE: ./node_modules/libram/dist/session.js
-var session_templateObject, session_templateObject2, session_templateObject3, session_templateObject4, session_templateObject5, session_templateObject6, session_templateObject7, session_templateObject8, session_templateObject9, session_templateObject10, session_templateObject11, session_templateObject12, session_templateObject13, session_templateObject14, session_templateObject15, session_templateObject16, session_templateObject17, session_templateObject18, session_templateObject19, session_templateObject20, session_templateObject21, session_templateObject22, session_templateObject23, session_templateObject24, session_templateObject25, session_templateObject26, session_templateObject27, session_templateObject28, session_templateObject29, session_templateObject30;
-function session_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function session_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-function session_createClass(Constructor, protoProps, staticProps) { if (protoProps) session_defineProperties(Constructor.prototype, protoProps); if (staticProps) session_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function session_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function session_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = session_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function session_slicedToArray(arr, i) { return session_arrayWithHoles(arr) || session_iterableToArrayLimit(arr, i) || session_unsupportedIterableToArray(arr, i) || session_nonIterableRest(); }
-function session_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function session_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-function session_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function session_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-function session_toConsumableArray(arr) { return session_arrayWithoutHoles(arr) || session_iterableToArray(arr) || session_unsupportedIterableToArray(arr) || session_nonIterableSpread(); }
-function session_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function session_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return session_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return session_arrayLikeToArray(o, minLen); }
-function session_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function session_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return session_arrayLikeToArray(arr); }
-function session_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-
-
-/**
- * Return a mapping of the session items, mapping foldable items to a single of their forms
- * @returns the item session results, with foldables mapped to a single of their folding forms
- */
-function mySessionItemsWrapper() {
-  var manyToOne = (primary, mapped) => mapped.map(target => [target, primary]);
-  var foldable = item => manyToOne(item, getFoldGroup(item));
-  var itemMappings = new Map([].concat(session_toConsumableArray(foldable(template_string_$item(session_templateObject || (session_templateObject = session_taggedTemplateLiteral(["liar's pants"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject2 || (session_templateObject2 = session_taggedTemplateLiteral(["ice pick"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject3 || (session_templateObject3 = session_taggedTemplateLiteral(["Spooky Putty sheet"]))), [template_string_$item(session_templateObject4 || (session_templateObject4 = session_taggedTemplateLiteral(["Spooky Putty monster"])))].concat(session_toConsumableArray(getFoldGroup(template_string_$item(session_templateObject5 || (session_templateObject5 = session_taggedTemplateLiteral(["Spooky Putty sheet"])))))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject6 || (session_templateObject6 = session_taggedTemplateLiteral(["stinky cheese sword"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject7 || (session_templateObject7 = session_taggedTemplateLiteral(["naughty paper shuriken"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject8 || (session_templateObject8 = session_taggedTemplateLiteral(["Loathing Legion knife"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject9 || (session_templateObject9 = session_taggedTemplateLiteral(["deceased crimbo tree"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject10 || (session_templateObject10 = session_taggedTemplateLiteral(["makeshift turban"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject11 || (session_templateObject11 = session_taggedTemplateLiteral(["turtle wax shield"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject12 || (session_templateObject12 = session_taggedTemplateLiteral(["metallic foil bow"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject13 || (session_templateObject13 = session_taggedTemplateLiteral(["ironic moustache"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject14 || (session_templateObject14 = session_taggedTemplateLiteral(["bugged balaclava"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject15 || (session_templateObject15 = session_taggedTemplateLiteral(["toggle switch (Bartend)"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject16 || (session_templateObject16 = session_taggedTemplateLiteral(["mushroom cap"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject17 || (session_templateObject17 = session_taggedTemplateLiteral(["can of Rain-Doh"]))), template_string_$items(session_templateObject18 || (session_templateObject18 = session_taggedTemplateLiteral(["empty Rain-Doh can"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject19 || (session_templateObject19 = session_taggedTemplateLiteral(["meteorite fragment"]))), template_string_$items(session_templateObject20 || (session_templateObject20 = session_taggedTemplateLiteral(["meteorite earring, meteorite necklace, meteorite ring"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject21 || (session_templateObject21 = session_taggedTemplateLiteral(["Sneaky Pete's leather jacket"]))), template_string_$items(session_templateObject22 || (session_templateObject22 = session_taggedTemplateLiteral(["Sneaky Pete's leather jacket (collar popped)"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject23 || (session_templateObject23 = session_taggedTemplateLiteral(["Boris's Helm"]))), template_string_$items(session_templateObject24 || (session_templateObject24 = session_taggedTemplateLiteral(["Boris's Helm (askew)"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject25 || (session_templateObject25 = session_taggedTemplateLiteral(["Jarlsberg's pan"]))), template_string_$items(session_templateObject26 || (session_templateObject26 = session_taggedTemplateLiteral(["Jarlsberg's pan (Cosmic portal mode)"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject27 || (session_templateObject27 = session_taggedTemplateLiteral(["tiny plastic sword"]))), template_string_$items(session_templateObject28 || (session_templateObject28 = session_taggedTemplateLiteral(["grogtini, bodyslam, dirty martini, vesper, cherry bomb, sangria del diablo"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject29 || (session_templateObject29 = session_taggedTemplateLiteral(["earthenware muffin tin"]))), template_string_$items(session_templateObject30 || (session_templateObject30 = session_taggedTemplateLiteral(["blueberry muffin, bran muffin, chocolate chip muffin"])))))));
-  var inventory = new Map();
-  for (var _i = 0, _Object$entries = Object.entries((0,external_kolmafia_namespaceObject.mySessionItems)()); _i < _Object$entries.length; _i++) {
-    var _itemMappings$get, _inventory$get;
-    var _Object$entries$_i = session_slicedToArray(_Object$entries[_i], 2),
-      itemStr = _Object$entries$_i[0],
-      quantity = _Object$entries$_i[1];
-    var item = (0,external_kolmafia_namespaceObject.toItem)(itemStr);
-    var mappedItem = (_itemMappings$get = itemMappings.get(item)) !== null && _itemMappings$get !== void 0 ? _itemMappings$get : item;
-    inventory.set(mappedItem, quantity + ((_inventory$get = inventory.get(mappedItem)) !== null && _inventory$get !== void 0 ? _inventory$get : 0));
-  }
-  return inventory;
-}
-/**
- * Performa a binary element-wise operation on two inventories
- * @param a The LHS inventory to perform the operation on
- * @param b The RHS inventory to perform the operation on
- * @param op an operator to compute between the sets
- * @param commutative if true use the value of b for any items not in a. if false, ignore values not in a
- * @returns a new map representing the combined inventories
- */
-function inventoryOperation(a, b, op, commutative) {
-  // return every entry that is in a and not in b
-  var difference = new Map();
-  var _iterator = session_createForOfIteratorHelper(a.entries()),
-    _step;
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var _b$get;
-      var _step$value = session_slicedToArray(_step.value, 2),
-        _item = _step$value[0],
-        _quantity = _step$value[1];
-      var combinedQuantity = op(_quantity, (_b$get = b.get(_item)) !== null && _b$get !== void 0 ? _b$get : 0);
-      difference.set(_item, combinedQuantity);
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-  if (commutative) {
-    var _iterator2 = session_createForOfIteratorHelper(b.entries()),
-      _step2;
-    try {
-      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-        var _step2$value = session_slicedToArray(_step2.value, 2),
-          item = _step2$value[0],
-          quantity = _step2$value[1];
-        if (!a.has(item)) {
-          difference.set(item, quantity);
-        }
-      }
-    } catch (err) {
-      _iterator2.e(err);
-    } finally {
-      _iterator2.f();
-    }
-  }
-  var diffEntries = session_toConsumableArray(difference.entries());
-  return new Map(diffEntries.filter(value => value[1] !== 0));
-}
-/**
- * A wrapper around tracking items and meat gained from this session
- * Smartly handles foldables being added/removed based on their state
- * Provides operations to add sessions and subtract Sessions so you can isolate the value of each Session using a baseline
- * @member meat the raw meat associated with this Session
- * @member items a map representing the items gained/lost during this Session
- */
-var Session = /*#__PURE__*/function () {
-  /**
-   * Construct a new session
-   * @param meat the amount of meat associated with this session
-   * @param items the items associated with this session
-   */
-  function Session(meat, items) {
-    session_classCallCheck(this, Session);
-    session_defineProperty(this, "meat", void 0);
-    session_defineProperty(this, "items", void 0);
-    this.meat = meat;
-    this.items = items;
-  }
-  /**
-   * Register session results that do not get tracked natively
-   * @param target either the Item or a string saying "meat" of what quantity to modify
-   * @param quantity How much to modify the tracked amount by
-   */
-  session_createClass(Session, [{
-    key: "register",
-    value: function register(target, quantity) {
-      if (target === "meat") {
-        this.meat += quantity;
-      } else {
-        var _this$items$get;
-        this.items.set(target, ((_this$items$get = this.items.get(target)) !== null && _this$items$get !== void 0 ? _this$items$get : 0) + quantity);
-      }
-    }
-    /**
-     * Value this session
-     * @param itemValue a function that, when given an item, will give a meat value of the item
-     * @returns ItemResult with the full value of this session given the input function
-     */
-  }, {
-    key: "value",
-    value: function value(itemValue) {
-      // TODO: add garbo specific pricing (sugar equipment for synth, etc.)
-      var meat = Math.floor(this.meat);
-      var itemDetails = session_toConsumableArray(this.items.entries()).map(_ref => {
-        var _ref2 = session_slicedToArray(_ref, 2),
-          item = _ref2[0],
-          quantity = _ref2[1];
-        return {
-          item: item,
-          quantity: quantity,
-          value: itemValue(item) * quantity
-        };
-      });
-      var items = Math.floor(sumNumbers(itemDetails.map(detail => detail.value)));
-      return {
-        meat: meat,
-        items: items,
-        total: meat + items,
-        itemDetails: itemDetails
-      };
-    }
-    /**
-     * Subtract the contents of another session from this one, removing any items that have a resulting quantity of 0
-     *  (this will ignore elements in b but not in a)
-     * @param other the session from which to pull values to remove from this session
-     * @returns a new session representing the difference between this session and the other session
-     */
-  }, {
-    key: "diff",
-    value: function diff(other) {
-      return new Session(this.meat - other.meat, inventoryOperation(this.items, other.items, (a, b) => a - b, false));
-    }
-    /**
-     * Subtract the contents of snasphot b from session a, removing any items that have a resulting quantity of 0
-     *  (this will ignore elements in b but not in a)
-     * @param a the session from which to subtract elements
-     * @param b the session from which to add elements
-     * @returns a new session representing the difference between a and b
-     */
-  }, {
-    key: "add",
-    value:
-    /**
-     * Generate a new session combining multiple sessions together
-     * @param other the session from which to add elements to this set
-     * @returns a new session representing the addition of other to this
-     */
-    function add(other) {
-      return new Session(this.meat + other.meat, inventoryOperation(this.items, other.items, (a, b) => a + b, true));
-    }
-    /**
-     * Combine the contents of sessions
-     * @param sessions the set of sessions to combine together
-     * @returns a new session representing the difference between a and b
-     */
-  }, {
-    key: "toFile",
-    value:
-    /**
-     * Export this session to a file in the data/ directory. Conventionally this file should end in ".json"
-     * @param filename The file into which to export
-     */
-    function toFile(filename) {
-      var val = {
-        meat: this.meat,
-        items: Object.fromEntries(this.items)
-      };
-      (0,external_kolmafia_namespaceObject.bufferToFile)(JSON.stringify(val), Session.getFilepath(filename));
-    }
-    /**
-     * Import a session from a file in the data/ directory. Conventionally the file should end in ".json"
-     * @param filename The file from which to import
-     * @returns the session represented by the file
-     */
-  }], [{
-    key: "diff",
-    value: function diff(a, b) {
-      return a.diff(b);
-    }
-  }, {
-    key: "add",
-    value: function add() {
-      for (var _len = arguments.length, sessions = new Array(_len), _key = 0; _key < _len; _key++) {
-        sessions[_key] = arguments[_key];
-      }
-      return sessions.reduce((previousSession, currentSession) => previousSession.add(currentSession));
-    }
-  }, {
-    key: "getFilepath",
-    value: function getFilepath(filename) {
-      return filename.endsWith(".json") ? filename : "snapshots/".concat((0,external_kolmafia_namespaceObject.myName)(), "/").concat((0,external_kolmafia_namespaceObject.todayToString)(), "_").concat(filename, ".json");
-    }
-  }, {
-    key: "fromFile",
-    value: function fromFile(filename) {
-      var fileValue = (0,external_kolmafia_namespaceObject.fileToBuffer)(Session.getFilepath(filename));
-      // fileToBuffer returns empty string for files that don't exist
-      if (fileValue.length > 0) {
-        var val = JSON.parse(fileValue);
-        var parsedItems = Object.entries(val.items).map(_ref3 => {
-          var _ref4 = session_slicedToArray(_ref3, 2),
-            itemStr = _ref4[0],
-            quantity = _ref4[1];
-          return [(0,external_kolmafia_namespaceObject.toItem)(itemStr), quantity];
-        });
-        return new Session(val.meat, new Map(parsedItems));
-      } else {
-        // if the file does not exist, return an empty session
-        return new Session(0, new Map());
-      }
-    }
-  }, {
-    key: "current",
-    value: function current() {
-      return new Session((0,external_kolmafia_namespaceObject.mySessionMeat)(), mySessionItemsWrapper());
-    }
-  }]);
-  return Session;
-}();
-;// CONCATENATED MODULE: ./src/engine/profits.ts
-var profits_templateObject, profits_templateObject2, profits_templateObject3, profits_templateObject4, profits_templateObject5, profits_templateObject6, profits_templateObject7, profits_templateObject8, profits_templateObject9, profits_templateObject10, profits_templateObject11, profits_templateObject12, profits_templateObject13, profits_templateObject14, profits_templateObject15, profits_templateObject16, profits_templateObject17, profits_templateObject18, profits_templateObject19, profits_templateObject20, profits_templateObject21, profits_templateObject22, profits_templateObject23, profits_templateObject24, profits_templateObject25, profits_templateObject26, profits_templateObject27, profits_templateObject28, profits_templateObject29, profits_templateObject30, profits_templateObject31, profits_templateObject32, profits_templateObject33, profits_templateObject34, profits_templateObject35, profits_templateObject36, profits_templateObject37, profits_templateObject38, profits_templateObject39, profits_templateObject40, profits_templateObject41, profits_templateObject42, profits_templateObject43, profits_templateObject44, profits_templateObject45;
-function profits_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function profits_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-function profits_createClass(Constructor, protoProps, staticProps) { if (protoProps) profits_defineProperties(Constructor.prototype, protoProps); if (staticProps) profits_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function profits_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function profits_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-function profits_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = profits_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function profits_slicedToArray(arr, i) { return profits_arrayWithHoles(arr) || profits_iterableToArrayLimit(arr, i) || profits_unsupportedIterableToArray(arr, i) || profits_nonIterableRest(); }
-function profits_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function profits_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-function profits_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function profits_toConsumableArray(arr) { return profits_arrayWithoutHoles(arr) || profits_iterableToArray(arr) || profits_unsupportedIterableToArray(arr) || profits_nonIterableSpread(); }
-function profits_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function profits_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return profits_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return profits_arrayLikeToArray(o, minLen); }
-function profits_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function profits_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return profits_arrayLikeToArray(arr); }
-function profits_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-
-function currency() {
-  for (var _len = arguments.length, items = new Array(_len), _key = 0; _key < _len; _key++) {
-    items[_key] = arguments[_key];
-  }
-  var unitCost = items.map(i => {
-    var coinmaster = external_kolmafia_namespaceObject.Coinmaster.all().find(c => (0,external_kolmafia_namespaceObject.sellPrice)(c, i) > 0);
-    if (!coinmaster) {
-      throw "Invalid coinmaster item ".concat(i);
-    } else {
-      return [i, (0,external_kolmafia_namespaceObject.sellPrice)(coinmaster, i)];
-    }
-  });
-  return () => Math.max.apply(Math, profits_toConsumableArray(unitCost.map(_ref => {
-    var _ref2 = profits_slicedToArray(_ref, 2),
-      item = _ref2[0],
-      cost = _ref2[1];
-    return garboValue(item) / cost;
-  })));
-}
-function complexCandy() {
-  var candies = external_kolmafia_namespaceObject.Item.all().filter(i => i.candyType === "complex");
-  var candyLookup = [[], [], [], [], []];
-  var _iterator = profits_createForOfIteratorHelper(candies),
-    _step;
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var candy = _step.value;
-      var id = (0,external_kolmafia_namespaceObject.toInt)(candy) % 5;
-      if (candy.tradeable) {
-        candyLookup[id].push(candy);
-      }
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-  var candyIdPrices = candies.filter(i => !i.tradeable).map(i => [i, () => Math.min.apply(Math, profits_toConsumableArray(candyLookup[(0,external_kolmafia_namespaceObject.toInt)(i) % 5].map(i => garboValue(i))))]);
-  return candyIdPrices;
-}
-var specialValueLookup = new Map([[template_string_$item(profits_templateObject || (profits_templateObject = profits_taggedTemplateLiteral(["Freddy Kruegerand"]))), currency.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject2 || (profits_templateObject2 = profits_taggedTemplateLiteral(["bottle of Bloodweiser, electric Kool-Aid, Dreadsylvanian skeleton key"])))))], [template_string_$item(profits_templateObject3 || (profits_templateObject3 = profits_taggedTemplateLiteral(["Beach Buck"]))), currency(template_string_$item(profits_templateObject4 || (profits_templateObject4 = profits_taggedTemplateLiteral(["one-day ticket to Spring Break Beach"]))))], [template_string_$item(profits_templateObject5 || (profits_templateObject5 = profits_taggedTemplateLiteral(["Coinspiracy"]))), currency.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject6 || (profits_templateObject6 = profits_taggedTemplateLiteral(["Merc Core deployment orders, karma shawarma"])))))], [template_string_$item(profits_templateObject7 || (profits_templateObject7 = profits_taggedTemplateLiteral(["FunFunds\u2122"]))), currency(template_string_$item(profits_templateObject8 || (profits_templateObject8 = profits_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))))], [template_string_$item(profits_templateObject9 || (profits_templateObject9 = profits_taggedTemplateLiteral(["Volcoino"]))), currency(template_string_$item(profits_templateObject10 || (profits_templateObject10 = profits_taggedTemplateLiteral(["one-day ticket to That 70s Volcano"]))))], [template_string_$item(profits_templateObject11 || (profits_templateObject11 = profits_taggedTemplateLiteral(["Wal-Mart gift certificate"]))), currency(template_string_$item(profits_templateObject12 || (profits_templateObject12 = profits_taggedTemplateLiteral(["one-day ticket to The Glaciest"]))))], [template_string_$item(profits_templateObject13 || (profits_templateObject13 = profits_taggedTemplateLiteral(["Rubee\u2122"]))), currency(template_string_$item(profits_templateObject14 || (profits_templateObject14 = profits_taggedTemplateLiteral(["FantasyRealm guest pass"]))))], [template_string_$item(profits_templateObject15 || (profits_templateObject15 = profits_taggedTemplateLiteral(["Guzzlrbuck"]))), currency(template_string_$item(profits_templateObject16 || (profits_templateObject16 = profits_taggedTemplateLiteral(["Never Don't Stop Not Striving"]))))]].concat(profits_toConsumableArray(complexCandy()), [[template_string_$item(profits_templateObject17 || (profits_templateObject17 = profits_taggedTemplateLiteral(["Merc Core deployment orders"]))), () => garboValue(template_string_$item(profits_templateObject18 || (profits_templateObject18 = profits_taggedTemplateLiteral(["one-day ticket to Conspiracy Island"]))))], [template_string_$item(profits_templateObject19 || (profits_templateObject19 = profits_taggedTemplateLiteral(["free-range mushroom"]))), () => 3 * Math.max(garboValue(template_string_$item(profits_templateObject20 || (profits_templateObject20 = profits_taggedTemplateLiteral(["mushroom tea"])))) - garboValue(template_string_$item(profits_templateObject21 || (profits_templateObject21 = profits_taggedTemplateLiteral(["soda water"])))), garboValue(template_string_$item(profits_templateObject22 || (profits_templateObject22 = profits_taggedTemplateLiteral(["mushroom whiskey"])))) - garboValue(template_string_$item(profits_templateObject23 || (profits_templateObject23 = profits_taggedTemplateLiteral(["fermenting powder"])))), garboValue(template_string_$item(profits_templateObject24 || (profits_templateObject24 = profits_taggedTemplateLiteral(["mushroom filet"])))))], [template_string_$item(profits_templateObject25 || (profits_templateObject25 = profits_taggedTemplateLiteral(["little firkin"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject26 || (profits_templateObject26 = profits_taggedTemplateLiteral(["martini, screwdriver, strawberry daiquiri, margarita, vodka martini, tequila sunrise, bottle of Amontillado, barrel-aged martini, barrel gun"])))))], [template_string_$item(profits_templateObject27 || (profits_templateObject27 = profits_taggedTemplateLiteral(["normal barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject28 || (profits_templateObject28 = profits_taggedTemplateLiteral(["a little sump'm sump'm, pink pony, rockin' wagon, roll in the hay, slip 'n' slide, slap and tickle"])))))], [template_string_$item(profits_templateObject29 || (profits_templateObject29 = profits_taggedTemplateLiteral(["big tun"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject30 || (profits_templateObject30 = profits_taggedTemplateLiteral(["gibson, gin and tonic, mimosette, tequila sunset, vodka and tonic, zmobie"])))))], [template_string_$item(profits_templateObject31 || (profits_templateObject31 = profits_taggedTemplateLiteral(["weathered barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject32 || (profits_templateObject32 = profits_taggedTemplateLiteral(["bean burrito, enchanted bean burrito, jumping bean burrito"])))))], [template_string_$item(profits_templateObject33 || (profits_templateObject33 = profits_taggedTemplateLiteral(["dusty barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject34 || (profits_templateObject34 = profits_taggedTemplateLiteral(["spicy bean burrito, spicy enchanted bean burrito, spicy jumping bean burrito"])))))], [template_string_$item(profits_templateObject35 || (profits_templateObject35 = profits_taggedTemplateLiteral(["disintegrating barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject36 || (profits_templateObject36 = profits_taggedTemplateLiteral(["insanely spicy bean burrito, insanely spicy enchanted bean burrito, insanely spicy jumping bean burrito"])))))], [template_string_$item(profits_templateObject37 || (profits_templateObject37 = profits_taggedTemplateLiteral(["moist barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject38 || (profits_templateObject38 = profits_taggedTemplateLiteral(["cast, concentrated magicalness pill, enchanted barbell, giant moxie weed, Mountain Stream soda"])))))], [template_string_$item(profits_templateObject39 || (profits_templateObject39 = profits_taggedTemplateLiteral(["rotting barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject40 || (profits_templateObject40 = profits_taggedTemplateLiteral(["Doc Galaktik's Ailment Ointment, extra-strength strongness elixir, jug-o-magicalness, Marquis de Poivre soda, suntan lotion of moxiousness"])))))], [template_string_$item(profits_templateObject41 || (profits_templateObject41 = profits_taggedTemplateLiteral(["mouldering barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject42 || (profits_templateObject42 = profits_taggedTemplateLiteral(["creepy ginger ale, haunted battery, scroll of drastic healing, synthetic marrow, the funk"])))))], [template_string_$item(profits_templateObject43 || (profits_templateObject43 = profits_taggedTemplateLiteral(["barnacled barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject44 || (profits_templateObject44 = profits_taggedTemplateLiteral(["Alewife\u2122 Ale, bazookafish bubble gum, beefy fish meat, eel battery, glistening fish meat, ink bladder, pufferfish spine, shark cartilage, slick fish meat, slug of rum, slug of shochu, slug of vodka, temporary teardrop tattoo"])))))], [template_string_$item(profits_templateObject45 || (profits_templateObject45 = profits_taggedTemplateLiteral(["fake hand"]))), () => 50000]]));
-function getHistoricalSaleValue(item) {
-  if ((0,external_kolmafia_namespaceObject.historicalAge)(item) <= 7.0 && (0,external_kolmafia_namespaceObject.historicalPrice)(item) > 0) {
-    var isMallMin = (0,external_kolmafia_namespaceObject.historicalPrice)(item) === Math.max(100, 2 * (0,external_kolmafia_namespaceObject.autosellPrice)(item));
-    return isMallMin ? (0,external_kolmafia_namespaceObject.autosellPrice)(item) : 0.9 * (0,external_kolmafia_namespaceObject.historicalPrice)(item);
-  }
-  return getSaleValue(item);
-}
-var garboValueCache = new Map();
-function garboValue(item) {
-  var cachedValue = garboValueCache.get(item);
-  if (cachedValue === undefined) {
-    var specialValueCompute = specialValueLookup.get(item);
-    var value = specialValueCompute ? specialValueCompute() : getHistoricalSaleValue(item);
-    (0,external_kolmafia_namespaceObject.print)("Valuing ".concat(item.name, " @ ").concat(value));
-    garboValueCache.set(item, value);
-    return value;
-  }
-  return cachedValue;
-}
-function garboAverageValue() {
-  for (var _len2 = arguments.length, items = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    items[_key2] = arguments[_key2];
-  }
-  return sumNumbers(items.map(garboValue)) / items.length;
-}
-var DailySetting = /*#__PURE__*/function () {
-  function DailySetting(key) {
-    profits_classCallCheck(this, DailySetting);
-    profits_defineProperty(this, "key", void 0);
-    this.key = key;
-  }
-  profits_createClass(DailySetting, [{
-    key: "get",
-    value: function get(def) {
-      var saved = property_get(this.key, "");
-      if (saved === "") return def;
-      var json = JSON.parse(saved);
-      if ("day" in json && "value" in json && json["day"] === (0,external_kolmafia_namespaceObject.gamedayToInt)()) return json["value"];else return def;
-    }
-  }, {
-    key: "set",
-    value: function set(value) {
-      _set(this.key, JSON.stringify({
-        day: (0,external_kolmafia_namespaceObject.gamedayToInt)(),
-        value: value
-      }));
-    }
-  }]);
-  return DailySetting;
-}();
-var ProfitTracker = /*#__PURE__*/function () {
-  function ProfitTracker(key) {
-    profits_classCallCheck(this, ProfitTracker);
-    profits_defineProperty(this, "setting", void 0);
-    profits_defineProperty(this, "records", void 0);
-    profits_defineProperty(this, "session", void 0);
-    profits_defineProperty(this, "turns", void 0);
-    profits_defineProperty(this, "hours", void 0);
-    profits_defineProperty(this, "pulled", void 0);
-    profits_defineProperty(this, "ascensions", void 0);
-    this.setting = new DailySetting(key);
-    this.records = this.setting.get({});
-    this.session = Session.current();
-    this.turns = (0,external_kolmafia_namespaceObject.myTurncount)();
-    this.hours = (0,external_kolmafia_namespaceObject.gametimeToInt)() / (1000 * 60 * 60);
-    this.ascensions = (0,external_kolmafia_namespaceObject.myAscensions)();
-    this.pulled = new Set(property_get("_roninStoragePulls").split(",").map(id => parseInt(id)).filter(id => id > 0).map(id => external_kolmafia_namespaceObject.Item.get(id)));
-  }
-  profits_createClass(ProfitTracker, [{
-    key: "reset",
-    value: function reset() {
-      this.session = Session.current();
-      this.turns = (0,external_kolmafia_namespaceObject.myTurncount)();
-      this.hours = (0,external_kolmafia_namespaceObject.gametimeToInt)() / (1000 * 60 * 60);
-      this.ascensions = (0,external_kolmafia_namespaceObject.myAscensions)();
-      this.pulled = new Set(property_get("_roninStoragePulls").split(",").map(id => parseInt(id)).filter(id => id > 0).map(id => external_kolmafia_namespaceObject.Item.get(id)));
-    }
-  }, {
-    key: "record",
-    value: function record(tag) {
-      if (this.ascensions < (0,external_kolmafia_namespaceObject.myAscensions)()) {
-        // Session tracking is not accurate across ascensions
-        this.reset();
-        return;
-      }
-
-      // Pulled items are tracked oddly in the Session
-      // (they are included in the Session diff by default)
-      var newPulls = new Set(property_get("_roninStoragePulls").split(",").map(id => parseInt(id)).filter(id => id > 0).map(id => external_kolmafia_namespaceObject.Item.get(id)));
-      var _iterator2 = profits_createForOfIteratorHelper(newPulls),
-        _step2;
-      try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var _this$session$items$g;
-          var item = _step2.value;
-          if (this.pulled.has(item)) continue;
-          this.session.items.set(item, 1 + ((_this$session$items$g = this.session.items.get(item)) !== null && _this$session$items$g !== void 0 ? _this$session$items$g : 0));
-        }
-      } catch (err) {
-        _iterator2.e(err);
-      } finally {
-        _iterator2.f();
-      }
-      var diff = Session.current().diff(this.session);
-      if (!(tag in this.records)) this.records[tag] = {
-        meat: 0,
-        items: 0,
-        turns: 0,
-        hours: 0
-      };
-      var value = diff.value(garboValue);
-      this.records[tag].meat += value.meat;
-      this.records[tag].items += value.items;
-      this.records[tag].turns += (0,external_kolmafia_namespaceObject.myTurncount)() - this.turns;
-      this.records[tag].hours += (0,external_kolmafia_namespaceObject.gametimeToInt)() / (1000 * 60 * 60) - this.hours;
-      (0,external_kolmafia_namespaceObject.print)("Profit: ".concat(value.meat, ", ").concat(value.items, ", ").concat((0,external_kolmafia_namespaceObject.myTurncount)() - this.turns, ", ").concat((0,external_kolmafia_namespaceObject.gametimeToInt)() / (1000 * 60 * 60) - this.hours));
-      this.reset();
-    }
-  }, {
-    key: "all",
-    value: function all() {
-      return this.records;
-    }
-  }, {
-    key: "save",
-    value: function save() {
-      this.setting.set(this.records);
-    }
-  }]);
-  return ProfitTracker;
-}();
-function profits_sum(record, where) {
-  var included = [];
-  for (var _key3 in record) {
-    if (where(_key3)) included.push(record[_key3]);
-  }
-  return {
-    meat: included.reduce((v, p) => v + p.meat, 0),
-    items: included.reduce((v, p) => v + p.items, 0),
-    turns: included.reduce((v, p) => v + p.turns, 0),
-    hours: included.reduce((v, p) => v + p.hours, 0)
-  };
-}
-function numberWithCommas(x) {
-  var str = x.toString();
-  if (str.includes(".")) return x.toFixed(2);
-  return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-function printProfitSegment(key, record, color) {
-  if (record === undefined) return;
-  (0,external_kolmafia_namespaceObject.print)("".concat(key, ": ").concat(numberWithCommas(record.meat), " meat + ").concat(numberWithCommas(record.items), " items (").concat(record.turns, " turns + ").concat(numberWithCommas(record.hours), " hours)"), color);
-}
-function printProfits(records) {
-  (0,external_kolmafia_namespaceObject.print)("");
-  (0,external_kolmafia_namespaceObject.print)("== Daily Loop Profit ==");
-  printProfitSegment("Aftercore", profits_sum(records, key => key.startsWith("0")), "blue");
-  printProfitSegment("* Garbo", records["0@Garbo"], "green");
-  printProfitSegment("* Other", records["0@Other"], "green");
-  printProfitSegment("Grey You", profits_sum(records, key => key.startsWith("1")), "blue");
-  printProfitSegment("* Run", records["1@Run"], "green");
-  printProfitSegment("* GooFarming", records["1@GooFarming"], "green");
-  printProfitSegment("* Garbo", records["1@Garbo"], "green");
-  printProfitSegment("* Leveling", records["1@Leveling"], "green");
-  printProfitSegment("* Other", records["1@Other"], "green");
-  printProfitSegment("Total", profits_sum(records, () => true), "black");
-}
 ;// CONCATENATED MODULE: ./src/tasks/structure.ts
 var structure_templateObject, structure_templateObject2, structure_templateObject3, structure_templateObject4, structure_templateObject5, structure_templateObject6, structure_templateObject7, structure_templateObject8, structure_templateObject9, structure_templateObject10, structure_templateObject11, structure_templateObject12, structure_templateObject13, structure_templateObject14;
 function structure_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -7744,7 +7266,6 @@ function structure_possibleConstructorReturn(self, call) { if (call && (typeof c
 function structure_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function structure_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function structure_getPrototypeOf(o) { structure_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return structure_getPrototypeOf(o); }
-
 
 
 var structure_Macro = /*#__PURE__*/function (_BaseMacro) {
@@ -7780,7 +7301,7 @@ function haveAll(its) {
   return its.reduce((a, it) => a && have(it), true);
 }
 function canDiet() {
-  return (0,external_kolmafia_namespaceObject.myFullness)() < (0,external_kolmafia_namespaceObject.fullnessLimit)() || (0,external_kolmafia_namespaceObject.mySpleenUse)() < (0,external_kolmafia_namespaceObject.spleenLimit)() || (0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)() || have(template_string_$item(structure_templateObject2 || (structure_templateObject2 = structure_taggedTemplateLiteral(["distention pill"])))) && !property_get("_distentionPillUsed") || have(template_string_$item(structure_templateObject3 || (structure_templateObject3 = structure_taggedTemplateLiteral(["synthetic dog hair pill"])))) && !property_get("_syntheticDogHairPillUsed") || have(template_string_$item(structure_templateObject4 || (structure_templateObject4 = structure_taggedTemplateLiteral(["designer sweatpants"])))) && property_get("_sweatOutSomeBoozeUsed") < 3 && property_get("sweat") >= 25 || have(template_string_$item(structure_templateObject5 || (structure_templateObject5 = structure_taggedTemplateLiteral(["mime army shotglass"])))) && !property_get("_mimeArmyShotglassUsed") || property_get("currentMojoFilters") < 3 && garboValue(template_string_$item(structure_templateObject6 || (structure_templateObject6 = structure_taggedTemplateLiteral(["mojo filter"])))) + garboValue(template_string_$item(structure_templateObject7 || (structure_templateObject7 = structure_taggedTemplateLiteral(["transdermal smoke patch"])))) < 2.5 * property_get("valueOfAdventure");
+  return (0,external_kolmafia_namespaceObject.myFullness)() < (0,external_kolmafia_namespaceObject.fullnessLimit)() || (0,external_kolmafia_namespaceObject.mySpleenUse)() < (0,external_kolmafia_namespaceObject.spleenLimit)() || (0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)() || have(template_string_$item(structure_templateObject2 || (structure_templateObject2 = structure_taggedTemplateLiteral(["distention pill"])))) && !property_get("_distentionPillUsed") || have(template_string_$item(structure_templateObject3 || (structure_templateObject3 = structure_taggedTemplateLiteral(["synthetic dog hair pill"])))) && !property_get("_syntheticDogHairPillUsed") || have(template_string_$item(structure_templateObject4 || (structure_templateObject4 = structure_taggedTemplateLiteral(["designer sweatpants"])))) && property_get("_sweatOutSomeBoozeUsed") < 3 && property_get("sweat") >= 25 || have(template_string_$item(structure_templateObject5 || (structure_templateObject5 = structure_taggedTemplateLiteral(["mime army shotglass"])))) && !property_get("_mimeArmyShotglassUsed") || property_get("currentMojoFilters") < 3 && (0,external_kolmafia_namespaceObject.mallPrice)(template_string_$item(structure_templateObject6 || (structure_templateObject6 = structure_taggedTemplateLiteral(["mojo filter"])))) + (0,external_kolmafia_namespaceObject.mallPrice)(template_string_$item(structure_templateObject7 || (structure_templateObject7 = structure_taggedTemplateLiteral(["transdermal smoke patch"])))) < 2.5 * property_get("valueOfAdventure");
 }
 function stooperDrunk() {
   return (0,external_kolmafia_namespaceObject.myInebriety)() > (0,external_kolmafia_namespaceObject.inebrietyLimit)() || (0,external_kolmafia_namespaceObject.myInebriety)() === (0,external_kolmafia_namespaceObject.inebrietyLimit)() && (0,external_kolmafia_namespaceObject.myFamiliar)() === template_string_$familiar(structure_templateObject8 || (structure_templateObject8 = structure_taggedTemplateLiteral(["Stooper"])));
@@ -7933,7 +7454,7 @@ var AftercoreQuest = {
     }
   }, {
     name: "Unlock Guild",
-    ready: () => targetPerms(false).reduce((a, sk) => a || sk.class === (0,external_kolmafia_namespaceObject.myClass)(), false) || (0,external_kolmafia_namespaceObject.myClass)() === $class(aftercore_templateObject16 || (aftercore_templateObject16 = aftercore_taggedTemplateLiteral(["Seal Clubber"]))) && Math.min.apply(Math, aftercore_toConsumableArray(template_string_$items(aftercore_templateObject17 || (aftercore_templateObject17 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => (0,external_kolmafia_namespaceObject.availableAmount)(it)))) < 20,
+    ready: () => !!targetPerms(false).find(sk => !have(sk) && sk.class === (0,external_kolmafia_namespaceObject.myClass)() && sk.level > 0) || (0,external_kolmafia_namespaceObject.myClass)() === $class(aftercore_templateObject16 || (aftercore_templateObject16 = aftercore_taggedTemplateLiteral(["Seal Clubber"]))) && Math.min.apply(Math, aftercore_toConsumableArray(template_string_$items(aftercore_templateObject17 || (aftercore_templateObject17 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => (0,external_kolmafia_namespaceObject.availableAmount)(it)))) < 20,
     completed: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("guild"),
     outfit: () => ({
@@ -8452,6 +7973,484 @@ var GyouQuest = {
     }
   }]
 };
+;// CONCATENATED MODULE: ./node_modules/libram/dist/session.js
+var session_templateObject, session_templateObject2, session_templateObject3, session_templateObject4, session_templateObject5, session_templateObject6, session_templateObject7, session_templateObject8, session_templateObject9, session_templateObject10, session_templateObject11, session_templateObject12, session_templateObject13, session_templateObject14, session_templateObject15, session_templateObject16, session_templateObject17, session_templateObject18, session_templateObject19, session_templateObject20, session_templateObject21, session_templateObject22, session_templateObject23, session_templateObject24, session_templateObject25, session_templateObject26, session_templateObject27, session_templateObject28, session_templateObject29, session_templateObject30;
+function session_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function session_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function session_createClass(Constructor, protoProps, staticProps) { if (protoProps) session_defineProperties(Constructor.prototype, protoProps); if (staticProps) session_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function session_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function session_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = session_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function session_slicedToArray(arr, i) { return session_arrayWithHoles(arr) || session_iterableToArrayLimit(arr, i) || session_unsupportedIterableToArray(arr, i) || session_nonIterableRest(); }
+function session_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function session_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function session_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function session_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function session_toConsumableArray(arr) { return session_arrayWithoutHoles(arr) || session_iterableToArray(arr) || session_unsupportedIterableToArray(arr) || session_nonIterableSpread(); }
+function session_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function session_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return session_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return session_arrayLikeToArray(o, minLen); }
+function session_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function session_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return session_arrayLikeToArray(arr); }
+function session_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+
+/**
+ * Return a mapping of the session items, mapping foldable items to a single of their forms
+ * @returns the item session results, with foldables mapped to a single of their folding forms
+ */
+function mySessionItemsWrapper() {
+  var manyToOne = (primary, mapped) => mapped.map(target => [target, primary]);
+  var foldable = item => manyToOne(item, getFoldGroup(item));
+  var itemMappings = new Map([].concat(session_toConsumableArray(foldable(template_string_$item(session_templateObject || (session_templateObject = session_taggedTemplateLiteral(["liar's pants"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject2 || (session_templateObject2 = session_taggedTemplateLiteral(["ice pick"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject3 || (session_templateObject3 = session_taggedTemplateLiteral(["Spooky Putty sheet"]))), [template_string_$item(session_templateObject4 || (session_templateObject4 = session_taggedTemplateLiteral(["Spooky Putty monster"])))].concat(session_toConsumableArray(getFoldGroup(template_string_$item(session_templateObject5 || (session_templateObject5 = session_taggedTemplateLiteral(["Spooky Putty sheet"])))))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject6 || (session_templateObject6 = session_taggedTemplateLiteral(["stinky cheese sword"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject7 || (session_templateObject7 = session_taggedTemplateLiteral(["naughty paper shuriken"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject8 || (session_templateObject8 = session_taggedTemplateLiteral(["Loathing Legion knife"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject9 || (session_templateObject9 = session_taggedTemplateLiteral(["deceased crimbo tree"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject10 || (session_templateObject10 = session_taggedTemplateLiteral(["makeshift turban"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject11 || (session_templateObject11 = session_taggedTemplateLiteral(["turtle wax shield"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject12 || (session_templateObject12 = session_taggedTemplateLiteral(["metallic foil bow"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject13 || (session_templateObject13 = session_taggedTemplateLiteral(["ironic moustache"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject14 || (session_templateObject14 = session_taggedTemplateLiteral(["bugged balaclava"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject15 || (session_templateObject15 = session_taggedTemplateLiteral(["toggle switch (Bartend)"]))))), session_toConsumableArray(foldable(template_string_$item(session_templateObject16 || (session_templateObject16 = session_taggedTemplateLiteral(["mushroom cap"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject17 || (session_templateObject17 = session_taggedTemplateLiteral(["can of Rain-Doh"]))), template_string_$items(session_templateObject18 || (session_templateObject18 = session_taggedTemplateLiteral(["empty Rain-Doh can"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject19 || (session_templateObject19 = session_taggedTemplateLiteral(["meteorite fragment"]))), template_string_$items(session_templateObject20 || (session_templateObject20 = session_taggedTemplateLiteral(["meteorite earring, meteorite necklace, meteorite ring"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject21 || (session_templateObject21 = session_taggedTemplateLiteral(["Sneaky Pete's leather jacket"]))), template_string_$items(session_templateObject22 || (session_templateObject22 = session_taggedTemplateLiteral(["Sneaky Pete's leather jacket (collar popped)"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject23 || (session_templateObject23 = session_taggedTemplateLiteral(["Boris's Helm"]))), template_string_$items(session_templateObject24 || (session_templateObject24 = session_taggedTemplateLiteral(["Boris's Helm (askew)"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject25 || (session_templateObject25 = session_taggedTemplateLiteral(["Jarlsberg's pan"]))), template_string_$items(session_templateObject26 || (session_templateObject26 = session_taggedTemplateLiteral(["Jarlsberg's pan (Cosmic portal mode)"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject27 || (session_templateObject27 = session_taggedTemplateLiteral(["tiny plastic sword"]))), template_string_$items(session_templateObject28 || (session_templateObject28 = session_taggedTemplateLiteral(["grogtini, bodyslam, dirty martini, vesper, cherry bomb, sangria del diablo"]))))), session_toConsumableArray(manyToOne(template_string_$item(session_templateObject29 || (session_templateObject29 = session_taggedTemplateLiteral(["earthenware muffin tin"]))), template_string_$items(session_templateObject30 || (session_templateObject30 = session_taggedTemplateLiteral(["blueberry muffin, bran muffin, chocolate chip muffin"])))))));
+  var inventory = new Map();
+  for (var _i = 0, _Object$entries = Object.entries((0,external_kolmafia_namespaceObject.mySessionItems)()); _i < _Object$entries.length; _i++) {
+    var _itemMappings$get, _inventory$get;
+    var _Object$entries$_i = session_slicedToArray(_Object$entries[_i], 2),
+      itemStr = _Object$entries$_i[0],
+      quantity = _Object$entries$_i[1];
+    var item = (0,external_kolmafia_namespaceObject.toItem)(itemStr);
+    var mappedItem = (_itemMappings$get = itemMappings.get(item)) !== null && _itemMappings$get !== void 0 ? _itemMappings$get : item;
+    inventory.set(mappedItem, quantity + ((_inventory$get = inventory.get(mappedItem)) !== null && _inventory$get !== void 0 ? _inventory$get : 0));
+  }
+  return inventory;
+}
+/**
+ * Performa a binary element-wise operation on two inventories
+ * @param a The LHS inventory to perform the operation on
+ * @param b The RHS inventory to perform the operation on
+ * @param op an operator to compute between the sets
+ * @param commutative if true use the value of b for any items not in a. if false, ignore values not in a
+ * @returns a new map representing the combined inventories
+ */
+function inventoryOperation(a, b, op, commutative) {
+  // return every entry that is in a and not in b
+  var difference = new Map();
+  var _iterator = session_createForOfIteratorHelper(a.entries()),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var _b$get;
+      var _step$value = session_slicedToArray(_step.value, 2),
+        _item = _step$value[0],
+        _quantity = _step$value[1];
+      var combinedQuantity = op(_quantity, (_b$get = b.get(_item)) !== null && _b$get !== void 0 ? _b$get : 0);
+      difference.set(_item, combinedQuantity);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  if (commutative) {
+    var _iterator2 = session_createForOfIteratorHelper(b.entries()),
+      _step2;
+    try {
+      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+        var _step2$value = session_slicedToArray(_step2.value, 2),
+          item = _step2$value[0],
+          quantity = _step2$value[1];
+        if (!a.has(item)) {
+          difference.set(item, quantity);
+        }
+      }
+    } catch (err) {
+      _iterator2.e(err);
+    } finally {
+      _iterator2.f();
+    }
+  }
+  var diffEntries = session_toConsumableArray(difference.entries());
+  return new Map(diffEntries.filter(value => value[1] !== 0));
+}
+/**
+ * A wrapper around tracking items and meat gained from this session
+ * Smartly handles foldables being added/removed based on their state
+ * Provides operations to add sessions and subtract Sessions so you can isolate the value of each Session using a baseline
+ * @member meat the raw meat associated with this Session
+ * @member items a map representing the items gained/lost during this Session
+ */
+var Session = /*#__PURE__*/function () {
+  /**
+   * Construct a new session
+   * @param meat the amount of meat associated with this session
+   * @param items the items associated with this session
+   */
+  function Session(meat, items) {
+    session_classCallCheck(this, Session);
+    session_defineProperty(this, "meat", void 0);
+    session_defineProperty(this, "items", void 0);
+    this.meat = meat;
+    this.items = items;
+  }
+  /**
+   * Register session results that do not get tracked natively
+   * @param target either the Item or a string saying "meat" of what quantity to modify
+   * @param quantity How much to modify the tracked amount by
+   */
+  session_createClass(Session, [{
+    key: "register",
+    value: function register(target, quantity) {
+      if (target === "meat") {
+        this.meat += quantity;
+      } else {
+        var _this$items$get;
+        this.items.set(target, ((_this$items$get = this.items.get(target)) !== null && _this$items$get !== void 0 ? _this$items$get : 0) + quantity);
+      }
+    }
+    /**
+     * Value this session
+     * @param itemValue a function that, when given an item, will give a meat value of the item
+     * @returns ItemResult with the full value of this session given the input function
+     */
+  }, {
+    key: "value",
+    value: function value(itemValue) {
+      // TODO: add garbo specific pricing (sugar equipment for synth, etc.)
+      var meat = Math.floor(this.meat);
+      var itemDetails = session_toConsumableArray(this.items.entries()).map(_ref => {
+        var _ref2 = session_slicedToArray(_ref, 2),
+          item = _ref2[0],
+          quantity = _ref2[1];
+        return {
+          item: item,
+          quantity: quantity,
+          value: itemValue(item) * quantity
+        };
+      });
+      var items = Math.floor(sumNumbers(itemDetails.map(detail => detail.value)));
+      return {
+        meat: meat,
+        items: items,
+        total: meat + items,
+        itemDetails: itemDetails
+      };
+    }
+    /**
+     * Subtract the contents of another session from this one, removing any items that have a resulting quantity of 0
+     *  (this will ignore elements in b but not in a)
+     * @param other the session from which to pull values to remove from this session
+     * @returns a new session representing the difference between this session and the other session
+     */
+  }, {
+    key: "diff",
+    value: function diff(other) {
+      return new Session(this.meat - other.meat, inventoryOperation(this.items, other.items, (a, b) => a - b, false));
+    }
+    /**
+     * Subtract the contents of snasphot b from session a, removing any items that have a resulting quantity of 0
+     *  (this will ignore elements in b but not in a)
+     * @param a the session from which to subtract elements
+     * @param b the session from which to add elements
+     * @returns a new session representing the difference between a and b
+     */
+  }, {
+    key: "add",
+    value:
+    /**
+     * Generate a new session combining multiple sessions together
+     * @param other the session from which to add elements to this set
+     * @returns a new session representing the addition of other to this
+     */
+    function add(other) {
+      return new Session(this.meat + other.meat, inventoryOperation(this.items, other.items, (a, b) => a + b, true));
+    }
+    /**
+     * Combine the contents of sessions
+     * @param sessions the set of sessions to combine together
+     * @returns a new session representing the difference between a and b
+     */
+  }, {
+    key: "toFile",
+    value:
+    /**
+     * Export this session to a file in the data/ directory. Conventionally this file should end in ".json"
+     * @param filename The file into which to export
+     */
+    function toFile(filename) {
+      var val = {
+        meat: this.meat,
+        items: Object.fromEntries(this.items)
+      };
+      (0,external_kolmafia_namespaceObject.bufferToFile)(JSON.stringify(val), Session.getFilepath(filename));
+    }
+    /**
+     * Import a session from a file in the data/ directory. Conventionally the file should end in ".json"
+     * @param filename The file from which to import
+     * @returns the session represented by the file
+     */
+  }], [{
+    key: "diff",
+    value: function diff(a, b) {
+      return a.diff(b);
+    }
+  }, {
+    key: "add",
+    value: function add() {
+      for (var _len = arguments.length, sessions = new Array(_len), _key = 0; _key < _len; _key++) {
+        sessions[_key] = arguments[_key];
+      }
+      return sessions.reduce((previousSession, currentSession) => previousSession.add(currentSession));
+    }
+  }, {
+    key: "getFilepath",
+    value: function getFilepath(filename) {
+      return filename.endsWith(".json") ? filename : "snapshots/".concat((0,external_kolmafia_namespaceObject.myName)(), "/").concat((0,external_kolmafia_namespaceObject.todayToString)(), "_").concat(filename, ".json");
+    }
+  }, {
+    key: "fromFile",
+    value: function fromFile(filename) {
+      var fileValue = (0,external_kolmafia_namespaceObject.fileToBuffer)(Session.getFilepath(filename));
+      // fileToBuffer returns empty string for files that don't exist
+      if (fileValue.length > 0) {
+        var val = JSON.parse(fileValue);
+        var parsedItems = Object.entries(val.items).map(_ref3 => {
+          var _ref4 = session_slicedToArray(_ref3, 2),
+            itemStr = _ref4[0],
+            quantity = _ref4[1];
+          return [(0,external_kolmafia_namespaceObject.toItem)(itemStr), quantity];
+        });
+        return new Session(val.meat, new Map(parsedItems));
+      } else {
+        // if the file does not exist, return an empty session
+        return new Session(0, new Map());
+      }
+    }
+  }, {
+    key: "current",
+    value: function current() {
+      return new Session((0,external_kolmafia_namespaceObject.mySessionMeat)(), mySessionItemsWrapper());
+    }
+  }]);
+  return Session;
+}();
+;// CONCATENATED MODULE: ./src/engine/profits.ts
+var profits_templateObject, profits_templateObject2, profits_templateObject3, profits_templateObject4, profits_templateObject5, profits_templateObject6, profits_templateObject7, profits_templateObject8, profits_templateObject9, profits_templateObject10, profits_templateObject11, profits_templateObject12, profits_templateObject13, profits_templateObject14, profits_templateObject15, profits_templateObject16, profits_templateObject17, profits_templateObject18, profits_templateObject19, profits_templateObject20, profits_templateObject21, profits_templateObject22, profits_templateObject23, profits_templateObject24, profits_templateObject25, profits_templateObject26, profits_templateObject27, profits_templateObject28, profits_templateObject29, profits_templateObject30, profits_templateObject31, profits_templateObject32, profits_templateObject33, profits_templateObject34, profits_templateObject35, profits_templateObject36, profits_templateObject37, profits_templateObject38, profits_templateObject39, profits_templateObject40, profits_templateObject41, profits_templateObject42, profits_templateObject43, profits_templateObject44, profits_templateObject45;
+function profits_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function profits_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function profits_createClass(Constructor, protoProps, staticProps) { if (protoProps) profits_defineProperties(Constructor.prototype, protoProps); if (staticProps) profits_defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function profits_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function profits_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function profits_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = profits_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function profits_slicedToArray(arr, i) { return profits_arrayWithHoles(arr) || profits_iterableToArrayLimit(arr, i) || profits_unsupportedIterableToArray(arr, i) || profits_nonIterableRest(); }
+function profits_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function profits_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function profits_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function profits_toConsumableArray(arr) { return profits_arrayWithoutHoles(arr) || profits_iterableToArray(arr) || profits_unsupportedIterableToArray(arr) || profits_nonIterableSpread(); }
+function profits_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function profits_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return profits_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return profits_arrayLikeToArray(o, minLen); }
+function profits_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function profits_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return profits_arrayLikeToArray(arr); }
+function profits_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+function currency() {
+  for (var _len = arguments.length, items = new Array(_len), _key = 0; _key < _len; _key++) {
+    items[_key] = arguments[_key];
+  }
+  var unitCost = items.map(i => {
+    var coinmaster = external_kolmafia_namespaceObject.Coinmaster.all().find(c => (0,external_kolmafia_namespaceObject.sellPrice)(c, i) > 0);
+    if (!coinmaster) {
+      throw "Invalid coinmaster item ".concat(i);
+    } else {
+      return [i, (0,external_kolmafia_namespaceObject.sellPrice)(coinmaster, i)];
+    }
+  });
+  return () => Math.max.apply(Math, profits_toConsumableArray(unitCost.map(_ref => {
+    var _ref2 = profits_slicedToArray(_ref, 2),
+      item = _ref2[0],
+      cost = _ref2[1];
+    return garboValue(item) / cost;
+  })));
+}
+function complexCandy() {
+  var candies = external_kolmafia_namespaceObject.Item.all().filter(i => i.candyType === "complex");
+  var candyLookup = [[], [], [], [], []];
+  var _iterator = profits_createForOfIteratorHelper(candies),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var candy = _step.value;
+      var id = (0,external_kolmafia_namespaceObject.toInt)(candy) % 5;
+      if (candy.tradeable) {
+        candyLookup[id].push(candy);
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  var candyIdPrices = candies.filter(i => !i.tradeable).map(i => [i, () => Math.min.apply(Math, profits_toConsumableArray(candyLookup[(0,external_kolmafia_namespaceObject.toInt)(i) % 5].map(i => garboValue(i))))]);
+  return candyIdPrices;
+}
+var specialValueLookup = new Map([[template_string_$item(profits_templateObject || (profits_templateObject = profits_taggedTemplateLiteral(["Freddy Kruegerand"]))), currency.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject2 || (profits_templateObject2 = profits_taggedTemplateLiteral(["bottle of Bloodweiser, electric Kool-Aid, Dreadsylvanian skeleton key"])))))], [template_string_$item(profits_templateObject3 || (profits_templateObject3 = profits_taggedTemplateLiteral(["Beach Buck"]))), currency(template_string_$item(profits_templateObject4 || (profits_templateObject4 = profits_taggedTemplateLiteral(["one-day ticket to Spring Break Beach"]))))], [template_string_$item(profits_templateObject5 || (profits_templateObject5 = profits_taggedTemplateLiteral(["Coinspiracy"]))), currency.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject6 || (profits_templateObject6 = profits_taggedTemplateLiteral(["Merc Core deployment orders, karma shawarma"])))))], [template_string_$item(profits_templateObject7 || (profits_templateObject7 = profits_taggedTemplateLiteral(["FunFunds\u2122"]))), currency(template_string_$item(profits_templateObject8 || (profits_templateObject8 = profits_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))))], [template_string_$item(profits_templateObject9 || (profits_templateObject9 = profits_taggedTemplateLiteral(["Volcoino"]))), currency(template_string_$item(profits_templateObject10 || (profits_templateObject10 = profits_taggedTemplateLiteral(["one-day ticket to That 70s Volcano"]))))], [template_string_$item(profits_templateObject11 || (profits_templateObject11 = profits_taggedTemplateLiteral(["Wal-Mart gift certificate"]))), currency(template_string_$item(profits_templateObject12 || (profits_templateObject12 = profits_taggedTemplateLiteral(["one-day ticket to The Glaciest"]))))], [template_string_$item(profits_templateObject13 || (profits_templateObject13 = profits_taggedTemplateLiteral(["Rubee\u2122"]))), currency(template_string_$item(profits_templateObject14 || (profits_templateObject14 = profits_taggedTemplateLiteral(["FantasyRealm guest pass"]))))], [template_string_$item(profits_templateObject15 || (profits_templateObject15 = profits_taggedTemplateLiteral(["Guzzlrbuck"]))), currency(template_string_$item(profits_templateObject16 || (profits_templateObject16 = profits_taggedTemplateLiteral(["Never Don't Stop Not Striving"]))))]].concat(profits_toConsumableArray(complexCandy()), [[template_string_$item(profits_templateObject17 || (profits_templateObject17 = profits_taggedTemplateLiteral(["Merc Core deployment orders"]))), () => garboValue(template_string_$item(profits_templateObject18 || (profits_templateObject18 = profits_taggedTemplateLiteral(["one-day ticket to Conspiracy Island"]))))], [template_string_$item(profits_templateObject19 || (profits_templateObject19 = profits_taggedTemplateLiteral(["free-range mushroom"]))), () => 3 * Math.max(garboValue(template_string_$item(profits_templateObject20 || (profits_templateObject20 = profits_taggedTemplateLiteral(["mushroom tea"])))) - garboValue(template_string_$item(profits_templateObject21 || (profits_templateObject21 = profits_taggedTemplateLiteral(["soda water"])))), garboValue(template_string_$item(profits_templateObject22 || (profits_templateObject22 = profits_taggedTemplateLiteral(["mushroom whiskey"])))) - garboValue(template_string_$item(profits_templateObject23 || (profits_templateObject23 = profits_taggedTemplateLiteral(["fermenting powder"])))), garboValue(template_string_$item(profits_templateObject24 || (profits_templateObject24 = profits_taggedTemplateLiteral(["mushroom filet"])))))], [template_string_$item(profits_templateObject25 || (profits_templateObject25 = profits_taggedTemplateLiteral(["little firkin"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject26 || (profits_templateObject26 = profits_taggedTemplateLiteral(["martini, screwdriver, strawberry daiquiri, margarita, vodka martini, tequila sunrise, bottle of Amontillado, barrel-aged martini, barrel gun"])))))], [template_string_$item(profits_templateObject27 || (profits_templateObject27 = profits_taggedTemplateLiteral(["normal barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject28 || (profits_templateObject28 = profits_taggedTemplateLiteral(["a little sump'm sump'm, pink pony, rockin' wagon, roll in the hay, slip 'n' slide, slap and tickle"])))))], [template_string_$item(profits_templateObject29 || (profits_templateObject29 = profits_taggedTemplateLiteral(["big tun"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject30 || (profits_templateObject30 = profits_taggedTemplateLiteral(["gibson, gin and tonic, mimosette, tequila sunset, vodka and tonic, zmobie"])))))], [template_string_$item(profits_templateObject31 || (profits_templateObject31 = profits_taggedTemplateLiteral(["weathered barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject32 || (profits_templateObject32 = profits_taggedTemplateLiteral(["bean burrito, enchanted bean burrito, jumping bean burrito"])))))], [template_string_$item(profits_templateObject33 || (profits_templateObject33 = profits_taggedTemplateLiteral(["dusty barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject34 || (profits_templateObject34 = profits_taggedTemplateLiteral(["spicy bean burrito, spicy enchanted bean burrito, spicy jumping bean burrito"])))))], [template_string_$item(profits_templateObject35 || (profits_templateObject35 = profits_taggedTemplateLiteral(["disintegrating barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject36 || (profits_templateObject36 = profits_taggedTemplateLiteral(["insanely spicy bean burrito, insanely spicy enchanted bean burrito, insanely spicy jumping bean burrito"])))))], [template_string_$item(profits_templateObject37 || (profits_templateObject37 = profits_taggedTemplateLiteral(["moist barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject38 || (profits_templateObject38 = profits_taggedTemplateLiteral(["cast, concentrated magicalness pill, enchanted barbell, giant moxie weed, Mountain Stream soda"])))))], [template_string_$item(profits_templateObject39 || (profits_templateObject39 = profits_taggedTemplateLiteral(["rotting barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject40 || (profits_templateObject40 = profits_taggedTemplateLiteral(["Doc Galaktik's Ailment Ointment, extra-strength strongness elixir, jug-o-magicalness, Marquis de Poivre soda, suntan lotion of moxiousness"])))))], [template_string_$item(profits_templateObject41 || (profits_templateObject41 = profits_taggedTemplateLiteral(["mouldering barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject42 || (profits_templateObject42 = profits_taggedTemplateLiteral(["creepy ginger ale, haunted battery, scroll of drastic healing, synthetic marrow, the funk"])))))], [template_string_$item(profits_templateObject43 || (profits_templateObject43 = profits_taggedTemplateLiteral(["barnacled barrel"]))), () => garboAverageValue.apply(void 0, profits_toConsumableArray(template_string_$items(profits_templateObject44 || (profits_templateObject44 = profits_taggedTemplateLiteral(["Alewife\u2122 Ale, bazookafish bubble gum, beefy fish meat, eel battery, glistening fish meat, ink bladder, pufferfish spine, shark cartilage, slick fish meat, slug of rum, slug of shochu, slug of vodka, temporary teardrop tattoo"])))))], [template_string_$item(profits_templateObject45 || (profits_templateObject45 = profits_taggedTemplateLiteral(["fake hand"]))), () => 50000]]));
+function getHistoricalSaleValue(item) {
+  if ((0,external_kolmafia_namespaceObject.historicalAge)(item) <= 7.0 && (0,external_kolmafia_namespaceObject.historicalPrice)(item) > 0) {
+    var isMallMin = (0,external_kolmafia_namespaceObject.historicalPrice)(item) === Math.max(100, 2 * (0,external_kolmafia_namespaceObject.autosellPrice)(item));
+    return isMallMin ? (0,external_kolmafia_namespaceObject.autosellPrice)(item) : 0.9 * (0,external_kolmafia_namespaceObject.historicalPrice)(item);
+  }
+  return getSaleValue(item);
+}
+var garboValueCache = new Map();
+function garboValue(item) {
+  var cachedValue = garboValueCache.get(item);
+  if (cachedValue === undefined) {
+    var specialValueCompute = specialValueLookup.get(item);
+    var value = specialValueCompute ? specialValueCompute() : getHistoricalSaleValue(item);
+    (0,external_kolmafia_namespaceObject.print)("Valuing ".concat(item.name, " @ ").concat(value));
+    garboValueCache.set(item, value);
+    return value;
+  }
+  return cachedValue;
+}
+function garboAverageValue() {
+  for (var _len2 = arguments.length, items = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    items[_key2] = arguments[_key2];
+  }
+  return sumNumbers(items.map(garboValue)) / items.length;
+}
+var DailySetting = /*#__PURE__*/function () {
+  function DailySetting(key) {
+    profits_classCallCheck(this, DailySetting);
+    profits_defineProperty(this, "key", void 0);
+    this.key = key;
+  }
+  profits_createClass(DailySetting, [{
+    key: "get",
+    value: function get(def) {
+      var saved = property_get(this.key, "");
+      if (saved === "") return def;
+      var json = JSON.parse(saved);
+      if ("day" in json && "value" in json && json["day"] === (0,external_kolmafia_namespaceObject.gamedayToInt)()) return json["value"];else return def;
+    }
+  }, {
+    key: "set",
+    value: function set(value) {
+      _set(this.key, JSON.stringify({
+        day: (0,external_kolmafia_namespaceObject.gamedayToInt)(),
+        value: value
+      }));
+    }
+  }]);
+  return DailySetting;
+}();
+var ProfitTracker = /*#__PURE__*/function () {
+  function ProfitTracker(key) {
+    profits_classCallCheck(this, ProfitTracker);
+    profits_defineProperty(this, "setting", void 0);
+    profits_defineProperty(this, "records", void 0);
+    profits_defineProperty(this, "session", void 0);
+    profits_defineProperty(this, "turns", void 0);
+    profits_defineProperty(this, "hours", void 0);
+    profits_defineProperty(this, "pulled", void 0);
+    profits_defineProperty(this, "ascensions", void 0);
+    this.setting = new DailySetting(key);
+    this.records = this.setting.get({});
+    this.session = Session.current();
+    this.turns = (0,external_kolmafia_namespaceObject.myTurncount)();
+    this.hours = (0,external_kolmafia_namespaceObject.gametimeToInt)() / (1000 * 60 * 60);
+    this.ascensions = (0,external_kolmafia_namespaceObject.myAscensions)();
+    this.pulled = new Set(property_get("_roninStoragePulls").split(",").map(id => parseInt(id)).filter(id => id > 0).map(id => external_kolmafia_namespaceObject.Item.get(id)));
+  }
+  profits_createClass(ProfitTracker, [{
+    key: "reset",
+    value: function reset() {
+      this.session = Session.current();
+      this.turns = (0,external_kolmafia_namespaceObject.myTurncount)();
+      this.hours = (0,external_kolmafia_namespaceObject.gametimeToInt)() / (1000 * 60 * 60);
+      this.ascensions = (0,external_kolmafia_namespaceObject.myAscensions)();
+      this.pulled = new Set(property_get("_roninStoragePulls").split(",").map(id => parseInt(id)).filter(id => id > 0).map(id => external_kolmafia_namespaceObject.Item.get(id)));
+    }
+  }, {
+    key: "record",
+    value: function record(tag) {
+      if (this.ascensions < (0,external_kolmafia_namespaceObject.myAscensions)()) {
+        // Session tracking is not accurate across ascensions
+        this.reset();
+        return;
+      }
+
+      // Pulled items are tracked oddly in the Session
+      // (they are included in the Session diff by default)
+      var newPulls = new Set(property_get("_roninStoragePulls").split(",").map(id => parseInt(id)).filter(id => id > 0).map(id => external_kolmafia_namespaceObject.Item.get(id)));
+      var _iterator2 = profits_createForOfIteratorHelper(newPulls),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var _this$session$items$g;
+          var item = _step2.value;
+          if (this.pulled.has(item)) continue;
+          this.session.items.set(item, 1 + ((_this$session$items$g = this.session.items.get(item)) !== null && _this$session$items$g !== void 0 ? _this$session$items$g : 0));
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+      var diff = Session.current().diff(this.session);
+      if (!(tag in this.records)) this.records[tag] = {
+        meat: 0,
+        items: 0,
+        turns: 0,
+        hours: 0
+      };
+      var value = diff.value(garboValue);
+      this.records[tag].meat += value.meat;
+      this.records[tag].items += value.items;
+      this.records[tag].turns += (0,external_kolmafia_namespaceObject.myTurncount)() - this.turns;
+      this.records[tag].hours += (0,external_kolmafia_namespaceObject.gametimeToInt)() / (1000 * 60 * 60) - this.hours;
+      (0,external_kolmafia_namespaceObject.print)("Profit: ".concat(value.meat, ", ").concat(value.items, ", ").concat((0,external_kolmafia_namespaceObject.myTurncount)() - this.turns, ", ").concat((0,external_kolmafia_namespaceObject.gametimeToInt)() / (1000 * 60 * 60) - this.hours));
+      this.reset();
+    }
+  }, {
+    key: "all",
+    value: function all() {
+      return this.records;
+    }
+  }, {
+    key: "save",
+    value: function save() {
+      this.setting.set(this.records);
+    }
+  }]);
+  return ProfitTracker;
+}();
+function profits_sum(record, where) {
+  var included = [];
+  for (var _key3 in record) {
+    if (where(_key3)) included.push(record[_key3]);
+  }
+  return {
+    meat: included.reduce((v, p) => v + p.meat, 0),
+    items: included.reduce((v, p) => v + p.items, 0),
+    turns: included.reduce((v, p) => v + p.turns, 0),
+    hours: included.reduce((v, p) => v + p.hours, 0)
+  };
+}
+function numberWithCommas(x) {
+  var str = x.toString();
+  if (str.includes(".")) return x.toFixed(2);
+  return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function printProfitSegment(key, record, color) {
+  if (record === undefined) return;
+  (0,external_kolmafia_namespaceObject.print)("".concat(key, ": ").concat(numberWithCommas(record.meat), " meat + ").concat(numberWithCommas(record.items), " items (").concat(record.turns, " turns + ").concat(numberWithCommas(record.hours), " hours)"), color);
+}
+function printProfits(records) {
+  (0,external_kolmafia_namespaceObject.print)("");
+  (0,external_kolmafia_namespaceObject.print)("== Daily Loop Profit ==");
+  printProfitSegment("Aftercore", profits_sum(records, key => key.startsWith("0")), "blue");
+  printProfitSegment("* Garbo", records["0@Garbo"], "green");
+  printProfitSegment("* Other", records["0@Other"], "green");
+  printProfitSegment("Grey You", profits_sum(records, key => key.startsWith("1")), "blue");
+  printProfitSegment("* Run", records["1@Run"], "green");
+  printProfitSegment("* GooFarming", records["1@GooFarming"], "green");
+  printProfitSegment("* Garbo", records["1@Garbo"], "green");
+  printProfitSegment("* Leveling", records["1@Leveling"], "green");
+  printProfitSegment("* Other", records["1@Other"], "green");
+  printProfitSegment("Total", profits_sum(records, () => true), "black");
+}
 ;// CONCATENATED MODULE: ./src/engine/engine.ts
 function engine_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function engine_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? engine_ownKeys(Object(source), !0).forEach(function (key) { engine_defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : engine_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
