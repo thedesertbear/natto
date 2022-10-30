@@ -7312,9 +7312,273 @@ function readyForBed() {
 function backstageItemsDone() {
   return (have(template_string_$item(structure_templateObject9 || (structure_templateObject9 = structure_taggedTemplateLiteral(["giant marshmallow"])))) ? 1 : 0) + (have(template_string_$item(structure_templateObject10 || (structure_templateObject10 = structure_taggedTemplateLiteral(["beer-scented teddy bear"])))) ? 1 : 0) + (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(structure_templateObject11 || (structure_templateObject11 = structure_taggedTemplateLiteral(["gin-soaked blotter paper"])))) >= 2 && (have(template_string_$item(structure_templateObject12 || (structure_templateObject12 = structure_taggedTemplateLiteral(["booze-soaked cherry"])))) ? 1 : 0) + (have(template_string_$item(structure_templateObject13 || (structure_templateObject13 = structure_taggedTemplateLiteral(["comfy pillow"])))) ? 1 : 0) + (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(structure_templateObject14 || (structure_templateObject14 = structure_taggedTemplateLiteral(["sponge cake"])))) >= 2;
 }
+;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2022/CombatLoversLocket.js
+var CombatLoversLocket_templateObject;
+function CombatLoversLocket_slicedToArray(arr, i) { return CombatLoversLocket_arrayWithHoles(arr) || CombatLoversLocket_iterableToArrayLimit(arr, i) || CombatLoversLocket_unsupportedIterableToArray(arr, i) || CombatLoversLocket_nonIterableRest(); }
+function CombatLoversLocket_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function CombatLoversLocket_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return CombatLoversLocket_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return CombatLoversLocket_arrayLikeToArray(o, minLen); }
+function CombatLoversLocket_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function CombatLoversLocket_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function CombatLoversLocket_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function CombatLoversLocket_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+// eslint-disable-next-line libram/verify-constants
+var locket = template_string_$item(CombatLoversLocket_templateObject || (CombatLoversLocket_templateObject = CombatLoversLocket_taggedTemplateLiteral(["Combat Lover's Locket"])));
+function CombatLoversLocket_have() {
+  return haveItem(locket);
+}
+/**
+ * Filters the set of all unlocked locket monsters to only the ones available to be locketed right now.
+ * @returns An array consisting of all Monsters you can fight with your locket right now.
+ */
+function availableLocketMonsters() {
+  if (reminiscesLeft() === 0) return [];
+  return Object.entries(getLocketMonsters()).filter(_ref => {
+    var _ref2 = CombatLoversLocket_slicedToArray(_ref, 2),
+      unused = _ref2[1];
+    return unused;
+  }).map(_ref3 => {
+    var _ref4 = CombatLoversLocket_slicedToArray(_ref3, 1),
+      name = _ref4[0];
+    return toMonster(name);
+  });
+}
+/**
+ * Parses getLocketMonsters and returns the collection of all Monsters as an Array.
+ * @returns An array consisting of all Monsters you can hypothetically fight, regardless of whether they've been fought today.
+ */
+function unlockedLocketMonsters() {
+  return Object.entries((0,external_kolmafia_namespaceObject.getLocketMonsters)()).map(_ref5 => {
+    var _ref6 = CombatLoversLocket_slicedToArray(_ref5, 1),
+      name = _ref6[0];
+    return (0,external_kolmafia_namespaceObject.toMonster)(name);
+  });
+}
+function parseLocketProperty() {
+  return get("_locketMonstersFought").split(",").filter(id => id.trim().length > 0);
+}
+/**
+ * Determines how many reminisces remain by parsing the _locketMonstersFought property.
+ * @returns The number of reminisces a player has available; 0 if they lack the Locket.
+ */
+function reminiscesLeft() {
+  return CombatLoversLocket_have() ? clamp(3 - parseLocketProperty().length, 0, 3) : 0;
+}
+/**
+ * Determines which monsters were reminisced today by parsing the _locketMonstersFought property.
+ * @returns An array consisting of the Monsters reminisced today.
+ */
+function monstersReminisced() {
+  return parseLocketProperty().map(id => toMonster(id));
+}
+/**
+ * Fight a Monster using the Combat Lover's Locket
+ * @param monster The Monster to fight
+ * @returns false if we are unable to reminisce about this monster. Else, returns whether, at the end of all things, we have reminisced about this monster.
+ */
+function reminisce(monster) {
+  if (!CombatLoversLocket_have() || reminiscesLeft() === 0 || !getLocketMonsters()[monster.name]) {
+    return false;
+  }
+  cliExecute("reminisce ".concat(monster));
+  runCombat();
+  return monstersReminisced().includes(monster);
+}
+/**
+ * This function efficiently evaluates all of an adventurer's possibly reminiscable monsters, placing them through a filtering criteria and evaluating them based on a passed function.
+ * @param criteria A filtering function for delineating which monsters are "fair game" for the search, such as "is this monster free".
+ * @param value A function for deciding which monsters are "better" than others.
+ * @returns A singular monster that fulfills the criteria function and maximizes the value function.
+ */
+function findMonster(criteria) {
+  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : () => 1;
+  if (!CombatLoversLocket_have() || reminiscesLeft() === 0) return null;
+  var options = availableLocketMonsters().filter(criteria);
+  if (!options.length) return null;
+  return options.reduce((a, b) => value(a) > value(b) ? a : b);
+}
+;// CONCATENATED MODULE: ./src/tasks/sim.ts
+var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20;
+function sim_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = sim_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function sim_slicedToArray(arr, i) { return sim_arrayWithHoles(arr) || sim_iterableToArrayLimit(arr, i) || sim_unsupportedIterableToArray(arr, i) || sim_nonIterableRest(); }
+function sim_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function sim_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return sim_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return sim_arrayLikeToArray(o, minLen); }
+function sim_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function sim_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function sim_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function sim_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+/**
+ * Return: a list of all things required to run the script.
+ */
+var generalList = [{
+  thing: template_string_$familiar(sim_templateObject || (sim_templateObject = sim_taggedTemplateLiteral(["Grey Goose"]))),
+  why: "Running Grey You Path"
+}, {
+  thing: template_string_$skill(sim_templateObject2 || (sim_templateObject2 = sim_taggedTemplateLiteral(["Curse of Weaksauce"]))),
+  why: "aftercore combat"
+}, {
+  thing: $familiars(sim_templateObject3 || (sim_templateObject3 = sim_taggedTemplateLiteral(["Robortender, Space Jellyfish, Hobo Monkey, Leprechaun"]))),
+  why: "in-run farming familiar"
+}, {
+  thing: template_string_$skill(sim_templateObject4 || (sim_templateObject4 = sim_taggedTemplateLiteral(["Torso Awareness"]))),
+  why: "general purpose",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject5 || (sim_templateObject5 = sim_taggedTemplateLiteral(["porquoise-handled sixgun"]))),
+  why: "mp maintenance (20-30 free mp / combat)",
+  optional: true
+}];
+var levelList = [{
+  thing: template_string_$item(sim_templateObject6 || (sim_templateObject6 = sim_taggedTemplateLiteral(["January's Garbage Tote"]))),
+  why: "aftercore leveling (all)",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject7 || (sim_templateObject7 = sim_taggedTemplateLiteral(["familiar scrapbook"]))),
+  why: "aftercore leveling (all)",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["trench lighter"]))),
+  why: "aftercore leveling (all)",
+  optional: true
+},
+// { thing: $skill`Feel Pride`, why: "aftercore leveling (all)", optional: true },
+// { thing: $item`[glitch season reward name]`, why: "aftercore leveling (all)", optional: true },
+// { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
+{
+  thing: template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["fake washboard"]))),
+  why: "aftercore leveling (mus)",
+  optional: true
+}, {
+  thing: template_string_$skill(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
+  why: "aftercore leveling (mys)",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["basaltamander buckler"]))),
+  why: "aftercore leveling (mys)",
+  optional: true
+}];
+var profitList = [{
+  thing: template_string_$item(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["lucky gold ring"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["Mr. Cheeng's spectacles"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["mafia thumb ring"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["carnivorous potted plant"]))),
+  why: "minor turnsave",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["infinite BACON machine"]))),
+  why: "source of renewable Fat Loot Tokens",
+  optional: true
+}];
+var marginalList = [{
+  thing: template_string_$item(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["The Jokester's gun"]))),
+  why: "turnsave",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["hewn moon-rune spoon"]))),
+  why: "easier perming of gnome skills",
+  optional: true
+}];
+function checkThing(thing) {
+  if ("have" in thing && "name" in thing && thing.have instanceof Function) return [thing.have(), thing.name]; //if this is a SpecialThing
+  if (thing instanceof external_kolmafia_namespaceObject.Familiar) return [have(thing), thing.hatchling.name];
+  if (thing instanceof external_kolmafia_namespaceObject.Skill) return [thing.name in (0,external_kolmafia_namespaceObject.getPermedSkills)(), thing.name];
+  if (thing instanceof external_kolmafia_namespaceObject.Monster) return [new Set(unlockedLocketMonsters()).has(thing), thing.name];
+  if (thing instanceof external_kolmafia_namespaceObject.Item) return [have(thing) || (0,external_kolmafia_namespaceObject.storageAmount)(thing) > 0, thing.name];
+  return [false, thing.name];
+}
+function check(req) {
+  if (Array.isArray(req.thing)) {
+    var checks = req.thing.map(checkThing);
+    return [checks.find(res => res[0]) !== undefined, checks.map(res => res[1]).join(" OR "), req];
+  } else {
+    var res = checkThing(req.thing);
+    return [res[0], res[1], req];
+  }
+}
+function checkReqs() {
+  var missing_optional = 0;
+  var missing = 0;
+  var categories = [["Required", generalList.filter(req => !req.optional)], ["General", generalList.filter(req => req.optional)], ["Leveling", levelList], ["Profits", profitList], ["Marginal", marginalList]];
+  (0,external_kolmafia_namespaceObject.printHtml)("Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional");
+  for (var _i = 0, _categories = categories; _i < _categories.length; _i++) {
+    var _categories$_i = sim_slicedToArray(_categories[_i], 2),
+      name = _categories$_i[0],
+      requirements = _categories$_i[1];
+    if (requirements.length === 0) continue;
+    var requirements_info = requirements.map(check);
+    (0,external_kolmafia_namespaceObject.print)(name, "blue");
+    var _iterator = sim_createForOfIteratorHelper(requirements_info.sort((a, b) => a[1].localeCompare(b[1]))),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _step$value = sim_slicedToArray(_step.value, 3),
+          have_it = _step$value[0],
+          _name = _step$value[1],
+          req = _step$value[2];
+        var color = have_it ? "#888888" : req.optional ? "black" : "red";
+        var symbol = have_it ? "✓" : "X";
+        if (!have_it && req.optional) missing_optional++;
+        if (!have_it && !req.optional) missing++;
+        (0,external_kolmafia_namespaceObject.print)("".concat(symbol, " ").concat(_name, " - ").concat(req.why), color);
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+    (0,external_kolmafia_namespaceObject.print)("");
+  }
+
+  // Print the count of missing things
+  if (missing > 0) {
+    (0,external_kolmafia_namespaceObject.print)("You are missing ".concat(missing, " required things. This script will not yet work for you."), "red");
+    if (missing_optional > 0) (0,external_kolmafia_namespaceObject.print)("You are also missing ".concat(missing_optional, " optional things."));
+  } else {
+    if (missing_optional > 0) {
+      (0,external_kolmafia_namespaceObject.print)("You are missing ".concat(missing_optional, " optional things. This script should work, but it could do better."));
+    } else {
+      (0,external_kolmafia_namespaceObject.print)("You have everything! You are the shiniest star. This script should work great.");
+    }
+  }
+}
+function spanWrap(text, color) {
+  return "<span color=\"".concat(color, "\">").concat(text, "</span>");
+}
+function coloredSkill(sk, nPerms, nClass) {
+  return sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)() ? spanWrap(sk.name, "black") : nPerms.includes(sk) && have(sk) ? spanWrap(sk.name, "fuchsia") : nPerms.includes(sk) ? spanWrap(sk.name, "blue") : have(sk) ? spanWrap(sk.name, "purple") : nClass && nClass === sk.class && nClass !== $class(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["none"]))) ? spanWrap(sk.name, "navy") : spanWrap(sk.name, "gray");
+}
+function checkPerms() {
+  var nPerms = targetPerms(false);
+  var nClass = targetClass(false);
+  (0,external_kolmafia_namespaceObject.printHtml)("~~ Default Perm List ~~", false);
+  (0,external_kolmafia_namespaceObject.printHtml)("Legend: <span color=\"black\">[permed]</span>, <span color=\"fuchsia\">[targeted/known]</span>, <span color=\"blue\">[targeted/unknown]</span>, <span color=\"purple\">[known]</span>, <span color=\"navy\">[class skills]</span>, <span color=\"gray\">[other]</span>", false);
+  var count = 0;
+  defaultPermList.forEach(sks => (0,external_kolmafia_namespaceObject.printHtml)("~ Tier ".concat(count++, " ~<br> ").concat(sks.map(sk => coloredSkill(sk, nPerms, nClass)).join(", ")), false));
+}
 ;// CONCATENATED MODULE: ./src/tasks/perm.ts
 var perm_templateObject, perm_templateObject2, perm_templateObject3, perm_templateObject4, perm_templateObject5, perm_templateObject6, perm_templateObject7, perm_templateObject8, perm_templateObject9, perm_templateObject10, perm_templateObject11, perm_templateObject12, perm_templateObject13, perm_templateObject14, perm_templateObject15, perm_templateObject16;
 function perm_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 
 
 function perm_getClass(property, _default) {
@@ -7325,7 +7589,7 @@ function setClass(property, value) {
 }
 var baseClasses = $classes(perm_templateObject || (perm_templateObject = perm_taggedTemplateLiteral(["Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief"])));
 var gnomeSkills = $skills(perm_templateObject2 || (perm_templateObject2 = perm_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"])));
-var permBlockList = $skills(perm_templateObject3 || (perm_templateObject3 = perm_taggedTemplateLiteral(["CLEESH"])));
+var permBlockList = $skills(perm_templateObject3 || (perm_templateObject3 = perm_taggedTemplateLiteral(["CLEESH, Chronic Indigestion"])));
 var defaultPermList = [
 //tier 0 - all permable non-guild, non-gnome skills - never actually target these, but perm them as top priority if you happen to know them
 $skills(perm_templateObject4 || (perm_templateObject4 = perm_taggedTemplateLiteral([""]))).filter(sk => sk.permable && sk.level === -1 && !permBlockList.includes(sk) && !gnomeSkills.includes(sk)), //tier 1 - needed for the script to run at its best
@@ -7365,13 +7629,14 @@ function targetClass(planning) {
 function targetPerms(planning) {
   var pOptions = permOptions(planning);
   var tier = permTier(planning);
-  if (tier > expectedKarma(planning) / 100 || tier === 0)
+  var maxQty = Math.floor(expectedKarma(planning) / 100);
+  if (tier > maxQty || tier === 0)
     //don't perm anything (bank karma), but do perm high-tier skills you happen to already know (probably due to Big Book or manually used skillbooks)
     return !planning ? pOptions.slice(0, tier + 1) //skills in tiers <= your current best perm target
-    .flat().filter(sk => have(sk)).slice(0, Math.floor(expectedKarma(false) / 100)) //don't plan to perm more than we have karma for
+    .flat().filter(sk => have(sk)).slice(0, maxQty) //don't plan to perm more than we have karma for
     : []; //don't plan to perm anything next run if we plan to bank karma
 
-  var qty = tier + Math.ceil(Math.sqrt(Math.max(0, expectedKarma(planning) / 100 - tier)));
+  var qty = Math.min(maxQty, tier + Math.ceil(Math.sqrt(Math.max(0, maxQty - tier))));
   var tClass = planning ? targetClass(true) : $class(perm_templateObject16 || (perm_templateObject16 = perm_taggedTemplateLiteral(["none"])));
   return (!planning ? pOptions.flat().filter(sk => !gnomeSkills.includes(sk) || (0,external_kolmafia_namespaceObject.gnomadsAvailable)()) :
   //filter out gnome skills if not available (non-targetClass skills filtered out in permOptions already, for current run)
@@ -7383,11 +7648,15 @@ function planHelper(perms, cls, karma) {
   if (perms.length > 0) return "Perm plan: [".concat(perms.join(", "), "] - Class: <span color=\"blue\">").concat(cls, "</span>, Expected Karma: ").concat(karma);else return "Perm Plan: bank karma - Class: <span color=\"blue\">".concat(cls, "</span>, Expected Karma: ").concat(karma);
 }
 function printPermPlan() {
-  (0,external_kolmafia_namespaceObject.printHtml)("Current ".concat(planHelper(targetPerms(false), targetClass(false), expectedKarma(false))), true);
-  (0,external_kolmafia_namespaceObject.printHtml)("Next ".concat(planHelper(targetPerms(true), targetClass(true), expectedKarma(true))), true);
+  var cClass = targetClass(false);
+  var cPerms = targetPerms(false);
+  var nClass = targetClass(true);
+  var nPerms = targetPerms(true);
+  (0,external_kolmafia_namespaceObject.printHtml)("Current ".concat(planHelper(cPerms.map(sk => coloredSkill(sk, cPerms, cClass)), cClass, expectedKarma(false))), true);
+  (0,external_kolmafia_namespaceObject.printHtml)("Next ".concat(planHelper(nPerms.map(sk => coloredSkill(sk, nPerms, nClass)), nClass, expectedKarma(true))), true);
 }
 ;// CONCATENATED MODULE: ./src/tasks/aftercore.ts
-var aftercore_templateObject, aftercore_templateObject2, aftercore_templateObject3, aftercore_templateObject4, aftercore_templateObject5, aftercore_templateObject6, aftercore_templateObject7, aftercore_templateObject8, aftercore_templateObject9, aftercore_templateObject10, aftercore_templateObject11, aftercore_templateObject12, aftercore_templateObject13, aftercore_templateObject14, aftercore_templateObject15, aftercore_templateObject16, aftercore_templateObject17, aftercore_templateObject18, aftercore_templateObject19, aftercore_templateObject20, aftercore_templateObject21, aftercore_templateObject22, aftercore_templateObject23, aftercore_templateObject24, aftercore_templateObject25, aftercore_templateObject26, aftercore_templateObject27, aftercore_templateObject28, aftercore_templateObject29, aftercore_templateObject30, aftercore_templateObject31, aftercore_templateObject32, aftercore_templateObject33, aftercore_templateObject34, aftercore_templateObject35, aftercore_templateObject36, aftercore_templateObject37, aftercore_templateObject38, aftercore_templateObject39;
+var aftercore_templateObject, aftercore_templateObject2, aftercore_templateObject3, aftercore_templateObject4, aftercore_templateObject5, aftercore_templateObject6, aftercore_templateObject7, aftercore_templateObject8, aftercore_templateObject9, aftercore_templateObject10, aftercore_templateObject11, aftercore_templateObject12, aftercore_templateObject13, aftercore_templateObject14, aftercore_templateObject15, aftercore_templateObject16, aftercore_templateObject17, aftercore_templateObject18, aftercore_templateObject19, aftercore_templateObject20, aftercore_templateObject21, aftercore_templateObject22, aftercore_templateObject23, aftercore_templateObject24, aftercore_templateObject25, aftercore_templateObject26, aftercore_templateObject27, aftercore_templateObject28, aftercore_templateObject29, aftercore_templateObject30, aftercore_templateObject31, aftercore_templateObject32, aftercore_templateObject33, aftercore_templateObject34, aftercore_templateObject35, aftercore_templateObject36, aftercore_templateObject37, aftercore_templateObject38, aftercore_templateObject39, aftercore_templateObject40;
 function aftercore_toConsumableArray(arr) { return aftercore_arrayWithoutHoles(arr) || aftercore_iterableToArray(arr) || aftercore_unsupportedIterableToArray(arr) || aftercore_nonIterableSpread(); }
 function aftercore_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function aftercore_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return aftercore_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return aftercore_arrayLikeToArray(o, minLen); }
@@ -7454,7 +7723,9 @@ var AftercoreQuest = {
     }
   }, {
     name: "Unlock Guild",
-    ready: () => !!targetPerms(false).find(sk => !have(sk) && sk.class === (0,external_kolmafia_namespaceObject.myClass)() && sk.level > 0) || (0,external_kolmafia_namespaceObject.myClass)() === $class(aftercore_templateObject16 || (aftercore_templateObject16 = aftercore_taggedTemplateLiteral(["Seal Clubber"]))) && Math.min.apply(Math, aftercore_toConsumableArray(template_string_$items(aftercore_templateObject17 || (aftercore_templateObject17 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => (0,external_kolmafia_namespaceObject.availableAmount)(it)))) < 20,
+    ready: () =>
+    //ready if you find a skill in your perm plan that is guild-trainable that you don't know, or if you need to buy seal summoning supplies
+    !!targetPerms(false).find(sk => !have(sk) && sk.level > 0) || (0,external_kolmafia_namespaceObject.myClass)() === $class(aftercore_templateObject16 || (aftercore_templateObject16 = aftercore_taggedTemplateLiteral(["Seal Clubber"]))) && Math.min.apply(Math, aftercore_toConsumableArray(template_string_$items(aftercore_templateObject17 || (aftercore_templateObject17 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => (0,external_kolmafia_namespaceObject.availableAmount)(it)))) < 20,
     completed: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("guild"),
     outfit: () => ({
@@ -7463,12 +7734,14 @@ var AftercoreQuest = {
     combat: new CombatStrategy().macro(() => structure_Macro.step("if pastround 2; abort Macro did not complete; endif; ").tryItem(template_string_$item(aftercore_templateObject18 || (aftercore_templateObject18 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).attack().repeat().setAutoAttack())
   }, {
     name: "Guild Skill Training",
-    ready: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)() && false,
-    completed: () => !targetPerms(false).find(sk => sk.class === (0,external_kolmafia_namespaceObject.myClass)() && !have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level),
+    ready: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
+    completed: () =>
+    //done if you don't find any  skills in your perm plan that are guild-trainable, that you don't have known
+    !targetPerms(false).find(sk => !have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level),
     do: () => targetPerms(false).filter(sk => sk.class === (0,external_kolmafia_namespaceObject.myClass)() && !have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level).forEach(sk => (0,external_kolmafia_namespaceObject.visitUrl)("guild.php?action=buyskill&skillid=".concat((0,external_kolmafia_namespaceObject.toInt)(sk)), true)),
     limit: {
       tries: 3
-    } //a few, in case your level is too low and you level up over the course of the day
+    } //a few tries, in case your level is too low and you level up over the course of the day
   }, {
     name: "Stock Up on MMJs",
     ready: () => (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(aftercore_templateObject19 || (aftercore_templateObject19 = aftercore_taggedTemplateLiteral(["Mysticality"]))) && (0,external_kolmafia_namespaceObject.guildStoreAvailable)() || (0,external_kolmafia_namespaceObject.myClass)() === $class(aftercore_templateObject20 || (aftercore_templateObject20 = aftercore_taggedTemplateLiteral(["Accordion Thief"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= 9,
@@ -7499,12 +7772,13 @@ var AftercoreQuest = {
     name: "Garbo",
     completed: () => !canDiet() && (0,external_kolmafia_namespaceObject.myAdventures)() === 0 || stooperDrunk(),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("garbo ascend"),
+    post: () => $effects(aftercore_templateObject28 || (aftercore_templateObject28 = aftercore_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => have(ef)).forEach(ef => uneffect(ef)),
     tracking: "Garbo"
   }, {
     name: "Turn in FunFunds",
-    ready: () => property_get("_stenchAirportToday") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(aftercore_templateObject28 || (aftercore_templateObject28 = aftercore_taggedTemplateLiteral(["FunFunds\u2122"])))) >= 20,
-    completed: () => have(template_string_$item(aftercore_templateObject29 || (aftercore_templateObject29 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
-    do: () => (0,external_kolmafia_namespaceObject.buy)($coinmaster(aftercore_templateObject30 || (aftercore_templateObject30 = aftercore_taggedTemplateLiteral(["The Dinsey Company Store"]))), 1, template_string_$item(aftercore_templateObject31 || (aftercore_templateObject31 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
+    ready: () => property_get("_stenchAirportToday") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(aftercore_templateObject29 || (aftercore_templateObject29 = aftercore_taggedTemplateLiteral(["FunFunds\u2122"])))) >= 20,
+    completed: () => have(template_string_$item(aftercore_templateObject30 || (aftercore_templateObject30 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
+    do: () => (0,external_kolmafia_namespaceObject.buy)($coinmaster(aftercore_templateObject31 || (aftercore_templateObject31 = aftercore_taggedTemplateLiteral(["The Dinsey Company Store"]))), 1, template_string_$item(aftercore_templateObject32 || (aftercore_templateObject32 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
     tracking: "Garbo"
   }, {
     name: "PvP",
@@ -7525,10 +7799,10 @@ var AftercoreQuest = {
       var skillsToPerm = new Map();
       targetPerms(false).forEach(sk => skillsToPerm.set(sk, Lifestyle.softcore));
       var nPerms = targetPerms(true);
-      var moonsign = have(template_string_$item(aftercore_templateObject32 || (aftercore_templateObject32 = aftercore_taggedTemplateLiteral(["hewn moon-rune spoon"])))) || !$skills(aftercore_templateObject33 || (aftercore_templateObject33 = aftercore_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).find(sk => !(sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
-      ) ? "vole" : nPerms.includes(template_string_$skill(aftercore_templateObject34 || (aftercore_templateObject34 = aftercore_taggedTemplateLiteral(["Torso Awareness"])))) || !$skills(aftercore_templateObject35 || (aftercore_templateObject35 = aftercore_taggedTemplateLiteral(["Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).find(sk => !nPerms.includes(sk) //plan to perm Torso Awareness or all 4 other gnome skills
+      var moonsign = have(template_string_$item(aftercore_templateObject33 || (aftercore_templateObject33 = aftercore_taggedTemplateLiteral(["hewn moon-rune spoon"])))) || !$skills(aftercore_templateObject34 || (aftercore_templateObject34 = aftercore_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).find(sk => !(sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
+      ) ? "vole" : nPerms.includes(template_string_$skill(aftercore_templateObject35 || (aftercore_templateObject35 = aftercore_taggedTemplateLiteral(["Torso Awareness"])))) || !$skills(aftercore_templateObject36 || (aftercore_templateObject36 = aftercore_taggedTemplateLiteral(["Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).find(sk => !nPerms.includes(sk) //plan to perm Torso Awareness or all 4 other gnome skills
       ) ? "wombat" : "vole";
-      ascend($path(aftercore_templateObject36 || (aftercore_templateObject36 = aftercore_taggedTemplateLiteral(["Grey You"]))), $class(aftercore_templateObject37 || (aftercore_templateObject37 = aftercore_taggedTemplateLiteral(["Grey Goo"]))), Lifestyle.softcore, moonsign, template_string_$item(aftercore_templateObject38 || (aftercore_templateObject38 = aftercore_taggedTemplateLiteral(["astral six-pack"]))), template_string_$item(aftercore_templateObject39 || (aftercore_templateObject39 = aftercore_taggedTemplateLiteral(["astral pet sweater"]))), {
+      ascend($path(aftercore_templateObject37 || (aftercore_templateObject37 = aftercore_taggedTemplateLiteral(["Grey You"]))), $class(aftercore_templateObject38 || (aftercore_templateObject38 = aftercore_taggedTemplateLiteral(["Grey Goo"]))), Lifestyle.softcore, moonsign, template_string_$item(aftercore_templateObject39 || (aftercore_templateObject39 = aftercore_taggedTemplateLiteral(["astral six-pack"]))), template_string_$item(aftercore_templateObject40 || (aftercore_templateObject40 = aftercore_taggedTemplateLiteral(["astral pet sweater"]))), {
         permSkills: skillsToPerm,
         neverAbort: false
       });
@@ -7538,7 +7812,7 @@ var AftercoreQuest = {
   }]
 };
 ;// CONCATENATED MODULE: ./src/tasks/greyyou.ts
-var greyyou_templateObject, greyyou_templateObject2, greyyou_templateObject3, greyyou_templateObject4, greyyou_templateObject5, greyyou_templateObject6, greyyou_templateObject7, greyyou_templateObject8, greyyou_templateObject9, greyyou_templateObject10, greyyou_templateObject11, greyyou_templateObject12, greyyou_templateObject13, greyyou_templateObject14, greyyou_templateObject15, greyyou_templateObject16, greyyou_templateObject17, greyyou_templateObject18, greyyou_templateObject19, greyyou_templateObject20, greyyou_templateObject21, greyyou_templateObject22, greyyou_templateObject23, greyyou_templateObject24, greyyou_templateObject25, greyyou_templateObject26, greyyou_templateObject27, greyyou_templateObject28, greyyou_templateObject29, greyyou_templateObject30, greyyou_templateObject31, greyyou_templateObject32, greyyou_templateObject33, greyyou_templateObject34, greyyou_templateObject35, greyyou_templateObject36, greyyou_templateObject37, greyyou_templateObject38, greyyou_templateObject39, greyyou_templateObject40, greyyou_templateObject41, greyyou_templateObject42, greyyou_templateObject43, greyyou_templateObject44, greyyou_templateObject45, greyyou_templateObject46, greyyou_templateObject47, greyyou_templateObject48, _templateObject49, _templateObject50, _templateObject51, _templateObject52, _templateObject53, _templateObject54, _templateObject55, _templateObject56, _templateObject57, _templateObject58, _templateObject59, _templateObject60, _templateObject61, _templateObject62, _templateObject63, _templateObject64, _templateObject65, _templateObject66, _templateObject67, _templateObject68, _templateObject69, _templateObject70, _templateObject71, _templateObject72, _templateObject73, _templateObject74, _templateObject75, _templateObject76, _templateObject77, _templateObject78, _templateObject79, _templateObject80, _templateObject81, _templateObject82, _templateObject83, _templateObject84, _templateObject85, _templateObject86, _templateObject87, _templateObject88, _templateObject89, _templateObject90, _templateObject91, _templateObject92, _templateObject93, _templateObject94, _templateObject95, _templateObject96, _templateObject97, _templateObject98, _templateObject99, _templateObject100, _templateObject101, _templateObject102, _templateObject103, _templateObject104, _templateObject105, _templateObject106, _templateObject107, _templateObject108, _templateObject109, _templateObject110, _templateObject111, _templateObject112, _templateObject113, _templateObject114, _templateObject115, _templateObject116, _templateObject117, _templateObject118, _templateObject119, _templateObject120, _templateObject121, _templateObject122, _templateObject123, _templateObject124, _templateObject125, _templateObject126, _templateObject127, _templateObject128, _templateObject129, _templateObject130, _templateObject131, _templateObject132, _templateObject133, _templateObject134, _templateObject135, _templateObject136, _templateObject137, _templateObject138, _templateObject139, _templateObject140, _templateObject141, _templateObject142, _templateObject143, _templateObject144, _templateObject145, _templateObject146, _templateObject147, _templateObject148, _templateObject149, _templateObject150, _templateObject151, _templateObject152, _templateObject153, _templateObject154, _templateObject155, _templateObject156, _templateObject157, _templateObject158, _templateObject159, _templateObject160, _templateObject161, _templateObject162, _templateObject163, _templateObject164, _templateObject165, _templateObject166, _templateObject167, _templateObject168, _templateObject169, _templateObject170, _templateObject171, _templateObject172, _templateObject173, _templateObject174, _templateObject175, _templateObject176, _templateObject177, _templateObject178, _templateObject179, _templateObject180, _templateObject181, _templateObject182, _templateObject183, _templateObject184, _templateObject185, _templateObject186, _templateObject187, _templateObject188, _templateObject189, _templateObject190, _templateObject191, _templateObject192, _templateObject193, _templateObject194, _templateObject195, _templateObject196, _templateObject197;
+var greyyou_templateObject, greyyou_templateObject2, greyyou_templateObject3, greyyou_templateObject4, greyyou_templateObject5, greyyou_templateObject6, greyyou_templateObject7, greyyou_templateObject8, greyyou_templateObject9, greyyou_templateObject10, greyyou_templateObject11, greyyou_templateObject12, greyyou_templateObject13, greyyou_templateObject14, greyyou_templateObject15, greyyou_templateObject16, greyyou_templateObject17, greyyou_templateObject18, greyyou_templateObject19, greyyou_templateObject20, greyyou_templateObject21, greyyou_templateObject22, greyyou_templateObject23, greyyou_templateObject24, greyyou_templateObject25, greyyou_templateObject26, greyyou_templateObject27, greyyou_templateObject28, greyyou_templateObject29, greyyou_templateObject30, greyyou_templateObject31, greyyou_templateObject32, greyyou_templateObject33, greyyou_templateObject34, greyyou_templateObject35, greyyou_templateObject36, greyyou_templateObject37, greyyou_templateObject38, greyyou_templateObject39, greyyou_templateObject40, greyyou_templateObject41, greyyou_templateObject42, greyyou_templateObject43, greyyou_templateObject44, greyyou_templateObject45, greyyou_templateObject46, greyyou_templateObject47, greyyou_templateObject48, _templateObject49, _templateObject50, _templateObject51, _templateObject52, _templateObject53, _templateObject54, _templateObject55, _templateObject56, _templateObject57, _templateObject58, _templateObject59, _templateObject60, _templateObject61, _templateObject62, _templateObject63, _templateObject64, _templateObject65, _templateObject66, _templateObject67, _templateObject68, _templateObject69, _templateObject70, _templateObject71, _templateObject72, _templateObject73, _templateObject74, _templateObject75, _templateObject76, _templateObject77, _templateObject78, _templateObject79, _templateObject80, _templateObject81, _templateObject82, _templateObject83, _templateObject84, _templateObject85, _templateObject86, _templateObject87, _templateObject88, _templateObject89, _templateObject90, _templateObject91, _templateObject92, _templateObject93, _templateObject94, _templateObject95, _templateObject96, _templateObject97, _templateObject98, _templateObject99, _templateObject100, _templateObject101, _templateObject102, _templateObject103, _templateObject104, _templateObject105, _templateObject106, _templateObject107, _templateObject108, _templateObject109, _templateObject110, _templateObject111, _templateObject112, _templateObject113, _templateObject114, _templateObject115, _templateObject116, _templateObject117, _templateObject118, _templateObject119, _templateObject120, _templateObject121, _templateObject122, _templateObject123, _templateObject124, _templateObject125, _templateObject126, _templateObject127, _templateObject128, _templateObject129, _templateObject130, _templateObject131, _templateObject132, _templateObject133, _templateObject134, _templateObject135, _templateObject136, _templateObject137, _templateObject138, _templateObject139, _templateObject140, _templateObject141, _templateObject142, _templateObject143, _templateObject144, _templateObject145, _templateObject146, _templateObject147, _templateObject148, _templateObject149, _templateObject150, _templateObject151, _templateObject152, _templateObject153, _templateObject154, _templateObject155, _templateObject156, _templateObject157, _templateObject158, _templateObject159, _templateObject160, _templateObject161, _templateObject162, _templateObject163, _templateObject164, _templateObject165, _templateObject166, _templateObject167, _templateObject168, _templateObject169, _templateObject170, _templateObject171, _templateObject172, _templateObject173, _templateObject174, _templateObject175, _templateObject176, _templateObject177, _templateObject178, _templateObject179, _templateObject180, _templateObject181, _templateObject182, _templateObject183, _templateObject184, _templateObject185, _templateObject186, _templateObject187, _templateObject188, _templateObject189, _templateObject190, _templateObject191, _templateObject192, _templateObject193, _templateObject194, _templateObject195, _templateObject196, _templateObject197, _templateObject198, _templateObject199;
 function greyyou_toConsumableArray(arr) { return greyyou_arrayWithoutHoles(arr) || greyyou_iterableToArray(arr) || greyyou_unsupportedIterableToArray(arr) || greyyou_nonIterableSpread(); }
 function greyyou_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function greyyou_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return greyyou_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return greyyou_arrayLikeToArray(o, minLen); }
@@ -7928,18 +8202,20 @@ var GyouQuest = {
     ready: () => property_get("_stenchAirportToday") || property_get("stenchAirportAlways"),
     completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() === 0 && !canDiet() || stooperDrunk(),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("garbo"),
+    post: () => $effects(_templateObject192 || (_templateObject192 = greyyou_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => have(ef)).forEach(ef => uneffect(ef)),
     tracking: "Garbo"
   }, {
     name: "Garbo Nobarf",
     ready: () => !(property_get("_stenchAirportToday") || property_get("stenchAirportAlways")),
     completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() === 0 && !canDiet() || stooperDrunk() || property_get("garboResultsDate", "") === (0,external_kolmafia_namespaceObject.nowToString)("YYYYMMdd"),
     do: () => (0,external_kolmafia_namespaceObject.cliExecute)("garbo nobarf"),
+    post: () => $effects(_templateObject193 || (_templateObject193 = greyyou_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => have(ef)).forEach(ef => uneffect(ef)),
     tracking: "Garbo"
   }, {
     name: "Turn in FunFunds",
-    ready: () => property_get("_stenchAirportToday") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject192 || (_templateObject192 = greyyou_taggedTemplateLiteral(["FunFunds\u2122"])))) >= 20,
-    completed: () => have(template_string_$item(_templateObject193 || (_templateObject193 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
-    do: () => (0,external_kolmafia_namespaceObject.buy)($coinmaster(_templateObject194 || (_templateObject194 = greyyou_taggedTemplateLiteral(["The Dinsey Company Store"]))), 1, template_string_$item(_templateObject195 || (_templateObject195 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
+    ready: () => property_get("_stenchAirportToday") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject194 || (_templateObject194 = greyyou_taggedTemplateLiteral(["FunFunds\u2122"])))) >= 20,
+    completed: () => have(template_string_$item(_templateObject195 || (_templateObject195 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
+    do: () => (0,external_kolmafia_namespaceObject.buy)($coinmaster(_templateObject196 || (_templateObject196 = greyyou_taggedTemplateLiteral(["The Dinsey Company Store"]))), 1, template_string_$item(_templateObject197 || (_templateObject197 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
     tracking: "Garbo"
   }, {
     name: "PvP",
@@ -7952,10 +8228,10 @@ var GyouQuest = {
     }
   }, {
     name: "Pajamas",
-    completed: () => (0,external_kolmafia_namespaceObject.getCampground)()[template_string_$item(_templateObject196 || (_templateObject196 = greyyou_taggedTemplateLiteral(["clockwork maid"]))).name] === 1,
+    completed: () => (0,external_kolmafia_namespaceObject.getCampground)()[template_string_$item(_templateObject198 || (_templateObject198 = greyyou_taggedTemplateLiteral(["clockwork maid"]))).name] === 1,
     do: () => {
       if (args.pvp) (0,external_kolmafia_namespaceObject.maximize)("adventures, 0.3 fites", false);else (0,external_kolmafia_namespaceObject.maximize)("adventures", false);
-      (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject197 || (_templateObject197 = greyyou_taggedTemplateLiteral(["clockwork maid"]))));
+      (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject199 || (_templateObject199 = greyyou_taggedTemplateLiteral(["clockwork maid"]))));
     }
   }, {
     name: "Nightcap",
@@ -8510,266 +8786,6 @@ var ProfitTrackingEngine = /*#__PURE__*/function (_Engine) {
   }]);
   return ProfitTrackingEngine;
 }(Engine);
-;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2022/CombatLoversLocket.js
-var CombatLoversLocket_templateObject;
-function CombatLoversLocket_slicedToArray(arr, i) { return CombatLoversLocket_arrayWithHoles(arr) || CombatLoversLocket_iterableToArrayLimit(arr, i) || CombatLoversLocket_unsupportedIterableToArray(arr, i) || CombatLoversLocket_nonIterableRest(); }
-function CombatLoversLocket_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function CombatLoversLocket_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return CombatLoversLocket_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return CombatLoversLocket_arrayLikeToArray(o, minLen); }
-function CombatLoversLocket_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-function CombatLoversLocket_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-function CombatLoversLocket_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function CombatLoversLocket_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-
-
-
-// eslint-disable-next-line libram/verify-constants
-var locket = template_string_$item(CombatLoversLocket_templateObject || (CombatLoversLocket_templateObject = CombatLoversLocket_taggedTemplateLiteral(["Combat Lover's Locket"])));
-function CombatLoversLocket_have() {
-  return haveItem(locket);
-}
-/**
- * Filters the set of all unlocked locket monsters to only the ones available to be locketed right now.
- * @returns An array consisting of all Monsters you can fight with your locket right now.
- */
-function availableLocketMonsters() {
-  if (reminiscesLeft() === 0) return [];
-  return Object.entries(getLocketMonsters()).filter(_ref => {
-    var _ref2 = CombatLoversLocket_slicedToArray(_ref, 2),
-      unused = _ref2[1];
-    return unused;
-  }).map(_ref3 => {
-    var _ref4 = CombatLoversLocket_slicedToArray(_ref3, 1),
-      name = _ref4[0];
-    return toMonster(name);
-  });
-}
-/**
- * Parses getLocketMonsters and returns the collection of all Monsters as an Array.
- * @returns An array consisting of all Monsters you can hypothetically fight, regardless of whether they've been fought today.
- */
-function unlockedLocketMonsters() {
-  return Object.entries((0,external_kolmafia_namespaceObject.getLocketMonsters)()).map(_ref5 => {
-    var _ref6 = CombatLoversLocket_slicedToArray(_ref5, 1),
-      name = _ref6[0];
-    return (0,external_kolmafia_namespaceObject.toMonster)(name);
-  });
-}
-function parseLocketProperty() {
-  return get("_locketMonstersFought").split(",").filter(id => id.trim().length > 0);
-}
-/**
- * Determines how many reminisces remain by parsing the _locketMonstersFought property.
- * @returns The number of reminisces a player has available; 0 if they lack the Locket.
- */
-function reminiscesLeft() {
-  return CombatLoversLocket_have() ? clamp(3 - parseLocketProperty().length, 0, 3) : 0;
-}
-/**
- * Determines which monsters were reminisced today by parsing the _locketMonstersFought property.
- * @returns An array consisting of the Monsters reminisced today.
- */
-function monstersReminisced() {
-  return parseLocketProperty().map(id => toMonster(id));
-}
-/**
- * Fight a Monster using the Combat Lover's Locket
- * @param monster The Monster to fight
- * @returns false if we are unable to reminisce about this monster. Else, returns whether, at the end of all things, we have reminisced about this monster.
- */
-function reminisce(monster) {
-  if (!CombatLoversLocket_have() || reminiscesLeft() === 0 || !getLocketMonsters()[monster.name]) {
-    return false;
-  }
-  cliExecute("reminisce ".concat(monster));
-  runCombat();
-  return monstersReminisced().includes(monster);
-}
-/**
- * This function efficiently evaluates all of an adventurer's possibly reminiscable monsters, placing them through a filtering criteria and evaluating them based on a passed function.
- * @param criteria A filtering function for delineating which monsters are "fair game" for the search, such as "is this monster free".
- * @param value A function for deciding which monsters are "better" than others.
- * @returns A singular monster that fulfills the criteria function and maximizes the value function.
- */
-function findMonster(criteria) {
-  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : () => 1;
-  if (!CombatLoversLocket_have() || reminiscesLeft() === 0) return null;
-  var options = availableLocketMonsters().filter(criteria);
-  if (!options.length) return null;
-  return options.reduce((a, b) => value(a) > value(b) ? a : b);
-}
-;// CONCATENATED MODULE: ./src/tasks/sim.ts
-var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20;
-function sim_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = sim_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-function sim_slicedToArray(arr, i) { return sim_arrayWithHoles(arr) || sim_iterableToArrayLimit(arr, i) || sim_unsupportedIterableToArray(arr, i) || sim_nonIterableRest(); }
-function sim_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function sim_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return sim_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return sim_arrayLikeToArray(o, minLen); }
-function sim_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-function sim_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-function sim_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function sim_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-
-/**
- * Return: a list of all things required to run the script.
- */
-var generalList = [{
-  thing: template_string_$familiar(sim_templateObject || (sim_templateObject = sim_taggedTemplateLiteral(["Grey Goose"]))),
-  why: "Running Grey You Path"
-}, {
-  thing: template_string_$skill(sim_templateObject2 || (sim_templateObject2 = sim_taggedTemplateLiteral(["Curse of Weaksauce"]))),
-  why: "aftercore combat"
-}, {
-  thing: $familiars(sim_templateObject3 || (sim_templateObject3 = sim_taggedTemplateLiteral(["Robortender, Space Jellyfish, Hobo Monkey, Leprechaun"]))),
-  why: "in-run farming familiar"
-}, {
-  thing: template_string_$skill(sim_templateObject4 || (sim_templateObject4 = sim_taggedTemplateLiteral(["Torso Awareness"]))),
-  why: "general purpose",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject5 || (sim_templateObject5 = sim_taggedTemplateLiteral(["porquoise-handled sixgun"]))),
-  why: "mp maintenance (20-30 free mp / combat)",
-  optional: true
-}];
-var levelList = [{
-  thing: template_string_$item(sim_templateObject6 || (sim_templateObject6 = sim_taggedTemplateLiteral(["January's Garbage Tote"]))),
-  why: "aftercore leveling (all)",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject7 || (sim_templateObject7 = sim_taggedTemplateLiteral(["familiar scrapbook"]))),
-  why: "aftercore leveling (all)",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["trench lighter"]))),
-  why: "aftercore leveling (all)",
-  optional: true
-},
-// { thing: $skill`Feel Pride`, why: "aftercore leveling (all)", optional: true },
-// { thing: $item`[glitch season reward name]`, why: "aftercore leveling (all)", optional: true },
-// { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
-{
-  thing: template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["fake washboard"]))),
-  why: "aftercore leveling (mus)",
-  optional: true
-}, {
-  thing: template_string_$skill(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
-  why: "aftercore leveling (mys)",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["basaltamander buckler"]))),
-  why: "aftercore leveling (mys)",
-  optional: true
-}];
-var profitList = [{
-  thing: template_string_$item(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["lucky gold ring"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["Mr. Cheeng's spectacles"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["mafia thumb ring"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["carnivorous potted plant"]))),
-  why: "minor turnsave",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["infinite BACON machine"]))),
-  why: "source of renewable Fat Loot Tokens",
-  optional: true
-}];
-var marginalList = [{
-  thing: template_string_$item(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["The Jokester's gun"]))),
-  why: "turnsave",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["hewn moon-rune spoon"]))),
-  why: "easier perming of gnome skills",
-  optional: true
-}];
-function checkThing(thing) {
-  if ("have" in thing && "name" in thing && thing.have instanceof Function) return [thing.have(), thing.name]; //if this is a SpecialThing
-  if (thing instanceof external_kolmafia_namespaceObject.Familiar) return [have(thing), thing.hatchling.name];
-  if (thing instanceof external_kolmafia_namespaceObject.Skill) return [thing.name in (0,external_kolmafia_namespaceObject.getPermedSkills)(), thing.name];
-  if (thing instanceof external_kolmafia_namespaceObject.Monster) return [new Set(unlockedLocketMonsters()).has(thing), thing.name];
-  if (thing instanceof external_kolmafia_namespaceObject.Item) return [have(thing) || (0,external_kolmafia_namespaceObject.storageAmount)(thing) > 0, thing.name];
-  return [false, thing.name];
-}
-function check(req) {
-  if (Array.isArray(req.thing)) {
-    var checks = req.thing.map(checkThing);
-    return [checks.find(res => res[0]) !== undefined, checks.map(res => res[1]).join(" OR "), req];
-  } else {
-    var res = checkThing(req.thing);
-    return [res[0], res[1], req];
-  }
-}
-function checkReqs() {
-  var missing_optional = 0;
-  var missing = 0;
-  var categories = [["Required", generalList.filter(req => !req.optional)], ["General", generalList.filter(req => req.optional)], ["Leveling", levelList], ["Profits", profitList], ["Marginal", marginalList]];
-  (0,external_kolmafia_namespaceObject.printHtml)("Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional");
-  for (var _i = 0, _categories = categories; _i < _categories.length; _i++) {
-    var _categories$_i = sim_slicedToArray(_categories[_i], 2),
-      name = _categories$_i[0],
-      requirements = _categories$_i[1];
-    if (requirements.length === 0) continue;
-    var requirements_info = requirements.map(check);
-    (0,external_kolmafia_namespaceObject.print)(name, "blue");
-    var _iterator = sim_createForOfIteratorHelper(requirements_info.sort((a, b) => a[1].localeCompare(b[1]))),
-      _step;
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var _step$value = sim_slicedToArray(_step.value, 3),
-          have_it = _step$value[0],
-          _name = _step$value[1],
-          req = _step$value[2];
-        var color = have_it ? "#888888" : req.optional ? "black" : "red";
-        var symbol = have_it ? "✓" : "X";
-        if (!have_it && req.optional) missing_optional++;
-        if (!have_it && !req.optional) missing++;
-        (0,external_kolmafia_namespaceObject.print)("".concat(symbol, " ").concat(_name, " - ").concat(req.why), color);
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-    (0,external_kolmafia_namespaceObject.print)("");
-  }
-
-  // Print the count of missing things
-  if (missing > 0) {
-    (0,external_kolmafia_namespaceObject.print)("You are missing ".concat(missing, " required things. This script will not yet work for you."), "red");
-    if (missing_optional > 0) (0,external_kolmafia_namespaceObject.print)("You are also missing ".concat(missing_optional, " optional things."));
-  } else {
-    if (missing_optional > 0) {
-      (0,external_kolmafia_namespaceObject.print)("You are missing ".concat(missing_optional, " optional things. This script should work, but it could do better."));
-    } else {
-      (0,external_kolmafia_namespaceObject.print)("You have everything! You are the shiniest star. This script should work great.");
-    }
-  }
-}
-function spanWrap(text, color) {
-  return "<span color=\"".concat(color, "\">").concat(text, "</span>");
-}
-function checkPerms() {
-  var nPerms = targetPerms(false);
-  var nClass = targetClass(false);
-  (0,external_kolmafia_namespaceObject.printHtml)("~~ Default Perm List ~~", false);
-  (0,external_kolmafia_namespaceObject.printHtml)("Legend: <span color=\"black\">[permed]</span>, <span color=\"fuchsia\">[targeted/known]</span>, <span color=\"blue\">[targeted/unknown]</span>, <span color=\"purple\">[known]</span>, <span color=\"navy\">[class skills]</span>, <span color=\"gray\">[other]</span>", false);
-  var count = 0;
-  defaultPermList.forEach(sks => (0,external_kolmafia_namespaceObject.printHtml)("~ Tier ".concat(count++, " ~<br> ").concat(sks.map(sk => sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)() ? spanWrap(sk.name, "black") : nPerms.includes(sk) && have(sk) ? spanWrap(sk.name, "fuchsia") : nPerms.includes(sk) ? spanWrap(sk.name, "blue") : have(sk) ? spanWrap(sk.name, "purple") : nClass && nClass === sk.class && nClass !== $class(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["none"]))) ? spanWrap(sk.name, "navy") : spanWrap(sk.name, "gray")).join(", ")), false));
-}
 ;// CONCATENATED MODULE: ./src/main.ts
 function main_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = main_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function main_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return main_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return main_arrayLikeToArray(o, minLen); }
