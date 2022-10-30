@@ -105,17 +105,18 @@ export function targetClass(planning: boolean): Class {
 export function targetPerms(planning: boolean): Skill[] {
   const pOptions = permOptions(planning);
   const tier = permTier(planning);
-  if (tier > expectedKarma(planning) / 100 || tier === 0)
+  const maxQty = Math.floor(expectedKarma(planning) / 100);
+  if (tier > maxQty || tier === 0)
     //don't perm anything (bank karma), but do perm high-tier skills you happen to already know (probably due to Big Book or manually used skillbooks)
     return !planning
       ? pOptions
           .slice(0, tier + 1) //skills in tiers <= your current best perm target
           .flat()
           .filter((sk) => have(sk))
-          .slice(0, Math.floor(expectedKarma(false) / 100)) //don't plan to perm more than we have karma for
+          .slice(0, maxQty) //don't plan to perm more than we have karma for
       : []; //don't plan to perm anything next run if we plan to bank karma
 
-  const qty = tier + Math.ceil(Math.sqrt(Math.max(0, expectedKarma(planning) / 100 - tier)));
+  const qty = Math.min(maxQty, tier + Math.ceil(Math.sqrt(Math.max(0, maxQty - tier))));
   const tClass = planning ? targetClass(true) : $class`none`;
   return (
     !planning
