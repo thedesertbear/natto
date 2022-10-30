@@ -409,7 +409,9 @@ export const GyouQuest: Quest = {
       acquire: () => [
         { item: $item`teacher's pen`, num: 3 },
         ...(targetClass(false).primestat === $stat`Muscle`
-          ? $items`discarded swimming trunks, battered hubcap`.map((it) => ({ item: it }))
+          ? $items`discarded swimming trunks, battered hubcap, trench coat`.map((it) => ({
+              item: it,
+            }))
           : []),
         ...(targetClass(false).primestat === $stat`Mysticality`
           ? $items``.map((it) => ({ item: it }))
