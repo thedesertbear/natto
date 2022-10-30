@@ -400,13 +400,13 @@ export const GyouQuest: Quest = {
     {
       name: "Hatter Buff",
       completed: () => get("_madTeaParty"),
-      acquire: () => $items`oil cap, "DRINK ME" potion`.map((it) => ({ item: it })),
+      acquire: $items`oil cap, "DRINK ME" potion`.map((it) => ({ item: it })),
       do: () => cliExecute(`hatter ${$item`oil cap`}`),
     },
     {
       name: "Free King",
       completed: () => myClass() !== $class`Grey Goo`,
-      acquire: [
+      acquire: () => [
         { item: $item`teacher's pen`, num: 3 },
         ...(targetClass(false).primestat === $stat`Muscle`
           ? $items`discarded swimming trunks, battered hubcap`.map((it) => ({ item: it }))
