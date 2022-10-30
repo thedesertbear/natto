@@ -13,6 +13,7 @@ import {
   myLevel,
   myMaxhp,
   myMeat,
+  myPrimestat,
   putCloset,
   pvpAttacksLeft,
   restoreHp,
@@ -117,9 +118,27 @@ export const AftercoreQuest: Quest = {
           ) < 20),
       completed: () => guildStoreAvailable(),
       do: () => cliExecute("guild"),
+      choices: {
+        //sleazy back alley
+        108: 4, //craps: skip
+        109: 1, //drunken hobo: fight
+        110: 4, //entertainer: skip
+        112: 2, //harold's hammer: skip
+        21: 2, //under the knife: skip
+        //haunted pantry
+        115: 1, //drunken hobo: fight
+        116: 4, //singing tree: skip
+        117: 1, //knob goblin chef: fight
+        114: 2, //birthday cake: skip
+        //outskirts of cobb's knob
+        113: 2, //knob goblin chef: fight
+        111: 3, //chain gang: fight
+        118: 2, //medicine quest: skip
+      },
       outfit: (): OutfitSpec => ({
-        modifier:
-          "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant",
+        modifier: `${
+          myPrimestat() === $stat`Muscle` ? "100 combat rate 20 max, " : "-100 combat rate, "
+        } 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.step(`if pastround 2; abort Macro did not complete; endif; `)
