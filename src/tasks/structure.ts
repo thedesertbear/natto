@@ -4,6 +4,7 @@ import {
   inebrietyLimit,
   Item,
   itemAmount,
+  mallPrice,
   myAdventures,
   myClass,
   myDaycount,
@@ -15,16 +16,7 @@ import {
   numericModifier,
   spleenLimit,
 } from "kolmafia";
-import {
-  $class,
-  $familiar,
-  $item,
-  Macro as BaseMacro,
-  get,
-  have,
-  set,
-} from "libram";
-import { garboValue } from "../engine/profits";
+import { $class, $familiar, $item, Macro as BaseMacro, get, have, set } from "libram";
 
 export type Task = BaseTask & {
   tracking?: string;
@@ -68,7 +60,7 @@ export function canDiet(): boolean {
     (have($item`designer sweatpants`) && get("_sweatOutSomeBoozeUsed") < 3 && get("sweat") >= 25) ||
     (have($item`mime army shotglass`) && !get("_mimeArmyShotglassUsed")) ||
     (get("currentMojoFilters") < 3 &&
-      garboValue($item`mojo filter`) + garboValue($item`transdermal smoke patch`) <
+      mallPrice($item`mojo filter`) + mallPrice($item`transdermal smoke patch`) <
         2.5 * get("valueOfAdventure"))
   );
 }
