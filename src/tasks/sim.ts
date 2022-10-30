@@ -47,7 +47,6 @@ const levelList: Requirement[] = [
   // { thing: $skill`Feel Pride`, why: "aftercore leveling (all)", optional: true },
   // { thing: $item`[glitch season reward name]`, why: "aftercore leveling (all)", optional: true },
   // { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
-  { thing: $item`trench coat`, why: "aftercore leveling (mus)", optional: true },
   { thing: $item`fake washboard`, why: "aftercore leveling (mus)", optional: true },
   { thing: $skill`Inscrutable Gaze`, why: "aftercore leveling (mys)", optional: true },
   { thing: $item`basaltamander buckler`, why: "aftercore leveling (mys)", optional: true },
