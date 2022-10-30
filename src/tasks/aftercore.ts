@@ -3,6 +3,7 @@ import {
   availableAmount,
   buy,
   cliExecute,
+  getPermedSkills,
   gnomadsAvailable,
   guildStoreAvailable,
   hippyStoneBroken,
@@ -224,17 +225,20 @@ export const AftercoreQuest: Quest = {
 
         const skillsToPerm = new Map();
         targetPerms(false).forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
+        const nPerms = targetPerms(true);
 
-        const moonsign = have($item`hewn moon-rune spoon`)
-          ? "vole"
-          : !targetPerms(true).find((sk) =>
-              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
-                sk
+        const moonsign =
+          have($item`hewn moon-rune spoon`) ||
+          !$skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+            (sk) => !(sk.name in getPermedSkills()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
+          )
+            ? "vole"
+            : nPerms.includes($skill`Torso Awareness`) ||
+              !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+                (sk) => !nPerms.includes(sk) //plan to perm Torso Awareness or all 4 other gnome skills
               )
-            )
-          ? // See if any gnome skills are planned for next run
-            "vole"
-          : "wombat";
+            ? "wombat"
+            : "vole";
         ascend(
           $path`Grey You`,
           $class`Grey Goo`,
