@@ -137,7 +137,7 @@ export const GyouQuest: Quest = {
         restoreMp(20);
       },
       outfit: {
-        familiar: $familiars`Robortender, Space Jellyfish, Hobo Monkey, Leprechaun`.find((f) =>
+        familiar: $familiars`Space Jellyfish, Robortender, Hobo Monkey, Leprechaun`.find((f) =>
           have(f)
         ),
         modifier:
@@ -370,7 +370,7 @@ export const GyouQuest: Quest = {
         restoreMp(20);
       },
       outfit: {
-        familiar: $familiars`Robortender, Space Jellyfish, Hobo Monkey, Leprechaun`.find((f) =>
+        familiar: $familiars`Space Jellyfish, Robortender, Hobo Monkey, Leprechaun`.find((f) =>
           have(f)
         ),
         modifier:
