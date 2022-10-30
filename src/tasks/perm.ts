@@ -118,9 +118,11 @@ export function targetPerms(planning: boolean): Skill[] {
   const tClass = planning ? targetClass(true) : $class`none`;
   return (
     !planning
-      ? pOptions.flat() //return first X perm ptions
-      : pOptions.flat().filter((sk) => sk.class === tClass || gnomeSkills.includes(sk))
-  ).slice(0, qty);
+      ? pOptions.flat().filter((sk) => !gnomeSkills.includes(sk) || gnomadsAvailable())
+      : //filter out gnome skills if not available (non-targetClass skills filtered out in permOptions already, for current run)
+        pOptions.flat().filter((sk) => sk.class === tClass || gnomeSkills.includes(sk))
+  ) //filter out non-targetClass skills
+    .slice(0, qty);
 }
 
 function planHelper(perms: Skill[], cls: Class, karma: number) {
