@@ -1,4 +1,5 @@
 import {
+  Class,
   Familiar,
   getPermedSkills,
   Item,
@@ -144,6 +145,20 @@ export function checkReqs(): void {
 function spanWrap(text: string, color: string): string {
   return `<span color="${color}">${text}</span>`;
 }
+export function coloredSkill(sk: Skill, nPerms: Skill[], nClass: Class): string {
+  return sk.name in getPermedSkills()
+    ? spanWrap(sk.name, "black")
+    : nPerms.includes(sk) && have(sk)
+    ? spanWrap(sk.name, "fuchsia")
+    : nPerms.includes(sk)
+    ? spanWrap(sk.name, "blue")
+    : have(sk)
+    ? spanWrap(sk.name, "purple")
+    : nClass && nClass === sk.class && nClass !== $class`none`
+    ? spanWrap(sk.name, "navy")
+    : spanWrap(sk.name, "gray");
+}
+
 export function checkPerms() {
   const nPerms = targetPerms(false);
   const nClass = targetClass(false);
@@ -155,21 +170,7 @@ export function checkPerms() {
   let count = 0;
   defaultPermList.forEach((sks) =>
     printHtml(
-      `~ Tier ${count++} ~<br> ${sks
-        .map((sk) =>
-          sk.name in getPermedSkills()
-            ? spanWrap(sk.name, "black")
-            : nPerms.includes(sk) && have(sk)
-            ? spanWrap(sk.name, "fuchsia")
-            : nPerms.includes(sk)
-            ? spanWrap(sk.name, "blue")
-            : have(sk)
-            ? spanWrap(sk.name, "purple")
-            : nClass && nClass === sk.class && nClass !== $class`none`
-            ? spanWrap(sk.name, "navy")
-            : spanWrap(sk.name, "gray")
-        )
-        .join(", ")}`,
+      `~ Tier ${count++} ~<br> ${sks.map((sk) => coloredSkill(sk, nPerms, nClass)).join(", ")}`,
       false
     )
   );
