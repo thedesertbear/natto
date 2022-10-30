@@ -105,7 +105,7 @@ export const AftercoreQuest: Quest = {
     {
       name: "Unlock Guild",
       ready: () =>
-        targetPerms(false).reduce((a, sk) => a || sk.class === myClass(), false) ||
+        !!targetPerms(false).find((sk) => !have(sk) && sk.class === myClass() && sk.level > 0) ||
         (myClass() === $class`Seal Clubber` &&
           Math.min(
             ...$items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) =>
