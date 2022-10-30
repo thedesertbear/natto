@@ -25,45 +25,48 @@ interface Requirement {
 /**
  * Return: a list of all things required to run the script.
  */
-function buildReqList(): Requirement[] {
-  return [
-    { thing: $familiar`Grey Goose`, why: "Running Grey You Path" },
-    { thing: $skill`Curse of Weaksauce`, why: "aftercore combat" },
-    {
-      thing: $familiars`Robortender, Space Jellyfish, Hobo Monkey, Leprechaun`,
-      why: "in-run farming familiar",
-    },
-
-    { thing: $item`January's Garbage Tote`, why: "aftercore leveling (all)", optional: true },
-    { thing: $item`familiar scrapbook`, why: "aftercore leveling (all)", optional: true },
-    { thing: $item`trench lighter`, why: "aftercore leveling (all)", optional: true },
-    // { thing: $skill`Feel Pride`, why: "aftercore leveling (all)", optional: true },
-    // { thing: $item`[glitch season reward name]`, why: "aftercore leveling (all)", optional: true },
-    // { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
-    { thing: $item`trench coat`, why: "aftercore leveling (mus)", optional: true },
-    { thing: $item`fake washboard`, why: "aftercore leveling (mus)", optional: true },
-    { thing: $skill`Inscrutable Gaze`, why: "aftercore leveling (mys)", optional: true },
-    { thing: $item`basaltamander buckler`, why: "aftercore leveling (mys)", optional: true },
-    { thing: $skill`Torso Awareness`, why: "general purpose", optional: true },
-    {
-      thing: $item`porquoise-handled sixgun`,
-      why: "mp maintenance (20-30 free mp / combat)",
-      optional: true,
-    },
-    { thing: $item`lucky gold ring`, why: "in-run farming profits", optional: true },
-    { thing: $item`Mr. Cheeng's spectacles`, why: "in-run farming profits", optional: true },
-    { thing: $item`mafia thumb ring`, why: "in-run farming profits", optional: true },
-    { thing: $item`SongBoom™ BoomBox`, why: "in-run farming profits", optional: true },
-    { thing: $item`carnivorous potted plant`, why: "minor turnsave", optional: true },
-    { thing: $item`The Jokester's gun`, why: "turnsave", optional: true },
-    {
-      thing: $item`infinite BACON machine`,
-      why: "source of renewable Fat Loot Tokens",
-      optional: true,
-    },
-    { thing: $item`hewn moon-rune spoon`, why: "easier perming of gnome skills", optional: true },
-  ];
-}
+const generalList: Requirement[] = [
+  { thing: $familiar`Grey Goose`, why: "Running Grey You Path" },
+  { thing: $skill`Curse of Weaksauce`, why: "aftercore combat" },
+  {
+    thing: $familiars`Robortender, Space Jellyfish, Hobo Monkey, Leprechaun`,
+    why: "in-run farming familiar",
+  },
+  { thing: $skill`Torso Awareness`, why: "general purpose", optional: true },
+  {
+    thing: $item`porquoise-handled sixgun`,
+    why: "mp maintenance (20-30 free mp / combat)",
+    optional: true,
+  },
+];
+const levelList: Requirement[] = [
+  { thing: $item`January's Garbage Tote`, why: "aftercore leveling (all)", optional: true },
+  { thing: $item`familiar scrapbook`, why: "aftercore leveling (all)", optional: true },
+  { thing: $item`trench lighter`, why: "aftercore leveling (all)", optional: true },
+  // { thing: $skill`Feel Pride`, why: "aftercore leveling (all)", optional: true },
+  // { thing: $item`[glitch season reward name]`, why: "aftercore leveling (all)", optional: true },
+  // { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
+  { thing: $item`trench coat`, why: "aftercore leveling (mus)", optional: true },
+  { thing: $item`fake washboard`, why: "aftercore leveling (mus)", optional: true },
+  { thing: $skill`Inscrutable Gaze`, why: "aftercore leveling (mys)", optional: true },
+  { thing: $item`basaltamander buckler`, why: "aftercore leveling (mys)", optional: true },
+];
+const profitList: Requirement[] = [
+  { thing: $item`lucky gold ring`, why: "in-run farming profits", optional: true },
+  { thing: $item`Mr. Cheeng's spectacles`, why: "in-run farming profits", optional: true },
+  { thing: $item`mafia thumb ring`, why: "in-run farming profits", optional: true },
+  { thing: $item`SongBoom™ BoomBox`, why: "in-run farming profits", optional: true },
+  { thing: $item`carnivorous potted plant`, why: "minor turnsave", optional: true },
+  {
+    thing: $item`infinite BACON machine`,
+    why: "source of renewable Fat Loot Tokens",
+    optional: true,
+  },
+];
+const marginalList: Requirement[] = [
+  { thing: $item`The Jokester's gun`, why: "turnsave", optional: true },
+  { thing: $item`hewn moon-rune spoon`, why: "easier perming of gnome skills", optional: true },
+];
 
 function checkThing(thing: Thing): [boolean, string] {
   if ("have" in thing && "name" in thing && thing.have instanceof Function)
@@ -96,8 +99,11 @@ export function checkReqs(): void {
   let missing = 0;
 
   const categories: [string, Requirement[]][] = [
-    ["Required", buildReqList().filter((req) => !req.optional)],
-    ["Recommneded", buildReqList().filter((req) => req.optional)],
+    ["Required", generalList.filter((req) => !req.optional)],
+    ["General", generalList.filter((req) => req.optional)],
+    ["Leveling", levelList],
+    ["Profits", profitList],
+    ["Marginal", marginalList],
   ];
   printHtml(
     "Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional"
