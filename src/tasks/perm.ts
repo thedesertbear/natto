@@ -133,6 +133,9 @@ function planHelper(perms: Skill[], cls: Class, karma: number) {
 }
 
 export function printPermPlan() {
-  printHtml(`Current ${planHelper(targetPerms(false), targetClass(false), expectedKarma(false))}`);
-  printHtml(`Next ${planHelper(targetPerms(true), targetClass(true), expectedKarma(true))}`);
+  printHtml(
+    `Current ${planHelper(targetPerms(false), targetClass(false), expectedKarma(false))}`,
+    true
+  );
+  printHtml(`Next ${planHelper(targetPerms(true), targetClass(true), expectedKarma(true))}`, true);
 }

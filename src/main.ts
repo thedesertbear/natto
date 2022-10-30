@@ -4,6 +4,7 @@ import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
 import { $class, have } from "libram";
+import { checkReqs } from "./tasks/sim";
 import { defaultPermList, printPermPlan, targetClass, targetPerms } from "./tasks/perm";
 
 export const args = Args.create(
@@ -15,7 +16,11 @@ export const args = Args.create(
     }),
     pvp: Args.flag({ help: "If true, break hippy stone and do pvp.", default: false }),
     simperms: Args.flag({
-      help: "If true, see the current plan for perms this run and return.",
+      help: "If set, see your current and available perms, as well as the plan for this run, then return without taking any actions.",
+      default: false,
+    }),
+    sim: Args.flag({
+      help: "If set, see the recommended items and skills, then return without taking any actions.",
       default: false,
     }),
     abort: Args.string({
@@ -35,12 +40,12 @@ export function main(command?: string): void {
     return;
   }
   if (args.simperms) {
-    printPermPlan();
     const nPerms = targetPerms(false);
     const nClass = targetClass(false);
-    print("~~ Default Perm List ~~", "black");
+    printHtml("~~ Default Perm List ~~", false);
     printHtml(
-      `Legend: <span color="black">[permed]</span>, <span color="fuchsia">[targeted/known]</span>, <span color="blue">[targeted/unknown]</span>, <span color="purple">[known]</span>, <span color="navy">[class skills]</span>, <span color="gray">[other]</span>`
+      `Legend: <span color="black">[permed]</span>, <span color="fuchsia">[targeted/known]</span>, <span color="blue">[targeted/unknown]</span>, <span color="purple">[known]</span>, <span color="navy">[class skills]</span>, <span color="gray">[other]</span>`,
+      false
     );
     let count = 0;
     defaultPermList.forEach((sks) =>
@@ -59,9 +64,16 @@ export function main(command?: string): void {
               ? spanWrap(sk.name, "navy")
               : spanWrap(sk.name, "gray")
           )
-          .join(", ")}`
+          .join(", ")}`,
+        false
       )
     );
+    printPermPlan();
+    return;
+  }
+  if (args.sim) {
+    checkReqs();
+    printPermPlan();
     return;
   }
 
