@@ -105,7 +105,8 @@ export const AftercoreQuest: Quest = {
     {
       name: "Unlock Guild",
       ready: () =>
-        !!targetPerms(false).find((sk) => !have(sk) && sk.class === myClass() && sk.level > 0) ||
+        //ready if you find a skill in your perm plan that is guild-trainable that you don't know, or if you need to buy seal summoning supplies
+        !!targetPerms(false).find((sk) => !have(sk) && sk.level > 0) ||
         (myClass() === $class`Seal Clubber` &&
           Math.min(
             ...$items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) =>
@@ -128,16 +129,15 @@ export const AftercoreQuest: Quest = {
     },
     {
       name: "Guild Skill Training",
-      ready: () => guildStoreAvailable() && false,
+      ready: () => guildStoreAvailable(),
       completed: () =>
-        !targetPerms(false).find(
-          (sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level
-        ),
+        //done if you don't find any  skills in your perm plan that are guild-trainable, that you don't have known
+        !targetPerms(false).find((sk) => !have(sk) && myLevel() >= sk.level),
       do: () =>
         targetPerms(false)
           .filter((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level)
           .forEach((sk) => visitUrl(`guild.php?action=buyskill&skillid=${toInt(sk)}`, true)),
-      limit: { tries: 3 }, //a few, in case your level is too low and you level up over the course of the day
+      limit: { tries: 3 }, //a few tries, in case your level is too low and you level up over the course of the day
     },
     {
       name: "Stock Up on MMJs",
