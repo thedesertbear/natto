@@ -8,7 +8,8 @@ import {
   Skill,
   storageAmount,
 } from "kolmafia";
-import { $familiar, $familiars, $item, $skill, CombatLoversLocket, have } from "libram";
+import { $class, $familiar, $familiars, $item, $skill, CombatLoversLocket, have } from "libram";
+import { defaultPermList, targetClass, targetPerms } from "./perm";
 
 type SpecialThing = {
   have: () => boolean;
@@ -139,4 +140,38 @@ export function checkReqs(): void {
       print(`You have everything! You are the shiniest star. This script should work great.`);
     }
   }
+}
+
+function spanWrap(text: string, color: string): string {
+  return `<span color="${color}">${text}</span>`;
+}
+export function checkPerms() {
+  const nPerms = targetPerms(false);
+  const nClass = targetClass(false);
+  printHtml("~~ Default Perm List ~~", false);
+  printHtml(
+    `Legend: <span color="black">[permed]</span>, <span color="fuchsia">[targeted/known]</span>, <span color="blue">[targeted/unknown]</span>, <span color="purple">[known]</span>, <span color="navy">[class skills]</span>, <span color="gray">[other]</span>`,
+    false
+  );
+  let count = 0;
+  defaultPermList.forEach((sks) =>
+    printHtml(
+      `~ Tier ${count++} ~<br> ${sks
+        .map((sk) =>
+          sk.name in getPermedSkills()
+            ? spanWrap(sk.name, "black")
+            : nPerms.includes(sk) && have(sk)
+            ? spanWrap(sk.name, "fuchsia")
+            : nPerms.includes(sk)
+            ? spanWrap(sk.name, "blue")
+            : have(sk)
+            ? spanWrap(sk.name, "purple")
+            : nClass && nClass === sk.class && nClass !== $class`none`
+            ? spanWrap(sk.name, "navy")
+            : spanWrap(sk.name, "gray")
+        )
+        .join(", ")}`,
+      false
+    )
+  );
 }

@@ -1,11 +1,10 @@
-import { getPermedSkills, print, printHtml } from "kolmafia";
+import { print } from "kolmafia";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
-import { $class, have } from "libram";
-import { checkReqs } from "./tasks/sim";
-import { defaultPermList, printPermPlan, targetClass, targetPerms } from "./tasks/perm";
+import { checkPerms, checkReqs } from "./tasks/sim";
+import { printPermPlan } from "./tasks/perm";
 
 export const args = Args.create(
   "goorbo",
@@ -29,10 +28,6 @@ export const args = Args.create(
   }
 );
 
-function spanWrap(text: string, color: string): string {
-  return `<span color="${color}">${text}</span>`;
-}
-
 export function main(command?: string): void {
   Args.fill(args, command);
   if (args.help) {
@@ -40,34 +35,7 @@ export function main(command?: string): void {
     return;
   }
   if (args.simperms) {
-    const nPerms = targetPerms(false);
-    const nClass = targetClass(false);
-    printHtml("~~ Default Perm List ~~", false);
-    printHtml(
-      `Legend: <span color="black">[permed]</span>, <span color="fuchsia">[targeted/known]</span>, <span color="blue">[targeted/unknown]</span>, <span color="purple">[known]</span>, <span color="navy">[class skills]</span>, <span color="gray">[other]</span>`,
-      false
-    );
-    let count = 0;
-    defaultPermList.forEach((sks) =>
-      printHtml(
-        `~ Tier ${count++} ~<br> ${sks
-          .map((sk) =>
-            sk.name in getPermedSkills()
-              ? spanWrap(sk.name, "black")
-              : nPerms.includes(sk) && have(sk)
-              ? spanWrap(sk.name, "fuchsia")
-              : nPerms.includes(sk)
-              ? spanWrap(sk.name, "blue")
-              : have(sk)
-              ? spanWrap(sk.name, "purple")
-              : nClass && nClass === sk.class && nClass !== $class`none`
-              ? spanWrap(sk.name, "navy")
-              : spanWrap(sk.name, "gray")
-          )
-          .join(", ")}`,
-        false
-      )
-    );
+    checkPerms();
     printPermPlan();
     return;
   }
