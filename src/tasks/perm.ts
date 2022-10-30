@@ -21,7 +21,7 @@ export function setClass(property: string, value: Class): void {
 
 export const baseClasses = $classes`Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief`;
 export const gnomeSkills = $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`;
-const permBlockList = $skills`CLEESH`;
+const permBlockList = $skills`CLEESH, Chronic Indigestion`;
 
 export const defaultPermList = [
   //tier 0 - all permable non-guild, non-gnome skills - never actually target these, but perm them as top priority if you happen to know them

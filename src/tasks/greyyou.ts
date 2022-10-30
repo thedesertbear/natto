@@ -57,6 +57,7 @@ import {
   ensureEffect,
   get,
   have,
+  uneffect,
 } from "libram";
 import { args } from "../main";
 import {
@@ -629,6 +630,10 @@ export const GyouQuest: Quest = {
       ready: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
       completed: () => (myAdventures() === 0 && !canDiet()) || stooperDrunk(),
       do: () => cliExecute("garbo"),
+      post: () =>
+        $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+          .filter((ef) => have(ef))
+          .forEach((ef) => uneffect(ef)),
       tracking: "Garbo",
     },
     {
@@ -639,6 +644,10 @@ export const GyouQuest: Quest = {
         stooperDrunk() ||
         get("garboResultsDate", "") === nowToString("YYYYMMdd"),
       do: () => cliExecute("garbo nobarf"),
+      post: () =>
+        $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+          .filter((ef) => have(ef))
+          .forEach((ef) => uneffect(ef)),
       tracking: "Garbo",
     },
     {
