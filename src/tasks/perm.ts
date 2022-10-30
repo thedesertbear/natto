@@ -10,6 +10,7 @@ import {
   toClass,
 } from "kolmafia";
 import { $class, $classes, $skills, get, have, set } from "libram";
+import { coloredSkill } from "./sim";
 
 export function getClass(property: string, _default: Class): Class {
   return toClass(get(property, _default.toString()));
@@ -125,7 +126,7 @@ export function targetPerms(planning: boolean): Skill[] {
     .slice(0, qty);
 }
 
-function planHelper(perms: Skill[], cls: Class, karma: number) {
+function planHelper(perms: string[], cls: Class, karma: number) {
   if (perms.length > 0)
     return `Perm plan: [${perms.join(
       ", "
@@ -135,9 +136,24 @@ function planHelper(perms: Skill[], cls: Class, karma: number) {
 }
 
 export function printPermPlan() {
+  const cClass = targetClass(false);
+  const cPerms = targetPerms(false);
+  const nClass = targetClass(true);
+  const nPerms = targetPerms(true);
   printHtml(
-    `Current ${planHelper(targetPerms(false), targetClass(false), expectedKarma(false))}`,
+    `Current ${planHelper(
+      cPerms.map((sk) => coloredSkill(sk, cPerms, cClass)),
+      cClass,
+      expectedKarma(false)
+    )}`,
     true
   );
-  printHtml(`Next ${planHelper(targetPerms(true), targetClass(true), expectedKarma(true))}`, true);
+  printHtml(
+    `Next ${planHelper(
+      nPerms.map((sk) => coloredSkill(sk, nPerms, nClass)),
+      nClass,
+      expectedKarma(true)
+    )}`,
+    true
+  );
 }
