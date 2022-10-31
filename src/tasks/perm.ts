@@ -11,7 +11,7 @@ import {
 } from "kolmafia";
 import { $class, $classes, $skills, get, have, set } from "libram";
 import { coloredSkill } from "./sim";
-import { args } from "./main";
+import { args } from "../main";
 
 export function getClass(property: string, _default: Class): Class {
   return toClass(get(property, _default.toString()));
@@ -93,8 +93,7 @@ export function expectedKarma(planning: boolean): number {
 }
 
 export function targetClass(planning: boolean): Class {
-  if (myClass() === $class`Grey Goo`)
-    return getClass("goorboNextClass", args.defaultclass);
+  if (myClass() === $class`Grey Goo`) return getClass("goorboNextClass", args.defaultclass);
   //can't access permed skill status in grey goo
 
   const sk = permOptions(planning)

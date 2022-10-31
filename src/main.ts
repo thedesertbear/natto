@@ -1,10 +1,11 @@
-import { print } from "kolmafia";
+import { print, toClass } from "kolmafia";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
 import { checkPerms, checkReqs } from "./tasks/sim";
 import { printPermPlan } from "./tasks/perm";
+import { $class } from "libram";
 
 export const args = Args.create(
   "goorbo",
@@ -26,10 +27,14 @@ export const args = Args.create(
     //   help: "If true, will learn target learning skills from the guild and gnomads, based on a hardcoded tiered list.",
     //   default: true,
     // }),
-    defaultclass: Args.custom({
-      help: "Choose your default class, if goorbo doesn't have any other goals this run",
-      default: "Seal Clubber",
-    }, Class.get, "CLASS"),
+    defaultclass: Args.custom(
+      {
+        help: "Choose your default class, if goorbo doesn't have any other goals this run",
+        default: $class`Seal Clubber`,
+      },
+      toClass,
+      "CLASS"
+    ),
     garbo: Args.string({
       help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
       default: "garbo",
