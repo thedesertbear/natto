@@ -163,8 +163,9 @@ export const AftercoreQuest: Quest = {
     {
       name: "Stock Up on MMJs",
       ready: () =>
-        (myClass().primestat === $stat`Mysticality` && guildStoreAvailable()) ||
-        (myClass() === $class`Accordion Thief` && myLevel() >= 9),
+        guildStoreAvailable() &&
+        (myClass().primestat === $stat`Mysticality` ||
+          (myClass() === $class`Accordion Thief` && myLevel() >= 9)),
       completed: () => availableAmount($item`magical mystery juice`) >= 500,
       acquire: [
         {
