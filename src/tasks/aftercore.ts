@@ -43,6 +43,7 @@ import {
 } from "libram";
 import { canDiet, getCurrentLeg, Leg, Macro, Quest, stooperDrunk } from "./structure";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
+import { args } from "../main";
 
 export const AftercoreQuest: Quest = {
   name: "Aftercore",
@@ -216,7 +217,7 @@ export const AftercoreQuest: Quest = {
     {
       name: "Garbo",
       completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
-      do: () => cliExecute("garbo ascend"),
+      do: () => cliExecute(args.garboascend),
       post: () =>
         $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
           .filter((ef) => have(ef))

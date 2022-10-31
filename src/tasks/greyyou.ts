@@ -442,7 +442,7 @@ export const GyouQuest: Quest = {
       },
       do: (): void => {
         cliExecute(`loopgyou class=${toInt(targetClass(false))}`);
-        set("garboNextClass", "");
+        set("goorboNextClass", "");
         cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
         if (closetAmount($item`Special Seasoning`) > 0)
           cliExecute("closet take * special seasoning");
@@ -631,7 +631,7 @@ export const GyouQuest: Quest = {
       name: "Garbo",
       ready: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
       completed: () => (myAdventures() === 0 && !canDiet()) || stooperDrunk(),
-      do: () => cliExecute("garbo"),
+      do: () => cliExecute(args.garbo),
       post: () =>
         $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
           .filter((ef) => have(ef))

@@ -8,7 +8,7 @@ import { printPermPlan } from "./tasks/perm";
 
 export const args = Args.create(
   "goorbo",
-  "A script for farming barf mountain while half-glooping.",
+  `This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a classe for you to learn guild skills, and to perm learned skills upon ascension.`,
   {
     actions: Args.number({
       help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time.",
@@ -22,9 +22,29 @@ export const args = Args.create(
       help: "If set, see the recommended items and skills, then return without taking any actions.",
       default: false,
     }),
+    // skillup: Args.boolean({
+    //   help: "If true, will learn target learning skills from the guild and gnomads, based on a hardcoded tiered list.",
+    //   default: true,
+    // }),
+    defaultclass: Args.custom({
+      help: "Choose your default class, if goorbo doesn't have any other goals this run",
+      default: "Seal Clubber",
+    }, Class.get, "CLASS"),
+    garbo: Args.string({
+      help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
+      default: "garbo",
+    }),
+    garboascend: Args.string({
+      help: `The command that will be used to diet and use all your adventures in Day 2 aftercore. Hint: use something like "garbo ascend; CONSUME NIGHTCAP; garbo ascend", if you want to nightcap and continue with Drunkula's wineglass, or "csend 1000000 meat to sketchysolid`,
+      default: "garbo ascend",
+    }),
     abort: Args.string({
       help: "If given, abort during the prepare() step for the task with matching name.",
     }),
+    // tip: Args.number({
+    //   help: "Number of soap knives to donate as thanks for this great script (-1 => all)",
+    //   default: 0,
+    // }),
   }
 );
 
