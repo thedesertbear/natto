@@ -242,6 +242,13 @@ export const AftercoreQuest: Quest = {
       },
     },
     {
+      name: "Summon Soap Knife",
+      completed: () => !have($skill`That's Not a Knife`) || get("_discoKnife"),
+      prepare: () => putCloset(itemAmount($item`soap knife`),$item`soap knife`),
+      do: () => useSkill($skill`That's Not a Knife`),
+      post: () => takeCloset(closetAmount($item`soap knife`),$item`soap knife`),
+    },
+    {
       name: "Ascend Grey You",
       completed: () => getCurrentLeg() >= Leg.GreyYou,
       do: (): void => {

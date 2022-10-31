@@ -8,7 +8,7 @@ import { printPermPlan } from "./tasks/perm";
 
 export const args = Args.create(
   "goorbo",
-  `This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a classe for you to learn guild skills, and to perm learned skills upon ascension.`,
+  `Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a classe for you to learn guild skills, and to perm learned skills upon ascension.`,
   {
     actions: Args.number({
       help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time.",
@@ -41,10 +41,10 @@ export const args = Args.create(
     abort: Args.string({
       help: "If given, abort during the prepare() step for the task with matching name.",
     }),
-    // tip: Args.number({
-    //   help: "Number of soap knives to donate as thanks for this great script (-1 => all)",
-    //   default: 0,
-    // }),
+    tip: Args.flag({
+      help: "Send all your soap knives to the author. Thanks!",
+      default: false,
+    }),
   }
 );
 

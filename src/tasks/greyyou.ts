@@ -35,6 +35,7 @@ import {
   retrieveItem,
   spleenLimit,
   storageAmount,
+  takeCloset,
   toInt,
   use,
   useFamiliar,
@@ -684,6 +685,19 @@ export const GyouQuest: Quest = {
       ready: () => readyForBed(),
       completed: () => stooperDrunk(),
       do: () => cliExecute("CONSUME NIGHTCAP"),
+    },
+    {
+      name: "Summon Soap Knife",
+      completed: () => !have($skill`That's Not a Knife`) || get("_discoKnife"),
+      prepare: () => putCloset(itemAmount($item`soap knife`),$item`soap knife`),
+      do: () => useSkill($skill`That's Not a Knife`),
+      post: () => takeCloset(closetAmount($item`soap knife`),$item`soap knife`),
+    },
+    {
+      name: "Tip the Author", //disabled by default - must manually discover and enable the flag
+      ready: () => args.tip,
+      completed: () => !have($item`soap knife`),
+      do: () => cliExecute(`csend * soap knife to sketchysolid || Thanks for the script!`),
     },
     {
       name: "Alert",
