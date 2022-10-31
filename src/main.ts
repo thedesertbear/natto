@@ -40,7 +40,7 @@ export const args = Args.create(
       default: "garbo",
     }),
     garboascend: Args.string({
-      help: `The command that will be used to diet and use all your adventures in Day 2 aftercore. Hint: use something like "garbo ascend; CONSUME NIGHTCAP; garbo ascend", if you want to nightcap and continue with Drunkula's wineglass, or "csend 1000000 meat to sketchysolid`,
+      help: `The command that will be used to diet and use all your adventures in Day 2 aftercore. Hack: use something like "garbo ascend; CONSUME NIGHTCAP; garbo ascend", if you want to nightcap and continue running with Drunkula's wineglass`,
       default: "garbo ascend",
     }),
     abort: Args.string({
