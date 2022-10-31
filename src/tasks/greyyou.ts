@@ -417,7 +417,7 @@ export const GyouQuest: Quest = {
             }))
           : []),
         ...(targetClass(false).primestat === $stat`Mysticality`
-          ? $items``.map((it) => ({ item: it }))
+          ? [] //$items``.map((it) => ({ item: it }))
           : []),
         ...(targetClass(false).primestat === $stat`Moxie`
           ? $items`noir fedora, KoL Con 13 T-shirt`.map((it) => ({ item: it }))
