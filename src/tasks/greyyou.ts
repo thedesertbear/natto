@@ -441,6 +441,7 @@ export const GyouQuest: Quest = {
       },
       do: (): void => {
         cliExecute(`loopgyou class=${toInt(targetClass(false))}`);
+        set("garboNextClass","");
         cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
         if (closetAmount($item`Special Seasoning`) > 0)
           cliExecute("closet take * special seasoning");
