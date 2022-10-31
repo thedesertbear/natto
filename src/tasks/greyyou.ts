@@ -590,6 +590,7 @@ export const GyouQuest: Quest = {
     },
     {
       name: "Gators",
+      ready: () => !!$effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.find(ef => have(ef)),
       completed: () => myClass() !== $class`Grey Goo` && myLevel() >= targetLevel,
       effects: $effects`Heart of White, Expert Vacationer`,
       prepare: (): void => {
@@ -597,10 +598,10 @@ export const GyouQuest: Quest = {
         restoreMp(8);
       },
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
-      outfit: {
+      outfit: (): OutfitSpec => ({
         familiar: $familiar`Grey Goose`,
         modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -10 ml 1 min`,
-      },
+      }),
       combat: new CombatStrategy().macro(() =>
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
           .trySkill($skill`Curse of Weaksauce`)
@@ -622,6 +623,13 @@ export const GyouQuest: Quest = {
       ),
       limit: { tries: levelingTurns + 3 }, //+3 for unaccounted for wanderers, etc.
       tracking: "Leveling",
+    },
+    {
+      name: "Alert-Leveling Failed",
+      completed: () => myLevel() >= targetLevel,
+      do: (): void => {
+        throw new Error(`Finished Leveling Tasks, but only reached level ${myLevel()}/${targetLevel}`);
+      },
     },
     {
       name: "Breakfast",
@@ -700,7 +708,7 @@ export const GyouQuest: Quest = {
       do: () => cliExecute(`csend * soap knife to sketchysolid || Thanks for the script!`),
     },
     {
-      name: "Alert",
+      name: "Alert-No Nightcap",
       ready: () => !readyForBed(),
       completed: () => stooperDrunk(),
       do: (): void => {
