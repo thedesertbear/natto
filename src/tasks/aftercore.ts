@@ -241,10 +241,11 @@ export const AftercoreQuest: Quest = {
     },
     {
       name: "Ascend Grey You",
-      ready: () => !targetPerms(false).find((sk) => !have(sk)),
       completed: () => getCurrentLeg() >= Leg.GreyYou,
       do: (): void => {
         printPermPlan();
+        if(!!targetPerms(false).find((sk) => !have(sk)))
+          throw new Error(`Trying to ascend, but don't have the following targeted skills: [${targetPerms(false).filter((sk) => !have(sk)).join(", ")}]`);
         const nClass = targetClass(true);
         setClass("goorboNextClass", nClass);
 
