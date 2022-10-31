@@ -590,7 +590,10 @@ export const GyouQuest: Quest = {
     },
     {
       name: "Gators",
-      ready: () => !!$effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.find(ef => have(ef)),
+      ready: () =>
+        !!$effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.find((ef) =>
+          have(ef)
+        ),
       completed: () => myClass() !== $class`Grey Goo` && myLevel() >= targetLevel,
       effects: $effects`Heart of White, Expert Vacationer`,
       prepare: (): void => {
@@ -628,7 +631,9 @@ export const GyouQuest: Quest = {
       name: "Alert-Leveling Failed",
       completed: () => myLevel() >= targetLevel,
       do: (): void => {
-        throw new Error(`Finished Leveling Tasks, but only reached level ${myLevel()}/${targetLevel}`);
+        throw new Error(
+          `Finished Leveling Tasks, but only reached level ${myLevel()}/${targetLevel}`
+        );
       },
     },
     {
@@ -697,9 +702,9 @@ export const GyouQuest: Quest = {
     {
       name: "Summon Soap Knife",
       completed: () => !have($skill`That's Not a Knife`) || get("_discoKnife"),
-      prepare: () => putCloset(itemAmount($item`soap knife`),$item`soap knife`),
+      prepare: () => putCloset(itemAmount($item`soap knife`), $item`soap knife`),
       do: () => useSkill($skill`That's Not a Knife`),
-      post: () => takeCloset(closetAmount($item`soap knife`),$item`soap knife`),
+      post: () => takeCloset(closetAmount($item`soap knife`), $item`soap knife`),
     },
     {
       name: "Tip the Author", //disabled by default - must manually discover and enable the flag

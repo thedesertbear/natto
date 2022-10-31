@@ -287,7 +287,7 @@ export const AftercoreQuest: Quest = {
           Lifestyle.softcore,
           moonsign,
           $item`astral six-pack`,
-          $item`astral pet sweater`,
+          args.astralpet,
           { permSkills: skillsToPerm, neverAbort: false }
         );
         if (visitUrl("main.php").includes("somewhat-human-shaped mass of grey goo nanites"))

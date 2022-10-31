@@ -9,7 +9,7 @@ import {
   Skill,
   toClass,
 } from "kolmafia";
-import { $class, $classes, $skills, get, have, set } from "libram";
+import { $class, $classes, $item, $skills, get, have, set } from "libram";
 import { coloredSkill } from "./sim";
 import { args } from "../main";
 
@@ -85,11 +85,13 @@ export function permTier(planning: boolean) {
 }
 
 export function expectedKarma(planning: boolean): number {
-  return !planning
-    ? get("bankedKarma") + (inHardcore() ? 200 : inCasual() ? 0 : 100)
-    : expectedKarma(false) -
+  return (
+    (!planning
+      ? get("bankedKarma") + (inHardcore() ? 200 : inCasual() ? 0 : 100)
+      : expectedKarma(false) -
         targetPerms(false).length * 100 +
-        (inHardcore() ? 200 : inCasual() ? 0 : 100);
+        (inHardcore() ? 200 : inCasual() ? 0 : 100)) + (args.astralpet === $item`none` ? 10 : 0)
+  );
 }
 
 export function targetClass(planning: boolean): Class {

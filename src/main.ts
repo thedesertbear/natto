@@ -1,11 +1,11 @@
-import { print, toClass } from "kolmafia";
+import { Item, print, toClass } from "kolmafia";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
 import { checkPerms, checkReqs } from "./tasks/sim";
 import { printPermPlan } from "./tasks/perm";
-import { $class } from "libram";
+import { $class, $item } from "libram";
 
 export const args = Args.create(
   "goorbo",
@@ -34,6 +34,14 @@ export const args = Args.create(
       },
       toClass,
       "CLASS"
+    ),
+    astralpet: Args.custom(
+      {
+        help: "Choose the astral pet you want to buy in valhalla. Recommended: one of [astral pet sweater, astral mask, astral belt, none]",
+        default: $item`astral pet sweater`,
+      },
+      Item.get,
+      "ITEM"
     ),
     garbo: Args.string({
       help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
