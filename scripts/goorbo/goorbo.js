@@ -7769,7 +7769,10 @@ var AftercoreQuest = {
     completed: () =>
     //done if you don't find any  skills in your perm plan that are guild-trainable, that you don't have known
     !targetPerms(false).find(sk => !have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level),
-    do: () => targetPerms(false).filter(sk => sk.class === (0,external_kolmafia_namespaceObject.myClass)() && !have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level).forEach(sk => (0,external_kolmafia_namespaceObject.visitUrl)("guild.php?action=buyskill&skillid=".concat((0,external_kolmafia_namespaceObject.toInt)(sk)), true)),
+    do: () => targetPerms(false).filter(sk => sk.class === (0,external_kolmafia_namespaceObject.myClass)() && !have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level).forEach(sk => {
+      (0,external_kolmafia_namespaceObject.print)("Purchasing ".concat(sk, " using skillid=").concat((0,external_kolmafia_namespaceObject.toInt)(sk) % 1000));
+      (0,external_kolmafia_namespaceObject.visitUrl)("guild.php?action=buyskill&skillid=".concat((0,external_kolmafia_namespaceObject.toInt)(sk) % 1000), true);
+    }),
     limit: {
       tries: 3
     } //a few tries, in case your level is too low and you level up over the course of the day
