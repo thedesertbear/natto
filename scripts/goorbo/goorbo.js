@@ -7620,9 +7620,16 @@ function permTier(planning) {
 function expectedKarma(planning) {
   return (!planning ? property_get("bankedKarma") + ((0,external_kolmafia_namespaceObject.inHardcore)() ? 200 : (0,external_kolmafia_namespaceObject.inCasual)() ? 0 : 100) : expectedKarma(false) - targetPerms(false).length * 100 + ((0,external_kolmafia_namespaceObject.inHardcore)() ? 200 : (0,external_kolmafia_namespaceObject.inCasual)() ? 0 : 100)) + (args.astralpet === template_string_$item(perm_templateObject12 || (perm_templateObject12 = perm_taggedTemplateLiteral(["none"]))) ? 10 : 0);
 }
+function shouldBankKarma(planning) {
+  var tier = permTier(planning);
+  return expectedKarma(planning) / 100 < tier || tier === 0;
+}
 function targetClass(planning) {
   if ((0,external_kolmafia_namespaceObject.myClass)() === $class(perm_templateObject13 || (perm_templateObject13 = perm_taggedTemplateLiteral(["Grey Goo"])))) return perm_getClass("goorboNextClass", args.defaultclass);
   //can't access permed skill status in grey goo
+
+  if (shouldBankKarma(planning)) return args.defaultclass;
+  //if we will be banking skills
 
   var sk = permOptions(planning).flat().find(sk => baseClasses.includes(sk.class));
   return sk ? sk.class : args.defaultclass;
