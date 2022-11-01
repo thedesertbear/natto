@@ -15,6 +15,7 @@ import {
   myMaxhp,
   myMeat,
   myPrimestat,
+  print,
   putCloset,
   pvpAttacksLeft,
   restoreHp,
@@ -161,7 +162,10 @@ export const AftercoreQuest: Quest = {
       do: () =>
         targetPerms(false)
           .filter((sk) => sk.class === myClass() && !have(sk) && myLevel() >= sk.level)
-          .forEach((sk) => visitUrl(`guild.php?action=buyskill&skillid=${toInt(sk)}`, true)),
+          .forEach((sk) => {
+            print(`Purchasing ${sk} using skillid=${toInt(sk) % 1000}`);
+            visitUrl(`guild.php?action=buyskill&skillid=${toInt(sk) % 1000}`, true);
+          }),
       limit: { tries: 3 }, //a few tries, in case your level is too low and you level up over the course of the day
     },
     {
