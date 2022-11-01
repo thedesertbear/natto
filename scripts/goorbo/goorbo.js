@@ -7291,7 +7291,7 @@ var Leg;
   Leg[Leg["last"] = 1] = "last";
 })(Leg || (Leg = {}));
 function getCurrentLeg() {
-  if ((0,external_kolmafia_namespaceObject.myClass)() === $class(structure_templateObject || (structure_templateObject = structure_taggedTemplateLiteral(["Grey Goo"]))) || (0,external_kolmafia_namespaceObject.myDaycount)() === 1) return Leg.GreyYou;
+  if ((0,external_kolmafia_namespaceObject.myClass)() === $class(structure_templateObject || (structure_templateObject = structure_taggedTemplateLiteral(["Grey Goo"]))) || (0,external_kolmafia_namespaceObject.myDaycount)() === 1 || property_get("_freshOutOfGreyYou", false)) return Leg.GreyYou;
   return Leg.Aftercore;
 }
 function setChoice(choice, setting) {
@@ -8120,6 +8120,7 @@ var GyouQuest = {
     },
     do: () => {
       (0,external_kolmafia_namespaceObject.cliExecute)("loopgyou class=".concat((0,external_kolmafia_namespaceObject.toInt)(targetClass(false))));
+      _set("_freshOutOfGreyYou", true);
       _set("goorboNextClass", "");
       (0,external_kolmafia_namespaceObject.cliExecute)("pull all; refresh all"); //if we somehow didn't already pull everything.
       if ((0,external_kolmafia_namespaceObject.closetAmount)(template_string_$item(_templateObject130 || (_templateObject130 = greyyou_taggedTemplateLiteral(["Special Seasoning"])))) > 0) (0,external_kolmafia_namespaceObject.cliExecute)("closet take * special seasoning");
