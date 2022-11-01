@@ -38,7 +38,8 @@ export enum Leg {
 }
 
 export function getCurrentLeg(): number {
-  if (myClass() === $class`Grey Goo` || myDaycount() === 1) return Leg.GreyYou;
+  if (myClass() === $class`Grey Goo` || myDaycount() === 1 || get("_freshOutOfGreyYou", false))
+    return Leg.GreyYou;
   return Leg.Aftercore;
 }
 
