@@ -94,9 +94,17 @@ export function expectedKarma(planning: boolean): number {
   );
 }
 
+function shouldBankKarma(planning: boolean): boolean {
+  const tier = permTier(planning);
+  return expectedKarma(planning) / 100 < tier || tier === 0;
+}
+
 export function targetClass(planning: boolean): Class {
   if (myClass() === $class`Grey Goo`) return getClass("goorboNextClass", args.defaultclass);
   //can't access permed skill status in grey goo
+
+  if (shouldBankKarma(planning)) return args.defaultclass;
+  //if we will be banking skills
 
   const sk = permOptions(planning)
     .flat()
