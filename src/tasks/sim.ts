@@ -10,7 +10,7 @@ import {
   storageAmount,
 } from "kolmafia";
 import { $class, $familiar, $familiars, $item, $skill, CombatLoversLocket, have } from "libram";
-import { defaultPermList, targetClass, targetPerms } from "./perm";
+import { defaultPermList, permTiers, targetClass, targetPerms } from "./perm";
 
 type SpecialThing = {
   have: () => boolean;
@@ -168,9 +168,11 @@ export function checkPerms() {
     false
   );
   let count = 0;
-  defaultPermList.forEach((sks) =>
+  defaultPermList().forEach((sks) =>
     printHtml(
-      `~ Tier ${count++} ~<br> ${sks.map((sk) => coloredSkill(sk, nPerms, nClass)).join(", ")}`,
+      `~ ${permTiers[count++]} ~<br> ${sks
+        .map((sk) => coloredSkill(sk, nPerms, nClass))
+        .join(", ")}`,
       false
     )
   );

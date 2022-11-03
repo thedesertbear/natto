@@ -4,7 +4,7 @@ import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuest } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
 import { checkPerms, checkReqs } from "./tasks/sim";
-import { printPermPlan } from "./tasks/perm";
+import { permTiers, printPermPlan } from "./tasks/perm";
 import { $class, $item } from "libram";
 
 export const args = Args.create(
@@ -14,27 +14,26 @@ export const args = Args.create(
     actions: Args.number({
       help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time.",
     }),
-    pvp: Args.flag({ help: "If true, break hippy stone and do pvp.", default: false }),
-    simperms: Args.flag({
-      help: "If set, see your current and available perms, as well as the plan for this run, then return without taking any actions.",
-      default: false,
+    abort: Args.string({
+      help: "If given, abort during the prepare() step for the task with matching name.",
     }),
     sim: Args.flag({
       help: "If set, see the recommended items and skills, then return without taking any actions.",
       default: false,
     }),
-    // skillup: Args.boolean({
-    //   help: "If true, will learn target learning skills from the guild and gnomads, based on a hardcoded tiered list.",
-    //   default: true,
-    // }),
-    defaultclass: Args.custom(
-      {
-        help: "Choose your default class, if goorbo doesn't have any other goals this run",
-        default: $class`Seal Clubber`,
-      },
-      toClass,
-      "CLASS"
-    ),
+
+    simperms: Args.flag({
+      help: "If set, see your current and available perms, as well as the plan for this run, then return without taking any actions.",
+      default: false,
+    }),
+    permtier: Args.number({
+      help: `Target perming all skills in the given tier and all better tiers. To disable, choose 0 to only perm non-gnome, non-guild skills that you may have learned, or -1 for not perming any skills under any circumstances \n ${permTiers.join(
+        "\n "
+      )}`,
+      default: 6,
+    }),
+
+    pvp: Args.flag({ help: "If true, break hippy stone and do pvp.", default: false }),
     astralpet: Args.custom(
       {
         help: "Choose the astral pet you want to buy in valhalla. Recommended: one of [astral pet sweater, astral mask, astral belt, none]",
@@ -43,6 +42,15 @@ export const args = Args.create(
       Item.get,
       "ITEM"
     ),
+    defaultclass: Args.custom(
+      {
+        help: "Choose your default class, if goorbo doesn't have any other goals this run",
+        default: $class`Seal Clubber`,
+      },
+      toClass,
+      "CLASS"
+    ),
+
     garbo: Args.string({
       help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
       default: "garbo",
@@ -51,9 +59,7 @@ export const args = Args.create(
       help: `The command that will be used to diet and use all your adventures in Day 2 aftercore. Hack: use something like "garbo ascend; CONSUME NIGHTCAP; garbo ascend", if you want to nightcap and continue running with Drunkula's wineglass`,
       default: "garbo ascend",
     }),
-    abort: Args.string({
-      help: "If given, abort during the prepare() step for the task with matching name.",
-    }),
+
     tip: Args.flag({
       help: "Send all your soap knives to the author. Thanks!",
       default: false,
