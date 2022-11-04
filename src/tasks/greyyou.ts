@@ -322,8 +322,7 @@ export const GyouQuest: Quest = {
         have($item`steel margarita`) ||
         have($item`Azazel's lollipop`),
       outfit: {
-        weapon: $item`none`,
-        equip: $items`observational glasses, Victor\, the Insult Comic Hellhound Puppet`,
+        equip: $items`hilarious comedy prop, observational glasses, Victor\, the Insult Comic Hellhound Puppet`,
       },
       do: () => cliExecute("panda comedy insult; panda comedy observe"),
     },
