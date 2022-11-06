@@ -7,10 +7,15 @@ import { checkPerms, checkReqs } from "./tasks/sim";
 import { permTiers, printPermPlan } from "./tasks/perm";
 import { $class, $item } from "libram";
 
+const version = "0.3.11";
+
 export const args = Args.create(
   "goorbo",
   `Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a classe for you to learn guild skills, and to perm learned skills upon ascension.`,
   {
+    version: Args.flag({
+      help: "Output script version number and exit.",
+    }),
     actions: Args.number({
       help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time.",
     }),
@@ -50,7 +55,19 @@ export const args = Args.create(
       toClass,
       "CLASS"
     ),
+    class: Args.custom(
+      {
+        help: "Choose the class to choose at prism break. If set, will override any class that might be desired for skill-perming purposes",
+        default: $class`none`,
+      },
+      toClass,
+      "CLASS"
+    ),
 
+    gyouscript: Args.string({
+      help: "The command that will do your Grey You run for you. Include any arguments desired.",
+      default: "loopgyou delaytower tune=wombat chargegoose=20",
+    }),
     garbo: Args.string({
       help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
       default: "garbo",
@@ -81,6 +98,10 @@ export function main(command?: string): void {
   if (args.sim) {
     checkReqs();
     printPermPlan();
+    return;
+  }
+  if (args.version) {
+    print(`goorbo v${version}`);
     return;
   }
 

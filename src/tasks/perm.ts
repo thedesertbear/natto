@@ -114,7 +114,11 @@ function shouldBankKarma(planning: boolean): boolean {
 }
 
 export function targetClass(planning: boolean): Class {
-  if (myClass() === $class`Grey Goo`) return getClass("goorboNextClass", args.defaultclass);
+  if (myClass() === $class`Grey Goo`) {
+    if (args.class && args.class !== $class`none`) return args.class;
+    return getClass("goorboNextClass", args.defaultclass);
+  }
+  if (planning && args.class && args.class !== $class`none`) return args.class;
   //can't access permed skill status in grey goo
 
   if (shouldBankKarma(planning)) return args.defaultclass;

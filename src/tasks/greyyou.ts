@@ -116,7 +116,7 @@ export const GyouQuest: Quest = {
       name: "Run",
       completed: () =>
         step("questL13Final") !== -1 && get("gooseReprocessed").split(",").length >= 69, //There are 73 total targets
-      do: () => cliExecute("loopgyou delaytower tune=wombat chargegoose=20"),
+      do: () => cliExecute(args.gyouscript),
       tracking: "Run",
     },
     {
