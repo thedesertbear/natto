@@ -7576,7 +7576,7 @@ function checkPerms() {
   defaultPermList().forEach(sks => (0,external_kolmafia_namespaceObject.printHtml)("~ ".concat(permTiers[count++], " ~<br> ").concat(sks.map(sk => coloredSkill(sk, nPerms, nClass)).join(", ")), false));
 }
 ;// CONCATENATED MODULE: ./src/tasks/perm.ts
-var perm_templateObject, perm_templateObject2, perm_templateObject3, perm_templateObject4, perm_templateObject5, perm_templateObject6, perm_templateObject7, perm_templateObject8, perm_templateObject9, perm_templateObject10, perm_templateObject11, perm_templateObject12, perm_templateObject13, perm_templateObject14;
+var perm_templateObject, perm_templateObject2, perm_templateObject3, perm_templateObject4, perm_templateObject5, perm_templateObject6, perm_templateObject7, perm_templateObject8, perm_templateObject9, perm_templateObject10, perm_templateObject11, perm_templateObject12, perm_templateObject13, perm_templateObject14, perm_templateObject15, perm_templateObject16;
 function perm_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
@@ -7627,7 +7627,11 @@ function shouldBankKarma(planning) {
   return expectedKarma(planning) / 100 < tier || tier === 0;
 }
 function targetClass(planning) {
-  if ((0,external_kolmafia_namespaceObject.myClass)() === $class(perm_templateObject13 || (perm_templateObject13 = perm_taggedTemplateLiteral(["Grey Goo"])))) return perm_getClass("goorboNextClass", args.defaultclass);
+  if ((0,external_kolmafia_namespaceObject.myClass)() === $class(perm_templateObject13 || (perm_templateObject13 = perm_taggedTemplateLiteral(["Grey Goo"])))) {
+    if (args["class"] && args["class"] !== $class(perm_templateObject14 || (perm_templateObject14 = perm_taggedTemplateLiteral(["none"])))) return args["class"];
+    return perm_getClass("goorboNextClass", args.defaultclass);
+  }
+  if (planning && args["class"] && args["class"] !== $class(perm_templateObject15 || (perm_templateObject15 = perm_taggedTemplateLiteral(["none"])))) return args["class"];
   //can't access permed skill status in grey goo
 
   if (shouldBankKarma(planning)) return args.defaultclass;
@@ -7647,7 +7651,7 @@ function targetPerms(planning) {
     : []; //don't plan to perm anything next run if we plan to bank karma
 
   var qty = Math.min(maxQty, tier + Math.ceil(Math.sqrt(Math.max(0, maxQty - tier))));
-  var tClass = planning ? targetClass(true) : $class(perm_templateObject14 || (perm_templateObject14 = perm_taggedTemplateLiteral(["none"])));
+  var tClass = planning ? targetClass(true) : $class(perm_templateObject16 || (perm_templateObject16 = perm_taggedTemplateLiteral(["none"])));
   return (!planning ? pOptions.flat().filter(sk => !gnomeSkills.includes(sk) || (0,external_kolmafia_namespaceObject.gnomadsAvailable)()) :
   //filter out gnome skills if not available (non-targetClass skills filtered out in permOptions already, for current run)
   pOptions.flat().filter(sk => sk.class === tClass || gnomeSkills.includes(sk))
@@ -7912,7 +7916,7 @@ var GyouQuest = {
     name: "Run",
     completed: () => step("questL13Final") !== -1 && property_get("gooseReprocessed").split(",").length >= 69,
     //There are 73 total targets
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("loopgyou delaytower tune=wombat chargegoose=20"),
+    do: () => (0,external_kolmafia_namespaceObject.cliExecute)(args.gyouscript),
     tracking: "Run"
   }, {
     name: "Train Gnome Skills",
@@ -8856,7 +8860,7 @@ var ProfitTrackingEngine = /*#__PURE__*/function (_Engine) {
   return ProfitTrackingEngine;
 }(Engine);
 ;// CONCATENATED MODULE: ./src/main.ts
-var main_templateObject, main_templateObject2;
+var main_templateObject, main_templateObject2, main_templateObject3;
 function main_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = main_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 function main_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return main_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return main_arrayLikeToArray(o, minLen); }
 function main_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
@@ -8869,7 +8873,11 @@ function main_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.sl
 
 
 
+var version = "0.3.11";
 var args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a classe for you to learn guild skills, and to perm learned skills upon ascension.", {
+  version: Args.flag({
+    help: "Output script version number and exit."
+  }),
   actions: Args.number({
     help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time."
   }),
@@ -8900,6 +8908,14 @@ var args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #422389
     help: "Choose your default class, if goorbo doesn't have any other goals this run",
     default: $class(main_templateObject2 || (main_templateObject2 = main_taggedTemplateLiteral(["Seal Clubber"])))
   }, external_kolmafia_namespaceObject.toClass, "CLASS"),
+  class: Args.custom({
+    help: "Choose the class to choose at prism break. If set, will override any class that might be desired for skill-perming purposes",
+    default: $class(main_templateObject3 || (main_templateObject3 = main_taggedTemplateLiteral(["none"])))
+  }, external_kolmafia_namespaceObject.toClass, "CLASS"),
+  gyouscript: Args.string({
+    help: "The command that will do your Grey You run for you. Include any arguments desired.",
+    default: "loopgyou delaytower tune=wombat chargegoose=20"
+  }),
   garbo: Args.string({
     help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
     default: "garbo"
@@ -8927,6 +8943,10 @@ function main(command) {
   if (args.sim) {
     checkReqs();
     printPermPlan();
+    return;
+  }
+  if (args.version) {
+    (0,external_kolmafia_namespaceObject.print)("goorbo v".concat(version));
     return;
   }
   var tasks = getTasks([AftercoreQuest, GyouQuest]);
