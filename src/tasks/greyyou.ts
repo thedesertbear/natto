@@ -93,8 +93,7 @@ export const GyouQuest: Quest = {
     },
     {
       name: "LGR Seed",
-      completed: () =>
-        get("_stenchAirportToday") || get("stenchAirportAlways") || !have($item`lucky gold ring`),
+      completed: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
       do: (): void => {
         if (!have($item`one-day ticket to Dinseylandfill`)) {
           if (storageAmount($item`one-day ticket to Dinseylandfill`) === 0)
