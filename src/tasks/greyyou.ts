@@ -62,11 +62,12 @@ import {
   ensureEffect,
   get,
   have,
+  Macro,
   set,
   uneffect,
 } from "libram";
 import { args } from "../main";
-import { getCurrentLeg, Leg, Macro, Quest } from "./structure";
+import { getCurrentLeg, Leg, Quest } from "./structure";
 import { backstageItemsDone, canDiet, haveAll, maxBase, readyForBed, stooperDrunk } from "./utils";
 import { targetClass } from "./perm";
 
@@ -158,8 +159,7 @@ export const GyouQuest: Quest = {
         modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
       },
       combat: new CombatStrategy().macro(
-        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
-          .trySkill($skill`Bowl Straight Up`)
+        Macro.trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
           .trySkill($skill`Extract Jelly`)
           .tryItem($item`porquoise-handled sixgun`)
@@ -174,7 +174,6 @@ export const GyouQuest: Quest = {
           .trySkill($skill`Double Nanovision`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
       limit: { tries: 550 },
       tracking: "GooFarming",
@@ -232,13 +231,14 @@ export const GyouQuest: Quest = {
         };
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
-          .externalIf(!get("_dailyDungeonMalwareUsed"), Macro.tryItem($item`daily dungeon malware`))
+        Macro.externalIf(
+          !get("_dailyDungeonMalwareUsed"),
+          Macro.tryItem($item`daily dungeon malware`)
+        )
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Fire the Jokester's Gun`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
       limit: { tries: 15 },
     },
@@ -273,12 +273,10 @@ export const GyouQuest: Quest = {
         modifier: `${maxBase()}, 100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
       },
       combat: new CombatStrategy().macro(
-        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
-          .tryItem($item`porquoise-handled sixgun`)
+        Macro.tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Double Nanovision`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
       limit: { tries: 15 },
     },
@@ -315,11 +313,9 @@ export const GyouQuest: Quest = {
         modifier: `${maxBase()}, -100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
       },
       combat: new CombatStrategy().macro(
-        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
-          .tryItem($item`porquoise-handled sixgun`)
+        Macro.tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Double Nanovision`)
           .repeat()
-          .setAutoAttack()
       ),
       limit: { tries: 15 },
     },
@@ -392,8 +388,7 @@ export const GyouQuest: Quest = {
         modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
       },
       combat: new CombatStrategy().macro(
-        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
-          .trySkill($skill`Bowl Straight Up`)
+        Macro.trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
           .trySkill($skill`Extract Jelly`)
           .tryItem($item`porquoise-handled sixgun`)
@@ -408,7 +403,6 @@ export const GyouQuest: Quest = {
           .trySkill($skill`Double Nanovision`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
       limit: { tries: 150 },
       tracking: "GooFarming",
@@ -627,8 +621,7 @@ export const GyouQuest: Quest = {
         modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
       }),
       combat: new CombatStrategy().macro(() =>
-        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
-          .tryItem($item`gas balloon`)
+        Macro.tryItem($item`gas balloon`)
           .externalIf(
             have($skill`Feel Pride`) && get("_feelPrideUsed") < 3,
             Macro.trySkill($skill`Feel Pride`),
@@ -646,7 +639,6 @@ export const GyouQuest: Quest = {
           .tryItem(...$items`shard of double-ice, gas can`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
       tracking: "Leveling",
     },
@@ -668,8 +660,7 @@ export const GyouQuest: Quest = {
         modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
       }),
       combat: new CombatStrategy().macro(() =>
-        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
-          .trySkill($skill`Curse of Weaksauce`)
+        Macro.trySkill($skill`Curse of Weaksauce`)
           .externalIf(
             $familiar`Grey Goose`.experience >= 400,
             Macro.trySkill(
@@ -684,7 +675,6 @@ export const GyouQuest: Quest = {
           .trySkill($skill`Sing Along`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
       limit: { tries: levelingTurns + 3 }, //+3 for unaccounted for wanderers, etc.
       tracking: "Leveling",

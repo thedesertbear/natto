@@ -50,9 +50,10 @@ import {
   get,
   have,
   Lifestyle,
+  Macro,
   uneffect,
 } from "libram";
-import { getCurrentLeg, Leg, Macro, Quest } from "./structure";
+import { getCurrentLeg, Leg, Quest } from "./structure";
 import { canDiet, maxBase, stooperDrunk } from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
@@ -121,8 +122,7 @@ export const AftercoreQuest: Quest = {
         modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
       }),
       combat: new CombatStrategy().macro(() =>
-        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
-          .tryItem($item`gas balloon`)
+        Macro.tryItem($item`gas balloon`)
           .externalIf(
             have($skill`Feel Pride`) && get("_feelPrideUsed") < 3,
             Macro.trySkill($skill`Feel Pride`),
@@ -140,7 +140,6 @@ export const AftercoreQuest: Quest = {
           .tryItem(...$items`shard of double-ice, gas can`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
       tracking: "Leveling",
     },
@@ -178,14 +177,15 @@ export const AftercoreQuest: Quest = {
         };
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.step(`if pastround 2; abort Macro did not complete; endif; `)
-          .externalIf(!get("_dailyDungeonMalwareUsed"), Macro.tryItem($item`daily dungeon malware`))
+        Macro.externalIf(
+          !get("_dailyDungeonMalwareUsed"),
+          Macro.tryItem($item`daily dungeon malware`)
+        )
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Fire the Jokester's Gun`)
           .trySkill($skill`Saucestorm`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
       limit: { tries: 15 },
     },
@@ -225,11 +225,9 @@ export const AftercoreQuest: Quest = {
         }, 250 bonus carnivorous potted plant`,
       }),
       combat: new CombatStrategy().macro(() =>
-        Macro.step(`if pastround 2; abort Macro did not complete; endif; `)
-          .tryItem($item`porquoise-handled sixgun`)
+        Macro.tryItem($item`porquoise-handled sixgun`)
           .attack()
           .repeat()
-          .setAutoAttack()
       ),
     },
     {
