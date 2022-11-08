@@ -13,6 +13,7 @@ import {
   toInt,
 } from "kolmafia";
 import { $item, $items, get, getSaleValue, Session, set, sumNumbers } from "libram";
+import { args } from "../main";
 
 function currency(...items: Item[]): () => number {
   const unitCost: [Item, number][] = items.map((i) => {
@@ -323,6 +324,7 @@ export function printProfits(records: Records): void {
     "blue"
   );
   printProfitSegment("* Garbo", records["0@Garbo"], "green");
+  if (args.voatest) printProfitSegment("* VoA Test", records["0@VoA Test"], "green");
   printProfitSegment("* Other", records["0@Other"], "green");
   printProfitSegment(
     "Grey You",

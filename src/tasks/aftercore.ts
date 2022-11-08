@@ -300,13 +300,23 @@ export const AftercoreQuest: Quest = {
     },
     {
       name: "Garbo",
-      completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
-      do: () => cliExecute(args.garboascend),
+      completed: () => (!canDiet() && myAdventures() <= (args.voatest ? 100 : 0)) || stooperDrunk(),
+      do: () => cliExecute(`${args.garboascend} ${args.voatest && "-100"}`),
       post: () =>
         $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
           .filter((ef) => have(ef))
           .forEach((ef) => uneffect(ef)),
       tracking: "Garbo",
+    },
+    {
+      name: "Find Garbo VoA",
+      completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
+      do: () => cliExecute(`${args.garboascend}`),
+      post: () =>
+        $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+          .filter((ef) => have(ef))
+          .forEach((ef) => uneffect(ef)),
+      tracking: "VoA Test",
     },
     {
       name: "Nightcap",

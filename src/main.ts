@@ -68,6 +68,10 @@ export const args = Args.create(
       "CLASS"
     ),
 
+    voatest: Args.boolean({
+      help: `If set, will run your d2 garbo turns just like normal, but will separately track the last 100 turns, to give you an estimate of what your real-world valueOfAdventure is. Divide your total "VoA Test" profit by 100 for your VoA estimate. Note that it might show > 100 adventures spent, if garbo equipped the mafia thumb ring, June cleaver, or other adventure gaining equipment. CAUTION: This flag may not be compatible with custom settings of garboascend`,
+      default: true,
+    }),
     gyouscript: Args.string({
       help: "The command that will do your Grey You run for you. Include any arguments desired.",
       default: "loopgyou delaytower tune=wombat chargegoose=20",
