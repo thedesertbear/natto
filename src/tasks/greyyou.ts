@@ -13,6 +13,7 @@ import {
   handlingChoice,
   haveEffect,
   hippyStoneBroken,
+  inebrietyLimit,
   itemAmount,
   maximize,
   myAdventures,
@@ -20,6 +21,7 @@ import {
   myBuffedstat,
   myClass,
   myHp,
+  myInebriety,
   myLevel,
   myMaxhp,
   myMeat,
@@ -758,7 +760,14 @@ export const GyouQuest: Quest = {
       name: "Nightcap",
       ready: () => readyForBed(),
       completed: () => stooperDrunk(),
-      do: () => cliExecute("CONSUME NIGHTCAP"),
+      do: () => {
+        if (have($familiar`Stooper`) && have($item`tiny stillsuit`)) {
+          useFamiliar($familiar`Stooper`);
+          if (myInebriety() < inebrietyLimit() && get("familiarSweat") >= 300)
+            cliExecute("drink stillsuit distillate");
+        }
+        cliExecute("CONSUME NIGHTCAP");
+      },
     },
     {
       name: "Summon Soap Knife",

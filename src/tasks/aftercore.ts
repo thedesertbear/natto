@@ -10,10 +10,12 @@ import {
   guildStoreAvailable,
   handlingChoice,
   hippyStoneBroken,
+  inebrietyLimit,
   itemAmount,
   myAdventures,
   myClass,
   myHp,
+  myInebriety,
   myLevel,
   myMaxhp,
   myMeat,
@@ -28,6 +30,7 @@ import {
   takeCloset,
   toInt,
   use,
+  useFamiliar,
   useSkill,
   visitUrl,
 } from "kolmafia";
@@ -294,6 +297,30 @@ export const AftercoreQuest: Quest = {
     {
       name: "Garbo",
       completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
+      do: () => cliExecute(args.garboascend),
+      post: () =>
+        $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+          .filter((ef) => have(ef))
+          .forEach((ef) => uneffect(ef)),
+      tracking: "Garbo",
+    },
+    {
+      name: "Nightcap",
+      ready: () => have($item`Drunkula's wineglass`),
+      completed: () => stooperDrunk(),
+      do: () => {
+        if (have($familiar`Stooper`) && have($item`tiny stillsuit`)) {
+          useFamiliar($familiar`Stooper`);
+          if (myInebriety() < inebrietyLimit() && get("familiarSweat") >= 300)
+            cliExecute("drink stillsuit distillate");
+        }
+        cliExecute(`CONSUME NIGHTCAP VALUE ${get("valueOfAdventure") - 1000}`);
+      },
+    },
+    {
+      name: "Garbo (Drunk)",
+      ready: () => have($item`Drunkula's wineglass`),
+      completed: () => myAdventures() === 0,
       do: () => cliExecute(args.garboascend),
       post: () =>
         $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
