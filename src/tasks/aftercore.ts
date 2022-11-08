@@ -106,7 +106,10 @@ export const AftercoreQuest: Quest = {
       name: "Fight Glitch",
       ready: () => have($item`[glitch season reward name]`),
       completed: () => get("_glitchMonsterFights") > 0,
-      acquire: $items`gas can, gas balloon, shard of double-ice`.map((it) => ({ item: it })),
+      acquire: $items`gas can, gas balloon, shard of double-ice`.map((it) => ({
+        item: it,
+        price: 1000,
+      })),
       prepare: () => {
         restoreHp(0.9 * myHp());
         if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
@@ -160,7 +163,7 @@ export const AftercoreQuest: Quest = {
         693: 2, //dd trap: skip
       },
       acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
-        (it) => ({ item: it })
+        (it) => ({ item: it, price: 1000 })
       ),
       outfit: (): OutfitSpec => {
         return {

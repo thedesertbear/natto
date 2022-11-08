@@ -229,7 +229,7 @@ export const GyouQuest: Quest = {
         693: 2, //dd trap: skip
       },
       acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
-        (it) => ({ item: it })
+        (it) => ({ item: it, price: 1000 })
       ),
       outfit: (): OutfitSpec => {
         return {
@@ -376,7 +376,12 @@ export const GyouQuest: Quest = {
       ready: () => haveAll($items`Azazel's lollipop, Azazel's unicorn`),
       completed: () =>
         have($skill`Liver of Steel`) || have($item`steel margarita`) || have($item`Azazel's tutu`),
-      acquire: $items`bus pass, imp air`.map((it) => ({ item: it, num: 5 })),
+      acquire: () =>
+        $items`bus pass, imp air`.map((it) => ({
+          item: it,
+          num: 5,
+          price: get("valueOfAdventure"),
+        })),
       do: () => cliExecute("panda moan"),
       limit: { tries: 3 },
     },
@@ -423,14 +428,14 @@ export const GyouQuest: Quest = {
     {
       name: "Hatter Buff",
       completed: () => get("_madTeaParty"),
-      acquire: $items`oil cap, "DRINK ME" potion`.map((it) => ({ item: it })),
+      acquire: $items`oil cap, "DRINK ME" potion`.map((it) => ({ item: it, price: 1000 })),
       do: () => cliExecute(`hatter ${$item`oil cap`}`),
     },
     {
       name: "Free King",
       completed: () => myClass() !== $class`Grey Goo`,
       acquire: () => [
-        { item: $item`teacher's pen`, num: 3 },
+        { item: $item`teacher's pen`, num: 3, price: 500 },
         ...(targetClass(false).primestat === $stat`Muscle`
           ? $items`discarded swimming trunks, battered hubcap, trench coat`.map((it) => ({
               item: it,
@@ -619,7 +624,10 @@ export const GyouQuest: Quest = {
       name: "Fight Glitch",
       ready: () => have($item`[glitch season reward name]`),
       completed: () => get("_glitchMonsterFights") > 0,
-      acquire: $items`gas can, gas balloon, shard of double-ice`.map((it) => ({ item: it })),
+      acquire: $items`gas can, gas balloon, shard of double-ice`.map((it) => ({
+        item: it,
+        price: 1000,
+      })),
       prepare: () => {
         restoreHp(0.9 * myHp());
         if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
