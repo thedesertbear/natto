@@ -13,6 +13,7 @@ import {
   itemAmount,
   myAdventures,
   myClass,
+  myHp,
   myLevel,
   myMaxhp,
   myMeat,
@@ -34,6 +35,7 @@ import {
   $class,
   $coinmaster,
   $effects,
+  $familiar,
   $item,
   $items,
   $location,
@@ -90,6 +92,48 @@ export const AftercoreQuest: Quest = {
         if (handlingChoice()) visitUrl("main.php");
       },
       outfit: () => ({ equip: $items`June cleaver` }),
+    },
+    {
+      name: "Implement Glitch",
+      completed: () => get("_glitchItemImplemented"),
+      do: () => use($item`[glitch season reward name]`),
+    },
+    {
+      name: "Fight Glitch",
+      completed: () => get("_glitchMonsterFights") > 0,
+      acquire: $items`gas can, gas balloon, shard of double-ice`.map((it) => ({ item: it })),
+      prepare: () => {
+        restoreHp(0.9 * myHp());
+        if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
+      },
+      do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
+      outfit: (): OutfitSpec => ({
+        familiar: $familiar`Grey Goose`,
+        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
+      }),
+      combat: new CombatStrategy().macro(() =>
+        Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
+          .tryItem($item`gas balloon`)
+          .externalIf(
+            have($skill`Feel Pride`) && get("_feelPrideUsed") < 3,
+            Macro.trySkill($skill`Feel Pride`),
+            Macro.externalIf(
+              $familiar`Grey Goose`.experience >= 400,
+              Macro.trySkill(
+                myPrimestat() === $stat`Muscle`
+                  ? $skill`Convert Matter to Protein`
+                  : myPrimestat() === $stat`Mysticality`
+                  ? $skill`Convert Matter to Energy`
+                  : $skill`Convert Matter to Pomade`
+              )
+            )
+          )
+          .tryItem(...$items`shard of double-ice, gas can`)
+          .attack()
+          .repeat()
+          .setAutoAttack()
+      ),
+      tracking: "Leveling",
     },
     {
       name: "Daily Dungeon",
