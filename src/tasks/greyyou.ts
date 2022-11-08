@@ -611,11 +611,13 @@ export const GyouQuest: Quest = {
     },
     {
       name: "Implement Glitch",
+      ready: () => have($item`[glitch season reward name]`),
       completed: () => get("_glitchItemImplemented"),
       do: () => use($item`[glitch season reward name]`),
     },
     {
       name: "Fight Glitch",
+      ready: () => have($item`[glitch season reward name]`),
       completed: () => get("_glitchMonsterFights") > 0,
       acquire: $items`gas can, gas balloon, shard of double-ice`.map((it) => ({ item: it })),
       prepare: () => {
