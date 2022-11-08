@@ -2,11 +2,13 @@ import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
 import {
   availableAmount,
   buy,
+  canAdventure,
   cliExecute,
   closetAmount,
   getPermedSkills,
   gnomadsAvailable,
   guildStoreAvailable,
+  handlingChoice,
   hippyStoneBroken,
   itemAmount,
   myAdventures,
@@ -63,6 +65,31 @@ export const AftercoreQuest: Quest = {
       completed: () =>
         get("_stenchAirportToday") || get("stenchAirportAlways") || !have($item`lucky gold ring`),
       do: () => use($item`one-day ticket to Dinseylandfill`),
+    },
+    {
+      name: "June Cleaver",
+      completed: () => !have($item`June cleaver`) || get("_juneCleaverFightsLeft") > 0,
+      choices: {
+        793: 4, //The Shore -> Gift Shop
+        1467: 3, //Poetic Justice
+        1468: () => (get("_juneCleaverSkips") < 5 ? 4 : 2), //Aunts not Ants
+        1469: 3, //Beware of Aligator
+        1470: () => (get("_juneCleaverSkips") < 5 ? 4 : 2), //Teacher's Pet
+        1471: 1, //Lost and Found
+        1472: () => (get("_juneCleaverSkips") < 5 ? 4 : 1), //Summer Days
+        1473: () => (get("_juneCleaverSkips") < 5 ? 4 : 1), //Bath Time
+        1474: () => (get("_juneCleaverSkips") < 5 ? 4 : 2), //Delicious Sprouts
+        1475: 1, //Hypnotic Master
+      },
+      prepare: () => {
+        if (!canAdventure($location`The Shore\, Inc. Travel Agency`))
+          retrieveItem($item`bitchin' meatcar`);
+      },
+      do: $location`The Shore\, Inc. Travel Agency`,
+      post: () => {
+        if (handlingChoice()) visitUrl("main.php");
+      },
+      outfit: () => ({ equip: $items`June cleaver` }),
     },
     {
       name: "Daily Dungeon",
