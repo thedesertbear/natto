@@ -66,18 +66,8 @@ import {
   uneffect,
 } from "libram";
 import { args } from "../main";
-import {
-  backstageItemsDone,
-  canDiet,
-  getCurrentLeg,
-  haveAll,
-  Leg,
-  Macro,
-  maxBase,
-  Quest,
-  readyForBed,
-  stooperDrunk,
-} from "./structure";
+import { getCurrentLeg, Leg, Macro, Quest } from "./structure";
+import { backstageItemsDone, canDiet, haveAll, maxBase, readyForBed, stooperDrunk } from "./utils";
 import { targetClass } from "./perm";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;

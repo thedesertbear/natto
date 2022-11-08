@@ -52,7 +52,8 @@ import {
   Lifestyle,
   uneffect,
 } from "libram";
-import { canDiet, getCurrentLeg, Leg, Macro, maxBase, Quest, stooperDrunk } from "./structure";
+import { getCurrentLeg, Leg, Macro, Quest } from "./structure";
+import { canDiet, maxBase, stooperDrunk } from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
 
