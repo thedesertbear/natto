@@ -38,6 +38,10 @@ export const args = Args.create(
       default: 6,
     }),
 
+    targetlevel: Args.number({
+      help: `What level to target via adventuring in Uncle Gator's after breaking the prism`,
+      default: 13,
+    }),
     pvp: Args.flag({ help: "If true, break hippy stone and do pvp.", default: false }),
     astralpet: Args.custom(
       {

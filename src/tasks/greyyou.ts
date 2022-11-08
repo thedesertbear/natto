@@ -82,8 +82,6 @@ import { targetClass } from "./perm";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
 const levelingTurns = 30;
-const targetLevel = 13;
-
 export const GyouQuest: Quest = {
   name: "Grey You",
   completed: () => getCurrentLeg() !== Leg.GreyYou,
@@ -210,7 +208,7 @@ export const GyouQuest: Quest = {
       name: "Daily Dungeon",
       ready: () =>
         (myClass() === $class`Grey Goo` && myAdventures() > 40) ||
-        (myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
+        (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
       completed: () => get("dailyDungeonDone"),
       prepare: (): void => {
         if (have($item`daily dungeon malware`) && get("_dailyDungeonMalwareUsed"))
@@ -258,7 +256,7 @@ export const GyouQuest: Quest = {
       name: "Laugh Floor",
       ready: () =>
         (myClass() === $class`Grey Goo` && myAdventures() > 40) ||
-        (myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
+        (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
       completed: () =>
         have($skill`Liver of Steel`) ||
         have($item`steel margarita`) ||
@@ -298,7 +296,7 @@ export const GyouQuest: Quest = {
       name: "Infernal Rackets Backstage",
       ready: () =>
         (myClass() === $class`Grey Goo` && myAdventures() > 40) ||
-        (myClass() !== $class`Grey Goo` && myLevel() >= targetLevel),
+        (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
       completed: () =>
         have($skill`Liver of Steel`) ||
         have($item`steel margarita`) ||
@@ -478,7 +476,7 @@ export const GyouQuest: Quest = {
     },
     {
       name: "Call Buffy",
-      completed: () => 0 !== haveEffect($effect`Ghostly Shell`) || myLevel() >= targetLevel,
+      completed: () => 0 !== haveEffect($effect`Ghostly Shell`) || myLevel() >= args.targetlevel,
       prepare: () =>
         $effects`Carlweather's Cantata of Confrontation, The Sonata of Sneakiness, Polka of Plenty, Fat Leon's Phat Loot Lyric`.forEach(
           (ef) => cliExecute(`uneffect ${ef}`)
@@ -494,7 +492,7 @@ export const GyouQuest: Quest = {
     {
       name: "Snapper Spleen Exp %",
       completed: () =>
-        myLevel() >= targetLevel ||
+        myLevel() >= args.targetlevel ||
         $effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.reduce(
           (a, ef) => a || have(ef),
           false
@@ -517,7 +515,7 @@ export const GyouQuest: Quest = {
     {
       name: "Inscrutable Gaze",
       completed: () =>
-        myLevel() >= targetLevel ||
+        myLevel() >= args.targetlevel ||
         myClass().primestat !== $stat`Mysticality` ||
         have($effect`Inscrutable Gaze`) ||
         !have($skill`Inscrutable Gaze`),
@@ -528,7 +526,7 @@ export const GyouQuest: Quest = {
     {
       name: "Abstraction",
       completed: () =>
-        myLevel() >= targetLevel ||
+        myLevel() >= args.targetlevel ||
         $effects`Purpose, Category, Perception`.reduce((a, ef) => a || have(ef), false) ||
         mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
       do: (): void => {
@@ -575,7 +573,7 @@ export const GyouQuest: Quest = {
     {
       name: "Taffy Effects",
       completed: () =>
-        myLevel() >= targetLevel ||
+        myLevel() >= args.targetlevel ||
         $effects`Orange Crusher, Purple Reign, Cinnamon Challenger`.reduce(
           (a, ef) => a || haveEffect(ef) >= 50,
           false
@@ -600,7 +598,8 @@ export const GyouQuest: Quest = {
     {
       name: "Buff Mainstat",
       completed: () =>
-        myLevel() >= targetLevel || myBuffedstat(myPrimestat()) >= 11 * myBasestat(myPrimestat()),
+        myLevel() >= args.targetlevel ||
+        myBuffedstat(myPrimestat()) >= 11 * myBasestat(myPrimestat()),
       effects: $effects`Trivia Master`,
       do: () => cliExecute(`gain ${11 * myBasestat(myPrimestat())} ${myPrimestat()}`),
       limit: { tries: levelingTurns },
@@ -667,7 +666,7 @@ export const GyouQuest: Quest = {
         !!$effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.find((ef) =>
           have(ef)
         ),
-      completed: () => myClass() !== $class`Grey Goo` && myLevel() >= targetLevel,
+      completed: () => myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel,
       effects: $effects`Heart of White, Expert Vacationer`,
       prepare: (): void => {
         restoreHp(0.75 * myMaxhp());
@@ -702,10 +701,10 @@ export const GyouQuest: Quest = {
     },
     {
       name: "Alert-Leveling Failed",
-      completed: () => myLevel() >= targetLevel,
+      completed: () => myLevel() >= args.targetlevel,
       do: (): void => {
         throw new Error(
-          `Finished Leveling Tasks, but only reached level ${myLevel()}/${targetLevel}`
+          `Finished Leveling Tasks, but only reached level ${myLevel()}/${args.targetlevel}`
         );
       },
     },
