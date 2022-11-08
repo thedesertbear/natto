@@ -17,6 +17,7 @@ import {
   spleenLimit,
 } from "kolmafia";
 import { $class, $familiar, $item, Macro as BaseMacro, get, have, set } from "libram";
+import { garboValue } from "../engine/profits";
 
 export type Task = BaseTask & {
   tracking?: string;
@@ -49,6 +50,14 @@ export function setChoice(choice: number, setting: number): void {
 
 export function haveAll(its: Item[]): boolean {
   return its.reduce((a, it) => a && have(it), true);
+}
+
+export function maxBase(): string {
+  return `175 bonus June Cleaver, ${
+    garboValue($item`FunFunds™`) / 20 + 5
+  } bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, ${
+    0.4 * get("valueOfAdventure")
+  } bonus mafia thumb ring, 10 bonus tiny stillsuit`;
 }
 
 export function canDiet(): boolean {

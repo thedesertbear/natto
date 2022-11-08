@@ -6,10 +6,12 @@ import {
   cliExecute,
   closetAmount,
   drink,
+  eat,
   Effect,
   getCampground,
   getDwelling,
   gnomadsAvailable,
+  handlingChoice,
   haveEffect,
   hippyStoneBroken,
   itemAmount,
@@ -18,6 +20,7 @@ import {
   myBasestat,
   myBuffedstat,
   myClass,
+  myHp,
   myLevel,
   myMaxhp,
   myMeat,
@@ -69,6 +72,7 @@ import {
   haveAll,
   Leg,
   Macro,
+  maxBase,
   Quest,
   readyForBed,
   stooperDrunk,
@@ -141,8 +145,7 @@ export const GyouQuest: Quest = {
         familiar: $familiars`Space Jellyfish, Robortender, Hobo Monkey, Leprechaun`.find((f) =>
           have(f)
         ),
-        modifier:
-          "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
+        modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
       },
       combat: new CombatStrategy().macro(
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
@@ -215,8 +218,7 @@ export const GyouQuest: Quest = {
           ...(get("_lastDailyDungeonRoom") % 5 === 4
             ? { acc1: $item`ring of Detect Boring Doors` }
             : {}),
-          modifier:
-            "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+          modifier: `${maxBase()}, 250 bonus carnivorous potted plant, 100 familiar experience`,
         };
       },
       combat: new CombatStrategy().macro(() =>
@@ -258,8 +260,7 @@ export const GyouQuest: Quest = {
       do: $location`The Laugh Floor`,
       outfit: {
         familiar: $familiar`Grey Goose`,
-        modifier:
-          "+100 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+        modifier: `${maxBase()}, 100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
       },
       combat: new CombatStrategy().macro(
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
@@ -301,8 +302,7 @@ export const GyouQuest: Quest = {
       do: $location`Infernal Rackets Backstage`,
       outfit: {
         familiar: $familiar`Grey Goose`,
-        modifier:
-          "-100 combat rate, 3 item, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant, 100 familiar experience",
+        modifier: `${maxBase()}, -100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
       },
       combat: new CombatStrategy().macro(
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
@@ -374,8 +374,7 @@ export const GyouQuest: Quest = {
         familiar: $familiars`Space Jellyfish, Robortender, Hobo Monkey, Leprechaun`.find((f) =>
           have(f)
         ),
-        modifier:
-          "2.5 meat, 0.6 items, 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring",
+        modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
       },
       combat: new CombatStrategy().macro(
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)
@@ -436,7 +435,7 @@ export const GyouQuest: Quest = {
         maximize(
           `${targetClass(false).primestat} experience, 5 ${
             targetClass(false).primestat
-          } experience percent, 10 familiar experience, -10 ml 1 min`,
+          } experience percent, 10 familiar experience, -0.5 ml 1 min`,
           false
         );
       },
@@ -603,7 +602,7 @@ export const GyouQuest: Quest = {
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
       outfit: (): OutfitSpec => ({
         familiar: $familiar`Grey Goose`,
-        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -10 ml 1 min`,
+        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.step(`if pastround 2; abort Macro did not complete; endif;`)

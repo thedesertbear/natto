@@ -45,7 +45,7 @@ import {
   Lifestyle,
   uneffect,
 } from "libram";
-import { canDiet, getCurrentLeg, Leg, Macro, Quest, stooperDrunk } from "./structure";
+import { canDiet, getCurrentLeg, Leg, Macro, maxBase, Quest, stooperDrunk } from "./structure";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
 
@@ -94,8 +94,7 @@ export const AftercoreQuest: Quest = {
           ...(get("_lastDailyDungeonRoom") % 5 === 4
             ? { acc1: $item`ring of Detect Boring Doors` }
             : {}),
-          modifier:
-            "750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant",
+          modifier: `${maxBase()}, 250 bonus carnivorous potted plant`,
         };
       },
       combat: new CombatStrategy().macro(() =>
@@ -141,9 +140,9 @@ export const AftercoreQuest: Quest = {
         118: 2, //medicine quest: skip
       },
       outfit: (): OutfitSpec => ({
-        modifier: `${
-          myPrimestat() === $stat`Muscle` ? "100 combat rate 20 max, " : "-100 combat rate, "
-        } 750 bonus lucky gold ring, 250 bonus Mr. Cheeng's spectacles, 250 bonus mafia thumb ring, 250 bonus carnivorous potted plant`,
+        modifier: `${maxBase()}, ${
+          myPrimestat() === $stat`Muscle` ? "100 combat rate 20 max" : "-100 combat rate"
+        }, 250 bonus carnivorous potted plant`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.step(`if pastround 2; abort Macro did not complete; endif; `)
