@@ -9610,7 +9610,7 @@ function famValue(fam, mob) {
 }
 
 function bestFam(mob) {
-  var fams = $familiars(utils_templateObject12 || (utils_templateObject12 = utils_taggedTemplateLiteral(["Grey Goose, Red-Nosed Snapper, Cookbookbat, Shorter-Order Cook"]))).filter(fam => lib_have(fam)).sort((a, b) => famValue(a, mob) - famValue(b, mob));
+  var fams = $familiars(utils_templateObject12 || (utils_templateObject12 = utils_taggedTemplateLiteral(["Grey Goose, Red-Nosed Snapper, Cookbookbat, Shorter-Order Cook"]))).filter(fam => lib_have(fam)).sort((a, b) => famValue(b, mob) - famValue(a, mob));
   return fams.find(fam => lib_have(fam));
 }
 function canDiet() {
@@ -9735,7 +9735,7 @@ function findMonster(criteria) {
   return options.reduce((a, b) => value(a) > value(b) ? a : b);
 }
 ;// CONCATENATED MODULE: ./src/tasks/sim.ts
-var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20;
+var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20, sim_templateObject21, sim_templateObject22, sim_templateObject23, sim_templateObject24, sim_templateObject25, sim_templateObject26, sim_templateObject27;
 
 function sim_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = sim_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -9790,53 +9790,79 @@ var levelList = [{
   thing: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["trench lighter"]))),
   why: "aftercore leveling (all)",
   optional: true
-}, // { thing: $skill`Feel Pride`, why: "aftercore leveling (all)", optional: true },
-// { thing: $item`[glitch season reward name]`, why: "aftercore leveling (all)", optional: true },
-// { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
+}, {
+  thing: template_string_$skill(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["Feel Pride"]))),
+  why: "aftercore leveling (all)",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["[glitch season reward name]"]))),
+  why: "aftercore leveling (all)",
+  optional: true
+}, // { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
 {
-  thing: template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["fake washboard"]))),
+  thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["fake washboard"]))),
   why: "aftercore leveling (mus)",
   optional: true
 }, {
-  thing: template_string_$skill(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
+  thing: template_string_$skill(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
   why: "aftercore leveling (mys)",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["basaltamander buckler"]))),
+  thing: template_string_$item(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["basaltamander buckler"]))),
   why: "aftercore leveling (mys)",
   optional: true
 }];
 var profitList = [{
-  thing: template_string_$item(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["lucky gold ring"]))),
+  thing: template_string_$item(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["lucky gold ring"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["Mr. Cheeng's spectacles"]))),
+  thing: template_string_$item(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["Mr. Cheeng's spectacles"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["mafia thumb ring"]))),
+  thing: template_string_$item(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["mafia thumb ring"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"]))),
+  thing: template_string_$item(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["carnivorous potted plant"]))),
-  why: "minor turnsave",
+  thing: template_string_$item(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["Asdon Martin keyfob"]))),
+  why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["infinite BACON machine"]))),
+  thing: template_string_$item(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["June cleaver"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["tiny stillsuit"]))),
+  why: "rollover adventures",
+  optional: true
+}, {
+  thing: template_string_$familiar(sim_templateObject21 || (sim_templateObject21 = sim_taggedTemplateLiteral(["Stooper"]))),
+  why: "rollover adventures",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject22 || (sim_templateObject22 = sim_taggedTemplateLiteral(["Drunkula's wineglass"]))),
+  why: "overdrunk farming",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject23 || (sim_templateObject23 = sim_taggedTemplateLiteral(["carnivorous potted plant"]))),
+  why: "turnsave",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject24 || (sim_templateObject24 = sim_taggedTemplateLiteral(["infinite BACON machine"]))),
   why: "source of renewable Fat Loot Tokens",
   optional: true
 }];
 var marginalList = [{
-  thing: template_string_$item(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["The Jokester's gun"]))),
+  thing: template_string_$item(sim_templateObject25 || (sim_templateObject25 = sim_taggedTemplateLiteral(["The Jokester's gun"]))),
   why: "turnsave",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["hewn moon-rune spoon"]))),
+  thing: template_string_$item(sim_templateObject26 || (sim_templateObject26 = sim_taggedTemplateLiteral(["hewn moon-rune spoon"]))),
   why: "easier perming of gnome skills",
   optional: true
 }];
@@ -9919,7 +9945,7 @@ function spanWrap(text, color) {
 }
 
 function coloredSkill(sk, nPerms, nClass) {
-  return sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)() ? spanWrap(sk.name, "black") : nPerms.includes(sk) && lib_have(sk) ? spanWrap(sk.name, "fuchsia") : nPerms.includes(sk) ? spanWrap(sk.name, "blue") : lib_have(sk) ? spanWrap(sk.name, "purple") : nClass && nClass === sk.class && nClass !== $class(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["none"]))) ? spanWrap(sk.name, "navy") : spanWrap(sk.name, "gray");
+  return sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)() ? spanWrap(sk.name, "black") : nPerms.includes(sk) && lib_have(sk) ? spanWrap(sk.name, "fuchsia") : nPerms.includes(sk) ? spanWrap(sk.name, "blue") : lib_have(sk) ? spanWrap(sk.name, "purple") : nClass && nClass === sk.class && nClass !== $class(sim_templateObject27 || (sim_templateObject27 = sim_taggedTemplateLiteral(["none"]))) ? spanWrap(sk.name, "navy") : spanWrap(sk.name, "gray");
 }
 function checkPerms() {
   var nPerms = targetPerms(false);
@@ -11027,7 +11053,7 @@ function main_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.sl
 
 
 
-var version = "0.4.2";
+var version = "0.4.3";
 var args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a classe for you to learn guild skills, and to perm learned skills upon ascension.", {
   version: Args.flag({
     help: "Output script version number and exit."
