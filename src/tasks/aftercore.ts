@@ -6,9 +6,11 @@ import {
   cliExecute,
   closetAmount,
   getPermedSkills,
+  getWorkshed,
   gnomadsAvailable,
   guildStoreAvailable,
   handlingChoice,
+  haveEffect,
   hippyStoneBroken,
   inebrietyLimit,
   itemAmount,
@@ -37,6 +39,7 @@ import {
 import {
   $class,
   $coinmaster,
+  $effect,
   $effects,
   $familiar,
   $item,
@@ -47,6 +50,7 @@ import {
   $skills,
   $stat,
   ascend,
+  AsdonMartin,
   get,
   have,
   Lifestyle,
@@ -66,6 +70,26 @@ export const AftercoreQuest: Quest = {
       name: "Breakfast",
       completed: () => get("breakfastCompleted"),
       do: () => cliExecute("breakfast"),
+    },
+    {
+      name: "Drive Observantly",
+      completed: () =>
+        getWorkshed() !== $item`Asdon Martin keyfob` ||
+        haveEffect($effect`Driving Observantly`) >= 800,
+      do: () =>
+        AsdonMartin.drive(
+          $effect`Driving Observantly`,
+          800 - haveEffect($effect`Driving Observantly`),
+          false
+        ),
+    },
+    {
+      name: "Install CMC",
+      completed: () =>
+        getWorkshed() === $item`cold medicine cabinet` ||
+        !have($item`cold medicine cabinet`) ||
+        get("_workshedItemUsed"),
+      do: () => use($item`cold medicine cabinet`),
     },
     {
       name: "LGR Seed",

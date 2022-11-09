@@ -79,7 +79,7 @@ import {
 } from "./utils";
 import { targetClass } from "./perm";
 
-const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
+const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring, Asdon Martin keyfob`;
 const levelingTurns = 30;
 export const GyouQuest: Quest = {
   name: "Grey You",
@@ -732,15 +732,6 @@ export const GyouQuest: Quest = {
         cliExecute("unequip");
         cliExecute("UberPvPOptimizer");
         cliExecute("swagger");
-      },
-    },
-    {
-      name: "Pajamas",
-      completed: () => getCampground()[$item`clockwork maid`.name] === 1,
-      do: (): void => {
-        if (args.pvp) maximize("adventures, 0.3 fites", false);
-        else maximize("adventures", false);
-        use($item`clockwork maid`);
       },
     },
     {
