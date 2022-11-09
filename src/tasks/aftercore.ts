@@ -1,4 +1,4 @@
-import { CombatStrategy, OutfitSpec } from "grimoire-kolmafia";
+import { CombatStrategy } from "grimoire-kolmafia";
 import {
   availableAmount,
   buy,
@@ -54,7 +54,7 @@ import {
   uneffect,
 } from "libram";
 import { getCurrentLeg, Leg, Quest } from "./structure";
-import { canDiet, maxBase, stooperDrunk } from "./utils";
+import { bestFam, canDiet, maxBase, stooperDrunk } from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
 
@@ -117,9 +117,9 @@ export const AftercoreQuest: Quest = {
         if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
       },
       do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
-      outfit: (): OutfitSpec => ({
-        familiar: $familiar`Grey Goose`,
-        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
+      outfit: () => ({
+        familiar: bestFam(),
+        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, -0.5 ml 1 min`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.tryItem($item`gas balloon`)
@@ -165,17 +165,16 @@ export const AftercoreQuest: Quest = {
       acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
         (it) => ({ item: it, price: 1000 })
       ),
-      outfit: (): OutfitSpec => {
-        return {
-          ...(have($item`The Jokester's gun`) && !get("_firedJokestersGun")
-            ? { weapon: $item`The Jokester's gun` }
-            : {}),
-          ...(get("_lastDailyDungeonRoom") % 5 === 4
-            ? { acc1: $item`ring of Detect Boring Doors` }
-            : {}),
-          modifier: `${maxBase()}, 250 bonus carnivorous potted plant`,
-        };
-      },
+      outfit: () => ({
+        familiar: bestFam(),
+        ...(have($item`The Jokester's gun`) && !get("_firedJokestersGun")
+          ? { weapon: $item`The Jokester's gun` }
+          : {}),
+        ...(get("_lastDailyDungeonRoom") % 5 === 4
+          ? { acc1: $item`ring of Detect Boring Doors` }
+          : {}),
+        modifier: `${maxBase()}, 250 bonus carnivorous potted plant`,
+      }),
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
           !get("_dailyDungeonMalwareUsed"),
@@ -219,7 +218,8 @@ export const AftercoreQuest: Quest = {
         111: 3, //chain gang: fight
         118: 2, //medicine quest: skip
       },
-      outfit: (): OutfitSpec => ({
+      outfit: () => ({
+        familiar: bestFam(),
         modifier: `${maxBase()}, ${
           myPrimestat() === $stat`Muscle` ? "100 combat rate 20 max" : "-100 combat rate"
         }, 250 bonus carnivorous potted plant`,

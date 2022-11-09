@@ -1,4 +1,4 @@
-import { CombatStrategy, OutfitSpec, step } from "grimoire-kolmafia";
+import { CombatStrategy, step } from "grimoire-kolmafia";
 import {
   buy,
   buyUsingStorage,
@@ -68,7 +68,15 @@ import {
 } from "libram";
 import { args } from "../main";
 import { getCurrentLeg, Leg, Quest } from "./structure";
-import { backstageItemsDone, canDiet, haveAll, maxBase, readyForBed, stooperDrunk } from "./utils";
+import {
+  backstageItemsDone,
+  bestFam,
+  canDiet,
+  haveAll,
+  maxBase,
+  readyForBed,
+  stooperDrunk,
+} from "./utils";
 import { targetClass } from "./perm";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`;
@@ -218,9 +226,9 @@ export const GyouQuest: Quest = {
       acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
         (it) => ({ item: it, price: 1000 })
       ),
-      outfit: (): OutfitSpec => {
+      outfit: () => {
         return {
-          familiar: $familiar`Grey Goose`,
+          familiar: bestFam(),
           ...(have($item`The Jokester's gun`) && !get("_firedJokestersGun")
             ? { weapon: $item`The Jokester's gun` }
             : {}),
@@ -268,10 +276,10 @@ export const GyouQuest: Quest = {
         );
       },
       do: $location`The Laugh Floor`,
-      outfit: {
-        familiar: $familiar`Grey Goose`,
+      outfit: () => ({
+        familiar: bestFam(),
         modifier: `${maxBase()}, 100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
-      },
+      }),
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Double Nanovision`)
@@ -308,10 +316,10 @@ export const GyouQuest: Quest = {
         );
       },
       do: $location`Infernal Rackets Backstage`,
-      outfit: {
-        familiar: $familiar`Grey Goose`,
+      outfit: () => ({
+        familiar: bestFam(),
         modifier: `${maxBase()}, -100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
-      },
+      }),
       combat: new CombatStrategy().macro(
         Macro.tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Double Nanovision`)
@@ -381,12 +389,12 @@ export const GyouQuest: Quest = {
         restoreHp(0.75 * myMaxhp());
         restoreMp(20);
       },
-      outfit: {
+      outfit: () => ({
         familiar: $familiars`Space Jellyfish, Robortender, Hobo Monkey, Leprechaun`.find((f) =>
           have(f)
         ),
         modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
-      },
+      }),
       combat: new CombatStrategy().macro(
         Macro.trySkill($skill`Bowl Straight Up`)
           .trySkill($skill`Sing Along`)
@@ -430,7 +438,7 @@ export const GyouQuest: Quest = {
           ? $items`noir fedora, KoL Con 13 T-shirt`.map((it) => ({ item: it }))
           : []),
       ],
-      outfit: (): OutfitSpec => ({
+      outfit: () => ({
         familiar: $familiar`Grey Goose`,
         hat: $item`giant yellow hat`,
         weapon: $item`yule hatchet`,
@@ -616,25 +624,15 @@ export const GyouQuest: Quest = {
         if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
       },
       do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
-      outfit: (): OutfitSpec => ({
-        familiar: $familiar`Grey Goose`,
+      outfit: () => ({
+        familiar: bestFam(),
         modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.tryItem($item`gas balloon`)
           .externalIf(
             have($skill`Feel Pride`) && get("_feelPrideUsed") < 3,
-            Macro.trySkill($skill`Feel Pride`),
-            Macro.externalIf(
-              $familiar`Grey Goose`.experience >= 400,
-              Macro.trySkill(
-                myPrimestat() === $stat`Muscle`
-                  ? $skill`Convert Matter to Protein`
-                  : myPrimestat() === $stat`Mysticality`
-                  ? $skill`Convert Matter to Energy`
-                  : $skill`Convert Matter to Pomade`
-              )
-            )
+            Macro.trySkill($skill`Feel Pride`)
           )
           .tryItem(...$items`shard of double-ice, gas can`)
           .attack()
@@ -655,7 +653,7 @@ export const GyouQuest: Quest = {
         restoreMp(8);
       },
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
-      outfit: (): OutfitSpec => ({
+      outfit: () => ({
         familiar: $familiar`Grey Goose`,
         modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
       }),
