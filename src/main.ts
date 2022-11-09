@@ -7,7 +7,7 @@ import { checkPerms, checkReqs } from "./tasks/sim";
 import { permTiers, printPermPlan } from "./tasks/perm";
 import { $class, $item } from "libram";
 
-const version = "0.4.3";
+const version = "0.4.4";
 
 export const args = Args.create(
   "goorbo",
@@ -38,10 +38,6 @@ export const args = Args.create(
       default: 6,
     }),
 
-    targetlevel: Args.number({
-      help: `What level to target via adventuring in Uncle Gator's after breaking the prism`,
-      default: 13,
-    }),
     pvp: Args.flag({ help: "If true, break hippy stone and do pvp.", default: false }),
     astralpet: Args.custom(
       {
@@ -67,11 +63,11 @@ export const args = Args.create(
       toClass,
       "CLASS"
     ),
-
-    voatest: Args.boolean({
-      help: `If set, will run your d2 garbo turns just like normal, but will separately track the last 100 turns, to give you an estimate of what your real-world valueOfAdventure is. Divide your total "VoA Test" profit by 100 for your VoA estimate. Note that it might show > 100 adventures spent, if garbo equipped the mafia thumb ring, June cleaver, or other adventure gaining equipment. CAUTION: This flag may not be compatible with custom settings of garboascend`,
-      default: true,
+    targetlevel: Args.number({
+      help: `What level to target via adventuring in Uncle Gator's after breaking the prism`,
+      default: 13,
     }),
+
     gyouscript: Args.string({
       help: "The command that will do your Grey You run for you. Include any arguments desired.",
       default: "loopgyou delaytower tune=wombat chargegoose=20",
@@ -83,6 +79,10 @@ export const args = Args.create(
     garboascend: Args.string({
       help: `The command that will be used to diet and use all your adventures in Day 2 aftercore.`,
       default: "garbo ascend",
+    }),
+    voatest: Args.boolean({
+      help: `If set, will run your d2 garbo turns just like normal, but will separately track the last 100 turns, to give you an estimate of what your real-world valueOfAdventure is. Divide your total "VoA Test" profit by 100 for your VoA estimate. Note that it might show > 100 adventures spent, if garbo equipped the mafia thumb ring, June cleaver, or other adventure gaining equipment. CAUTION: This flag may not be compatible with custom settings of garboascend`,
+      default: true,
     }),
 
     tip: Args.flag({
