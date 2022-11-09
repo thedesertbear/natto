@@ -748,6 +748,19 @@ export const GyouQuest: Quest = {
       },
     },
     {
+      name: "Pajamas",
+      completed: () => getCampground()[$item`clockwork maid`.name] === 1,
+      acquire: [{ item: $item`clockwork maid`, price: 7 * get("valueOfAdventure") }],
+      do: () => use($item`clockwork maid`),
+      outfit: () => ({
+        familiar:
+          $familiars`Trick-or-Treating Tot, Left-Hand Man, Disembodied Hand, Grey Goose`.find(
+            (fam) => have(fam)
+          ),
+        modifier: `adventures${args.pvp ? ", 0.3 fites" : ""}`,
+      }),
+    },
+    {
       name: "Summon Soap Knife",
       completed: () => !have($skill`That's Not a Knife`) || get("_discoKnife"),
       prepare: () => putCloset(itemAmount($item`soap knife`), $item`soap knife`),
