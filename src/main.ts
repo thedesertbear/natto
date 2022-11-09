@@ -7,7 +7,7 @@ import { checkPerms, checkReqs } from "./tasks/sim";
 import { permTiers, printPermPlan } from "./tasks/perm";
 import { $class, $item } from "libram";
 
-const version = "0.4.2";
+const version = "0.4.3";
 
 export const args = Args.create(
   "goorbo",
