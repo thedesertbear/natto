@@ -10122,9 +10122,9 @@ var AftercoreQuest = {
 
     },
     prepare: () => {
-      if (!(0,external_kolmafia_namespaceObject.canAdventure)($location(aftercore_templateObject11 || (aftercore_templateObject11 = aftercore_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"], ["The Shore\\, Inc. Travel Agency"]))))) (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(aftercore_templateObject12 || (aftercore_templateObject12 = aftercore_taggedTemplateLiteral(["bitchin' meatcar"]))));
+      if (!(0,external_kolmafia_namespaceObject.canAdventure)($location(aftercore_templateObject11 || (aftercore_templateObject11 = aftercore_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))))) (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(aftercore_templateObject12 || (aftercore_templateObject12 = aftercore_taggedTemplateLiteral(["bitchin' meatcar"]))));
     },
-    do: $location(aftercore_templateObject13 || (aftercore_templateObject13 = aftercore_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"], ["The Shore\\, Inc. Travel Agency"]))),
+    do: $location(aftercore_templateObject13 || (aftercore_templateObject13 = aftercore_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))),
     post: () => {
       if ((0,external_kolmafia_namespaceObject.handlingChoice)()) (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
@@ -10447,7 +10447,7 @@ var GyouQuest = {
       1475: 1 //Hypnotic Master
 
     },
-    do: $location(greyyou_templateObject10 || (greyyou_templateObject10 = greyyou_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"], ["The Shore\\, Inc. Travel Agency"]))),
+    do: $location(greyyou_templateObject10 || (greyyou_templateObject10 = greyyou_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))),
     post: () => {
       if ((0,external_kolmafia_namespaceObject.handlingChoice)()) (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
     },
