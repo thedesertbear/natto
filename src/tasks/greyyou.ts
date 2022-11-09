@@ -142,7 +142,7 @@ export const GyouQuest: Quest = {
         1474: () => (get("_juneCleaverSkips") < 5 ? 4 : 2), //Delicious Sprouts
         1475: 1, //Hypnotic Master
       },
-      do: $location`The Shore\, Inc. Travel Agency`,
+      do: $location`The Shore, Inc. Travel Agency`,
       post: () => {
         if (handlingChoice()) visitUrl("main.php");
       },

@@ -113,10 +113,10 @@ export const AftercoreQuest: Quest = {
         1475: 1, //Hypnotic Master
       },
       prepare: () => {
-        if (!canAdventure($location`The Shore\, Inc. Travel Agency`))
+        if (!canAdventure($location`The Shore, Inc. Travel Agency`))
           retrieveItem($item`bitchin' meatcar`);
       },
-      do: $location`The Shore\, Inc. Travel Agency`,
+      do: $location`The Shore, Inc. Travel Agency`,
       post: () => {
         if (handlingChoice()) visitUrl("main.php");
       },
