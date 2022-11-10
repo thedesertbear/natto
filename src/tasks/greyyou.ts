@@ -625,6 +625,9 @@ export const GyouQuest: Quest = {
         if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
       },
       do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
+      post: () => {
+        if (!get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
+      },
       outfit: () => ({
         familiar: bestFam(),
         modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
@@ -654,6 +657,9 @@ export const GyouQuest: Quest = {
         restoreMp(8);
       },
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
+      post: () => {
+        if (!get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
+      },
       outfit: () => ({
         familiar: $familiar`Grey Goose`,
         modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -ml, ${noMinusML()}`,

@@ -141,6 +141,9 @@ export const AftercoreQuest: Quest = {
         if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
       },
       do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
+      post: () => {
+        if (!get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
+      },
       outfit: () => ({
         familiar: bestFam(),
         modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, -ml, ${noMinusML()}`,
