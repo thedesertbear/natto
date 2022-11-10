@@ -644,6 +644,53 @@ export const GyouQuest: Quest = {
       tracking: "Leveling",
     },
     {
+      name: "NEP Free Fights",
+      ready: () =>
+        get("neverendingPartyAlways") &&
+        !!$effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.find((ef) =>
+          have(ef)
+        ),
+      completed: () =>
+        get("_neverendingPartyFreeTurns") < 10 ||
+        (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
+      effects: $effects`Heart of White`,
+      prepare: (): void => {
+        restoreHp(0.75 * myMaxhp());
+        restoreMp(8);
+      },
+      do: $location`The Neverending Party`,
+      post: () => {
+        if (!get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
+      },
+      choices: {
+        1322: 2, //don't take NEP quest
+        1324: 5, //fight a partier
+      },
+      outfit: () => ({
+        familiar: $familiar`Grey Goose`,
+        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
+      }),
+      combat: new CombatStrategy().macro(() =>
+        Macro.trySkill($skill`Curse of Weaksauce`)
+          .externalIf(
+            $familiar`Grey Goose`.experience >= 400,
+            Macro.trySkill(
+              myPrimestat() === $stat`Muscle`
+                ? $skill`Convert Matter to Protein`
+                : myPrimestat() === $stat`Mysticality`
+                ? $skill`Convert Matter to Energy`
+                : $skill`Convert Matter to Pomade`
+            )
+          )
+          .tryItem(...$items`porquoise-handled sixgun, HOA citation pad`)
+          .trySkill($skill`Sing Along`)
+          .attack()
+          .repeat()
+      ),
+      limit: { tries: 10 }, //+3 for unaccounted for wanderers, etc.
+      tracking: "Leveling",
+    },
+    {
       name: "Gators",
       ready: () =>
         !!$effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.find((ef) =>
