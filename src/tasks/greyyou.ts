@@ -74,7 +74,7 @@ import {
   canDiet,
   haveAll,
   maxBase,
-  noMinusML,
+  noML,
   readyForBed,
   stooperDrunk,
 } from "./utils";
@@ -462,7 +462,7 @@ export const GyouQuest: Quest = {
         maximize(
           `${targetClass(false).primestat} experience, 5 ${
             targetClass(false).primestat
-          } experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
+          } experience percent, 10 familiar experience, ${noML()}`,
           false
         );
       },
@@ -639,7 +639,7 @@ export const GyouQuest: Quest = {
       },
       outfit: () => ({
         familiar: bestFam(),
-        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
+        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.tryItem($item`gas balloon`)
@@ -678,7 +678,7 @@ export const GyouQuest: Quest = {
       },
       outfit: () => ({
         familiar: $familiar`Grey Goose`,
-        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
+        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.trySkill($skill`Curse of Weaksauce`)
@@ -718,7 +718,7 @@ export const GyouQuest: Quest = {
       },
       outfit: () => ({
         familiar: $familiar`Grey Goose`,
-        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
+        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.trySkill($skill`Curse of Weaksauce`)

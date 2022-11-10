@@ -32,8 +32,8 @@ export function haveAny(its: Item[]): boolean {
 }
 
 const minusMLItems = $items`nasty rat mask, Drowsy Sword, HOA regulation book, pocketwatch on a chain, security flashlight, Space Trip safety headphones, pine cone necklace, red badge, mushroom badge, water wings for babies, white earbuds, discarded bowtie`;
-export function noMinusML(): string {
-  return `${minusMLItems
+export function noML(): string {
+  return `-ml, ${minusMLItems
     .filter((it) => have(it))
     .map((it) => `-equip ${it.name}`)
     .join(", ")}`;

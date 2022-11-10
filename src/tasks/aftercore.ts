@@ -58,7 +58,7 @@ import {
   uneffect,
 } from "libram";
 import { getCurrentLeg, Leg, Quest } from "./structure";
-import { bestFam, canDiet, maxBase, noMinusML, stooperDrunk } from "./utils";
+import { bestFam, canDiet, maxBase, noML, stooperDrunk } from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
 
@@ -147,7 +147,7 @@ export const AftercoreQuest: Quest = {
       },
       outfit: () => ({
         familiar: bestFam(),
-        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, -ml, ${noMinusML()}`,
+        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, ${noML()}`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.tryItem($item`gas balloon`)
