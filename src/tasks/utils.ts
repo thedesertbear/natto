@@ -31,6 +31,14 @@ export function haveAny(its: Item[]): boolean {
   return its.reduce((a, it) => a || have(it), false);
 }
 
+const minusMLItems = $items`nasty rat mask, Drowsy Sword, HOA regulation book, pocketwatch on a chain, security flashlight, Space Trip safety headphones, pine cone necklace, red badge, mushroom badge, water wings for babies, white earbuds, discarded bowtie`;
+export function noMinusML(): string {
+  return `${minusMLItems
+    .filter((it) => have(it))
+    .map((it) => `-equip ${it.name}`)
+    .join(", ")}`;
+}
+
 export function maxBase(): string {
   return `175 bonus June Cleaver, ${
     garboValue($item`FunFunds™`) / 20 + 5

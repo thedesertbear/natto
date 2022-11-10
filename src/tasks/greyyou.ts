@@ -74,6 +74,7 @@ import {
   canDiet,
   haveAll,
   maxBase,
+  noMinusML,
   readyForBed,
   stooperDrunk,
 } from "./utils";
@@ -448,11 +449,11 @@ export const GyouQuest: Quest = {
         famequip: $item`grey down vest`,
       }),
       prepare: () => {
-        cliExecute("mcd 1");
+        cliExecute("mcd 0");
         maximize(
           `${targetClass(false).primestat} experience, 5 ${
             targetClass(false).primestat
-          } experience percent, 10 familiar experience, -0.5 ml 1 min`,
+          } experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
           false
         );
       },
@@ -626,7 +627,7 @@ export const GyouQuest: Quest = {
       do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
       outfit: () => ({
         familiar: bestFam(),
-        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
+        modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.tryItem($item`gas balloon`)
@@ -655,7 +656,7 @@ export const GyouQuest: Quest = {
       do: $location`Uncle Gator's Country Fun-Time Liquid Waste Sluice`,
       outfit: () => ({
         familiar: $familiar`Grey Goose`,
-        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -0.5 ml 1 min`,
+        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, -ml, ${noMinusML()}`,
       }),
       combat: new CombatStrategy().macro(() =>
         Macro.trySkill($skill`Curse of Weaksauce`)
