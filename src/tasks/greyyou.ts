@@ -40,6 +40,7 @@ import {
   storageAmount,
   takeCloset,
   toInt,
+  totalFreeRests,
   use,
   useFamiliar,
   useSkill,
@@ -145,6 +146,15 @@ export const GyouQuest: Quest = {
       do: $location`The Shore, Inc. Travel Agency`,
       post: () => {
         if (handlingChoice()) visitUrl("main.php");
+        if (have($effect`Beaten Up`)) {
+          if (have($skill`Tongue of the Walrus`)) useSkill($skill`Tongue of the Walrus`);
+          else if (get("_hotTubSoaks") < 5) cliExecute("hottub");
+          else if (get("timesRested") < totalFreeRests()) cliExecute("campground rest");
+          else if (
+            !use($items`tiny house, Space Tours Tripple`.find((it) => have(it)) || $item`none`)
+          )
+            uneffect($effect`Beaten Up`);
+        }
       },
       outfit: () => ({ equip: $items`June cleaver` }),
     },
@@ -748,6 +758,7 @@ export const GyouQuest: Quest = {
       name: "Garbo",
       ready: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
       completed: () => (myAdventures() === 0 && !canDiet()) || stooperDrunk(),
+      prepare: () => uneffect($effect`Beaten Up`),
       do: () => cliExecute(args.garbo),
       post: () =>
         $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`

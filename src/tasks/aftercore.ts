@@ -119,6 +119,7 @@ export const AftercoreQuest: Quest = {
       do: $location`The Shore, Inc. Travel Agency`,
       post: () => {
         if (handlingChoice()) visitUrl("main.php");
+        if (have($effect`Beaten Up`)) uneffect($effect`Beaten Up`);
       },
       outfit: () => ({ equip: $items`June cleaver` }),
     },
@@ -328,6 +329,7 @@ export const AftercoreQuest: Quest = {
     {
       name: "Garbo",
       completed: () => (!canDiet() && myAdventures() <= (args.voatest ? 100 : 0)) || stooperDrunk(),
+      prepare: () => uneffect($effect`Beaten Up`),
       do: () => cliExecute(`${args.garboascend} ${args.voatest && "-100"}`),
       post: () =>
         $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
@@ -338,6 +340,7 @@ export const AftercoreQuest: Quest = {
     {
       name: "Find Garbo VoA",
       completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
+      prepare: () => uneffect($effect`Beaten Up`),
       do: () => cliExecute(`${args.garboascend}`),
       post: () =>
         $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
@@ -361,6 +364,7 @@ export const AftercoreQuest: Quest = {
     {
       name: "Garbo (Drunk)",
       ready: () => have($item`Drunkula's wineglass`),
+      prepare: () => uneffect($effect`Beaten Up`),
       completed: () => myAdventures() === 0,
       do: () => cliExecute(args.garboascend),
       post: () =>
