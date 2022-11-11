@@ -7,6 +7,7 @@ import {
   closetAmount,
   drink,
   Effect,
+  equip,
   getCampground,
   getDwelling,
   gnomadsAvailable,
@@ -113,6 +114,19 @@ export const GyouQuest: Quest = {
         visitUrl("peevpee.php?action=smashstone&pwd&confirm=on", true);
         visitUrl("peevpee.php?place=fight");
       },
+    },
+    {
+      name: "Stillsuit Prep",
+      completed: () => itemAmount($item`tiny stillsuit`) === 0,
+      do: () =>
+        equip(
+          $item`tiny stillsuit`,
+          get(
+            "stillsuitFamiliar",
+            $familiars`Gelatinous Cubeling, Levitating Potato, Mosquito`.find((fam) => have(fam)) ||
+              $familiar`none`
+          )
+        ),
     },
     {
       name: "Run",
