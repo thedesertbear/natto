@@ -583,8 +583,8 @@ export const GyouQuest: Quest = {
     },
     {
       name: "Liver of Steel",
+      ready: () => myClass() !== $class`Grey Goo` && have($item`steel margarita`) && myLevel() >= 5,
       completed: () => have($skill`Liver of Steel`),
-      ready: () => myClass() !== $class`Grey Goo` && have($item`steel margarita`),
       do: () => drink(1, $item`steel margarita`),
     },
     {
