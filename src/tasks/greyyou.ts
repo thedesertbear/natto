@@ -679,6 +679,12 @@ export const GyouQuest: Quest = {
         get("_neverendingPartyFreeTurns") < 10 ||
         (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
       effects: $effects`Heart of White`,
+      acquire: () =>
+        have($skill`Curse of Weaksauce`) ? [] : [{ item: $item`electronics kit`, price: 500 }],
+      outfit: () => ({
+        familiar: $familiar`Grey Goose`,
+        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
+      }),
       prepare: (): void => {
         restoreHp(0.75 * myMaxhp());
         restoreMp(8);
@@ -691,12 +697,12 @@ export const GyouQuest: Quest = {
         1322: 2, //don't take NEP quest
         1324: 5, //fight a partier
       },
-      outfit: () => ({
-        familiar: $familiar`Grey Goose`,
-        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
-      }),
       combat: new CombatStrategy().macro(() =>
-        Macro.trySkill($skill`Curse of Weaksauce`)
+        Macro.externalIf(
+          have($skill`Curse of Weaksauce`),
+          Macro.trySkill($skill`Curse of Weaksauce`),
+          Macro.tryItem($item`electronics kit`)
+        )
           .externalIf(
             $familiar`Grey Goose`.experience >= 400,
             Macro.trySkill(
