@@ -16,19 +16,51 @@ import {
   numericModifier,
   spleenLimit,
 } from "kolmafia";
-import { $familiar, $familiars, $item, $items, $phylum, get, have, set, Snapper } from "libram";
+import { $familiar, $familiars, $item, $items, $phylum, get, have, Snapper } from "libram";
 import { garboAverageValue, garboValue } from "../engine/profits";
 import { args } from "../main";
-
-export function setChoice(choice: number, setting: number): void {
-  set(`choiceAdventure${choice}`, setting);
-}
 
 export function haveAll(its: Item[]): boolean {
   return its.reduce((a, it) => a && have(it), true);
 }
 export function haveAny(its: Item[]): boolean {
   return its.reduce((a, it) => a || have(it), false);
+}
+
+type MoonSign =
+  | number
+  | "mongoose"
+  | "wallaby"
+  | "vole"
+  | "platypus"
+  | "opossum"
+  | "marmot"
+  | "wombat"
+  | "blender"
+  | "packrat"
+  | "gnomads"
+  | "knoll"
+  | "canadia";
+export function toMoonSign(str: string | MoonSign): MoonSign {
+  if (
+    typeof str === "string" &&
+    [
+      "mongoose",
+      "wallaby",
+      "vole",
+      "platypus",
+      "opossum",
+      "marmot",
+      "wombat",
+      "blender",
+      "packrat",
+      "gnomads",
+      "knoll",
+      "canadia",
+    ].includes(str)
+  )
+    return str as MoonSign;
+  throw new Error(`${str} is not a valid MoonSign`);
 }
 
 const minusMLItems = $items`nasty rat mask, Drowsy Sword, HOA regulation book, pocketwatch on a chain, security flashlight, Space Trip safety headphones, pine cone necklace, red badge, mushroom badge, water wings for babies, white earbuds, discarded bowtie`;

@@ -6,6 +6,7 @@ import { ProfitTrackingEngine } from "./engine/engine";
 import { checkPerms, checkReqs } from "./tasks/sim";
 import { permTiers, printPermPlan } from "./tasks/perm";
 import { $class, $item } from "libram";
+import { toMoonSign } from "./tasks/utils";
 
 const version = "0.4.6";
 
@@ -46,6 +47,14 @@ export const args = Args.create(
       },
       Item.get,
       "ITEM"
+    ),
+    moonsign: Args.custom(
+      {
+        help: "Choose the moonsign you want to ascend into: [mongoose, wallaby, vole, platypus, opossum, marmot, wombat, blender, packrat]",
+        default: toMoonSign("vole"),
+      },
+      toMoonSign,
+      "MOONSIGN"
     ),
     defaultclass: Args.custom(
       {

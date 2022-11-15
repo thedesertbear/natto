@@ -58,7 +58,7 @@ import {
   uneffect,
 } from "libram";
 import { getCurrentLeg, Leg, Quest } from "./structure";
-import { bestFam, canDiet, maxBase, noML, stooperDrunk } from "./utils";
+import { bestFam, canDiet, maxBase, noML, stooperDrunk, toMoonSign } from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
 
@@ -416,18 +416,19 @@ export const AftercoreQuest: Quest = {
         targetPerms(false).forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
         const nPerms = targetPerms(true);
 
-        const moonsign =
+        const moonsign = toMoonSign(
           have($item`hewn moon-rune spoon`) ||
-          !$skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
-            (sk) => !(sk.name in getPermedSkills()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
-          )
-            ? "vole"
+            !$skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+              (sk) => !(sk.name in getPermedSkills()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
+            )
+            ? args.moonsign
             : nPerms.includes($skill`Torso Awareness`) ||
               !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
                 (sk) => !nPerms.includes(sk) //plan to perm Torso Awareness or all 4 other gnome skills
               )
             ? "wombat"
-            : "vole";
+            : args.moonsign
+        );
         ascend(
           $path`Grey You`,
           $class`Grey Goo`,
