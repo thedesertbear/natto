@@ -723,6 +723,12 @@ export const GyouQuest: Quest = {
         ),
       completed: () => myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel,
       effects: $effects`Heart of White, Expert Vacationer`,
+      acquire: () =>
+        have($skill`Curse of Weaksauce`) ? [] : [{ item: $item`electronics kit`, price: 500 }],
+      outfit: () => ({
+        familiar: $familiar`Grey Goose`,
+        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
+      }),
       prepare: (): void => {
         restoreHp(0.75 * myMaxhp());
         restoreMp(8);
@@ -731,12 +737,12 @@ export const GyouQuest: Quest = {
       post: () => {
         if (!get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
       },
-      outfit: () => ({
-        familiar: $familiar`Grey Goose`,
-        modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
-      }),
       combat: new CombatStrategy().macro(() =>
-        Macro.trySkill($skill`Curse of Weaksauce`)
+        Macro.externalIf(
+          have($skill`Curse of Weaksauce`),
+          Macro.trySkill($skill`Curse of Weaksauce`),
+          Macro.tryItem($item`electronics kit`)
+        )
           .externalIf(
             $familiar`Grey Goose`.experience >= 400,
             Macro.trySkill(
