@@ -176,11 +176,24 @@ export const AftercoreQuest: Quest = {
     {
       name: "Daily Dungeon",
       completed: () => get("dailyDungeonDone"),
+      acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
+        (it) => ({ item: it, price: 1000 })
+      ),
+      outfit: () => ({
+        familiar: bestFam(),
+        ...(get("_lastDailyDungeonRoom") % 5 === 4
+          ? { acc1: $item`ring of Detect Boring Doors` }
+          : {}),
+        modifier: `${maxBase()}, 250 bonus carnivorous potted plant`,
+      }),
       prepare: (): void => {
         if (have($item`daily dungeon malware`) && get("_dailyDungeonMalwareUsed"))
           putCloset($item`daily dungeon malware`);
-        if (!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3)
-          retrieveItem(1, $item`daily dungeon malware`);
+        if (!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3) {
+          if (availableAmount($item`BACON`) >= 150)
+            buy($coinmaster`internet meme shop`, 1, $item`daily dungeon malware`);
+          else retrieveItem(1, $item`daily dungeon malware`);
+        }
         restoreHp(0.75 * myMaxhp());
         restoreMp(8);
       },
@@ -192,26 +205,12 @@ export const AftercoreQuest: Quest = {
         691: 2, //dd chest 2: boring door
         693: 2, //dd trap: skip
       },
-      acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
-        (it) => ({ item: it, price: 1000 })
-      ),
-      outfit: () => ({
-        familiar: bestFam(),
-        ...(have($item`The Jokester's gun`) && !get("_firedJokestersGun")
-          ? { weapon: $item`The Jokester's gun` }
-          : {}),
-        ...(get("_lastDailyDungeonRoom") % 5 === 4
-          ? { acc1: $item`ring of Detect Boring Doors` }
-          : {}),
-        modifier: `${maxBase()}, 250 bonus carnivorous potted plant`,
-      }),
       combat: new CombatStrategy().macro(() =>
         Macro.externalIf(
           !get("_dailyDungeonMalwareUsed"),
           Macro.tryItem($item`daily dungeon malware`)
         )
           .tryItem($item`porquoise-handled sixgun`)
-          .trySkill($skill`Fire the Jokester's Gun`)
           .trySkill($skill`Saucestorm`)
           .attack()
           .repeat()
