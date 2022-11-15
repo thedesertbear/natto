@@ -74,12 +74,13 @@ export const AftercoreQuest: Quest = {
     {
       name: "Drive Observantly",
       completed: () =>
+        get("dailyDungeonDone") ||
         getWorkshed() !== $item`Asdon Martin keyfob` ||
         haveEffect($effect`Driving Observantly`) >= 800,
       do: () =>
         AsdonMartin.drive(
           $effect`Driving Observantly`,
-          800 - haveEffect($effect`Driving Observantly`),
+          810 - haveEffect($effect`Driving Observantly`),
           false
         ),
     },
@@ -122,7 +123,7 @@ export const AftercoreQuest: Quest = {
         if (have($effect`Beaten Up`)) uneffect($effect`Beaten Up`);
       },
       outfit: () => ({ equip: $items`June cleaver` }),
-			limit: undefined,
+      limit: undefined,
     },
     {
       name: "Implement Glitch",
@@ -339,7 +340,7 @@ export const AftercoreQuest: Quest = {
       tracking: "Garbo",
     },
     {
-      name: "Find Garbo VoA",
+      name: "Garbo VoA",
       completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
       prepare: () => uneffect($effect`Beaten Up`),
       do: () => cliExecute(`${args.garboascend}`),
