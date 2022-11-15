@@ -122,6 +122,7 @@ export const AftercoreQuest: Quest = {
         if (have($effect`Beaten Up`)) uneffect($effect`Beaten Up`);
       },
       outfit: () => ({ equip: $items`June cleaver` }),
+			limit: undefined,
     },
     {
       name: "Implement Glitch",

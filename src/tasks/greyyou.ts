@@ -171,6 +171,7 @@ export const GyouQuest: Quest = {
         }
       },
       outfit: () => ({ equip: $items`June cleaver` }),
+      limit: undefined,
     },
     {
       name: "In-Run Farm Initial",
