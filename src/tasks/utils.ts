@@ -85,8 +85,10 @@ function famValue(fam: Familiar, mob?: Monster) {
       return myLevel() < args.targetlevel && $familiar`Grey Goose`.experience < 400 ? 6000 : 0;
     case $familiar`Red-Nosed Snapper`:
       if (mob && Snapper.getTrackedPhylum() && mob.phylum === Snapper.getTrackedPhylum())
-        return garboValue(
-          Snapper.phylumItem.get(Snapper.getTrackedPhylum() || $phylum`none`) || $item`none`
+        return (
+          garboValue(
+            Snapper.phylumItem.get(Snapper.getTrackedPhylum() || $phylum`none`) || $item`none`
+          ) / 11
         );
       return 0;
     case $familiar`Cookbookbat`:
