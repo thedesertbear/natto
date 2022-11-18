@@ -707,11 +707,12 @@ export const GyouQuest: Quest = {
         1324: 5, //fight a partier
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.externalIf(
-          have($skill`Curse of Weaksauce`),
-          Macro.trySkill($skill`Curse of Weaksauce`),
-          Macro.tryItem($item`electronics kit`)
-        )
+        Macro.step("pickpocket")
+          .externalIf(
+            have($skill`Curse of Weaksauce`),
+            Macro.trySkill($skill`Curse of Weaksauce`),
+            Macro.tryItem($item`electronics kit`)
+          )
           .externalIf(
             $familiar`Grey Goose`.experience >= 400,
             Macro.trySkill(
@@ -753,11 +754,12 @@ export const GyouQuest: Quest = {
         if (!get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.externalIf(
-          have($skill`Curse of Weaksauce`),
-          Macro.trySkill($skill`Curse of Weaksauce`),
-          Macro.tryItem($item`electronics kit`)
-        )
+        Macro.step("pickpocket")
+          .externalIf(
+            have($skill`Curse of Weaksauce`),
+            Macro.trySkill($skill`Curse of Weaksauce`),
+            Macro.tryItem($item`electronics kit`)
+          )
           .externalIf(
             $familiar`Grey Goose`.experience >= 400,
             Macro.trySkill(

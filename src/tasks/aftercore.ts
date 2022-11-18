@@ -201,10 +201,8 @@ export const AftercoreQuest: Quest = {
         693: 2, //dd trap: skip
       },
       combat: new CombatStrategy().macro(() =>
-        Macro.externalIf(
-          !get("_dailyDungeonMalwareUsed"),
-          Macro.tryItem($item`daily dungeon malware`)
-        )
+        Macro.step("pickpocket")
+          .externalIf(!get("_dailyDungeonMalwareUsed"), Macro.tryItem($item`daily dungeon malware`))
           .tryItem($item`porquoise-handled sixgun`)
           .trySkill($skill`Saucestorm`)
           .attack()
@@ -249,7 +247,8 @@ export const AftercoreQuest: Quest = {
         }, 250 bonus carnivorous potted plant`,
       }),
       combat: new CombatStrategy().macro(() =>
-        Macro.tryItem($item`porquoise-handled sixgun`)
+        Macro.step("pickpocket")
+          .tryItem($item`porquoise-handled sixgun`)
           .attack()
           .repeat()
       ),
