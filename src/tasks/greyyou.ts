@@ -728,7 +728,7 @@ export const GyouQuest: Quest = {
           .attack()
           .repeat()
       ),
-      limit: { tries: 10 }, //+3 for unaccounted for wanderers, etc.
+      limit: { tries: 13 }, //+3 for unaccounted for wanderers, etc.
       tracking: "Leveling",
     },
     {
@@ -813,19 +813,6 @@ export const GyouQuest: Quest = {
           .forEach((ef) => uneffect(ef)),
       tracking: "Garbo",
     },
-    // {
-    //   name: "Garbo Nobarf",
-    //   ready: () => !(get("_stenchAirportToday") || get("stenchAirportAlways")),
-    //   completed: () =>
-    //     (myAdventures() === 0 && !canDiet()) || stooperDrunk() || get("demonSummoned"),
-    //   prepare: () => uneffect($effect`Beaten Up`),
-    //   do: () => cliExecute("garbo nobarf"),
-    //   post: () =>
-    //     $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance, Feeling Lost`
-    //       .filter((ef) => have(ef))
-    //       .forEach((ef) => uneffect(ef)),
-    //   tracking: "Garbo",
-    // },
     {
       name: "Turn in FunFunds",
       ready: () => get("_stenchAirportToday") && itemAmount($item`FunFunds™`) >= 20,
