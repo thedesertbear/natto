@@ -19,6 +19,7 @@ import {
   itemAmount,
   maximize,
   myAdventures,
+  myAscensions,
   myBasestat,
   myBuffedstat,
   myClass,
@@ -783,6 +784,15 @@ export const GyouQuest: Quest = {
           `Finished Leveling Tasks, but only reached level ${myLevel()}/${args.targetlevel}`
         );
       },
+    },
+    {
+      name: "Gold Wedding Ring",
+      completed: () =>
+        !have($skill`Comprehensive Cartography`) ||
+        myAscensions() === get("lastCartographyBooPeak"),
+      choices: { 1430: 3, 606: 4, 610: 1, 1056: 1 },
+      do: $location`A-Boo Peak`,
+      outfit: { modifier: "initiative 40 min 40 max, -tie" },
     },
     {
       name: "Breakfast",
