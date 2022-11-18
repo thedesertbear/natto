@@ -507,6 +507,14 @@ export const GyouQuest: Quest = {
       },
     },
     {
+      name: "Campaway",
+      completed: () =>
+        !get("getawayCampsiteUnlocked") ||
+        (get("_campAwayCloudBuffs") >= 1 && get("_campAwaySmileBuffs") >= 3),
+      do: () => visitUrl("place.php?whichplace=campaway&action=campaway_sky"),
+      limit: { tries: 4 },
+    },
+    {
       name: "Snapper Spleen Exp %",
       completed: () =>
         myLevel() >= args.targetlevel ||
