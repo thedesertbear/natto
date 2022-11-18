@@ -58,7 +58,7 @@ import {
   uneffect,
 } from "libram";
 import { getCurrentLeg, Leg, Quest } from "./structure";
-import { bestFam, canDiet, maxBase, noML, stooperDrunk, toMoonSign } from "./utils";
+import { bestFam, canDiet, maxBase, noML, stooperDrunk, toMoonSign, totallyDrunk } from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
 
@@ -345,17 +345,22 @@ export const AftercoreQuest: Quest = {
       tracking: "VoA Test",
     },
     {
+      name: "Stooper",
+      ready: () =>
+        myInebriety() === inebrietyLimit() &&
+        have($item`tiny stillsuit`) &&
+        get("familiarSweat") >= 300,
+      completed: () => !have($familiar`Stooper`) || stooperDrunk(),
+      do: () => {
+        useFamiliar($familiar`Stooper`);
+        cliExecute("drink stillsuit distillate");
+      },
+    },
+    {
       name: "Nightcap",
       ready: () => have($item`Drunkula's wineglass`),
-      completed: () => stooperDrunk(),
-      do: () => {
-        if (have($familiar`Stooper`) && have($item`tiny stillsuit`)) {
-          useFamiliar($familiar`Stooper`);
-          if (myInebriety() < inebrietyLimit() && get("familiarSweat") >= 300)
-            cliExecute("drink stillsuit distillate");
-        }
-        cliExecute(`CONSUME NIGHTCAP VALUE ${get("valueOfAdventure") - 1000}`);
-      },
+      completed: () => totallyDrunk(),
+      do: () => cliExecute(`CONSUME NIGHTCAP VALUE ${get("valueOfAdventure") - 1000}`),
     },
     {
       name: "Garbo (Drunk)",

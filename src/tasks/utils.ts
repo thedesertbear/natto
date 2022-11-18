@@ -137,6 +137,12 @@ export function stooperDrunk(): boolean {
   );
 }
 
+export function totallyDrunk(): boolean {
+  return have($familiar`Stooper`) && myFamiliar() !== $familiar`Stooper`
+    ? myInebriety() > inebrietyLimit() + 1
+    : myInebriety() > inebrietyLimit();
+}
+
 export function readyForBed(): boolean {
   return (
     !canDiet() &&
