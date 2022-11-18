@@ -5,6 +5,7 @@ import {
   canAdventure,
   cliExecute,
   closetAmount,
+  getClanName,
   getPermedSkills,
   getWorkshed,
   gnomadsAvailable,
@@ -62,10 +63,25 @@ import { bestFam, canDiet, maxBase, noML, stooperDrunk, toMoonSign, totallyDrunk
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
 
+let fireworksPrepped = false;
+
 export const AftercoreQuest: Quest = {
   name: "Aftercore",
   completed: () => getCurrentLeg() > Leg.Aftercore,
   tasks: [
+    {
+      name: "Whitelist VIP Clan",
+      completed: () => !args.clan || getClanName().toLowerCase() === args.clan.toLowerCase(),
+      do: () => cliExecute(`/whitelist ${args.clan}`),
+    },
+    {
+      name: "Prep Fireworks Shop",
+      completed: () => !have($item`Clan VIP Lounge key`) || fireworksPrepped,
+      do: () => {
+        visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2");
+        fireworksPrepped = true;
+      },
+    },
     {
       name: "Breakfast",
       completed: () => get("breakfastCompleted"),

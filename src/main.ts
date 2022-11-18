@@ -72,6 +72,9 @@ export const args = Args.create(
       toClass,
       "CLASS"
     ),
+    clan: Args.string({
+      help: `Your VIP Clan. Goorbo will whitelist into it at the beginning of your day. Requires clan whitelist.`,
+    }),
     targetlevel: Args.number({
       help: `What level to target via adventuring in Uncle Gator's after breaking the prism`,
       default: 13,

@@ -10,6 +10,7 @@ import {
   Effect,
   equip,
   getCampground,
+  getClanName,
   getDwelling,
   gnomadsAvailable,
   handlingChoice,
@@ -85,10 +86,25 @@ import { targetClass } from "./perm";
 
 const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring, Asdon Martin keyfob`;
 const levelingTurns = 30;
+let fireworksPrepped = false;
+
 export const GyouQuest: Quest = {
   name: "Grey You",
   completed: () => getCurrentLeg() !== Leg.GreyYou,
   tasks: [
+    {
+      name: "Whitelist VIP Clan",
+      completed: () => !args.clan || getClanName().toLowerCase() === args.clan.toLowerCase(),
+      do: () => cliExecute(`/whitelist ${args.clan}`),
+    },
+    {
+      name: "Prep Fireworks Shop",
+      completed: () => !have($item`Clan VIP Lounge key`) || fireworksPrepped,
+      do: () => {
+        visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2");
+        fireworksPrepped = true;
+      },
+    },
     {
       name: "Farming Pulls",
       completed: () => myPulls.reduce((b, it) => b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
