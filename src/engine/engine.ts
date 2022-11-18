@@ -24,30 +24,32 @@ export class ProfitTrackingEngine extends Engine<never, Task> {
       this.options?.combat_defaults,
       task.do instanceof Location ? task.do : undefined
     );
-    macro.save();
-    if (!this.options.ccs) {
-      // Use the macro through a CCS file
-      const otherCCSEntries = task_combat.compileCcs();
-      const ccsContents = [
-        "[default]",
-        `"${ccsAbortString}${macro.toString()}"`,
-        ...otherCCSEntries,
-      ].join("\n");
+    if (macro.toString().length > 1) {
+      macro.save();
+      if (!this.options.ccs) {
+        // Use the macro through a CCS file
+        const otherCCSEntries = task_combat.compileCcs();
+        const ccsContents = [
+          "[default]",
+          `"${ccsAbortString}${macro.toString()}"`,
+          ...otherCCSEntries,
+        ].join("\n");
 
-      // Log Macro + other CCS
-      logprint(`CCS: ${ccsContents.replace("\n", "\\n ")}`);
+        // Log Macro + other CCS
+        logprint(`CCS: ${ccsContents.replace("\n", "\\n ")}`);
 
-      if (ccsContents !== this.cachedCcsContents) {
-        writeCcs(ccsContents, grimoireCCS);
-        cliExecute(`ccs ${grimoireCCS}`); // force Mafia to reparse the ccs
-        const autoattack = task_combat.compileAutoattack().step(macro);
-        if (autoattack.toString().length > 1) {
-          autoattack.save();
-          autoattack.setAutoAttack();
-        } else {
-          setAutoAttack(0);
+        if (ccsContents !== this.cachedCcsContents) {
+          writeCcs(ccsContents, grimoireCCS);
+          cliExecute(`ccs ${grimoireCCS}`); // force Mafia to reparse the ccs
+          const autoattack = task_combat.compileAutoattack().step(macro);
+          if (autoattack.toString().length > 1) {
+            autoattack.save();
+            autoattack.setAutoAttack();
+          } else {
+            setAutoAttack(0);
+          }
+          this.cachedCcsContents = ccsContents;
         }
-        this.cachedCcsContents = ccsContents;
       }
     }
   }
