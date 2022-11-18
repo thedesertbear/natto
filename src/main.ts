@@ -125,7 +125,7 @@ export function main(command?: string): void {
     return;
   }
 
-  const tasks = getTasks([AftercoreQuest, GyouQuest]);
+  const tasks = getTasks([AftercoreQuest(), GyouQuest()]);
 
   // Abort during the prepare() step of the specified task
   if (args.abort) {
