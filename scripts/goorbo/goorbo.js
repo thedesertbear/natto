@@ -9557,7 +9557,7 @@ function printProfits(records) {
   printProfitSegment("Total", profits_sum(records, () => true), "black");
 }
 ;// CONCATENATED MODULE: ./src/tasks/utils.ts
-var utils_templateObject, utils_templateObject2, utils_templateObject3, utils_templateObject4, utils_templateObject5, utils_templateObject6, utils_templateObject7, utils_templateObject8, utils_templateObject9, utils_templateObject10, utils_templateObject11, utils_templateObject12, utils_templateObject13, utils_templateObject14, utils_templateObject15, utils_templateObject16, utils_templateObject17, utils_templateObject18, utils_templateObject19, utils_templateObject20, utils_templateObject21, utils_templateObject22, utils_templateObject23, utils_templateObject24, utils_templateObject25, utils_templateObject26;
+var utils_templateObject, utils_templateObject2, utils_templateObject3, utils_templateObject4, utils_templateObject5, utils_templateObject6, utils_templateObject7, utils_templateObject8, utils_templateObject9, utils_templateObject10, utils_templateObject11, utils_templateObject12, utils_templateObject13, utils_templateObject14, utils_templateObject15, utils_templateObject16, utils_templateObject17, utils_templateObject18, utils_templateObject19, utils_templateObject20, utils_templateObject21, utils_templateObject22, utils_templateObject23, utils_templateObject24, utils_templateObject25, utils_templateObject26, utils_templateObject27, utils_templateObject28;
 
 function utils_toConsumableArray(arr) { return utils_arrayWithoutHoles(arr) || utils_iterableToArray(arr) || tasks_utils_unsupportedIterableToArray(arr) || utils_nonIterableSpread(); }
 
@@ -9601,7 +9601,7 @@ function famValue(fam, mob) {
       return (0,external_kolmafia_namespaceObject.myLevel)() < args.targetlevel && template_string_$familiar(utils_templateObject4 || (utils_templateObject4 = utils_taggedTemplateLiteral(["Grey Goose"]))).experience < 400 ? 6000 : 0;
 
     case template_string_$familiar(utils_templateObject5 || (utils_templateObject5 = utils_taggedTemplateLiteral(["Red-Nosed Snapper"]))):
-      if (mob && getTrackedPhylum() && mob.phylum === getTrackedPhylum()) return garboValue(phylumItem.get(getTrackedPhylum() || $phylum(utils_templateObject6 || (utils_templateObject6 = utils_taggedTemplateLiteral(["none"])))) || template_string_$item(utils_templateObject7 || (utils_templateObject7 = utils_taggedTemplateLiteral(["none"]))));
+      if (mob && getTrackedPhylum() && mob.phylum === getTrackedPhylum()) return garboValue(phylumItem.get(getTrackedPhylum() || $phylum(utils_templateObject6 || (utils_templateObject6 = utils_taggedTemplateLiteral(["none"])))) || template_string_$item(utils_templateObject7 || (utils_templateObject7 = utils_taggedTemplateLiteral(["none"])))) / 11;
       return 0;
 
     case template_string_$familiar(utils_templateObject8 || (utils_templateObject8 = utils_taggedTemplateLiteral(["Cookbookbat"]))):
@@ -9624,11 +9624,14 @@ function canDiet() {
 function stooperDrunk() {
   return (0,external_kolmafia_namespaceObject.myInebriety)() > (0,external_kolmafia_namespaceObject.inebrietyLimit)() || (0,external_kolmafia_namespaceObject.myInebriety)() === (0,external_kolmafia_namespaceObject.inebrietyLimit)() && (0,external_kolmafia_namespaceObject.myFamiliar)() === template_string_$familiar(utils_templateObject20 || (utils_templateObject20 = utils_taggedTemplateLiteral(["Stooper"])));
 }
+function totallyDrunk() {
+  return lib_have(template_string_$familiar(utils_templateObject21 || (utils_templateObject21 = utils_taggedTemplateLiteral(["Stooper"])))) && (0,external_kolmafia_namespaceObject.myFamiliar)() !== template_string_$familiar(utils_templateObject22 || (utils_templateObject22 = utils_taggedTemplateLiteral(["Stooper"]))) ? (0,external_kolmafia_namespaceObject.myInebriety)() > (0,external_kolmafia_namespaceObject.inebrietyLimit)() + 1 : (0,external_kolmafia_namespaceObject.myInebriety)() > (0,external_kolmafia_namespaceObject.inebrietyLimit)();
+}
 function readyForBed() {
   return !canDiet() && (0,external_kolmafia_namespaceObject.myAdventures)() + (0,external_kolmafia_namespaceObject.numericModifier)("adventures") + 40 < 140 && property_get("garboResultsDate", "") === (0,external_kolmafia_namespaceObject.nowToString)("YYYYMMdd");
 }
 function backstageItemsDone() {
-  return (lib_have(template_string_$item(utils_templateObject21 || (utils_templateObject21 = utils_taggedTemplateLiteral(["giant marshmallow"])))) ? 1 : 0) + (lib_have(template_string_$item(utils_templateObject22 || (utils_templateObject22 = utils_taggedTemplateLiteral(["beer-scented teddy bear"])))) ? 1 : 0) + (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(utils_templateObject23 || (utils_templateObject23 = utils_taggedTemplateLiteral(["gin-soaked blotter paper"])))) >= 2 && (lib_have(template_string_$item(utils_templateObject24 || (utils_templateObject24 = utils_taggedTemplateLiteral(["booze-soaked cherry"])))) ? 1 : 0) + (lib_have(template_string_$item(utils_templateObject25 || (utils_templateObject25 = utils_taggedTemplateLiteral(["comfy pillow"])))) ? 1 : 0) + (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(utils_templateObject26 || (utils_templateObject26 = utils_taggedTemplateLiteral(["sponge cake"])))) >= 2;
+  return (lib_have(template_string_$item(utils_templateObject23 || (utils_templateObject23 = utils_taggedTemplateLiteral(["giant marshmallow"])))) ? 1 : 0) + (lib_have(template_string_$item(utils_templateObject24 || (utils_templateObject24 = utils_taggedTemplateLiteral(["beer-scented teddy bear"])))) ? 1 : 0) + (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(utils_templateObject25 || (utils_templateObject25 = utils_taggedTemplateLiteral(["gin-soaked blotter paper"])))) >= 2 && (lib_have(template_string_$item(utils_templateObject26 || (utils_templateObject26 = utils_taggedTemplateLiteral(["booze-soaked cherry"])))) ? 1 : 0) + (lib_have(template_string_$item(utils_templateObject27 || (utils_templateObject27 = utils_taggedTemplateLiteral(["comfy pillow"])))) ? 1 : 0) + (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(utils_templateObject28 || (utils_templateObject28 = utils_taggedTemplateLiteral(["sponge cake"])))) >= 2;
 }
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2022/CombatLoversLocket.js
 var CombatLoversLocket_templateObject;
@@ -9740,7 +9743,7 @@ function findMonster(criteria) {
   return options.reduce((a, b) => value(a) > value(b) ? a : b);
 }
 ;// CONCATENATED MODULE: ./src/tasks/sim.ts
-var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20, sim_templateObject21, sim_templateObject22, sim_templateObject23, sim_templateObject24, sim_templateObject25, sim_templateObject26, sim_templateObject27;
+var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20, sim_templateObject21, sim_templateObject22, sim_templateObject23, sim_templateObject24, sim_templateObject25, sim_templateObject26, sim_templateObject27, sim_templateObject28, sim_templateObject29, sim_templateObject30;
 
 function sim_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = sim_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -9785,90 +9788,116 @@ var generalList = [{
 }];
 var levelList = [{
   thing: template_string_$item(sim_templateObject6 || (sim_templateObject6 = sim_taggedTemplateLiteral(["January's Garbage Tote"]))),
-  why: "aftercore leveling (all)",
+  why: "aftercore leveling",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject7 || (sim_templateObject7 = sim_taggedTemplateLiteral(["familiar scrapbook"]))),
-  why: "aftercore leveling (all)",
+  thing: {
+    have: () => property_get("getawayCampsiteUnlocked"),
+    name: template_string_$item(sim_templateObject7 || (sim_templateObject7 = sim_taggedTemplateLiteral(["Distant Woods Getaway Brochure"]))).name
+  },
+  why: "aftercore leveling",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["trench lighter"]))),
-  why: "aftercore leveling (all)",
+  thing: {
+    have: () => property_get("neverendingPartyAlways"),
+    name: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["Neverending Party invitation envelope"]))).name
+  },
+  why: "scaling free fights",
   optional: true
-}, {
-  thing: template_string_$skill(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["Feel Pride"]))),
-  why: "aftercore leveling (all)",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["[glitch season reward name]"]))),
-  why: "aftercore leveling (all)",
-  optional: true
-}, // { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
+}, // { thing: $item`Clan VIP Lounge key`, why: "aftercore leveling", optional: true },
+// { thing: $skill`Sweet Synthesis`, why: "aftercore leveling", optional: true },
+// { thing: $familiar`Vampire Vintner`, why: "goose charging", optional: true },
 {
-  thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["fake washboard"]))),
+  thing: template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["familiar scrapbook"]))),
+  why: "aftercore leveling",
+  optional: true
+}, // { thing: $item`defective Game Grid token`, why: "aftercore leveling", optional: true },
+{
+  thing: template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["trench lighter"]))),
+  why: "aftercore leveling",
+  optional: true
+}, {
+  thing: template_string_$skill(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["Feel Pride"]))),
+  why: "aftercore leveling",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["[glitch season reward name]"]))),
+  why: "aftercore leveling",
+  optional: true
+}, // { thing: $item`cosmic bowling ball`, why: "aftercore leveling", optional: true },
+{
+  thing: template_string_$item(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["fake washboard"]))),
   why: "aftercore leveling (mus)",
   optional: true
 }, {
-  thing: template_string_$skill(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
+  thing: template_string_$skill(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
   why: "aftercore leveling (mys)",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["basaltamander buckler"]))),
+  thing: template_string_$item(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["basaltamander buckler"]))),
   why: "aftercore leveling (mys)",
   optional: true
 }];
 var profitList = [{
-  thing: template_string_$item(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["lucky gold ring"]))),
+  thing: template_string_$item(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["lucky gold ring"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["Mr. Cheeng's spectacles"]))),
+  thing: template_string_$item(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["Mr. Cheeng's spectacles"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["mafia thumb ring"]))),
+  thing: template_string_$item(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["mafia thumb ring"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"]))),
+  thing: template_string_$item(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["Asdon Martin keyfob"]))),
+  thing: template_string_$item(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["Asdon Martin keyfob"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["June cleaver"]))),
+  thing: template_string_$item(sim_templateObject21 || (sim_templateObject21 = sim_taggedTemplateLiteral(["June cleaver"]))),
   why: "in-run farming profits",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["tiny stillsuit"]))),
+  thing: template_string_$item(sim_templateObject22 || (sim_templateObject22 = sim_taggedTemplateLiteral(["tiny stillsuit"]))),
   why: "rollover adventures",
   optional: true
 }, {
-  thing: template_string_$familiar(sim_templateObject21 || (sim_templateObject21 = sim_taggedTemplateLiteral(["Stooper"]))),
+  thing: template_string_$item(sim_templateObject23 || (sim_templateObject23 = sim_taggedTemplateLiteral(["mime army shotglass"]))),
+  why: "extra size-1 booze/day",
+  optional: true
+}, {
+  thing: template_string_$familiar(sim_templateObject24 || (sim_templateObject24 = sim_taggedTemplateLiteral(["Stooper"]))),
   why: "rollover adventures",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject22 || (sim_templateObject22 = sim_taggedTemplateLiteral(["Drunkula's wineglass"]))),
+  thing: template_string_$item(sim_templateObject25 || (sim_templateObject25 = sim_taggedTemplateLiteral(["Drunkula's wineglass"]))),
   why: "overdrunk farming",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject23 || (sim_templateObject23 = sim_taggedTemplateLiteral(["carnivorous potted plant"]))),
-  why: "turnsave",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject24 || (sim_templateObject24 = sim_taggedTemplateLiteral(["infinite BACON machine"]))),
-  why: "source of renewable Fat Loot Tokens",
+  thing: template_string_$item(sim_templateObject26 || (sim_templateObject26 = sim_taggedTemplateLiteral(["infinite BACON machine"]))),
+  why: "daily Dungeon Malware",
   optional: true
 }];
 var marginalList = [{
-  thing: template_string_$item(sim_templateObject25 || (sim_templateObject25 = sim_taggedTemplateLiteral(["The Jokester's gun"]))),
-  why: "turnsave",
+  thing: template_string_$item(sim_templateObject27 || (sim_templateObject27 = sim_taggedTemplateLiteral(["carnivorous potted plant"]))),
+  why: "occasional free kill",
+  optional: true
+}, // { thing: $item`The Jokester's gun`, why: "free kill", optional: true },
+// { thing: $skill`Gingerbread Mob Hit`, why: "free kill", optional: true },
+// { thing: $skill`Shattering Punch`, why: "free kills", optional: true },
+// { thing: $item`Lil' Doctor™ bag`, why: "free kills", optional: true },
+{
+  thing: template_string_$item(sim_templateObject28 || (sim_templateObject28 = sim_taggedTemplateLiteral(["hewn moon-rune spoon"]))),
+  why: "easier perming of gnome skills",
   optional: true
 }, {
-  thing: template_string_$item(sim_templateObject26 || (sim_templateObject26 = sim_taggedTemplateLiteral(["hewn moon-rune spoon"]))),
-  why: "easier perming of gnome skills",
+  thing: template_string_$skill(sim_templateObject29 || (sim_templateObject29 = sim_taggedTemplateLiteral(["Comprehensive Cartography"]))),
+  why: "gold wedding ring",
   optional: true
 }];
 
@@ -9950,7 +9979,7 @@ function spanWrap(text, color) {
 }
 
 function coloredSkill(sk, nPerms, nClass) {
-  return sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)() ? spanWrap(sk.name, "black") : nPerms.includes(sk) && lib_have(sk) ? spanWrap(sk.name, "fuchsia") : nPerms.includes(sk) ? spanWrap(sk.name, "blue") : lib_have(sk) ? spanWrap(sk.name, "purple") : nClass && nClass === sk.class && nClass !== $class(sim_templateObject27 || (sim_templateObject27 = sim_taggedTemplateLiteral(["none"]))) ? spanWrap(sk.name, "navy") : spanWrap(sk.name, "gray");
+  return sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)() ? spanWrap(sk.name, "black") : nPerms.includes(sk) && lib_have(sk) ? spanWrap(sk.name, "fuchsia") : nPerms.includes(sk) ? spanWrap(sk.name, "blue") : lib_have(sk) ? spanWrap(sk.name, "purple") : nClass && nClass === sk.class && nClass !== $class(sim_templateObject30 || (sim_templateObject30 = sim_taggedTemplateLiteral(["none"]))) ? spanWrap(sk.name, "navy") : spanWrap(sk.name, "gray");
 }
 function checkPerms() {
   var nPerms = targetPerms(false);
@@ -10082,292 +10111,307 @@ function aftercore_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strin
 
 
 
-var AftercoreQuest = {
-  name: "Aftercore",
-  completed: () => getCurrentLeg() > Leg.Aftercore,
-  tasks: [{
-    name: "Breakfast",
-    completed: () => property_get("breakfastCompleted"),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("breakfast")
-  }, {
-    name: "Drive Observantly",
-    completed: () => property_get("dailyDungeonDone") || (0,external_kolmafia_namespaceObject.getWorkshed)() !== template_string_$item(aftercore_templateObject || (aftercore_templateObject = aftercore_taggedTemplateLiteral(["Asdon Martin keyfob"]))) || (0,external_kolmafia_namespaceObject.haveEffect)($effect(aftercore_templateObject2 || (aftercore_templateObject2 = aftercore_taggedTemplateLiteral(["Driving Observantly"])))) >= 800,
-    do: () => drive($effect(aftercore_templateObject3 || (aftercore_templateObject3 = aftercore_taggedTemplateLiteral(["Driving Observantly"]))), 810 - (0,external_kolmafia_namespaceObject.haveEffect)($effect(aftercore_templateObject4 || (aftercore_templateObject4 = aftercore_taggedTemplateLiteral(["Driving Observantly"])))), false)
-  }, {
-    name: "Install CMC",
-    completed: () => (0,external_kolmafia_namespaceObject.getWorkshed)() === template_string_$item(aftercore_templateObject5 || (aftercore_templateObject5 = aftercore_taggedTemplateLiteral(["cold medicine cabinet"]))) || !lib_have(template_string_$item(aftercore_templateObject6 || (aftercore_templateObject6 = aftercore_taggedTemplateLiteral(["cold medicine cabinet"])))) || property_get("_workshedItemUsed"),
-    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(aftercore_templateObject7 || (aftercore_templateObject7 = aftercore_taggedTemplateLiteral(["cold medicine cabinet"]))))
-  }, {
-    name: "LGR Seed",
-    completed: () => property_get("_stenchAirportToday") || property_get("stenchAirportAlways") || !lib_have(template_string_$item(aftercore_templateObject8 || (aftercore_templateObject8 = aftercore_taggedTemplateLiteral(["lucky gold ring"])))),
-    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(aftercore_templateObject9 || (aftercore_templateObject9 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))))
-  }, {
-    name: "June Cleaver",
-    completed: () => !lib_have(template_string_$item(aftercore_templateObject10 || (aftercore_templateObject10 = aftercore_taggedTemplateLiteral(["June cleaver"])))) || property_get("_juneCleaverFightsLeft") > 0,
-    choices: {
-      793: 4,
-      //The Shore -> Gift Shop
-      1467: 3,
-      //Poetic Justice
-      1468: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
-      //Aunts not Ants
-      1469: 3,
-      //Beware of Aligator
-      1470: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
-      //Teacher's Pet
-      1471: 1,
-      //Lost and Found
-      1472: () => property_get("_juneCleaverSkips") < 5 ? 4 : 1,
-      //Summer Days
-      1473: () => property_get("_juneCleaverSkips") < 5 ? 4 : 1,
-      //Bath Time
-      1474: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
-      //Delicious Sprouts
-      1475: 1 //Hypnotic Master
-
-    },
-    prepare: () => {
-      if (!(0,external_kolmafia_namespaceObject.canAdventure)($location(aftercore_templateObject11 || (aftercore_templateObject11 = aftercore_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))))) (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(aftercore_templateObject12 || (aftercore_templateObject12 = aftercore_taggedTemplateLiteral(["bitchin' meatcar"]))));
-    },
-    do: $location(aftercore_templateObject13 || (aftercore_templateObject13 = aftercore_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))),
-    post: () => {
-      if ((0,external_kolmafia_namespaceObject.handlingChoice)()) (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
-      if (lib_have($effect(aftercore_templateObject14 || (aftercore_templateObject14 = aftercore_taggedTemplateLiteral(["Beaten Up"]))))) uneffect($effect(aftercore_templateObject15 || (aftercore_templateObject15 = aftercore_taggedTemplateLiteral(["Beaten Up"]))));
-    },
-    outfit: () => ({
-      equip: template_string_$items(aftercore_templateObject16 || (aftercore_templateObject16 = aftercore_taggedTemplateLiteral(["June cleaver"])))
-    }),
-    limit: undefined
-  }, {
-    name: "Implement Glitch",
-    ready: () => lib_have(template_string_$item(aftercore_templateObject17 || (aftercore_templateObject17 = aftercore_taggedTemplateLiteral(["[glitch season reward name]"])))),
-    completed: () => property_get("_glitchItemImplemented"),
-    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(aftercore_templateObject18 || (aftercore_templateObject18 = aftercore_taggedTemplateLiteral(["[glitch season reward name]"]))))
-  }, {
-    name: "Fight Glitch",
-    ready: () => lib_have(template_string_$item(aftercore_templateObject19 || (aftercore_templateObject19 = aftercore_taggedTemplateLiteral(["[glitch season reward name]"])))),
-    completed: () => property_get("_glitchMonsterFights") > 0,
-    acquire: template_string_$items(aftercore_templateObject20 || (aftercore_templateObject20 = aftercore_taggedTemplateLiteral(["gas can, gas balloon, shard of double-ice"]))).map(it => ({
-      item: it,
-      price: 1000
-    })),
-    prepare: () => {
-      (0,external_kolmafia_namespaceObject.restoreHp)(0.9 * (0,external_kolmafia_namespaceObject.myHp)());
-      if (lib_have(template_string_$skill(aftercore_templateObject21 || (aftercore_templateObject21 = aftercore_taggedTemplateLiteral(["Blood Bond"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(aftercore_templateObject22 || (aftercore_templateObject22 = aftercore_taggedTemplateLiteral(["Blood Bond"]))));
-    },
-    do: () => (0,external_kolmafia_namespaceObject.visitUrl)("inv_eat.php?pwd&whichitem=10207"),
-    post: () => {
-      if (!property_get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
-    },
-    outfit: () => ({
-      familiar: bestFam(),
-      modifier: "".concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience, 5 ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience percent, ").concat(noML())
-    }),
-    combat: new CombatStrategy().macro(() => {
-      var _Macro$tryItem$extern;
-
-      return (_Macro$tryItem$extern = Macro.tryItem(template_string_$item(aftercore_templateObject23 || (aftercore_templateObject23 = aftercore_taggedTemplateLiteral(["gas balloon"])))).externalIf(lib_have(template_string_$skill(aftercore_templateObject24 || (aftercore_templateObject24 = aftercore_taggedTemplateLiteral(["Feel Pride"])))) && property_get("_feelPrideUsed") < 3, Macro.trySkill(template_string_$skill(aftercore_templateObject25 || (aftercore_templateObject25 = aftercore_taggedTemplateLiteral(["Feel Pride"])))), Macro.externalIf(template_string_$familiar(aftercore_templateObject26 || (aftercore_templateObject26 = aftercore_taggedTemplateLiteral(["Grey Goose"]))).experience >= 400, Macro.trySkill((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(aftercore_templateObject27 || (aftercore_templateObject27 = aftercore_taggedTemplateLiteral(["Muscle"]))) ? template_string_$skill(aftercore_templateObject28 || (aftercore_templateObject28 = aftercore_taggedTemplateLiteral(["Convert Matter to Protein"]))) : (0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(aftercore_templateObject29 || (aftercore_templateObject29 = aftercore_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$skill(aftercore_templateObject30 || (aftercore_templateObject30 = aftercore_taggedTemplateLiteral(["Convert Matter to Energy"]))) : template_string_$skill(aftercore_templateObject31 || (aftercore_templateObject31 = aftercore_taggedTemplateLiteral(["Convert Matter to Pomade"]))))))).tryItem.apply(_Macro$tryItem$extern, aftercore_toConsumableArray(template_string_$items(aftercore_templateObject32 || (aftercore_templateObject32 = aftercore_taggedTemplateLiteral(["shard of double-ice, gas can"]))))).attack().repeat();
-    }),
-    tracking: "Leveling"
-  }, {
-    name: "Daily Dungeon",
-    completed: () => property_get("dailyDungeonDone"),
-    acquire: template_string_$items(aftercore_templateObject33 || (aftercore_templateObject33 = aftercore_taggedTemplateLiteral(["eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors"]))).map(it => ({
-      item: it,
-      price: 1000
-    })),
-    outfit: () => aftercore_objectSpread(aftercore_objectSpread({
-      familiar: bestFam()
-    }, property_get("_lastDailyDungeonRoom") % 5 === 4 ? {
-      acc1: template_string_$item(aftercore_templateObject34 || (aftercore_templateObject34 = aftercore_taggedTemplateLiteral(["ring of Detect Boring Doors"])))
-    } : {}), {}, {
-      modifier: "".concat(maxBase(), ", 250 bonus carnivorous potted plant")
-    }),
-    prepare: () => {
-      if (lib_have(template_string_$item(aftercore_templateObject35 || (aftercore_templateObject35 = aftercore_taggedTemplateLiteral(["daily dungeon malware"])))) && property_get("_dailyDungeonMalwareUsed")) (0,external_kolmafia_namespaceObject.putCloset)(template_string_$item(aftercore_templateObject36 || (aftercore_templateObject36 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))));
-
-      if (!property_get("_dailyDungeonMalwareUsed") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(aftercore_templateObject37 || (aftercore_templateObject37 = aftercore_taggedTemplateLiteral(["fat loot token"])))) < 3) {
-        if ((0,external_kolmafia_namespaceObject.availableAmount)(template_string_$item(aftercore_templateObject38 || (aftercore_templateObject38 = aftercore_taggedTemplateLiteral(["BACON"])))) >= 150) (0,external_kolmafia_namespaceObject.buy)($coinmaster(aftercore_templateObject39 || (aftercore_templateObject39 = aftercore_taggedTemplateLiteral(["internet meme shop"]))), 1, template_string_$item(aftercore_templateObject40 || (aftercore_templateObject40 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))));else (0,external_kolmafia_namespaceObject.retrieveItem)(1, template_string_$item(aftercore_templateObject41 || (aftercore_templateObject41 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))));
+var fireworksPrepped = false;
+function AftercoreQuest() {
+  return {
+    name: "Aftercore",
+    completed: () => getCurrentLeg() > Leg.Aftercore,
+    tasks: [{
+      name: "Whitelist VIP Clan",
+      completed: () => !args.clan || (0,external_kolmafia_namespaceObject.getClanName)().toLowerCase() === args.clan.toLowerCase(),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("/whitelist ".concat(args.clan))
+    }, {
+      name: "Prep Fireworks Shop",
+      completed: () => !lib_have(template_string_$item(aftercore_templateObject || (aftercore_templateObject = aftercore_taggedTemplateLiteral(["Clan VIP Lounge key"])))) || fireworksPrepped,
+      do: () => {
+        (0,external_kolmafia_namespaceObject.visitUrl)("clan_viplounge.php?action=fwshop&whichfloor=2");
+        fireworksPrepped = true;
       }
+    }, {
+      name: "Breakfast",
+      completed: () => property_get("breakfastCompleted"),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("breakfast")
+    }, {
+      name: "Drive Observantly",
+      completed: () => property_get("dailyDungeonDone") || (0,external_kolmafia_namespaceObject.getWorkshed)() !== template_string_$item(aftercore_templateObject2 || (aftercore_templateObject2 = aftercore_taggedTemplateLiteral(["Asdon Martin keyfob"]))) || (0,external_kolmafia_namespaceObject.haveEffect)($effect(aftercore_templateObject3 || (aftercore_templateObject3 = aftercore_taggedTemplateLiteral(["Driving Observantly"])))) >= 800,
+      do: () => drive($effect(aftercore_templateObject4 || (aftercore_templateObject4 = aftercore_taggedTemplateLiteral(["Driving Observantly"]))), 810, false)
+    }, {
+      name: "Install CMC",
+      completed: () => (0,external_kolmafia_namespaceObject.getWorkshed)() === template_string_$item(aftercore_templateObject5 || (aftercore_templateObject5 = aftercore_taggedTemplateLiteral(["cold medicine cabinet"]))) || !lib_have(template_string_$item(aftercore_templateObject6 || (aftercore_templateObject6 = aftercore_taggedTemplateLiteral(["cold medicine cabinet"])))) || property_get("_workshedItemUsed"),
+      do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(aftercore_templateObject7 || (aftercore_templateObject7 = aftercore_taggedTemplateLiteral(["cold medicine cabinet"]))))
+    }, {
+      name: "LGR Seed",
+      completed: () => property_get("_stenchAirportToday") || property_get("stenchAirportAlways") || !lib_have(template_string_$item(aftercore_templateObject8 || (aftercore_templateObject8 = aftercore_taggedTemplateLiteral(["lucky gold ring"])))),
+      do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(aftercore_templateObject9 || (aftercore_templateObject9 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))))
+    }, {
+      name: "June Cleaver",
+      completed: () => !lib_have(template_string_$item(aftercore_templateObject10 || (aftercore_templateObject10 = aftercore_taggedTemplateLiteral(["June cleaver"])))) || property_get("_juneCleaverFightsLeft") > 0,
+      choices: {
+        793: 4,
+        //The Shore -> Gift Shop
+        1467: 3,
+        //Poetic Justice
+        1468: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
+        //Aunts not Ants
+        1469: 3,
+        //Beware of Aligator
+        1470: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
+        //Teacher's Pet
+        1471: 1,
+        //Lost and Found
+        1472: () => property_get("_juneCleaverSkips") < 5 ? 4 : 1,
+        //Summer Days
+        1473: () => property_get("_juneCleaverSkips") < 5 ? 4 : 1,
+        //Bath Time
+        1474: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
+        //Delicious Sprouts
+        1475: 1 //Hypnotic Master
 
-      (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
-      (0,external_kolmafia_namespaceObject.restoreMp)(8);
-    },
-    do: $location(aftercore_templateObject42 || (aftercore_templateObject42 = aftercore_taggedTemplateLiteral(["The Daily Dungeon"]))),
-    choices: {
-      692: 3,
-      //dd door: lockpicks
-      689: 1,
-      //dd final chest : open
-      690: 2,
-      //dd chest 1: boring door
-      691: 2,
-      //dd chest 2: boring door
-      693: 2 //dd trap: skip
+      },
+      prepare: () => {
+        if (!(0,external_kolmafia_namespaceObject.canAdventure)($location(aftercore_templateObject11 || (aftercore_templateObject11 = aftercore_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))))) (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(aftercore_templateObject12 || (aftercore_templateObject12 = aftercore_taggedTemplateLiteral(["bitchin' meatcar"]))));
+      },
+      do: $location(aftercore_templateObject13 || (aftercore_templateObject13 = aftercore_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))),
+      post: () => {
+        if ((0,external_kolmafia_namespaceObject.handlingChoice)()) (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
+        if (lib_have($effect(aftercore_templateObject14 || (aftercore_templateObject14 = aftercore_taggedTemplateLiteral(["Beaten Up"]))))) uneffect($effect(aftercore_templateObject15 || (aftercore_templateObject15 = aftercore_taggedTemplateLiteral(["Beaten Up"]))));
+      },
+      outfit: () => ({
+        equip: template_string_$items(aftercore_templateObject16 || (aftercore_templateObject16 = aftercore_taggedTemplateLiteral(["June cleaver"])))
+      }),
+      limit: undefined
+    }, {
+      name: "Implement Glitch",
+      ready: () => lib_have(template_string_$item(aftercore_templateObject17 || (aftercore_templateObject17 = aftercore_taggedTemplateLiteral(["[glitch season reward name]"])))),
+      completed: () => property_get("_glitchItemImplemented"),
+      do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(aftercore_templateObject18 || (aftercore_templateObject18 = aftercore_taggedTemplateLiteral(["[glitch season reward name]"]))))
+    }, {
+      name: "Fight Glitch",
+      ready: () => lib_have(template_string_$item(aftercore_templateObject19 || (aftercore_templateObject19 = aftercore_taggedTemplateLiteral(["[glitch season reward name]"])))),
+      completed: () => property_get("_glitchMonsterFights") > 0,
+      acquire: template_string_$items(aftercore_templateObject20 || (aftercore_templateObject20 = aftercore_taggedTemplateLiteral(["gas can, gas balloon, shard of double-ice"]))).map(it => ({
+        item: it,
+        price: 1000
+      })),
+      prepare: () => {
+        (0,external_kolmafia_namespaceObject.restoreHp)(0.9 * (0,external_kolmafia_namespaceObject.myHp)());
+        if (lib_have(template_string_$skill(aftercore_templateObject21 || (aftercore_templateObject21 = aftercore_taggedTemplateLiteral(["Blood Bond"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(aftercore_templateObject22 || (aftercore_templateObject22 = aftercore_taggedTemplateLiteral(["Blood Bond"]))));
+      },
+      do: () => (0,external_kolmafia_namespaceObject.visitUrl)("inv_eat.php?pwd&whichitem=10207"),
+      post: () => {
+        if (!property_get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
+      },
+      outfit: () => ({
+        familiar: bestFam(),
+        modifier: "".concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience, 5 ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience percent, ").concat(noML())
+      }),
+      combat: new CombatStrategy().macro(() => {
+        var _Macro$tryItem$extern;
 
-    },
-    combat: new CombatStrategy().macro(() => Macro.externalIf(!property_get("_dailyDungeonMalwareUsed"), Macro.tryItem(template_string_$item(aftercore_templateObject43 || (aftercore_templateObject43 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(aftercore_templateObject44 || (aftercore_templateObject44 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(aftercore_templateObject45 || (aftercore_templateObject45 = aftercore_taggedTemplateLiteral(["Saucestorm"])))).attack().repeat()),
-    limit: {
-      tries: 15
-    }
-  }, {
-    name: "Unlock Guild",
-    ready: () => //ready if you find a skill in your perm plan that is guild-trainable that you don't know, or if you need to buy seal summoning supplies
-    !!targetPerms(false).find(sk => !lib_have(sk) && sk.level > 0) || (0,external_kolmafia_namespaceObject.myClass)() === $class(aftercore_templateObject46 || (aftercore_templateObject46 = aftercore_taggedTemplateLiteral(["Seal Clubber"]))) && Math.min.apply(Math, aftercore_toConsumableArray(template_string_$items(aftercore_templateObject47 || (aftercore_templateObject47 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => (0,external_kolmafia_namespaceObject.availableAmount)(it)))) < 20,
-    completed: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("guild"),
-    choices: {
-      //sleazy back alley
-      108: 4,
-      //craps: skip
-      109: 1,
-      //drunken hobo: fight
-      110: 4,
-      //entertainer: skip
-      112: 2,
-      //harold's hammer: skip
-      21: 2,
-      //under the knife: skip
-      //haunted pantry
-      115: 1,
-      //drunken hobo: fight
-      116: 4,
-      //singing tree: skip
-      117: 1,
-      //knob goblin chef: fight
-      114: 2,
-      //birthday cake: skip
-      //outskirts of cobb's knob
-      113: 2,
-      //knob goblin chef: fight
-      111: 3,
-      //chain gang: fight
-      118: 2 //medicine quest: skip
+        return (_Macro$tryItem$extern = Macro.tryItem(template_string_$item(aftercore_templateObject23 || (aftercore_templateObject23 = aftercore_taggedTemplateLiteral(["gas balloon"])))).externalIf(lib_have(template_string_$skill(aftercore_templateObject24 || (aftercore_templateObject24 = aftercore_taggedTemplateLiteral(["Feel Pride"])))) && property_get("_feelPrideUsed") < 3, Macro.trySkill(template_string_$skill(aftercore_templateObject25 || (aftercore_templateObject25 = aftercore_taggedTemplateLiteral(["Feel Pride"])))), Macro.externalIf(template_string_$familiar(aftercore_templateObject26 || (aftercore_templateObject26 = aftercore_taggedTemplateLiteral(["Grey Goose"]))).experience >= 400, Macro.trySkill((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(aftercore_templateObject27 || (aftercore_templateObject27 = aftercore_taggedTemplateLiteral(["Muscle"]))) ? template_string_$skill(aftercore_templateObject28 || (aftercore_templateObject28 = aftercore_taggedTemplateLiteral(["Convert Matter to Protein"]))) : (0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(aftercore_templateObject29 || (aftercore_templateObject29 = aftercore_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$skill(aftercore_templateObject30 || (aftercore_templateObject30 = aftercore_taggedTemplateLiteral(["Convert Matter to Energy"]))) : template_string_$skill(aftercore_templateObject31 || (aftercore_templateObject31 = aftercore_taggedTemplateLiteral(["Convert Matter to Pomade"]))))))).tryItem.apply(_Macro$tryItem$extern, aftercore_toConsumableArray(template_string_$items(aftercore_templateObject32 || (aftercore_templateObject32 = aftercore_taggedTemplateLiteral(["shard of double-ice, gas can"]))))).attack().repeat();
+      }),
+      tracking: "Leveling"
+    }, {
+      name: "Daily Dungeon",
+      completed: () => property_get("dailyDungeonDone"),
+      acquire: template_string_$items(aftercore_templateObject33 || (aftercore_templateObject33 = aftercore_taggedTemplateLiteral(["eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors"]))).map(it => ({
+        item: it,
+        price: 1000
+      })),
+      outfit: () => aftercore_objectSpread(aftercore_objectSpread({
+        familiar: bestFam()
+      }, property_get("_lastDailyDungeonRoom") % 5 === 4 ? {
+        acc1: template_string_$item(aftercore_templateObject34 || (aftercore_templateObject34 = aftercore_taggedTemplateLiteral(["ring of Detect Boring Doors"])))
+      } : {}), {}, {
+        modifier: "".concat(maxBase(), ", 250 bonus carnivorous potted plant")
+      }),
+      prepare: () => {
+        if (lib_have(template_string_$item(aftercore_templateObject35 || (aftercore_templateObject35 = aftercore_taggedTemplateLiteral(["daily dungeon malware"])))) && property_get("_dailyDungeonMalwareUsed")) (0,external_kolmafia_namespaceObject.putCloset)(template_string_$item(aftercore_templateObject36 || (aftercore_templateObject36 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))));
 
-    },
-    outfit: () => ({
-      familiar: bestFam(),
-      modifier: "".concat(maxBase(), ", ").concat((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(aftercore_templateObject48 || (aftercore_templateObject48 = aftercore_taggedTemplateLiteral(["Muscle"]))) ? "100 combat rate 20 max" : "-100 combat rate", ", 250 bonus carnivorous potted plant")
-    }),
-    combat: new CombatStrategy().macro(() => Macro.tryItem(template_string_$item(_templateObject49 || (_templateObject49 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).attack().repeat())
-  }, {
-    name: "Guild Skill Training",
-    ready: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
-    completed: () => //done if you don't find any  skills in your perm plan that are guild-trainable, that you don't have known
-    !targetPerms(false).find(sk => !lib_have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level),
-    do: () => targetPerms(false).filter(sk => sk.class === (0,external_kolmafia_namespaceObject.myClass)() && !lib_have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level).forEach(sk => {
-      (0,external_kolmafia_namespaceObject.print)("Purchasing ".concat(sk, " using skillid=").concat((0,external_kolmafia_namespaceObject.toInt)(sk) % 1000));
-      (0,external_kolmafia_namespaceObject.visitUrl)("guild.php?action=buyskill&skillid=".concat((0,external_kolmafia_namespaceObject.toInt)(sk) % 1000), true);
-    }),
-    limit: {
-      tries: 3
-    } //a few tries, in case your level is too low and you level up over the course of the day
+        if (!property_get("_dailyDungeonMalwareUsed") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(aftercore_templateObject37 || (aftercore_templateObject37 = aftercore_taggedTemplateLiteral(["fat loot token"])))) < 3) {
+          if ((0,external_kolmafia_namespaceObject.availableAmount)(template_string_$item(aftercore_templateObject38 || (aftercore_templateObject38 = aftercore_taggedTemplateLiteral(["BACON"])))) >= 150) (0,external_kolmafia_namespaceObject.buy)($coinmaster(aftercore_templateObject39 || (aftercore_templateObject39 = aftercore_taggedTemplateLiteral(["internet meme shop"]))), 1, template_string_$item(aftercore_templateObject40 || (aftercore_templateObject40 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))));else (0,external_kolmafia_namespaceObject.retrieveItem)(1, template_string_$item(aftercore_templateObject41 || (aftercore_templateObject41 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))));
+        }
 
-  }, {
-    name: "Stock Up on MMJs",
-    ready: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)() && ((0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject50 || (_templateObject50 = aftercore_taggedTemplateLiteral(["Mysticality"]))) || (0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject51 || (_templateObject51 = aftercore_taggedTemplateLiteral(["Accordion Thief"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= 9),
-    completed: () => (0,external_kolmafia_namespaceObject.availableAmount)(template_string_$item(_templateObject52 || (_templateObject52 = aftercore_taggedTemplateLiteral(["magical mystery juice"])))) >= 500,
-    acquire: [{
-      item: template_string_$item(_templateObject53 || (_templateObject53 = aftercore_taggedTemplateLiteral(["magical mystery juice"]))),
-      num: 500
-    }],
-    do: () => false
-  }, {
-    name: "Buy Seal Summoning Supplies",
-    ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject54 || (_templateObject54 = aftercore_taggedTemplateLiteral(["Seal Clubber"]))) && (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
-    completed: () => Math.min.apply(Math, aftercore_toConsumableArray(template_string_$items(_templateObject55 || (_templateObject55 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => (0,external_kolmafia_namespaceObject.availableAmount)(it)))) >= 20,
-    acquire: template_string_$items(_templateObject56 || (_templateObject56 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => ({
-      item: it,
-      num: 500
-    })),
-    do: () => false
-  }, {
-    name: "Train Gnome Skills",
-    ready: () => (0,external_kolmafia_namespaceObject.myMeat)() >= 5000 && (0,external_kolmafia_namespaceObject.gnomadsAvailable)(),
-    completed: () => !targetPerms(false).find(sk => !lib_have(sk) && $skills(_templateObject57 || (_templateObject57 = aftercore_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).includes(sk)),
-    do: () => targetPerms(false).filter(sk => !lib_have(sk) && $skills(_templateObject58 || (_templateObject58 = aftercore_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).includes(sk)).forEach(sk => (0,external_kolmafia_namespaceObject.visitUrl)("gnomes.php?action=trainskill&whichskill=".concat((0,external_kolmafia_namespaceObject.toInt)(sk)), true)),
-    limit: {
-      tries: 5
-    }
-  }, {
-    name: "Garbo",
-    completed: () => !canDiet() && (0,external_kolmafia_namespaceObject.myAdventures)() <= (args.voatest ? 100 : 0) || stooperDrunk(),
-    prepare: () => uneffect($effect(_templateObject59 || (_templateObject59 = aftercore_taggedTemplateLiteral(["Beaten Up"])))),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("".concat(args.garboascend, " ").concat(args.voatest && "-100")),
-    post: () => $effects(_templateObject60 || (_templateObject60 = aftercore_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => lib_have(ef)).forEach(ef => uneffect(ef)),
-    tracking: "Garbo"
-  }, {
-    name: "Garbo VoA",
-    completed: () => !canDiet() && (0,external_kolmafia_namespaceObject.myAdventures)() === 0 || stooperDrunk(),
-    prepare: () => uneffect($effect(_templateObject61 || (_templateObject61 = aftercore_taggedTemplateLiteral(["Beaten Up"])))),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("".concat(args.garboascend)),
-    post: () => $effects(_templateObject62 || (_templateObject62 = aftercore_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => lib_have(ef)).forEach(ef => uneffect(ef)),
-    tracking: "VoA Test"
-  }, {
-    name: "Nightcap",
-    ready: () => lib_have(template_string_$item(_templateObject63 || (_templateObject63 = aftercore_taggedTemplateLiteral(["Drunkula's wineglass"])))),
-    completed: () => stooperDrunk(),
-    do: () => {
-      if (lib_have(template_string_$familiar(_templateObject64 || (_templateObject64 = aftercore_taggedTemplateLiteral(["Stooper"])))) && lib_have(template_string_$item(_templateObject65 || (_templateObject65 = aftercore_taggedTemplateLiteral(["tiny stillsuit"]))))) {
-        (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject66 || (_templateObject66 = aftercore_taggedTemplateLiteral(["Stooper"]))));
-        if ((0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)() && property_get("familiarSweat") >= 300) (0,external_kolmafia_namespaceObject.cliExecute)("drink stillsuit distillate");
+        (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
+        (0,external_kolmafia_namespaceObject.restoreMp)(8);
+      },
+      do: $location(aftercore_templateObject42 || (aftercore_templateObject42 = aftercore_taggedTemplateLiteral(["The Daily Dungeon"]))),
+      choices: {
+        692: 3,
+        //dd door: lockpicks
+        689: 1,
+        //dd final chest : open
+        690: 2,
+        //dd chest 1: boring door
+        691: 2,
+        //dd chest 2: boring door
+        693: 2 //dd trap: skip
+
+      },
+      combat: new CombatStrategy().macro(() => Macro.step("pickpocket").externalIf(!property_get("_dailyDungeonMalwareUsed"), Macro.tryItem(template_string_$item(aftercore_templateObject43 || (aftercore_templateObject43 = aftercore_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(aftercore_templateObject44 || (aftercore_templateObject44 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(aftercore_templateObject45 || (aftercore_templateObject45 = aftercore_taggedTemplateLiteral(["Saucestorm"])))).attack().repeat()),
+      limit: {
+        tries: 15
       }
+    }, {
+      name: "Unlock Guild",
+      ready: () => //ready if you find a skill in your perm plan that is guild-trainable that you don't know, or if you need to buy seal summoning supplies
+      !!targetPerms(false).find(sk => !lib_have(sk) && sk.level > 0) || (0,external_kolmafia_namespaceObject.myClass)() === $class(aftercore_templateObject46 || (aftercore_templateObject46 = aftercore_taggedTemplateLiteral(["Seal Clubber"]))) && Math.min.apply(Math, aftercore_toConsumableArray(template_string_$items(aftercore_templateObject47 || (aftercore_templateObject47 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => (0,external_kolmafia_namespaceObject.availableAmount)(it)))) < 20,
+      completed: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("guild"),
+      choices: {
+        //sleazy back alley
+        108: 4,
+        //craps: skip
+        109: 1,
+        //drunken hobo: fight
+        110: 4,
+        //entertainer: skip
+        112: 2,
+        //harold's hammer: skip
+        21: 2,
+        //under the knife: skip
+        //haunted pantry
+        115: 1,
+        //drunken hobo: fight
+        116: 4,
+        //singing tree: skip
+        117: 1,
+        //knob goblin chef: fight
+        114: 2,
+        //birthday cake: skip
+        //outskirts of cobb's knob
+        113: 2,
+        //knob goblin chef: fight
+        111: 3,
+        //chain gang: fight
+        118: 2 //medicine quest: skip
 
-      (0,external_kolmafia_namespaceObject.cliExecute)("CONSUME NIGHTCAP VALUE ".concat(property_get("valueOfAdventure") - 1000));
-    }
-  }, {
-    name: "Garbo (Drunk)",
-    ready: () => lib_have(template_string_$item(_templateObject67 || (_templateObject67 = aftercore_taggedTemplateLiteral(["Drunkula's wineglass"])))),
-    prepare: () => uneffect($effect(_templateObject68 || (_templateObject68 = aftercore_taggedTemplateLiteral(["Beaten Up"])))),
-    completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() === 0,
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)(args.garboascend),
-    post: () => $effects(_templateObject69 || (_templateObject69 = aftercore_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => lib_have(ef)).forEach(ef => uneffect(ef)),
-    tracking: "Garbo"
-  }, {
-    name: "Turn in FunFunds",
-    ready: () => property_get("_stenchAirportToday") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject70 || (_templateObject70 = aftercore_taggedTemplateLiteral(["FunFunds\u2122"])))) >= 20,
-    completed: () => lib_have(template_string_$item(_templateObject71 || (_templateObject71 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
-    do: () => (0,external_kolmafia_namespaceObject.buy)($coinmaster(_templateObject72 || (_templateObject72 = aftercore_taggedTemplateLiteral(["The Dinsey Company Store"]))), 1, template_string_$item(_templateObject73 || (_templateObject73 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
-    tracking: "Garbo"
-  }, {
-    name: "PvP",
-    completed: () => (0,external_kolmafia_namespaceObject.pvpAttacksLeft)() === 0 || !(0,external_kolmafia_namespaceObject.hippyStoneBroken)(),
-    do: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("unequip");
-      (0,external_kolmafia_namespaceObject.cliExecute)("UberPvPOptimizer");
-      (0,external_kolmafia_namespaceObject.cliExecute)("swagger");
-    }
-  }, {
-    name: "Summon Soap Knife",
-    completed: () => !lib_have(template_string_$skill(_templateObject74 || (_templateObject74 = aftercore_taggedTemplateLiteral(["That's Not a Knife"])))) || property_get("_discoKnife"),
-    prepare: () => (0,external_kolmafia_namespaceObject.putCloset)((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject75 || (_templateObject75 = aftercore_taggedTemplateLiteral(["soap knife"])))), template_string_$item(_templateObject76 || (_templateObject76 = aftercore_taggedTemplateLiteral(["soap knife"])))),
-    do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject77 || (_templateObject77 = aftercore_taggedTemplateLiteral(["That's Not a Knife"])))),
-    post: () => (0,external_kolmafia_namespaceObject.takeCloset)((0,external_kolmafia_namespaceObject.closetAmount)(template_string_$item(_templateObject78 || (_templateObject78 = aftercore_taggedTemplateLiteral(["soap knife"])))), template_string_$item(_templateObject79 || (_templateObject79 = aftercore_taggedTemplateLiteral(["soap knife"]))))
-  }, {
-    name: "Ascend Grey You",
-    completed: () => getCurrentLeg() >= Leg.GreyYou,
-    do: () => {
-      printPermPlan();
-      if (targetPerms(false).find(sk => !lib_have(sk))) throw new Error("Trying to ascend, but don't have the following targeted skills: [".concat(targetPerms(false).filter(sk => !lib_have(sk)).join(", "), "]"));
-      var nClass = targetClass(true);
-      setClass("goorboNextClass", nClass);
-      var skillsToPerm = new Map();
-      targetPerms(false).forEach(sk => skillsToPerm.set(sk, Lifestyle.softcore));
-      var nPerms = targetPerms(true);
-      var moonsign = toMoonSign(lib_have(template_string_$item(_templateObject80 || (_templateObject80 = aftercore_taggedTemplateLiteral(["hewn moon-rune spoon"])))) || !$skills(_templateObject81 || (_templateObject81 = aftercore_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).find(sk => !(sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
-      ) ? args.moonsign : nPerms.includes(template_string_$skill(_templateObject82 || (_templateObject82 = aftercore_taggedTemplateLiteral(["Torso Awareness"])))) || !$skills(_templateObject83 || (_templateObject83 = aftercore_taggedTemplateLiteral(["Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).find(sk => !nPerms.includes(sk) //plan to perm Torso Awareness or all 4 other gnome skills
-      ) ? "wombat" : args.moonsign);
-      ascend($path(_templateObject84 || (_templateObject84 = aftercore_taggedTemplateLiteral(["Grey You"]))), $class(_templateObject85 || (_templateObject85 = aftercore_taggedTemplateLiteral(["Grey Goo"]))), Lifestyle.softcore, moonsign, template_string_$item(_templateObject86 || (_templateObject86 = aftercore_taggedTemplateLiteral(["astral six-pack"]))), args.astralpet === template_string_$item(_templateObject87 || (_templateObject87 = aftercore_taggedTemplateLiteral(["none"]))) ? undefined : args.astralpet, {
-        permSkills: skillsToPerm,
-        neverAbort: false
-      });
-      if ((0,external_kolmafia_namespaceObject.visitUrl)("main.php").includes("somewhat-human-shaped mass of grey goo nanites")) (0,external_kolmafia_namespaceObject.runChoice)(-1);
-      (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
-    }
-  }]
-};
+      },
+      outfit: () => ({
+        familiar: bestFam(),
+        modifier: "".concat(maxBase(), ", ").concat((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(aftercore_templateObject48 || (aftercore_templateObject48 = aftercore_taggedTemplateLiteral(["Muscle"]))) ? "100 combat rate 20 max" : "-100 combat rate", ", 250 bonus carnivorous potted plant")
+      }),
+      combat: new CombatStrategy().macro(() => Macro.step("pickpocket").tryItem(template_string_$item(_templateObject49 || (_templateObject49 = aftercore_taggedTemplateLiteral(["porquoise-handled sixgun"])))).attack().repeat())
+    }, {
+      name: "Guild Skill Training",
+      ready: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
+      completed: () => //done if you don't find any  skills in your perm plan that are guild-trainable, that you don't have known
+      !targetPerms(false).find(sk => !lib_have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level),
+      do: () => targetPerms(false).filter(sk => sk.class === (0,external_kolmafia_namespaceObject.myClass)() && !lib_have(sk) && (0,external_kolmafia_namespaceObject.myLevel)() >= sk.level).forEach(sk => {
+        (0,external_kolmafia_namespaceObject.print)("Purchasing ".concat(sk, " using skillid=").concat((0,external_kolmafia_namespaceObject.toInt)(sk) % 1000));
+        (0,external_kolmafia_namespaceObject.visitUrl)("guild.php?action=buyskill&skillid=".concat((0,external_kolmafia_namespaceObject.toInt)(sk) % 1000), true);
+      }),
+      limit: {
+        tries: 3
+      } //a few tries, in case your level is too low and you level up over the course of the day
+
+    }, {
+      name: "Stock Up on MMJs",
+      ready: () => (0,external_kolmafia_namespaceObject.guildStoreAvailable)() && ((0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject50 || (_templateObject50 = aftercore_taggedTemplateLiteral(["Mysticality"]))) || (0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject51 || (_templateObject51 = aftercore_taggedTemplateLiteral(["Accordion Thief"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= 9),
+      completed: () => (0,external_kolmafia_namespaceObject.availableAmount)(template_string_$item(_templateObject52 || (_templateObject52 = aftercore_taggedTemplateLiteral(["magical mystery juice"])))) >= 500,
+      acquire: [{
+        item: template_string_$item(_templateObject53 || (_templateObject53 = aftercore_taggedTemplateLiteral(["magical mystery juice"]))),
+        num: 500
+      }],
+      do: () => false
+    }, {
+      name: "Buy Seal Summoning Supplies",
+      ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(_templateObject54 || (_templateObject54 = aftercore_taggedTemplateLiteral(["Seal Clubber"]))) && (0,external_kolmafia_namespaceObject.guildStoreAvailable)(),
+      completed: () => Math.min.apply(Math, aftercore_toConsumableArray(template_string_$items(_templateObject55 || (_templateObject55 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => (0,external_kolmafia_namespaceObject.availableAmount)(it)))) >= 20,
+      acquire: template_string_$items(_templateObject56 || (_templateObject56 = aftercore_taggedTemplateLiteral(["figurine of a wretched-looking seal, seal-blubber candle"]))).map(it => ({
+        item: it,
+        num: 500
+      })),
+      do: () => false
+    }, {
+      name: "Train Gnome Skills",
+      ready: () => (0,external_kolmafia_namespaceObject.myMeat)() >= 5000 && (0,external_kolmafia_namespaceObject.gnomadsAvailable)(),
+      completed: () => !targetPerms(false).find(sk => !lib_have(sk) && $skills(_templateObject57 || (_templateObject57 = aftercore_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).includes(sk)),
+      do: () => targetPerms(false).filter(sk => !lib_have(sk) && $skills(_templateObject58 || (_templateObject58 = aftercore_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).includes(sk)).forEach(sk => (0,external_kolmafia_namespaceObject.visitUrl)("gnomes.php?action=trainskill&whichskill=".concat((0,external_kolmafia_namespaceObject.toInt)(sk)), true)),
+      limit: {
+        tries: 5
+      }
+    }, {
+      name: "Garbo",
+      completed: () => !canDiet() && (0,external_kolmafia_namespaceObject.myAdventures)() <= (args.voatest ? 100 : 0) || stooperDrunk(),
+      prepare: () => uneffect($effect(_templateObject59 || (_templateObject59 = aftercore_taggedTemplateLiteral(["Beaten Up"])))),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("".concat(args.garboascend, " ").concat(args.voatest && "-100")),
+      post: () => $effects(_templateObject60 || (_templateObject60 = aftercore_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => lib_have(ef)).forEach(ef => uneffect(ef)),
+      tracking: "Garbo"
+    }, {
+      name: "Garbo VoA",
+      completed: () => !canDiet() && (0,external_kolmafia_namespaceObject.myAdventures)() === 0 || stooperDrunk(),
+      prepare: () => uneffect($effect(_templateObject61 || (_templateObject61 = aftercore_taggedTemplateLiteral(["Beaten Up"])))),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("".concat(args.garboascend)),
+      post: () => $effects(_templateObject62 || (_templateObject62 = aftercore_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => lib_have(ef)).forEach(ef => uneffect(ef)),
+      tracking: "VoA Test"
+    }, {
+      name: "Stooper",
+      ready: () => (0,external_kolmafia_namespaceObject.myInebriety)() === (0,external_kolmafia_namespaceObject.inebrietyLimit)() && lib_have(template_string_$item(_templateObject63 || (_templateObject63 = aftercore_taggedTemplateLiteral(["tiny stillsuit"])))) && property_get("familiarSweat") >= 300,
+      completed: () => !lib_have(template_string_$familiar(_templateObject64 || (_templateObject64 = aftercore_taggedTemplateLiteral(["Stooper"])))) || stooperDrunk(),
+      do: () => {
+        (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject65 || (_templateObject65 = aftercore_taggedTemplateLiteral(["Stooper"]))));
+        (0,external_kolmafia_namespaceObject.cliExecute)("drink stillsuit distillate");
+      }
+    }, {
+      name: "Nightcap",
+      ready: () => lib_have(template_string_$item(_templateObject66 || (_templateObject66 = aftercore_taggedTemplateLiteral(["Drunkula's wineglass"])))),
+      completed: () => totallyDrunk(),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("CONSUME NIGHTCAP VALUE ".concat(property_get("valueOfAdventure") - 1000))
+    }, {
+      name: "Garbo (Drunk)",
+      ready: () => lib_have(template_string_$item(_templateObject67 || (_templateObject67 = aftercore_taggedTemplateLiteral(["Drunkula's wineglass"])))),
+      prepare: () => uneffect($effect(_templateObject68 || (_templateObject68 = aftercore_taggedTemplateLiteral(["Beaten Up"])))),
+      completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() === 0,
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)(args.garboascend),
+      post: () => $effects(_templateObject69 || (_templateObject69 = aftercore_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => lib_have(ef)).forEach(ef => uneffect(ef)),
+      tracking: "Garbo"
+    }, {
+      name: "Turn in FunFunds",
+      ready: () => property_get("_stenchAirportToday") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject70 || (_templateObject70 = aftercore_taggedTemplateLiteral(["FunFunds\u2122"])))) >= 20,
+      completed: () => lib_have(template_string_$item(_templateObject71 || (_templateObject71 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
+      do: () => (0,external_kolmafia_namespaceObject.buy)($coinmaster(_templateObject72 || (_templateObject72 = aftercore_taggedTemplateLiteral(["The Dinsey Company Store"]))), 1, template_string_$item(_templateObject73 || (_templateObject73 = aftercore_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
+      tracking: "Garbo"
+    }, {
+      name: "PvP",
+      completed: () => (0,external_kolmafia_namespaceObject.pvpAttacksLeft)() === 0 || !(0,external_kolmafia_namespaceObject.hippyStoneBroken)(),
+      do: () => {
+        (0,external_kolmafia_namespaceObject.cliExecute)("unequip");
+        (0,external_kolmafia_namespaceObject.cliExecute)("UberPvPOptimizer");
+        (0,external_kolmafia_namespaceObject.cliExecute)("swagger");
+      }
+    }, {
+      name: "Summon Soap Knife",
+      completed: () => !lib_have(template_string_$skill(_templateObject74 || (_templateObject74 = aftercore_taggedTemplateLiteral(["That's Not a Knife"])))) || property_get("_discoKnife"),
+      prepare: () => (0,external_kolmafia_namespaceObject.putCloset)((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject75 || (_templateObject75 = aftercore_taggedTemplateLiteral(["soap knife"])))), template_string_$item(_templateObject76 || (_templateObject76 = aftercore_taggedTemplateLiteral(["soap knife"])))),
+      do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject77 || (_templateObject77 = aftercore_taggedTemplateLiteral(["That's Not a Knife"])))),
+      post: () => (0,external_kolmafia_namespaceObject.takeCloset)((0,external_kolmafia_namespaceObject.closetAmount)(template_string_$item(_templateObject78 || (_templateObject78 = aftercore_taggedTemplateLiteral(["soap knife"])))), template_string_$item(_templateObject79 || (_templateObject79 = aftercore_taggedTemplateLiteral(["soap knife"]))))
+    }, {
+      name: "Ascend Grey You",
+      completed: () => getCurrentLeg() >= Leg.GreyYou,
+      do: () => {
+        printPermPlan();
+        if (targetPerms(false).find(sk => !lib_have(sk))) throw new Error("Trying to ascend, but don't have the following targeted skills: [".concat(targetPerms(false).filter(sk => !lib_have(sk)).join(", "), "]"));
+        var nClass = targetClass(true);
+        setClass("goorboNextClass", nClass);
+        var skillsToPerm = new Map();
+        targetPerms(false).forEach(sk => skillsToPerm.set(sk, Lifestyle.softcore));
+        var nPerms = targetPerms(true);
+        var moonsign = toMoonSign(lib_have(template_string_$item(_templateObject80 || (_templateObject80 = aftercore_taggedTemplateLiteral(["hewn moon-rune spoon"])))) || !$skills(_templateObject81 || (_templateObject81 = aftercore_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).find(sk => !(sk.name in (0,external_kolmafia_namespaceObject.getPermedSkills)()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
+        ) ? args.moonsign : nPerms.includes(template_string_$skill(_templateObject82 || (_templateObject82 = aftercore_taggedTemplateLiteral(["Torso Awareness"])))) || !$skills(_templateObject83 || (_templateObject83 = aftercore_taggedTemplateLiteral(["Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"]))).find(sk => !nPerms.includes(sk) //plan to perm Torso Awareness or all 4 other gnome skills
+        ) ? "wombat" : args.moonsign);
+        ascend($path(_templateObject84 || (_templateObject84 = aftercore_taggedTemplateLiteral(["Grey You"]))), $class(_templateObject85 || (_templateObject85 = aftercore_taggedTemplateLiteral(["Grey Goo"]))), Lifestyle.softcore, moonsign, template_string_$item(_templateObject86 || (_templateObject86 = aftercore_taggedTemplateLiteral(["astral six-pack"]))), args.astralpet === template_string_$item(_templateObject87 || (_templateObject87 = aftercore_taggedTemplateLiteral(["none"]))) ? undefined : args.astralpet, {
+          permSkills: skillsToPerm,
+          neverAbort: false
+        });
+        if ((0,external_kolmafia_namespaceObject.visitUrl)("main.php").includes("somewhat-human-shaped mass of grey goo nanites")) (0,external_kolmafia_namespaceObject.runChoice)(-1);
+        (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
+      }
+    }]
+  };
+}
 ;// CONCATENATED MODULE: ./src/tasks/greyyou.ts
-var greyyou_templateObject, greyyou_templateObject2, greyyou_templateObject3, greyyou_templateObject4, greyyou_templateObject5, greyyou_templateObject6, greyyou_templateObject7, greyyou_templateObject8, greyyou_templateObject9, greyyou_templateObject10, greyyou_templateObject11, greyyou_templateObject12, greyyou_templateObject13, greyyou_templateObject14, greyyou_templateObject15, greyyou_templateObject16, greyyou_templateObject17, greyyou_templateObject18, greyyou_templateObject19, greyyou_templateObject20, greyyou_templateObject21, greyyou_templateObject22, greyyou_templateObject23, greyyou_templateObject24, greyyou_templateObject25, greyyou_templateObject26, greyyou_templateObject27, greyyou_templateObject28, greyyou_templateObject29, greyyou_templateObject30, greyyou_templateObject31, greyyou_templateObject32, greyyou_templateObject33, greyyou_templateObject34, greyyou_templateObject35, greyyou_templateObject36, greyyou_templateObject37, greyyou_templateObject38, greyyou_templateObject39, greyyou_templateObject40, greyyou_templateObject41, greyyou_templateObject42, greyyou_templateObject43, greyyou_templateObject44, greyyou_templateObject45, greyyou_templateObject46, greyyou_templateObject47, greyyou_templateObject48, greyyou_templateObject49, greyyou_templateObject50, greyyou_templateObject51, greyyou_templateObject52, greyyou_templateObject53, greyyou_templateObject54, greyyou_templateObject55, greyyou_templateObject56, greyyou_templateObject57, greyyou_templateObject58, greyyou_templateObject59, greyyou_templateObject60, greyyou_templateObject61, greyyou_templateObject62, greyyou_templateObject63, greyyou_templateObject64, greyyou_templateObject65, greyyou_templateObject66, greyyou_templateObject67, greyyou_templateObject68, greyyou_templateObject69, greyyou_templateObject70, greyyou_templateObject71, greyyou_templateObject72, greyyou_templateObject73, greyyou_templateObject74, greyyou_templateObject75, greyyou_templateObject76, greyyou_templateObject77, greyyou_templateObject78, greyyou_templateObject79, greyyou_templateObject80, greyyou_templateObject81, greyyou_templateObject82, greyyou_templateObject83, greyyou_templateObject84, greyyou_templateObject85, greyyou_templateObject86, greyyou_templateObject87, _templateObject88, _templateObject89, _templateObject90, _templateObject91, _templateObject92, _templateObject93, _templateObject94, _templateObject95, _templateObject96, _templateObject97, _templateObject98, _templateObject99, _templateObject100, _templateObject101, _templateObject102, _templateObject103, _templateObject104, _templateObject105, _templateObject106, _templateObject107, _templateObject108, _templateObject109, _templateObject110, _templateObject111, _templateObject112, _templateObject113, _templateObject114, _templateObject115, _templateObject116, _templateObject117, _templateObject118, _templateObject119, _templateObject120, _templateObject121, _templateObject122, _templateObject123, _templateObject124, _templateObject125, _templateObject126, _templateObject127, _templateObject128, _templateObject129, _templateObject130, _templateObject131, _templateObject132, _templateObject133, _templateObject134, _templateObject135, _templateObject136, _templateObject137, _templateObject138, _templateObject139, _templateObject140, _templateObject141, _templateObject142, _templateObject143, _templateObject144, _templateObject145, _templateObject146, _templateObject147, _templateObject148, _templateObject149, _templateObject150, _templateObject151, _templateObject152, _templateObject153, _templateObject154, _templateObject155, _templateObject156, _templateObject157, _templateObject158, _templateObject159, _templateObject160, _templateObject161, _templateObject162, _templateObject163, _templateObject164, _templateObject165, _templateObject166, _templateObject167, _templateObject168, _templateObject169, _templateObject170, _templateObject171, _templateObject172, _templateObject173, _templateObject174, _templateObject175, _templateObject176, _templateObject177, _templateObject178, _templateObject179, _templateObject180, _templateObject181, _templateObject182, _templateObject183, _templateObject184, _templateObject185, _templateObject186, _templateObject187, _templateObject188, _templateObject189, _templateObject190, _templateObject191, _templateObject192, _templateObject193, _templateObject194, _templateObject195, _templateObject196, _templateObject197, _templateObject198, _templateObject199, _templateObject200, _templateObject201, _templateObject202, _templateObject203, _templateObject204, _templateObject205, _templateObject206, _templateObject207, _templateObject208, _templateObject209, _templateObject210, _templateObject211, _templateObject212, _templateObject213, _templateObject214, _templateObject215, _templateObject216, _templateObject217, _templateObject218, _templateObject219, _templateObject220, _templateObject221, _templateObject222, _templateObject223, _templateObject224, _templateObject225, _templateObject226, _templateObject227, _templateObject228, _templateObject229, _templateObject230, _templateObject231, _templateObject232, _templateObject233, _templateObject234, _templateObject235, _templateObject236, _templateObject237, _templateObject238, _templateObject239, _templateObject240, _templateObject241, _templateObject242, _templateObject243, _templateObject244, _templateObject245, _templateObject246, _templateObject247, _templateObject248, _templateObject249, _templateObject250, _templateObject251, _templateObject252;
+var greyyou_templateObject, greyyou_templateObject2, greyyou_templateObject3, greyyou_templateObject4, greyyou_templateObject5, greyyou_templateObject6, greyyou_templateObject7, greyyou_templateObject8, greyyou_templateObject9, greyyou_templateObject10, greyyou_templateObject11, greyyou_templateObject12, greyyou_templateObject13, greyyou_templateObject14, greyyou_templateObject15, greyyou_templateObject16, greyyou_templateObject17, greyyou_templateObject18, greyyou_templateObject19, greyyou_templateObject20, greyyou_templateObject21, greyyou_templateObject22, greyyou_templateObject23, greyyou_templateObject24, greyyou_templateObject25, greyyou_templateObject26, greyyou_templateObject27, greyyou_templateObject28, greyyou_templateObject29, greyyou_templateObject30, greyyou_templateObject31, greyyou_templateObject32, greyyou_templateObject33, greyyou_templateObject34, greyyou_templateObject35, greyyou_templateObject36, greyyou_templateObject37, greyyou_templateObject38, greyyou_templateObject39, greyyou_templateObject40, greyyou_templateObject41, greyyou_templateObject42, greyyou_templateObject43, greyyou_templateObject44, greyyou_templateObject45, greyyou_templateObject46, greyyou_templateObject47, greyyou_templateObject48, greyyou_templateObject49, greyyou_templateObject50, greyyou_templateObject51, greyyou_templateObject52, greyyou_templateObject53, greyyou_templateObject54, greyyou_templateObject55, greyyou_templateObject56, greyyou_templateObject57, greyyou_templateObject58, greyyou_templateObject59, greyyou_templateObject60, greyyou_templateObject61, greyyou_templateObject62, greyyou_templateObject63, greyyou_templateObject64, greyyou_templateObject65, greyyou_templateObject66, greyyou_templateObject67, greyyou_templateObject68, greyyou_templateObject69, greyyou_templateObject70, greyyou_templateObject71, greyyou_templateObject72, greyyou_templateObject73, greyyou_templateObject74, greyyou_templateObject75, greyyou_templateObject76, greyyou_templateObject77, greyyou_templateObject78, greyyou_templateObject79, greyyou_templateObject80, greyyou_templateObject81, greyyou_templateObject82, greyyou_templateObject83, greyyou_templateObject84, greyyou_templateObject85, greyyou_templateObject86, greyyou_templateObject87, _templateObject88, _templateObject89, _templateObject90, _templateObject91, _templateObject92, _templateObject93, _templateObject94, _templateObject95, _templateObject96, _templateObject97, _templateObject98, _templateObject99, _templateObject100, _templateObject101, _templateObject102, _templateObject103, _templateObject104, _templateObject105, _templateObject106, _templateObject107, _templateObject108, _templateObject109, _templateObject110, _templateObject111, _templateObject112, _templateObject113, _templateObject114, _templateObject115, _templateObject116, _templateObject117, _templateObject118, _templateObject119, _templateObject120, _templateObject121, _templateObject122, _templateObject123, _templateObject124, _templateObject125, _templateObject126, _templateObject127, _templateObject128, _templateObject129, _templateObject130, _templateObject131, _templateObject132, _templateObject133, _templateObject134, _templateObject135, _templateObject136, _templateObject137, _templateObject138, _templateObject139, _templateObject140, _templateObject141, _templateObject142, _templateObject143, _templateObject144, _templateObject145, _templateObject146, _templateObject147, _templateObject148, _templateObject149, _templateObject150, _templateObject151, _templateObject152, _templateObject153, _templateObject154, _templateObject155, _templateObject156, _templateObject157, _templateObject158, _templateObject159, _templateObject160, _templateObject161, _templateObject162, _templateObject163, _templateObject164, _templateObject165, _templateObject166, _templateObject167, _templateObject168, _templateObject169, _templateObject170, _templateObject171, _templateObject172, _templateObject173, _templateObject174, _templateObject175, _templateObject176, _templateObject177, _templateObject178, _templateObject179, _templateObject180, _templateObject181, _templateObject182, _templateObject183, _templateObject184, _templateObject185, _templateObject186, _templateObject187, _templateObject188, _templateObject189, _templateObject190, _templateObject191, _templateObject192, _templateObject193, _templateObject194, _templateObject195, _templateObject196, _templateObject197, _templateObject198, _templateObject199, _templateObject200, _templateObject201, _templateObject202, _templateObject203, _templateObject204, _templateObject205, _templateObject206, _templateObject207, _templateObject208, _templateObject209, _templateObject210, _templateObject211, _templateObject212, _templateObject213, _templateObject214, _templateObject215, _templateObject216, _templateObject217, _templateObject218, _templateObject219, _templateObject220, _templateObject221, _templateObject222, _templateObject223, _templateObject224, _templateObject225, _templateObject226, _templateObject227, _templateObject228, _templateObject229, _templateObject230, _templateObject231, _templateObject232, _templateObject233, _templateObject234, _templateObject235, _templateObject236, _templateObject237, _templateObject238, _templateObject239, _templateObject240, _templateObject241, _templateObject242, _templateObject243, _templateObject244, _templateObject245, _templateObject246, _templateObject247, _templateObject248, _templateObject249, _templateObject250, _templateObject251, _templateObject252, _templateObject253, _templateObject254, _templateObject255;
 
 function greyyou_toConsumableArray(arr) { return greyyou_arrayWithoutHoles(arr) || greyyou_iterableToArray(arr) || greyyou_unsupportedIterableToArray(arr) || greyyou_nonIterableSpread(); }
 
@@ -10398,589 +10442,610 @@ function greyyou_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings
 
 var myPulls = template_string_$items(greyyou_templateObject || (greyyou_templateObject = greyyou_taggedTemplateLiteral(["lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring, Asdon Martin keyfob"])));
 var levelingTurns = 30;
-var GyouQuest = {
-  name: "Grey You",
-  completed: () => getCurrentLeg() !== Leg.GreyYou,
-  tasks: [{
-    name: "Farming Pulls",
-    completed: () => myPulls.reduce((b, it) => b && (lib_have(it) || (0,external_kolmafia_namespaceObject.storageAmount)(it) === 0), true),
-    //for each, you either pulled it, or you don't own it
-    do: () => myPulls.forEach(it => {
-      if ((0,external_kolmafia_namespaceObject.storageAmount)(it) !== 0 && !lib_have(it)) (0,external_kolmafia_namespaceObject.cliExecute)("pull ".concat(it));
-    })
-  }, {
-    name: "LGR Seed",
-    completed: () => property_get("_stenchAirportToday") || property_get("stenchAirportAlways"),
-    do: () => {
-      if (!lib_have(template_string_$item(greyyou_templateObject2 || (greyyou_templateObject2 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))))) {
-        if ((0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(greyyou_templateObject3 || (greyyou_templateObject3 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))) === 0) (0,external_kolmafia_namespaceObject.buyUsingStorage)(template_string_$item(greyyou_templateObject4 || (greyyou_templateObject4 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))));
-        (0,external_kolmafia_namespaceObject.cliExecute)("pull ".concat(template_string_$item(greyyou_templateObject5 || (greyyou_templateObject5 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))));
+var greyyou_fireworksPrepped = false;
+function GyouQuest() {
+  return {
+    name: "Grey You",
+    completed: () => getCurrentLeg() !== Leg.GreyYou,
+    tasks: [{
+      name: "Whitelist VIP Clan",
+      completed: () => !args.clan || (0,external_kolmafia_namespaceObject.getClanName)().toLowerCase() === args.clan.toLowerCase(),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("/whitelist ".concat(args.clan))
+    }, {
+      name: "Prep Fireworks Shop",
+      completed: () => !lib_have(template_string_$item(greyyou_templateObject2 || (greyyou_templateObject2 = greyyou_taggedTemplateLiteral(["Clan VIP Lounge key"])))) || greyyou_fireworksPrepped,
+      do: () => {
+        (0,external_kolmafia_namespaceObject.visitUrl)("clan_viplounge.php?action=fwshop&whichfloor=2");
+        greyyou_fireworksPrepped = true;
       }
+    }, {
+      name: "Farming Pulls",
+      completed: () => myPulls.reduce((b, it) => b && (lib_have(it) || (0,external_kolmafia_namespaceObject.storageAmount)(it) === 0), true),
+      //for each, you either pulled it, or you don't own it
+      do: () => myPulls.forEach(it => {
+        if ((0,external_kolmafia_namespaceObject.storageAmount)(it) !== 0 && !lib_have(it)) (0,external_kolmafia_namespaceObject.cliExecute)("pull ".concat(it));
+      })
+    }, {
+      name: "LGR Seed",
+      completed: () => property_get("_stenchAirportToday") || property_get("stenchAirportAlways"),
+      do: () => {
+        if (!lib_have(template_string_$item(greyyou_templateObject3 || (greyyou_templateObject3 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))))) {
+          if ((0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(greyyou_templateObject4 || (greyyou_templateObject4 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))) === 0) (0,external_kolmafia_namespaceObject.buyUsingStorage)(template_string_$item(greyyou_templateObject5 || (greyyou_templateObject5 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))));
+          (0,external_kolmafia_namespaceObject.cliExecute)("pull ".concat(template_string_$item(greyyou_templateObject6 || (greyyou_templateObject6 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))));
+        }
 
-      (0,external_kolmafia_namespaceObject.use)(template_string_$item(greyyou_templateObject6 || (greyyou_templateObject6 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))));
-    }
-  }, {
-    name: "Break Stone",
-    completed: () => (0,external_kolmafia_namespaceObject.hippyStoneBroken)() || !args.pvp,
-    do: () => {
-      (0,external_kolmafia_namespaceObject.visitUrl)("peevpee.php?action=smashstone&pwd&confirm=on", true);
-      (0,external_kolmafia_namespaceObject.visitUrl)("peevpee.php?place=fight");
-    }
-  }, {
-    name: "Stillsuit Prep",
-    completed: () => (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(greyyou_templateObject7 || (greyyou_templateObject7 = greyyou_taggedTemplateLiteral(["tiny stillsuit"])))) === 0,
-    do: () => (0,external_kolmafia_namespaceObject.equip)(template_string_$item(greyyou_templateObject8 || (greyyou_templateObject8 = greyyou_taggedTemplateLiteral(["tiny stillsuit"]))), property_get("stillsuitFamiliar", $familiars(greyyou_templateObject9 || (greyyou_templateObject9 = greyyou_taggedTemplateLiteral(["Gelatinous Cubeling, Levitating Potato, Mosquito"]))).find(fam => lib_have(fam)) || template_string_$familiar(greyyou_templateObject10 || (greyyou_templateObject10 = greyyou_taggedTemplateLiteral(["none"])))))
-  }, {
-    name: "Run",
-    completed: () => step("questL13Final") !== -1 && property_get("gooseReprocessed").split(",").length >= 69,
-    //There are 73 total targets
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)(args.gyouscript),
-    tracking: "Run"
-  }, {
-    name: "Train Gnome Skills",
-    ready: () => (0,external_kolmafia_namespaceObject.myMeat)() >= 5000 && (0,external_kolmafia_namespaceObject.gnomadsAvailable)(),
-    completed: () => lib_have(template_string_$skill(greyyou_templateObject11 || (greyyou_templateObject11 = greyyou_taggedTemplateLiteral(["Torso Awareness"])))),
-    do: () => (0,external_kolmafia_namespaceObject.visitUrl)("gnomes.php?action=trainskill&whichskill=".concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(greyyou_templateObject12 || (greyyou_templateObject12 = greyyou_taggedTemplateLiteral(["Torso Awareness"]))))))
-  }, {
-    name: "June Cleaver",
-    completed: () => !lib_have(template_string_$item(greyyou_templateObject13 || (greyyou_templateObject13 = greyyou_taggedTemplateLiteral(["June cleaver"])))) || property_get("_juneCleaverFightsLeft") > 0,
-    choices: {
-      793: 4,
-      //The Shore -> Gift Shop
-      1467: 3,
-      //Poetic Justice
-      1468: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
-      //Aunts not Ants
-      1469: 3,
-      //Beware of Aligator
-      1470: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
-      //Teacher's Pet
-      1471: 1,
-      //Lost and Found
-      1472: () => property_get("_juneCleaverSkips") < 5 ? 4 : 1,
-      //Summer Days
-      1473: () => property_get("_juneCleaverSkips") < 5 ? 4 : 1,
-      //Bath Time
-      1474: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
-      //Delicious Sprouts
-      1475: 1 //Hypnotic Master
-
-    },
-    do: $location(greyyou_templateObject14 || (greyyou_templateObject14 = greyyou_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))),
-    post: () => {
-      if ((0,external_kolmafia_namespaceObject.handlingChoice)()) (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
-
-      if (lib_have($effect(greyyou_templateObject15 || (greyyou_templateObject15 = greyyou_taggedTemplateLiteral(["Beaten Up"]))))) {
-        if (lib_have(template_string_$skill(greyyou_templateObject16 || (greyyou_templateObject16 = greyyou_taggedTemplateLiteral(["Tongue of the Walrus"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(greyyou_templateObject17 || (greyyou_templateObject17 = greyyou_taggedTemplateLiteral(["Tongue of the Walrus"]))));else if (property_get("_hotTubSoaks") < 5) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");else if (property_get("timesRested") < (0,external_kolmafia_namespaceObject.totalFreeRests)()) (0,external_kolmafia_namespaceObject.cliExecute)("campground rest");else if (!(0,external_kolmafia_namespaceObject.use)(template_string_$items(greyyou_templateObject18 || (greyyou_templateObject18 = greyyou_taggedTemplateLiteral(["tiny house, Space Tours Tripple"]))).find(it => lib_have(it)) || template_string_$item(greyyou_templateObject19 || (greyyou_templateObject19 = greyyou_taggedTemplateLiteral(["none"]))))) uneffect($effect(greyyou_templateObject20 || (greyyou_templateObject20 = greyyou_taggedTemplateLiteral(["Beaten Up"]))));
+        (0,external_kolmafia_namespaceObject.use)(template_string_$item(greyyou_templateObject7 || (greyyou_templateObject7 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"]))));
       }
-    },
-    outfit: () => ({
-      equip: template_string_$items(greyyou_templateObject21 || (greyyou_templateObject21 = greyyou_taggedTemplateLiteral(["June cleaver"])))
-    }),
-    limit: undefined
-  }, {
-    name: "In-Run Farm Initial",
-    completed: () => (0,external_kolmafia_namespaceObject.myTurncount)() >= 1000,
-    do: $location(greyyou_templateObject22 || (greyyou_templateObject22 = greyyou_taggedTemplateLiteral(["Barf Mountain"]))),
-    prepare: () => {
-      if (lib_have(template_string_$item(greyyou_templateObject23 || (greyyou_templateObject23 = greyyou_taggedTemplateLiteral(["How to Avoid Scams"]))))) ensureEffect($effect(greyyou_templateObject24 || (greyyou_templateObject24 = greyyou_taggedTemplateLiteral(["How to Scam Tourists"]))));
-      (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(greyyou_templateObject25 || (greyyou_templateObject25 = greyyou_taggedTemplateLiteral(["seal tooth"]))));
-      if (lib_have(template_string_$item(greyyou_templateObject26 || (greyyou_templateObject26 = greyyou_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"])))) && property_get("boomBoxSong") !== "Total Eclipse of Your Meat") (0,external_kolmafia_namespaceObject.cliExecute)("boombox meat");
-      (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
-      (0,external_kolmafia_namespaceObject.restoreMp)(20);
-    },
-    outfit: {
-      familiar: $familiars(greyyou_templateObject27 || (greyyou_templateObject27 = greyyou_taggedTemplateLiteral(["Space Jellyfish, Robortender, Hobo Monkey, Leprechaun"]))).find(f => lib_have(f)),
-      modifier: "".concat(maxBase(), ", 2.5 meat, 0.6 items")
-    },
-    combat: new CombatStrategy().macro(Macro.trySkill(template_string_$skill(greyyou_templateObject28 || (greyyou_templateObject28 = greyyou_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(greyyou_templateObject29 || (greyyou_templateObject29 = greyyou_taggedTemplateLiteral(["Sing Along"])))).trySkill(template_string_$skill(greyyou_templateObject30 || (greyyou_templateObject30 = greyyou_taggedTemplateLiteral(["Extract Jelly"])))).tryItem(template_string_$item(greyyou_templateObject31 || (greyyou_templateObject31 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).tryItem(template_string_$item(greyyou_templateObject32 || (greyyou_templateObject32 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject33 || (greyyou_templateObject33 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject34 || (greyyou_templateObject34 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject35 || (greyyou_templateObject35 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject36 || (greyyou_templateObject36 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject37 || (greyyou_templateObject37 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject38 || (greyyou_templateObject38 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject39 || (greyyou_templateObject39 = greyyou_taggedTemplateLiteral(["seal tooth"])))).trySkill(template_string_$skill(greyyou_templateObject40 || (greyyou_templateObject40 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat()),
-    limit: {
-      tries: 550
-    },
-    tracking: "GooFarming"
-  }, {
-    name: "Pull All",
-    completed: () => (0,external_kolmafia_namespaceObject.myStorageMeat)() === 0 && (0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(greyyou_templateObject41 || (greyyou_templateObject41 = greyyou_taggedTemplateLiteral(["old sweatpants"])))) === 0,
-    // arbitrary item
-    do: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("pull all");
-      (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
-    },
-    tracking: "Run"
-  }, {
-    name: "Tower",
-    completed: () => step("questL13Final") > 11,
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("loopgyou delaytower chargegoose=20"),
-    tracking: "Run"
-  }, {
-    name: "Daily Dungeon",
-    ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(greyyou_templateObject42 || (greyyou_templateObject42 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myAdventures)() > 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(greyyou_templateObject43 || (greyyou_templateObject43 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
-    completed: () => property_get("dailyDungeonDone"),
-    acquire: template_string_$items(greyyou_templateObject44 || (greyyou_templateObject44 = greyyou_taggedTemplateLiteral(["eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors"]))).map(it => ({
-      item: it,
-      price: 1000
-    })),
-    outfit: () => {
-      return greyyou_objectSpread(greyyou_objectSpread({
-        familiar: bestFam()
-      }, property_get("_lastDailyDungeonRoom") % 5 === 4 ? {
-        acc1: template_string_$item(greyyou_templateObject45 || (greyyou_templateObject45 = greyyou_taggedTemplateLiteral(["ring of Detect Boring Doors"])))
-      } : {}), {}, {
-        modifier: "".concat(maxBase(), ", 250 bonus carnivorous potted plant, 100 familiar experience")
-      });
-    },
-    prepare: () => {
-      if (lib_have(template_string_$item(greyyou_templateObject46 || (greyyou_templateObject46 = greyyou_taggedTemplateLiteral(["daily dungeon malware"])))) && property_get("_dailyDungeonMalwareUsed")) (0,external_kolmafia_namespaceObject.putCloset)(template_string_$item(greyyou_templateObject47 || (greyyou_templateObject47 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))));
-
-      if (!property_get("_dailyDungeonMalwareUsed") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(greyyou_templateObject48 || (greyyou_templateObject48 = greyyou_taggedTemplateLiteral(["fat loot token"])))) < 3) {
-        if ((0,external_kolmafia_namespaceObject.availableAmount)(template_string_$item(greyyou_templateObject49 || (greyyou_templateObject49 = greyyou_taggedTemplateLiteral(["BACON"])))) >= 150) (0,external_kolmafia_namespaceObject.buy)($coinmaster(greyyou_templateObject50 || (greyyou_templateObject50 = greyyou_taggedTemplateLiteral(["internet meme shop"]))), 1, template_string_$item(greyyou_templateObject51 || (greyyou_templateObject51 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))));else (0,external_kolmafia_namespaceObject.retrieveItem)(1, template_string_$item(greyyou_templateObject52 || (greyyou_templateObject52 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))));
+    }, {
+      name: "Break Stone",
+      completed: () => (0,external_kolmafia_namespaceObject.hippyStoneBroken)() || !args.pvp,
+      do: () => {
+        (0,external_kolmafia_namespaceObject.visitUrl)("peevpee.php?action=smashstone&pwd&confirm=on", true);
+        (0,external_kolmafia_namespaceObject.visitUrl)("peevpee.php?place=fight");
       }
+    }, {
+      name: "Stillsuit Prep",
+      completed: () => (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(greyyou_templateObject8 || (greyyou_templateObject8 = greyyou_taggedTemplateLiteral(["tiny stillsuit"])))) === 0,
+      do: () => (0,external_kolmafia_namespaceObject.equip)(template_string_$item(greyyou_templateObject9 || (greyyou_templateObject9 = greyyou_taggedTemplateLiteral(["tiny stillsuit"]))), property_get("stillsuitFamiliar", $familiars(greyyou_templateObject10 || (greyyou_templateObject10 = greyyou_taggedTemplateLiteral(["Gelatinous Cubeling, Levitating Potato, Mosquito"]))).find(fam => lib_have(fam)) || template_string_$familiar(greyyou_templateObject11 || (greyyou_templateObject11 = greyyou_taggedTemplateLiteral(["none"])))))
+    }, {
+      name: "Run",
+      completed: () => step("questL13Final") !== -1 && property_get("gooseReprocessed").split(",").length >= 69,
+      //There are 73 total targets
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)(args.gyouscript),
+      tracking: "Run"
+    }, {
+      name: "Train Gnome Skills",
+      ready: () => (0,external_kolmafia_namespaceObject.myMeat)() >= 5000 && (0,external_kolmafia_namespaceObject.gnomadsAvailable)(),
+      completed: () => lib_have(template_string_$skill(greyyou_templateObject12 || (greyyou_templateObject12 = greyyou_taggedTemplateLiteral(["Torso Awareness"])))),
+      do: () => (0,external_kolmafia_namespaceObject.visitUrl)("gnomes.php?action=trainskill&whichskill=".concat((0,external_kolmafia_namespaceObject.toInt)(template_string_$skill(greyyou_templateObject13 || (greyyou_templateObject13 = greyyou_taggedTemplateLiteral(["Torso Awareness"]))))))
+    }, {
+      name: "June Cleaver",
+      completed: () => !lib_have(template_string_$item(greyyou_templateObject14 || (greyyou_templateObject14 = greyyou_taggedTemplateLiteral(["June cleaver"])))) || property_get("_juneCleaverFightsLeft") > 0,
+      choices: {
+        793: 4,
+        //The Shore -> Gift Shop
+        1467: 3,
+        //Poetic Justice
+        1468: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
+        //Aunts not Ants
+        1469: 3,
+        //Beware of Aligator
+        1470: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
+        //Teacher's Pet
+        1471: 1,
+        //Lost and Found
+        1472: () => property_get("_juneCleaverSkips") < 5 ? 4 : 1,
+        //Summer Days
+        1473: () => property_get("_juneCleaverSkips") < 5 ? 4 : 1,
+        //Bath Time
+        1474: () => property_get("_juneCleaverSkips") < 5 ? 4 : 2,
+        //Delicious Sprouts
+        1475: 1 //Hypnotic Master
 
-      (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
-      (0,external_kolmafia_namespaceObject.restoreMp)(20);
-    },
-    do: $location(greyyou_templateObject53 || (greyyou_templateObject53 = greyyou_taggedTemplateLiteral(["The Daily Dungeon"]))),
-    choices: {
-      692: 3,
-      //dd door: lockpicks
-      689: 1,
-      //dd final chest : open
-      690: 2,
-      //dd chest 1: boring door
-      691: 2,
-      //dd chest 2: boring door
-      693: 2 //dd trap: skip
+      },
+      do: $location(greyyou_templateObject15 || (greyyou_templateObject15 = greyyou_taggedTemplateLiteral(["The Shore, Inc. Travel Agency"]))),
+      post: () => {
+        if ((0,external_kolmafia_namespaceObject.handlingChoice)()) (0,external_kolmafia_namespaceObject.visitUrl)("main.php");
 
-    },
-    combat: new CombatStrategy().macro(() => Macro.externalIf(!property_get("_dailyDungeonMalwareUsed"), Macro.tryItem(template_string_$item(greyyou_templateObject54 || (greyyou_templateObject54 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(greyyou_templateObject55 || (greyyou_templateObject55 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).attack().repeat()),
-    limit: {
-      tries: 15
-    }
-  }, {
-    name: "Laugh Floor",
-    ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(greyyou_templateObject56 || (greyyou_templateObject56 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myAdventures)() > 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(greyyou_templateObject57 || (greyyou_templateObject57 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
-    completed: () => lib_have(template_string_$skill(greyyou_templateObject58 || (greyyou_templateObject58 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(greyyou_templateObject59 || (greyyou_templateObject59 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(greyyou_templateObject60 || (greyyou_templateObject60 = greyyou_taggedTemplateLiteral(["Azazel's lollipop"])))) || lib_have(template_string_$item(greyyou_templateObject61 || (greyyou_templateObject61 = greyyou_taggedTemplateLiteral(["observational glasses"])))),
-    prepare: () => {
-      //add casting of +com skills here. Also request buffs from buffy?
-      if (!lib_have($effect(greyyou_templateObject62 || (greyyou_templateObject62 = greyyou_taggedTemplateLiteral(["Carlweather's Cantata of Confrontation"]))))) {
-        (0,external_kolmafia_namespaceObject.cliExecute)("kmail to Buffy || 10 Cantata of Confrontation");
-        (0,external_kolmafia_namespaceObject.wait)(15);
-        (0,external_kolmafia_namespaceObject.cliExecute)("refresh effects");
+        if (lib_have($effect(greyyou_templateObject16 || (greyyou_templateObject16 = greyyou_taggedTemplateLiteral(["Beaten Up"]))))) {
+          if (lib_have(template_string_$skill(greyyou_templateObject17 || (greyyou_templateObject17 = greyyou_taggedTemplateLiteral(["Tongue of the Walrus"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(greyyou_templateObject18 || (greyyou_templateObject18 = greyyou_taggedTemplateLiteral(["Tongue of the Walrus"]))));else if (property_get("_hotTubSoaks") < 5) (0,external_kolmafia_namespaceObject.cliExecute)("hottub");else if (property_get("timesRested") < (0,external_kolmafia_namespaceObject.totalFreeRests)()) (0,external_kolmafia_namespaceObject.cliExecute)("campground rest");else if (!(0,external_kolmafia_namespaceObject.use)(template_string_$items(greyyou_templateObject19 || (greyyou_templateObject19 = greyyou_taggedTemplateLiteral(["tiny house, Space Tours Tripple"]))).find(it => lib_have(it)) || template_string_$item(greyyou_templateObject20 || (greyyou_templateObject20 = greyyou_taggedTemplateLiteral(["none"]))))) uneffect($effect(greyyou_templateObject21 || (greyyou_templateObject21 = greyyou_taggedTemplateLiteral(["Beaten Up"]))));
+        }
+      },
+      outfit: () => ({
+        equip: template_string_$items(greyyou_templateObject22 || (greyyou_templateObject22 = greyyou_taggedTemplateLiteral(["June cleaver"])))
+      }),
+      limit: undefined
+    }, {
+      name: "In-Run Farm Initial",
+      completed: () => (0,external_kolmafia_namespaceObject.myTurncount)() >= 1000,
+      do: $location(greyyou_templateObject23 || (greyyou_templateObject23 = greyyou_taggedTemplateLiteral(["Barf Mountain"]))),
+      prepare: () => {
+        if (lib_have(template_string_$item(greyyou_templateObject24 || (greyyou_templateObject24 = greyyou_taggedTemplateLiteral(["How to Avoid Scams"]))))) ensureEffect($effect(greyyou_templateObject25 || (greyyou_templateObject25 = greyyou_taggedTemplateLiteral(["How to Scam Tourists"]))));
+        (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(greyyou_templateObject26 || (greyyou_templateObject26 = greyyou_taggedTemplateLiteral(["seal tooth"]))));
+        if (lib_have(template_string_$item(greyyou_templateObject27 || (greyyou_templateObject27 = greyyou_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"])))) && property_get("boomBoxSong") !== "Total Eclipse of Your Meat") (0,external_kolmafia_namespaceObject.cliExecute)("boombox meat");
         (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
         (0,external_kolmafia_namespaceObject.restoreMp)(20);
-      }
+      },
+      outfit: {
+        familiar: $familiars(greyyou_templateObject28 || (greyyou_templateObject28 = greyyou_taggedTemplateLiteral(["Space Jellyfish, Robortender, Hobo Monkey, Leprechaun"]))).find(f => lib_have(f)),
+        modifier: "".concat(maxBase(), ", 2.5 meat, 0.6 items")
+      },
+      combat: new CombatStrategy().macro(Macro.trySkill(template_string_$skill(greyyou_templateObject29 || (greyyou_templateObject29 = greyyou_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(greyyou_templateObject30 || (greyyou_templateObject30 = greyyou_taggedTemplateLiteral(["Sing Along"])))).trySkill(template_string_$skill(greyyou_templateObject31 || (greyyou_templateObject31 = greyyou_taggedTemplateLiteral(["Extract Jelly"])))).tryItem(template_string_$item(greyyou_templateObject32 || (greyyou_templateObject32 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).tryItem(template_string_$item(greyyou_templateObject33 || (greyyou_templateObject33 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject34 || (greyyou_templateObject34 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject35 || (greyyou_templateObject35 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject36 || (greyyou_templateObject36 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject37 || (greyyou_templateObject37 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject38 || (greyyou_templateObject38 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject39 || (greyyou_templateObject39 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(greyyou_templateObject40 || (greyyou_templateObject40 = greyyou_taggedTemplateLiteral(["seal tooth"])))).trySkill(template_string_$skill(greyyou_templateObject41 || (greyyou_templateObject41 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat()),
+      limit: {
+        tries: 550
+      },
+      tracking: "GooFarming"
+    }, {
+      name: "Pull All",
+      completed: () => (0,external_kolmafia_namespaceObject.myStorageMeat)() === 0 && (0,external_kolmafia_namespaceObject.storageAmount)(template_string_$item(greyyou_templateObject42 || (greyyou_templateObject42 = greyyou_taggedTemplateLiteral(["old sweatpants"])))) === 0,
+      // arbitrary item
+      do: () => {
+        (0,external_kolmafia_namespaceObject.cliExecute)("pull all");
+        (0,external_kolmafia_namespaceObject.cliExecute)("refresh all");
+      },
+      tracking: "Run"
+    }, {
+      name: "Tower",
+      completed: () => step("questL13Final") > 11,
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("loopgyou delaytower chargegoose=20"),
+      tracking: "Run"
+    }, {
+      name: "Daily Dungeon",
+      ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(greyyou_templateObject43 || (greyyou_templateObject43 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myAdventures)() > 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(greyyou_templateObject44 || (greyyou_templateObject44 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
+      completed: () => property_get("dailyDungeonDone"),
+      acquire: template_string_$items(greyyou_templateObject45 || (greyyou_templateObject45 = greyyou_taggedTemplateLiteral(["eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors"]))).map(it => ({
+        item: it,
+        price: 1000
+      })),
+      outfit: () => {
+        return greyyou_objectSpread(greyyou_objectSpread({
+          familiar: bestFam()
+        }, property_get("_lastDailyDungeonRoom") % 5 === 4 ? {
+          acc1: template_string_$item(greyyou_templateObject46 || (greyyou_templateObject46 = greyyou_taggedTemplateLiteral(["ring of Detect Boring Doors"])))
+        } : {}), {}, {
+          modifier: "".concat(maxBase(), ", 250 bonus carnivorous potted plant, 100 familiar experience")
+        });
+      },
+      prepare: () => {
+        if (lib_have(template_string_$item(greyyou_templateObject47 || (greyyou_templateObject47 = greyyou_taggedTemplateLiteral(["daily dungeon malware"])))) && property_get("_dailyDungeonMalwareUsed")) (0,external_kolmafia_namespaceObject.putCloset)(template_string_$item(greyyou_templateObject48 || (greyyou_templateObject48 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))));
 
-      if (lib_have(template_string_$skill(greyyou_templateObject63 || (greyyou_templateObject63 = greyyou_taggedTemplateLiteral(["Piezoelectric Honk"])))) && !lib_have($effect(greyyou_templateObject64 || (greyyou_templateObject64 = greyyou_taggedTemplateLiteral(["Hooooooooonk!"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(greyyou_templateObject65 || (greyyou_templateObject65 = greyyou_taggedTemplateLiteral(["Piezoelectric Honk"]))));
-      $effects(greyyou_templateObject66 || (greyyou_templateObject66 = greyyou_taggedTemplateLiteral(["The Sonata of Sneakiness, Darkened Photons, Shifted Phase"]))).forEach(ef => (0,external_kolmafia_namespaceObject.cliExecute)("uneffect ".concat(ef)));
-    },
-    do: $location(greyyou_templateObject67 || (greyyou_templateObject67 = greyyou_taggedTemplateLiteral(["The Laugh Floor"]))),
-    outfit: () => ({
-      familiar: bestFam(),
-      modifier: "".concat(maxBase(), ", 100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience")
-    }),
-    combat: new CombatStrategy().macro(Macro.tryItem(template_string_$item(greyyou_templateObject68 || (greyyou_templateObject68 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(greyyou_templateObject69 || (greyyou_templateObject69 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat()),
-    limit: {
-      tries: 15
-    }
-  }, {
-    name: "Infernal Rackets Backstage",
-    ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(greyyou_templateObject70 || (greyyou_templateObject70 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myAdventures)() > 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(greyyou_templateObject71 || (greyyou_templateObject71 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
-    completed: () => lib_have(template_string_$skill(greyyou_templateObject72 || (greyyou_templateObject72 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(greyyou_templateObject73 || (greyyou_templateObject73 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(greyyou_templateObject74 || (greyyou_templateObject74 = greyyou_taggedTemplateLiteral(["Azazel's unicorn"])))) || backstageItemsDone(),
-    prepare: () => {
-      //add casting of -com skills here. Also request buffs from buffy?
-      if (!lib_have($effect(greyyou_templateObject75 || (greyyou_templateObject75 = greyyou_taggedTemplateLiteral(["The Sonata of Sneakiness"]))))) {
-        (0,external_kolmafia_namespaceObject.cliExecute)("kmail to Buffy || 10 Sonata of Sneakiness");
-        (0,external_kolmafia_namespaceObject.wait)(15);
-        (0,external_kolmafia_namespaceObject.cliExecute)("refresh effects");
+        if (!property_get("_dailyDungeonMalwareUsed") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(greyyou_templateObject49 || (greyyou_templateObject49 = greyyou_taggedTemplateLiteral(["fat loot token"])))) < 3) {
+          if ((0,external_kolmafia_namespaceObject.availableAmount)(template_string_$item(greyyou_templateObject50 || (greyyou_templateObject50 = greyyou_taggedTemplateLiteral(["BACON"])))) >= 150) (0,external_kolmafia_namespaceObject.buy)($coinmaster(greyyou_templateObject51 || (greyyou_templateObject51 = greyyou_taggedTemplateLiteral(["internet meme shop"]))), 1, template_string_$item(greyyou_templateObject52 || (greyyou_templateObject52 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))));else (0,external_kolmafia_namespaceObject.retrieveItem)(1, template_string_$item(greyyou_templateObject53 || (greyyou_templateObject53 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))));
+        }
+
         (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
         (0,external_kolmafia_namespaceObject.restoreMp)(20);
+      },
+      do: $location(greyyou_templateObject54 || (greyyou_templateObject54 = greyyou_taggedTemplateLiteral(["The Daily Dungeon"]))),
+      choices: {
+        692: 3,
+        //dd door: lockpicks
+        689: 1,
+        //dd final chest : open
+        690: 2,
+        //dd chest 1: boring door
+        691: 2,
+        //dd chest 2: boring door
+        693: 2 //dd trap: skip
+
+      },
+      combat: new CombatStrategy().macro(() => Macro.externalIf(!property_get("_dailyDungeonMalwareUsed"), Macro.tryItem(template_string_$item(greyyou_templateObject55 || (greyyou_templateObject55 = greyyou_taggedTemplateLiteral(["daily dungeon malware"]))))).tryItem(template_string_$item(greyyou_templateObject56 || (greyyou_templateObject56 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).attack().repeat()),
+      limit: {
+        tries: 15
       }
+    }, {
+      name: "Laugh Floor",
+      ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(greyyou_templateObject57 || (greyyou_templateObject57 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myAdventures)() > 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(greyyou_templateObject58 || (greyyou_templateObject58 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
+      completed: () => lib_have(template_string_$skill(greyyou_templateObject59 || (greyyou_templateObject59 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(greyyou_templateObject60 || (greyyou_templateObject60 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(greyyou_templateObject61 || (greyyou_templateObject61 = greyyou_taggedTemplateLiteral(["Azazel's lollipop"])))) || lib_have(template_string_$item(greyyou_templateObject62 || (greyyou_templateObject62 = greyyou_taggedTemplateLiteral(["observational glasses"])))),
+      prepare: () => {
+        //add casting of +com skills here. Also request buffs from buffy?
+        if (!lib_have($effect(greyyou_templateObject63 || (greyyou_templateObject63 = greyyou_taggedTemplateLiteral(["Carlweather's Cantata of Confrontation"]))))) {
+          (0,external_kolmafia_namespaceObject.cliExecute)("kmail to Buffy || 10 Cantata of Confrontation");
+          (0,external_kolmafia_namespaceObject.wait)(15);
+          (0,external_kolmafia_namespaceObject.cliExecute)("refresh effects");
+          (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
+          (0,external_kolmafia_namespaceObject.restoreMp)(20);
+        }
 
-      if (lib_have(template_string_$skill(greyyou_templateObject76 || (greyyou_templateObject76 = greyyou_taggedTemplateLiteral(["Photonic Shroud"])))) && !lib_have($effect(greyyou_templateObject77 || (greyyou_templateObject77 = greyyou_taggedTemplateLiteral(["Darkened Photons"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(greyyou_templateObject78 || (greyyou_templateObject78 = greyyou_taggedTemplateLiteral(["Photonic Shroud"]))));
-      if (lib_have(template_string_$skill(greyyou_templateObject79 || (greyyou_templateObject79 = greyyou_taggedTemplateLiteral(["Phase Shift"])))) && !lib_have($effect(greyyou_templateObject80 || (greyyou_templateObject80 = greyyou_taggedTemplateLiteral(["Shifted Phase"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(greyyou_templateObject81 || (greyyou_templateObject81 = greyyou_taggedTemplateLiteral(["Phase Shift"]))));
-      $effects(greyyou_templateObject82 || (greyyou_templateObject82 = greyyou_taggedTemplateLiteral(["Carlweather's Cantata of Confrontation, Hooooooooonk!"]))).forEach(ef => (0,external_kolmafia_namespaceObject.cliExecute)("uneffect ".concat(ef)));
-    },
-    do: $location(greyyou_templateObject83 || (greyyou_templateObject83 = greyyou_taggedTemplateLiteral(["Infernal Rackets Backstage"]))),
-    outfit: () => ({
-      familiar: bestFam(),
-      modifier: "".concat(maxBase(), ", -100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience")
-    }),
-    combat: new CombatStrategy().macro(Macro.tryItem(template_string_$item(greyyou_templateObject84 || (greyyou_templateObject84 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(greyyou_templateObject85 || (greyyou_templateObject85 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).repeat()),
-    limit: {
-      tries: 15
-    }
-  }, {
-    name: "Mourn",
-    ready: () => lib_have(template_string_$item(greyyou_templateObject86 || (greyyou_templateObject86 = greyyou_taggedTemplateLiteral(["observational glasses"])))),
-    completed: () => lib_have(template_string_$skill(greyyou_templateObject87 || (greyyou_templateObject87 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(_templateObject88 || (_templateObject88 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(_templateObject89 || (_templateObject89 = greyyou_taggedTemplateLiteral(["Azazel's lollipop"])))),
-    outfit: {
-      equip: template_string_$items(_templateObject90 || (_templateObject90 = greyyou_taggedTemplateLiteral(["hilarious comedy prop, observational glasses, Victor, the Insult Comic Hellhound Puppet"], ["hilarious comedy prop, observational glasses, Victor\\, the Insult Comic Hellhound Puppet"])))
-    },
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("panda comedy insult; panda comedy observe")
-  }, {
-    name: "Sven Golly",
-    ready: () => backstageItemsDone(),
-    completed: () => lib_have(template_string_$skill(_templateObject91 || (_templateObject91 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(_templateObject92 || (_templateObject92 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(_templateObject93 || (_templateObject93 = greyyou_taggedTemplateLiteral(["Azazel's unicorn"])))),
-    do: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Bognort ".concat(template_string_$items(_templateObject94 || (_templateObject94 = greyyou_taggedTemplateLiteral(["giant marshmallow, gin-soaked blotter paper"]))).find(a => lib_have(a))));
-      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Stinkface ".concat(template_string_$items(_templateObject95 || (_templateObject95 = greyyou_taggedTemplateLiteral(["beer-scented teddy bear, gin-soaked blotter paper"]))).find(a => lib_have(a))));
-      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Flargwurm ".concat(template_string_$items(_templateObject96 || (_templateObject96 = greyyou_taggedTemplateLiteral(["booze-soaked cherry, sponge cake"]))).find(a => lib_have(a))));
-      (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Jim ".concat(template_string_$items(_templateObject97 || (_templateObject97 = greyyou_taggedTemplateLiteral(["comfy pillow, sponge cake"]))).find(a => lib_have(a))));
-    }
-  }, {
-    name: "Moaning Panda",
-    ready: () => haveAll(template_string_$items(_templateObject98 || (_templateObject98 = greyyou_taggedTemplateLiteral(["Azazel's lollipop, Azazel's unicorn"])))),
-    completed: () => lib_have(template_string_$skill(_templateObject99 || (_templateObject99 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(_templateObject100 || (_templateObject100 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(_templateObject101 || (_templateObject101 = greyyou_taggedTemplateLiteral(["Azazel's tutu"])))),
-    acquire: () => template_string_$items(_templateObject102 || (_templateObject102 = greyyou_taggedTemplateLiteral(["bus pass, imp air"]))).map(it => ({
-      item: it,
-      num: 5,
-      price: property_get("valueOfAdventure")
-    })),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("panda moan"),
-    limit: {
-      tries: 3
-    }
-  }, {
-    name: "In-Run Farm Final",
-    completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() <= 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject103 || (_templateObject103 = greyyou_taggedTemplateLiteral(["Grey Goo"]))),
-    do: $location(_templateObject104 || (_templateObject104 = greyyou_taggedTemplateLiteral(["Barf Mountain"]))),
-    prepare: () => {
-      if (lib_have(template_string_$item(_templateObject105 || (_templateObject105 = greyyou_taggedTemplateLiteral(["How to Avoid Scams"]))))) ensureEffect($effect(_templateObject106 || (_templateObject106 = greyyou_taggedTemplateLiteral(["How to Scam Tourists"]))));
-      (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(_templateObject107 || (_templateObject107 = greyyou_taggedTemplateLiteral(["seal tooth"]))));
-      if (lib_have(template_string_$item(_templateObject108 || (_templateObject108 = greyyou_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"])))) && property_get("boomBoxSong") !== "Total Eclipse of Your Meat") (0,external_kolmafia_namespaceObject.cliExecute)("boombox meat");
-      (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
-      (0,external_kolmafia_namespaceObject.restoreMp)(20);
-    },
-    outfit: () => ({
-      familiar: $familiars(_templateObject109 || (_templateObject109 = greyyou_taggedTemplateLiteral(["Space Jellyfish, Robortender, Hobo Monkey, Leprechaun"]))).find(f => lib_have(f)),
-      modifier: "".concat(maxBase(), ", 2.5 meat, 0.6 items")
-    }),
-    combat: new CombatStrategy().macro(Macro.trySkill(template_string_$skill(_templateObject110 || (_templateObject110 = greyyou_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(_templateObject111 || (_templateObject111 = greyyou_taggedTemplateLiteral(["Sing Along"])))).trySkill(template_string_$skill(_templateObject112 || (_templateObject112 = greyyou_taggedTemplateLiteral(["Extract Jelly"])))).tryItem(template_string_$item(_templateObject113 || (_templateObject113 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).tryItem(template_string_$item(_templateObject114 || (_templateObject114 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject115 || (_templateObject115 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject116 || (_templateObject116 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject117 || (_templateObject117 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject118 || (_templateObject118 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject119 || (_templateObject119 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject120 || (_templateObject120 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject121 || (_templateObject121 = greyyou_taggedTemplateLiteral(["seal tooth"])))).trySkill(template_string_$skill(_templateObject122 || (_templateObject122 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat()),
-    limit: {
-      tries: 150
-    },
-    tracking: "GooFarming"
-  }, {
-    name: "Hatter Buff",
-    completed: () => property_get("_madTeaParty"),
-    acquire: template_string_$items(_templateObject123 || (_templateObject123 = greyyou_taggedTemplateLiteral(["oil cap, \"DRINK ME\" potion"]))).map(it => ({
-      item: it,
-      price: 1000
-    })),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("hatter ".concat(template_string_$item(_templateObject124 || (_templateObject124 = greyyou_taggedTemplateLiteral(["oil cap"])))))
-  }, {
-    name: "Free King",
-    completed: () => (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject125 || (_templateObject125 = greyyou_taggedTemplateLiteral(["Grey Goo"]))),
-    acquire: () => [{
-      item: template_string_$item(_templateObject126 || (_templateObject126 = greyyou_taggedTemplateLiteral(["teacher's pen"]))),
-      num: 3,
-      price: 500
-    }].concat(greyyou_toConsumableArray(targetClass(false).primestat === $stat(_templateObject127 || (_templateObject127 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$items(_templateObject128 || (_templateObject128 = greyyou_taggedTemplateLiteral(["discarded swimming trunks, battered hubcap, trench coat"]))).map(it => ({
-      item: it
-    })) : []), greyyou_toConsumableArray(targetClass(false).primestat === $stat(_templateObject129 || (_templateObject129 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? [] //$items``.map((it) => ({ item: it }))
-    : []), greyyou_toConsumableArray(targetClass(false).primestat === $stat(_templateObject130 || (_templateObject130 = greyyou_taggedTemplateLiteral(["Moxie"]))) ? template_string_$items(_templateObject131 || (_templateObject131 = greyyou_taggedTemplateLiteral(["noir fedora, KoL Con 13 T-shirt"]))).map(it => ({
-      item: it
-    })) : [])),
-    outfit: () => ({
-      familiar: template_string_$familiar(_templateObject132 || (_templateObject132 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
-      hat: template_string_$item(_templateObject133 || (_templateObject133 = greyyou_taggedTemplateLiteral(["giant yellow hat"]))),
-      weapon: template_string_$item(_templateObject134 || (_templateObject134 = greyyou_taggedTemplateLiteral(["yule hatchet"]))),
-      acc1: template_string_$item(_templateObject135 || (_templateObject135 = greyyou_taggedTemplateLiteral(["teacher's pen"]))),
-      acc2: template_string_$item(_templateObject136 || (_templateObject136 = greyyou_taggedTemplateLiteral(["teacher's pen"]))),
-      acc3: template_string_$item(_templateObject137 || (_templateObject137 = greyyou_taggedTemplateLiteral(["teacher's pen"]))),
-      famequip: template_string_$item(_templateObject138 || (_templateObject138 = greyyou_taggedTemplateLiteral(["grey down vest"])))
-    }),
-    prepare: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("mcd 0");
-      (0,external_kolmafia_namespaceObject.maximize)("".concat(targetClass(false).primestat, " experience, 5 ").concat(targetClass(false).primestat, " experience percent, 10 familiar experience, ").concat(noML()), false);
-    },
-    do: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("loopgyou class=".concat((0,external_kolmafia_namespaceObject.toInt)(targetClass(false))));
-      _set("_freshOutOfGreyYou", true);
-      _set("goorboNextClass", "");
-      (0,external_kolmafia_namespaceObject.cliExecute)("pull all; refresh all"); //if we somehow didn't already pull everything.
-
-      if ((0,external_kolmafia_namespaceObject.closetAmount)(template_string_$item(_templateObject139 || (_templateObject139 = greyyou_taggedTemplateLiteral(["Special Seasoning"])))) > 0) (0,external_kolmafia_namespaceObject.cliExecute)("closet take * special seasoning");
-      (0,external_kolmafia_namespaceObject.print)("Grey Goose exp at prism break: ".concat(template_string_$familiar(_templateObject140 || (_templateObject140 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience, "/400"));
-    }
-  }, {
-    name: "Call Buffy",
-    completed: () => 0 !== (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject141 || (_templateObject141 = greyyou_taggedTemplateLiteral(["Ghostly Shell"])))) || (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
-    prepare: () => $effects(_templateObject142 || (_templateObject142 = greyyou_taggedTemplateLiteral(["Carlweather's Cantata of Confrontation, The Sonata of Sneakiness, Polka of Plenty, Fat Leon's Phat Loot Lyric"]))).forEach(ef => (0,external_kolmafia_namespaceObject.cliExecute)("uneffect ".concat(ef))),
-    do: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("kmail to buffy || ".concat(levelingTurns, " Ghostly Shell, Reptilian Fortitude, Empathy of the Newt, Tenacity of the Snapper, Astral Shell, Elemental Saucesphere, Stevedave's Shanty of Superiority, Power Ballad of the Arrowsmith, Aloysius's Antiphon of Aptitude"));
-      (0,external_kolmafia_namespaceObject.wait)(15);
-      (0,external_kolmafia_namespaceObject.cliExecute)("refresh effects");
-    }
-  }, {
-    name: "Snapper Spleen Exp %",
-    completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || $effects(_templateObject143 || (_templateObject143 = greyyou_taggedTemplateLiteral(["HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing"]))).reduce((a, ef) => a || lib_have(ef), false) || (0,external_kolmafia_namespaceObject.mySpleenUse)() >= (0,external_kolmafia_namespaceObject.spleenLimit)() + 3 - property_get("currentMojoFilters"),
-    do: () => {
-      if ((0,external_kolmafia_namespaceObject.mySpleenUse)() === (0,external_kolmafia_namespaceObject.spleenLimit)()) (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(_templateObject144 || (_templateObject144 = greyyou_taggedTemplateLiteral(["mojo filter"]))));
-      (0,external_kolmafia_namespaceObject.chew)(1, (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject145 || (_templateObject145 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$item(_templateObject146 || (_templateObject146 = greyyou_taggedTemplateLiteral(["vial of humanoid growth hormone"]))) : (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject147 || (_templateObject147 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$item(_templateObject148 || (_templateObject148 = greyyou_taggedTemplateLiteral(["non-Euclidean angle"]))) : template_string_$item(_templateObject149 || (_templateObject149 = greyyou_taggedTemplateLiteral(["Shantix\u2122"]))));
-    },
-    limit: {
-      tries: Math.ceil(levelingTurns / 30)
-    },
-    tracking: "Leveling"
-  }, {
-    name: "Inscrutable Gaze",
-    completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || (0,external_kolmafia_namespaceObject.myClass)().primestat !== $stat(_templateObject150 || (_templateObject150 = greyyou_taggedTemplateLiteral(["Mysticality"]))) || lib_have($effect(_templateObject151 || (_templateObject151 = greyyou_taggedTemplateLiteral(["Inscrutable Gaze"])))) || !lib_have(template_string_$skill(_templateObject152 || (_templateObject152 = greyyou_taggedTemplateLiteral(["Inscrutable Gaze"])))),
-    do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject153 || (_templateObject153 = greyyou_taggedTemplateLiteral(["Inscrutable Gaze"])))),
-    limit: {
-      tries: Math.ceil(levelingTurns / 10)
-    },
-    tracking: "Leveling"
-  }, {
-    name: "Abstraction",
-    completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || $effects(_templateObject154 || (_templateObject154 = greyyou_taggedTemplateLiteral(["Purpose, Category, Perception"]))).reduce((a, ef) => a || lib_have(ef), false) || (0,external_kolmafia_namespaceObject.mySpleenUse)() >= (0,external_kolmafia_namespaceObject.spleenLimit)() + 3 - property_get("currentMojoFilters"),
-    do: () => {
-      if ((0,external_kolmafia_namespaceObject.mySpleenUse)() === (0,external_kolmafia_namespaceObject.spleenLimit)()) (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(_templateObject155 || (_templateObject155 = greyyou_taggedTemplateLiteral(["mojo filter"]))));
-      (0,external_kolmafia_namespaceObject.chew)(1, (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject156 || (_templateObject156 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$item(_templateObject157 || (_templateObject157 = greyyou_taggedTemplateLiteral(["abstraction: purpose"]))) : (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject158 || (_templateObject158 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$item(_templateObject159 || (_templateObject159 = greyyou_taggedTemplateLiteral(["abstraction: category"]))) : template_string_$item(_templateObject160 || (_templateObject160 = greyyou_taggedTemplateLiteral(["abstraction: perception"]))));
-    },
-    limit: {
-      tries: Math.ceil(levelingTurns / 50)
-    },
-    tracking: "Leveling"
-  }, {
-    name: "Strange Leaflet",
-    completed: () => property_get("leafletCompleted"),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("leaflet")
-  }, {
-    name: "Frobozz",
-    completed: () => (0,external_kolmafia_namespaceObject.getDwelling)() === template_string_$item(_templateObject161 || (_templateObject161 = greyyou_taggedTemplateLiteral(["Frobozz Real-Estate Company Instant House (TM)"]))),
-    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject162 || (_templateObject162 = greyyou_taggedTemplateLiteral(["Frobozz Real-Estate Company Instant House (TM)"]))))
-  }, {
-    name: "Bonerdagon Chest",
-    completed: () => !lib_have(template_string_$item(_templateObject163 || (_templateObject163 = greyyou_taggedTemplateLiteral(["chest of the Bonerdagon"])))),
-    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject164 || (_templateObject164 = greyyou_taggedTemplateLiteral(["chest of the Bonerdagon"]))))
-  }, {
-    name: "Steel Margarita",
-    ready: () => haveAll(template_string_$items(_templateObject165 || (_templateObject165 = greyyou_taggedTemplateLiteral(["Azazel's tutu, Azazel's lollipop, Azazel's unicorn"])))),
-    completed: () => lib_have(template_string_$skill(_templateObject166 || (_templateObject166 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(_templateObject167 || (_templateObject167 = greyyou_taggedTemplateLiteral(["steel margarita"])))),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("panda temple")
-  }, {
-    name: "Liver of Steel",
-    ready: () => (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject168 || (_templateObject168 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && lib_have(template_string_$item(_templateObject169 || (_templateObject169 = greyyou_taggedTemplateLiteral(["steel margarita"])))) && (0,external_kolmafia_namespaceObject.myLevel)() >= 5,
-    completed: () => lib_have(template_string_$skill(_templateObject170 || (_templateObject170 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))),
-    do: () => (0,external_kolmafia_namespaceObject.drink)(1, template_string_$item(_templateObject171 || (_templateObject171 = greyyou_taggedTemplateLiteral(["steel margarita"]))))
-  }, {
-    name: "Taffy Effects",
-    completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || $effects(_templateObject172 || (_templateObject172 = greyyou_taggedTemplateLiteral(["Orange Crusher, Purple Reign, Cinnamon Challenger"]))).reduce((a, ef) => a || (0,external_kolmafia_namespaceObject.haveEffect)(ef) >= 50, false),
-    do: () => {
-      if ((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject173 || (_templateObject173 = greyyou_taggedTemplateLiteral(["Muscle"])))) (0,external_kolmafia_namespaceObject.use)(Math.ceil((50 - (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject174 || (_templateObject174 = greyyou_taggedTemplateLiteral(["Orange Crusher"]))))) / 10), template_string_$item(_templateObject175 || (_templateObject175 = greyyou_taggedTemplateLiteral(["pulled orange taffy"])))); //lasts for 10 turns each
-
-      if ((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject176 || (_templateObject176 = greyyou_taggedTemplateLiteral(["Mysticality"])))) (0,external_kolmafia_namespaceObject.use)(Math.ceil((50 - (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject177 || (_templateObject177 = greyyou_taggedTemplateLiteral(["Purple Reign"]))))) / 10), template_string_$item(_templateObject178 || (_templateObject178 = greyyou_taggedTemplateLiteral(["pulled violet taffy"])))); //lasts for 10 turns each
-
-      if ((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject179 || (_templateObject179 = greyyou_taggedTemplateLiteral(["Moxie"])))) (0,external_kolmafia_namespaceObject.use)(Math.ceil((50 - (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject180 || (_templateObject180 = greyyou_taggedTemplateLiteral(["Cinnamon Challenger"]))))) / 10), template_string_$item(_templateObject181 || (_templateObject181 = greyyou_taggedTemplateLiteral(["pulled red taffy"])))); //lasts for 10 turns each
-    },
-    limit: {
-      tries: Math.ceil(levelingTurns / 10)
-    },
-    tracking: "Leveling"
-  }, {
-    name: "Buff Mainstat",
-    completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || (0,external_kolmafia_namespaceObject.myBuffedstat)((0,external_kolmafia_namespaceObject.myPrimestat)()) >= 11 * (0,external_kolmafia_namespaceObject.myBasestat)((0,external_kolmafia_namespaceObject.myPrimestat)()),
-    effects: $effects(_templateObject182 || (_templateObject182 = greyyou_taggedTemplateLiteral(["Trivia Master"]))),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("gain ".concat(11 * (0,external_kolmafia_namespaceObject.myBasestat)((0,external_kolmafia_namespaceObject.myPrimestat)()), " ").concat((0,external_kolmafia_namespaceObject.myPrimestat)())),
-    limit: {
-      tries: levelingTurns
-    },
-    tracking: "Leveling"
-  }, {
-    name: "Ghost Dog Chow",
-    completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= 8 || template_string_$familiar(_templateObject183 || (_templateObject183 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience > 380,
-    prepare: () => (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject184 || (_templateObject184 = greyyou_taggedTemplateLiteral(["Grey Goose"])))),
-    do: () => (0,external_kolmafia_namespaceObject.use)(Math.floor((400 - template_string_$familiar(_templateObject185 || (_templateObject185 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience) / 20), template_string_$item(_templateObject186 || (_templateObject186 = greyyou_taggedTemplateLiteral(["Ghost Dog Chow"])))),
-    tracking: "Leveling"
-  }, {
-    name: "Implement Glitch",
-    ready: () => lib_have(template_string_$item(_templateObject187 || (_templateObject187 = greyyou_taggedTemplateLiteral(["[glitch season reward name]"])))),
-    completed: () => property_get("_glitchItemImplemented"),
-    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject188 || (_templateObject188 = greyyou_taggedTemplateLiteral(["[glitch season reward name]"]))))
-  }, {
-    name: "Fight Glitch",
-    ready: () => lib_have(template_string_$item(_templateObject189 || (_templateObject189 = greyyou_taggedTemplateLiteral(["[glitch season reward name]"])))),
-    completed: () => property_get("_glitchMonsterFights") > 0,
-    acquire: template_string_$items(_templateObject190 || (_templateObject190 = greyyou_taggedTemplateLiteral(["gas can, gas balloon, shard of double-ice"]))).map(it => ({
-      item: it,
-      price: 1000
-    })),
-    prepare: () => {
-      (0,external_kolmafia_namespaceObject.restoreHp)(0.9 * (0,external_kolmafia_namespaceObject.myHp)());
-      if (lib_have(template_string_$skill(_templateObject191 || (_templateObject191 = greyyou_taggedTemplateLiteral(["Blood Bond"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject192 || (_templateObject192 = greyyou_taggedTemplateLiteral(["Blood Bond"]))));
-    },
-    do: () => (0,external_kolmafia_namespaceObject.visitUrl)("inv_eat.php?pwd&whichitem=10207"),
-    post: () => {
-      if (!property_get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
-    },
-    outfit: () => ({
-      familiar: bestFam(),
-      modifier: "".concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience, 5 ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience percent, 10 familiar experience, ").concat(noML())
-    }),
-    combat: new CombatStrategy().macro(() => {
-      var _Macro$tryItem$extern;
-
-      return (_Macro$tryItem$extern = Macro.tryItem(template_string_$item(_templateObject193 || (_templateObject193 = greyyou_taggedTemplateLiteral(["gas balloon"])))).externalIf(lib_have(template_string_$skill(_templateObject194 || (_templateObject194 = greyyou_taggedTemplateLiteral(["Feel Pride"])))) && property_get("_feelPrideUsed") < 3, Macro.trySkill(template_string_$skill(_templateObject195 || (_templateObject195 = greyyou_taggedTemplateLiteral(["Feel Pride"])))))).tryItem.apply(_Macro$tryItem$extern, greyyou_toConsumableArray(template_string_$items(_templateObject196 || (_templateObject196 = greyyou_taggedTemplateLiteral(["shard of double-ice, gas can"]))))).attack().repeat();
-    }),
-    tracking: "Leveling"
-  }, {
-    name: "NEP Free Fights",
-    ready: () => property_get("neverendingPartyAlways") && !!$effects(_templateObject197 || (_templateObject197 = greyyou_taggedTemplateLiteral(["HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing"]))).find(ef => lib_have(ef)),
-    completed: () => property_get("_neverendingPartyFreeTurns") < 10 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject198 || (_templateObject198 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
-    effects: $effects(_templateObject199 || (_templateObject199 = greyyou_taggedTemplateLiteral(["Heart of White"]))),
-    acquire: () => lib_have(template_string_$skill(_templateObject200 || (_templateObject200 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))) ? [] : [{
-      item: template_string_$item(_templateObject201 || (_templateObject201 = greyyou_taggedTemplateLiteral(["electronics kit"]))),
-      price: 500
-    }],
-    outfit: () => ({
-      familiar: template_string_$familiar(_templateObject202 || (_templateObject202 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
-      modifier: "0.125 ".concat((0,external_kolmafia_namespaceObject.myPrimestat)(), ", ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience, 5 ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience percent, 10 familiar experience, ").concat(noML())
-    }),
-    prepare: () => {
-      (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
-      (0,external_kolmafia_namespaceObject.restoreMp)(8);
-    },
-    do: $location(_templateObject203 || (_templateObject203 = greyyou_taggedTemplateLiteral(["The Neverending Party"]))),
-    post: () => {
-      if (!property_get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
-    },
-    choices: {
-      1322: 2,
-      //don't take NEP quest
-      1324: 5 //fight a partier
-
-    },
-    combat: new CombatStrategy().macro(() => {
-      var _Macro$externalIf$ext;
-
-      return (_Macro$externalIf$ext = Macro.externalIf(lib_have(template_string_$skill(_templateObject204 || (_templateObject204 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))), Macro.trySkill(template_string_$skill(_templateObject205 || (_templateObject205 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))), Macro.tryItem(template_string_$item(_templateObject206 || (_templateObject206 = greyyou_taggedTemplateLiteral(["electronics kit"]))))).externalIf(template_string_$familiar(_templateObject207 || (_templateObject207 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience >= 400, Macro.trySkill((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject208 || (_templateObject208 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$skill(_templateObject209 || (_templateObject209 = greyyou_taggedTemplateLiteral(["Convert Matter to Protein"]))) : (0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject210 || (_templateObject210 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$skill(_templateObject211 || (_templateObject211 = greyyou_taggedTemplateLiteral(["Convert Matter to Energy"]))) : template_string_$skill(_templateObject212 || (_templateObject212 = greyyou_taggedTemplateLiteral(["Convert Matter to Pomade"])))))).tryItem.apply(_Macro$externalIf$ext, greyyou_toConsumableArray(template_string_$items(_templateObject213 || (_templateObject213 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun, HOA citation pad"]))))).trySkill(template_string_$skill(_templateObject214 || (_templateObject214 = greyyou_taggedTemplateLiteral(["Sing Along"])))).attack().repeat();
-    }),
-    limit: {
-      tries: 10
-    },
-    //+3 for unaccounted for wanderers, etc.
-    tracking: "Leveling"
-  }, {
-    name: "Gators",
-    ready: () => !!$effects(_templateObject215 || (_templateObject215 = greyyou_taggedTemplateLiteral(["HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing"]))).find(ef => lib_have(ef)),
-    completed: () => (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject216 || (_templateObject216 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
-    effects: $effects(_templateObject217 || (_templateObject217 = greyyou_taggedTemplateLiteral(["Heart of White, Expert Vacationer"]))),
-    acquire: () => lib_have(template_string_$skill(_templateObject218 || (_templateObject218 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))) ? [] : [{
-      item: template_string_$item(_templateObject219 || (_templateObject219 = greyyou_taggedTemplateLiteral(["electronics kit"]))),
-      price: 500
-    }],
-    outfit: () => ({
-      familiar: template_string_$familiar(_templateObject220 || (_templateObject220 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
-      modifier: "0.125 ".concat((0,external_kolmafia_namespaceObject.myPrimestat)(), ", ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience, 5 ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience percent, 10 familiar experience, ").concat(noML())
-    }),
-    prepare: () => {
-      (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
-      (0,external_kolmafia_namespaceObject.restoreMp)(8);
-    },
-    do: $location(_templateObject221 || (_templateObject221 = greyyou_taggedTemplateLiteral(["Uncle Gator's Country Fun-Time Liquid Waste Sluice"]))),
-    post: () => {
-      if (!property_get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
-    },
-    combat: new CombatStrategy().macro(() => Macro.externalIf(lib_have(template_string_$skill(_templateObject222 || (_templateObject222 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))), Macro.trySkill(template_string_$skill(_templateObject223 || (_templateObject223 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))), Macro.tryItem(template_string_$item(_templateObject224 || (_templateObject224 = greyyou_taggedTemplateLiteral(["electronics kit"]))))).externalIf(template_string_$familiar(_templateObject225 || (_templateObject225 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience >= 400, Macro.trySkill((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject226 || (_templateObject226 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$skill(_templateObject227 || (_templateObject227 = greyyou_taggedTemplateLiteral(["Convert Matter to Protein"]))) : (0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject228 || (_templateObject228 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$skill(_templateObject229 || (_templateObject229 = greyyou_taggedTemplateLiteral(["Convert Matter to Energy"]))) : template_string_$skill(_templateObject230 || (_templateObject230 = greyyou_taggedTemplateLiteral(["Convert Matter to Pomade"]))))).tryItem(template_string_$item(_templateObject231 || (_templateObject231 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(_templateObject232 || (_templateObject232 = greyyou_taggedTemplateLiteral(["Sing Along"])))).attack().repeat()),
-    limit: {
-      tries: levelingTurns + 3
-    },
-    //+3 for unaccounted for wanderers, etc.
-    tracking: "Leveling"
-  }, {
-    name: "Alert-Leveling Failed",
-    completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
-    do: () => {
-      throw new Error("Finished Leveling Tasks, but only reached level ".concat((0,external_kolmafia_namespaceObject.myLevel)(), "/").concat(args.targetlevel));
-    }
-  }, {
-    name: "Breakfast",
-    completed: () => property_get("breakfastCompleted"),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("breakfast")
-  }, {
-    name: "Garbo",
-    ready: () => property_get("_stenchAirportToday") || property_get("stenchAirportAlways"),
-    completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() === 0 && !canDiet() || stooperDrunk(),
-    prepare: () => uneffect($effect(_templateObject233 || (_templateObject233 = greyyou_taggedTemplateLiteral(["Beaten Up"])))),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)(args.garbo),
-    post: () => $effects(_templateObject234 || (_templateObject234 = greyyou_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => lib_have(ef)).forEach(ef => uneffect(ef)),
-    tracking: "Garbo"
-  }, // {
-  //   name: "Garbo Nobarf",
-  //   ready: () => !(get("_stenchAirportToday") || get("stenchAirportAlways")),
-  //   completed: () =>
-  //     (myAdventures() === 0 && !canDiet()) || stooperDrunk() || get("demonSummoned"),
-  //   prepare: () => uneffect($effect`Beaten Up`),
-  //   do: () => cliExecute("garbo nobarf"),
-  //   post: () =>
-  //     $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance, Feeling Lost`
-  //       .filter((ef) => have(ef))
-  //       .forEach((ef) => uneffect(ef)),
-  //   tracking: "Garbo",
-  // },
-  {
-    name: "Turn in FunFunds",
-    ready: () => property_get("_stenchAirportToday") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject235 || (_templateObject235 = greyyou_taggedTemplateLiteral(["FunFunds\u2122"])))) >= 20,
-    completed: () => lib_have(template_string_$item(_templateObject236 || (_templateObject236 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
-    do: () => (0,external_kolmafia_namespaceObject.buy)($coinmaster(_templateObject237 || (_templateObject237 = greyyou_taggedTemplateLiteral(["The Dinsey Company Store"]))), 1, template_string_$item(_templateObject238 || (_templateObject238 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
-    tracking: "Garbo"
-  }, {
-    name: "PvP",
-    ready: () => readyForBed(),
-    completed: () => (0,external_kolmafia_namespaceObject.pvpAttacksLeft)() === 0 || !(0,external_kolmafia_namespaceObject.hippyStoneBroken)(),
-    do: () => {
-      (0,external_kolmafia_namespaceObject.cliExecute)("unequip");
-      (0,external_kolmafia_namespaceObject.cliExecute)("UberPvPOptimizer");
-      (0,external_kolmafia_namespaceObject.cliExecute)("swagger");
-    }
-  }, {
-    name: "Nightcap",
-    ready: () => readyForBed(),
-    completed: () => stooperDrunk(),
-    do: () => {
-      if (lib_have(template_string_$familiar(_templateObject239 || (_templateObject239 = greyyou_taggedTemplateLiteral(["Stooper"])))) && lib_have(template_string_$item(_templateObject240 || (_templateObject240 = greyyou_taggedTemplateLiteral(["tiny stillsuit"]))))) {
-        (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject241 || (_templateObject241 = greyyou_taggedTemplateLiteral(["Stooper"]))));
-        if ((0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)() && property_get("familiarSweat") >= 300) (0,external_kolmafia_namespaceObject.cliExecute)("drink stillsuit distillate");
+        if (lib_have(template_string_$skill(greyyou_templateObject64 || (greyyou_templateObject64 = greyyou_taggedTemplateLiteral(["Piezoelectric Honk"])))) && !lib_have($effect(greyyou_templateObject65 || (greyyou_templateObject65 = greyyou_taggedTemplateLiteral(["Hooooooooonk!"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(greyyou_templateObject66 || (greyyou_templateObject66 = greyyou_taggedTemplateLiteral(["Piezoelectric Honk"]))));
+        $effects(greyyou_templateObject67 || (greyyou_templateObject67 = greyyou_taggedTemplateLiteral(["The Sonata of Sneakiness, Darkened Photons, Shifted Phase"]))).forEach(ef => (0,external_kolmafia_namespaceObject.cliExecute)("uneffect ".concat(ef)));
+      },
+      do: $location(greyyou_templateObject68 || (greyyou_templateObject68 = greyyou_taggedTemplateLiteral(["The Laugh Floor"]))),
+      outfit: () => ({
+        familiar: bestFam(),
+        modifier: "".concat(maxBase(), ", 100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience")
+      }),
+      combat: new CombatStrategy().macro(Macro.tryItem(template_string_$item(greyyou_templateObject69 || (greyyou_templateObject69 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(greyyou_templateObject70 || (greyyou_templateObject70 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat()),
+      limit: {
+        tries: 15
       }
+    }, {
+      name: "Infernal Rackets Backstage",
+      ready: () => (0,external_kolmafia_namespaceObject.myClass)() === $class(greyyou_templateObject71 || (greyyou_templateObject71 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myAdventures)() > 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(greyyou_templateObject72 || (greyyou_templateObject72 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
+      completed: () => lib_have(template_string_$skill(greyyou_templateObject73 || (greyyou_templateObject73 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(greyyou_templateObject74 || (greyyou_templateObject74 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(greyyou_templateObject75 || (greyyou_templateObject75 = greyyou_taggedTemplateLiteral(["Azazel's unicorn"])))) || backstageItemsDone(),
+      prepare: () => {
+        //add casting of -com skills here. Also request buffs from buffy?
+        if (!lib_have($effect(greyyou_templateObject76 || (greyyou_templateObject76 = greyyou_taggedTemplateLiteral(["The Sonata of Sneakiness"]))))) {
+          (0,external_kolmafia_namespaceObject.cliExecute)("kmail to Buffy || 10 Sonata of Sneakiness");
+          (0,external_kolmafia_namespaceObject.wait)(15);
+          (0,external_kolmafia_namespaceObject.cliExecute)("refresh effects");
+          (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
+          (0,external_kolmafia_namespaceObject.restoreMp)(20);
+        }
 
-      (0,external_kolmafia_namespaceObject.cliExecute)("CONSUME NIGHTCAP");
-    }
-  }, {
-    name: "Pajamas",
-    completed: () => (0,external_kolmafia_namespaceObject.getCampground)()[template_string_$item(_templateObject242 || (_templateObject242 = greyyou_taggedTemplateLiteral(["clockwork maid"]))).name] === 1,
-    acquire: [{
-      item: template_string_$item(_templateObject243 || (_templateObject243 = greyyou_taggedTemplateLiteral(["clockwork maid"]))),
-      price: 7 * property_get("valueOfAdventure")
-    }],
-    do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject244 || (_templateObject244 = greyyou_taggedTemplateLiteral(["clockwork maid"])))),
-    outfit: () => ({
-      familiar: $familiars(_templateObject245 || (_templateObject245 = greyyou_taggedTemplateLiteral(["Trick-or-Treating Tot, Left-Hand Man, Disembodied Hand, Grey Goose"]))).find(fam => lib_have(fam)),
-      modifier: "adventures".concat(args.pvp ? ", 0.3 fites" : "")
-    })
-  }, {
-    name: "Summon Soap Knife",
-    completed: () => !lib_have(template_string_$skill(_templateObject246 || (_templateObject246 = greyyou_taggedTemplateLiteral(["That's Not a Knife"])))) || property_get("_discoKnife"),
-    prepare: () => (0,external_kolmafia_namespaceObject.putCloset)((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject247 || (_templateObject247 = greyyou_taggedTemplateLiteral(["soap knife"])))), template_string_$item(_templateObject248 || (_templateObject248 = greyyou_taggedTemplateLiteral(["soap knife"])))),
-    do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject249 || (_templateObject249 = greyyou_taggedTemplateLiteral(["That's Not a Knife"])))),
-    post: () => (0,external_kolmafia_namespaceObject.takeCloset)((0,external_kolmafia_namespaceObject.closetAmount)(template_string_$item(_templateObject250 || (_templateObject250 = greyyou_taggedTemplateLiteral(["soap knife"])))), template_string_$item(_templateObject251 || (_templateObject251 = greyyou_taggedTemplateLiteral(["soap knife"]))))
-  }, {
-    name: "Tip the Author",
-    //disabled by default - must manually discover and enable the flag
-    ready: () => args.tip,
-    completed: () => !lib_have(template_string_$item(_templateObject252 || (_templateObject252 = greyyou_taggedTemplateLiteral(["soap knife"])))),
-    do: () => (0,external_kolmafia_namespaceObject.cliExecute)("csend * soap knife to sketchysolid || Thanks for the script!")
-  }, {
-    name: "Alert-No Nightcap",
-    ready: () => !readyForBed(),
-    completed: () => stooperDrunk(),
-    do: () => {
-      var targetAdvs = 100 - (0,external_kolmafia_namespaceObject.numericModifier)("adventures");
-      (0,external_kolmafia_namespaceObject.print)("goorbo completed, but did not overdrink.", "red");
-      if (targetAdvs < (0,external_kolmafia_namespaceObject.myAdventures)() && targetAdvs > 0) (0,external_kolmafia_namespaceObject.print)("Rerun with fewer than ".concat(targetAdvs, " adventures for goorbo to handle your diet"), "red");else (0,external_kolmafia_namespaceObject.print)("Something went wrong.", "red");
-    }
-  }]
-};
+        if (lib_have(template_string_$skill(greyyou_templateObject77 || (greyyou_templateObject77 = greyyou_taggedTemplateLiteral(["Photonic Shroud"])))) && !lib_have($effect(greyyou_templateObject78 || (greyyou_templateObject78 = greyyou_taggedTemplateLiteral(["Darkened Photons"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(greyyou_templateObject79 || (greyyou_templateObject79 = greyyou_taggedTemplateLiteral(["Photonic Shroud"]))));
+        if (lib_have(template_string_$skill(greyyou_templateObject80 || (greyyou_templateObject80 = greyyou_taggedTemplateLiteral(["Phase Shift"])))) && !lib_have($effect(greyyou_templateObject81 || (greyyou_templateObject81 = greyyou_taggedTemplateLiteral(["Shifted Phase"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(greyyou_templateObject82 || (greyyou_templateObject82 = greyyou_taggedTemplateLiteral(["Phase Shift"]))));
+        $effects(greyyou_templateObject83 || (greyyou_templateObject83 = greyyou_taggedTemplateLiteral(["Carlweather's Cantata of Confrontation, Hooooooooonk!"]))).forEach(ef => (0,external_kolmafia_namespaceObject.cliExecute)("uneffect ".concat(ef)));
+      },
+      do: $location(greyyou_templateObject84 || (greyyou_templateObject84 = greyyou_taggedTemplateLiteral(["Infernal Rackets Backstage"]))),
+      outfit: () => ({
+        familiar: bestFam(),
+        modifier: "".concat(maxBase(), ", -100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience")
+      }),
+      combat: new CombatStrategy().macro(Macro.tryItem(template_string_$item(greyyou_templateObject85 || (greyyou_templateObject85 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(greyyou_templateObject86 || (greyyou_templateObject86 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).repeat()),
+      limit: {
+        tries: 15
+      }
+    }, {
+      name: "Mourn",
+      ready: () => lib_have(template_string_$item(greyyou_templateObject87 || (greyyou_templateObject87 = greyyou_taggedTemplateLiteral(["observational glasses"])))),
+      completed: () => lib_have(template_string_$skill(_templateObject88 || (_templateObject88 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(_templateObject89 || (_templateObject89 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(_templateObject90 || (_templateObject90 = greyyou_taggedTemplateLiteral(["Azazel's lollipop"])))),
+      outfit: {
+        equip: template_string_$items(_templateObject91 || (_templateObject91 = greyyou_taggedTemplateLiteral(["hilarious comedy prop, observational glasses, Victor, the Insult Comic Hellhound Puppet"], ["hilarious comedy prop, observational glasses, Victor\\, the Insult Comic Hellhound Puppet"])))
+      },
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("panda comedy insult; panda comedy observe")
+    }, {
+      name: "Sven Golly",
+      ready: () => backstageItemsDone(),
+      completed: () => lib_have(template_string_$skill(_templateObject92 || (_templateObject92 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(_templateObject93 || (_templateObject93 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(_templateObject94 || (_templateObject94 = greyyou_taggedTemplateLiteral(["Azazel's unicorn"])))),
+      do: () => {
+        (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Bognort ".concat(template_string_$items(_templateObject95 || (_templateObject95 = greyyou_taggedTemplateLiteral(["giant marshmallow, gin-soaked blotter paper"]))).find(a => lib_have(a))));
+        (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Stinkface ".concat(template_string_$items(_templateObject96 || (_templateObject96 = greyyou_taggedTemplateLiteral(["beer-scented teddy bear, gin-soaked blotter paper"]))).find(a => lib_have(a))));
+        (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Flargwurm ".concat(template_string_$items(_templateObject97 || (_templateObject97 = greyyou_taggedTemplateLiteral(["booze-soaked cherry, sponge cake"]))).find(a => lib_have(a))));
+        (0,external_kolmafia_namespaceObject.cliExecute)("panda arena Jim ".concat(template_string_$items(_templateObject98 || (_templateObject98 = greyyou_taggedTemplateLiteral(["comfy pillow, sponge cake"]))).find(a => lib_have(a))));
+      }
+    }, {
+      name: "Moaning Panda",
+      ready: () => haveAll(template_string_$items(_templateObject99 || (_templateObject99 = greyyou_taggedTemplateLiteral(["Azazel's lollipop, Azazel's unicorn"])))),
+      completed: () => lib_have(template_string_$skill(_templateObject100 || (_templateObject100 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(_templateObject101 || (_templateObject101 = greyyou_taggedTemplateLiteral(["steel margarita"])))) || lib_have(template_string_$item(_templateObject102 || (_templateObject102 = greyyou_taggedTemplateLiteral(["Azazel's tutu"])))),
+      acquire: () => template_string_$items(_templateObject103 || (_templateObject103 = greyyou_taggedTemplateLiteral(["bus pass, imp air"]))).map(it => ({
+        item: it,
+        num: 5,
+        price: property_get("valueOfAdventure")
+      })),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("panda moan"),
+      limit: {
+        tries: 3
+      }
+    }, {
+      name: "In-Run Farm Final",
+      completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() <= 40 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject104 || (_templateObject104 = greyyou_taggedTemplateLiteral(["Grey Goo"]))),
+      do: $location(_templateObject105 || (_templateObject105 = greyyou_taggedTemplateLiteral(["Barf Mountain"]))),
+      prepare: () => {
+        if (lib_have(template_string_$item(_templateObject106 || (_templateObject106 = greyyou_taggedTemplateLiteral(["How to Avoid Scams"]))))) ensureEffect($effect(_templateObject107 || (_templateObject107 = greyyou_taggedTemplateLiteral(["How to Scam Tourists"]))));
+        (0,external_kolmafia_namespaceObject.retrieveItem)(template_string_$item(_templateObject108 || (_templateObject108 = greyyou_taggedTemplateLiteral(["seal tooth"]))));
+        if (lib_have(template_string_$item(_templateObject109 || (_templateObject109 = greyyou_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"])))) && property_get("boomBoxSong") !== "Total Eclipse of Your Meat") (0,external_kolmafia_namespaceObject.cliExecute)("boombox meat");
+        (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
+        (0,external_kolmafia_namespaceObject.restoreMp)(20);
+      },
+      outfit: () => ({
+        familiar: $familiars(_templateObject110 || (_templateObject110 = greyyou_taggedTemplateLiteral(["Space Jellyfish, Robortender, Hobo Monkey, Leprechaun"]))).find(f => lib_have(f)),
+        modifier: "".concat(maxBase(), ", 2.5 meat, 0.6 items")
+      }),
+      combat: new CombatStrategy().macro(Macro.trySkill(template_string_$skill(_templateObject111 || (_templateObject111 = greyyou_taggedTemplateLiteral(["Bowl Straight Up"])))).trySkill(template_string_$skill(_templateObject112 || (_templateObject112 = greyyou_taggedTemplateLiteral(["Sing Along"])))).trySkill(template_string_$skill(_templateObject113 || (_templateObject113 = greyyou_taggedTemplateLiteral(["Extract Jelly"])))).tryItem(template_string_$item(_templateObject114 || (_templateObject114 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).tryItem(template_string_$item(_templateObject115 || (_templateObject115 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject116 || (_templateObject116 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject117 || (_templateObject117 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject118 || (_templateObject118 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject119 || (_templateObject119 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject120 || (_templateObject120 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject121 || (_templateObject121 = greyyou_taggedTemplateLiteral(["seal tooth"])))).tryItem(template_string_$item(_templateObject122 || (_templateObject122 = greyyou_taggedTemplateLiteral(["seal tooth"])))).trySkill(template_string_$skill(_templateObject123 || (_templateObject123 = greyyou_taggedTemplateLiteral(["Double Nanovision"])))).attack().repeat()),
+      limit: {
+        tries: 150
+      },
+      tracking: "GooFarming"
+    }, {
+      name: "Hatter Buff",
+      completed: () => property_get("_madTeaParty"),
+      acquire: template_string_$items(_templateObject124 || (_templateObject124 = greyyou_taggedTemplateLiteral(["oil cap, \"DRINK ME\" potion"]))).map(it => ({
+        item: it,
+        price: 1000
+      })),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("hatter ".concat(template_string_$item(_templateObject125 || (_templateObject125 = greyyou_taggedTemplateLiteral(["oil cap"])))))
+    }, {
+      name: "Free King",
+      completed: () => (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject126 || (_templateObject126 = greyyou_taggedTemplateLiteral(["Grey Goo"]))),
+      acquire: () => [{
+        item: template_string_$item(_templateObject127 || (_templateObject127 = greyyou_taggedTemplateLiteral(["teacher's pen"]))),
+        num: 3,
+        price: 500
+      }].concat(greyyou_toConsumableArray(targetClass(false).primestat === $stat(_templateObject128 || (_templateObject128 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$items(_templateObject129 || (_templateObject129 = greyyou_taggedTemplateLiteral(["discarded swimming trunks, battered hubcap, trench coat"]))).map(it => ({
+        item: it
+      })) : []), greyyou_toConsumableArray(targetClass(false).primestat === $stat(_templateObject130 || (_templateObject130 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? [] //$items``.map((it) => ({ item: it }))
+      : []), greyyou_toConsumableArray(targetClass(false).primestat === $stat(_templateObject131 || (_templateObject131 = greyyou_taggedTemplateLiteral(["Moxie"]))) ? template_string_$items(_templateObject132 || (_templateObject132 = greyyou_taggedTemplateLiteral(["noir fedora, KoL Con 13 T-shirt"]))).map(it => ({
+        item: it
+      })) : [])),
+      outfit: () => ({
+        familiar: template_string_$familiar(_templateObject133 || (_templateObject133 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
+        hat: template_string_$item(_templateObject134 || (_templateObject134 = greyyou_taggedTemplateLiteral(["giant yellow hat"]))),
+        weapon: template_string_$item(_templateObject135 || (_templateObject135 = greyyou_taggedTemplateLiteral(["yule hatchet"]))),
+        acc1: template_string_$item(_templateObject136 || (_templateObject136 = greyyou_taggedTemplateLiteral(["teacher's pen"]))),
+        acc2: template_string_$item(_templateObject137 || (_templateObject137 = greyyou_taggedTemplateLiteral(["teacher's pen"]))),
+        acc3: template_string_$item(_templateObject138 || (_templateObject138 = greyyou_taggedTemplateLiteral(["teacher's pen"]))),
+        famequip: template_string_$item(_templateObject139 || (_templateObject139 = greyyou_taggedTemplateLiteral(["grey down vest"])))
+      }),
+      prepare: () => {
+        (0,external_kolmafia_namespaceObject.cliExecute)("mcd 0");
+        (0,external_kolmafia_namespaceObject.maximize)("".concat(targetClass(false).primestat, " experience, 5 ").concat(targetClass(false).primestat, " experience percent, 10 familiar experience, ").concat(noML()), false);
+      },
+      do: () => {
+        (0,external_kolmafia_namespaceObject.cliExecute)("loopgyou class=".concat((0,external_kolmafia_namespaceObject.toInt)(targetClass(false))));
+        _set("_freshOutOfGreyYou", true);
+        _set("goorboNextClass", "");
+        (0,external_kolmafia_namespaceObject.cliExecute)("pull all; refresh all"); //if we somehow didn't already pull everything.
+
+        if ((0,external_kolmafia_namespaceObject.closetAmount)(template_string_$item(_templateObject140 || (_templateObject140 = greyyou_taggedTemplateLiteral(["Special Seasoning"])))) > 0) (0,external_kolmafia_namespaceObject.cliExecute)("closet take * special seasoning");
+        (0,external_kolmafia_namespaceObject.print)("Grey Goose exp at prism break: ".concat(template_string_$familiar(_templateObject141 || (_templateObject141 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience, "/400"));
+      }
+    }, {
+      name: "Call Buffy",
+      completed: () => 0 !== (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject142 || (_templateObject142 = greyyou_taggedTemplateLiteral(["Ghostly Shell"])))) || (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
+      prepare: () => $effects(_templateObject143 || (_templateObject143 = greyyou_taggedTemplateLiteral(["Carlweather's Cantata of Confrontation, The Sonata of Sneakiness, Polka of Plenty, Fat Leon's Phat Loot Lyric"]))).forEach(ef => (0,external_kolmafia_namespaceObject.cliExecute)("uneffect ".concat(ef))),
+      do: () => {
+        (0,external_kolmafia_namespaceObject.cliExecute)("kmail to buffy || ".concat(levelingTurns, " Ghostly Shell, Reptilian Fortitude, Empathy of the Newt, Tenacity of the Snapper, Astral Shell, Elemental Saucesphere, Stevedave's Shanty of Superiority, Power Ballad of the Arrowsmith, Aloysius's Antiphon of Aptitude"));
+        (0,external_kolmafia_namespaceObject.wait)(15);
+        (0,external_kolmafia_namespaceObject.cliExecute)("refresh effects");
+      }
+    }, {
+      name: "Campaway",
+      completed: () => !property_get("getawayCampsiteUnlocked") || property_get("_campAwayCloudBuffs") >= 1 && property_get("_campAwaySmileBuffs") >= 3,
+      do: () => (0,external_kolmafia_namespaceObject.visitUrl)("place.php?whichplace=campaway&action=campaway_sky"),
+      limit: {
+        tries: 4
+      }
+    }, {
+      name: "Snapper Spleen Exp %",
+      completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || $effects(_templateObject144 || (_templateObject144 = greyyou_taggedTemplateLiteral(["HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing"]))).reduce((a, ef) => a || lib_have(ef), false) || (0,external_kolmafia_namespaceObject.mySpleenUse)() >= (0,external_kolmafia_namespaceObject.spleenLimit)() + 3 - property_get("currentMojoFilters"),
+      do: () => {
+        if ((0,external_kolmafia_namespaceObject.mySpleenUse)() === (0,external_kolmafia_namespaceObject.spleenLimit)()) (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(_templateObject145 || (_templateObject145 = greyyou_taggedTemplateLiteral(["mojo filter"]))));
+        (0,external_kolmafia_namespaceObject.chew)(1, (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject146 || (_templateObject146 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$item(_templateObject147 || (_templateObject147 = greyyou_taggedTemplateLiteral(["vial of humanoid growth hormone"]))) : (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject148 || (_templateObject148 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$item(_templateObject149 || (_templateObject149 = greyyou_taggedTemplateLiteral(["non-Euclidean angle"]))) : template_string_$item(_templateObject150 || (_templateObject150 = greyyou_taggedTemplateLiteral(["Shantix\u2122"]))));
+      },
+      limit: {
+        tries: Math.ceil(levelingTurns / 30)
+      },
+      tracking: "Leveling"
+    }, {
+      name: "Inscrutable Gaze",
+      completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || (0,external_kolmafia_namespaceObject.myClass)().primestat !== $stat(_templateObject151 || (_templateObject151 = greyyou_taggedTemplateLiteral(["Mysticality"]))) || lib_have($effect(_templateObject152 || (_templateObject152 = greyyou_taggedTemplateLiteral(["Inscrutable Gaze"])))) || !lib_have(template_string_$skill(_templateObject153 || (_templateObject153 = greyyou_taggedTemplateLiteral(["Inscrutable Gaze"])))),
+      do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject154 || (_templateObject154 = greyyou_taggedTemplateLiteral(["Inscrutable Gaze"])))),
+      limit: {
+        tries: Math.ceil(levelingTurns / 10)
+      },
+      tracking: "Leveling"
+    }, {
+      name: "Abstraction",
+      completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || $effects(_templateObject155 || (_templateObject155 = greyyou_taggedTemplateLiteral(["Purpose, Category, Perception"]))).reduce((a, ef) => a || lib_have(ef), false) || (0,external_kolmafia_namespaceObject.mySpleenUse)() >= (0,external_kolmafia_namespaceObject.spleenLimit)() + 3 - property_get("currentMojoFilters"),
+      do: () => {
+        if ((0,external_kolmafia_namespaceObject.mySpleenUse)() === (0,external_kolmafia_namespaceObject.spleenLimit)()) (0,external_kolmafia_namespaceObject.use)(1, template_string_$item(_templateObject156 || (_templateObject156 = greyyou_taggedTemplateLiteral(["mojo filter"]))));
+        (0,external_kolmafia_namespaceObject.chew)(1, (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject157 || (_templateObject157 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$item(_templateObject158 || (_templateObject158 = greyyou_taggedTemplateLiteral(["abstraction: purpose"]))) : (0,external_kolmafia_namespaceObject.myClass)().primestat === $stat(_templateObject159 || (_templateObject159 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$item(_templateObject160 || (_templateObject160 = greyyou_taggedTemplateLiteral(["abstraction: category"]))) : template_string_$item(_templateObject161 || (_templateObject161 = greyyou_taggedTemplateLiteral(["abstraction: perception"]))));
+      },
+      limit: {
+        tries: Math.ceil(levelingTurns / 50)
+      },
+      tracking: "Leveling"
+    }, {
+      name: "Strange Leaflet",
+      completed: () => property_get("leafletCompleted"),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("leaflet")
+    }, {
+      name: "Frobozz",
+      completed: () => (0,external_kolmafia_namespaceObject.getDwelling)() === template_string_$item(_templateObject162 || (_templateObject162 = greyyou_taggedTemplateLiteral(["Frobozz Real-Estate Company Instant House (TM)"]))),
+      do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject163 || (_templateObject163 = greyyou_taggedTemplateLiteral(["Frobozz Real-Estate Company Instant House (TM)"]))))
+    }, {
+      name: "Bonerdagon Chest",
+      completed: () => !lib_have(template_string_$item(_templateObject164 || (_templateObject164 = greyyou_taggedTemplateLiteral(["chest of the Bonerdagon"])))),
+      do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject165 || (_templateObject165 = greyyou_taggedTemplateLiteral(["chest of the Bonerdagon"]))))
+    }, {
+      name: "Steel Margarita",
+      ready: () => haveAll(template_string_$items(_templateObject166 || (_templateObject166 = greyyou_taggedTemplateLiteral(["Azazel's tutu, Azazel's lollipop, Azazel's unicorn"])))),
+      completed: () => lib_have(template_string_$skill(_templateObject167 || (_templateObject167 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))) || lib_have(template_string_$item(_templateObject168 || (_templateObject168 = greyyou_taggedTemplateLiteral(["steel margarita"])))),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("panda temple")
+    }, {
+      name: "Liver of Steel",
+      ready: () => (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject169 || (_templateObject169 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && lib_have(template_string_$item(_templateObject170 || (_templateObject170 = greyyou_taggedTemplateLiteral(["steel margarita"])))) && (0,external_kolmafia_namespaceObject.myLevel)() >= 5,
+      completed: () => lib_have(template_string_$skill(_templateObject171 || (_templateObject171 = greyyou_taggedTemplateLiteral(["Liver of Steel"])))),
+      do: () => (0,external_kolmafia_namespaceObject.drink)(1, template_string_$item(_templateObject172 || (_templateObject172 = greyyou_taggedTemplateLiteral(["steel margarita"]))))
+    }, {
+      name: "Taffy Effects",
+      completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || $effects(_templateObject173 || (_templateObject173 = greyyou_taggedTemplateLiteral(["Orange Crusher, Purple Reign, Cinnamon Challenger"]))).reduce((a, ef) => a || (0,external_kolmafia_namespaceObject.haveEffect)(ef) >= 50, false),
+      do: () => {
+        if ((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject174 || (_templateObject174 = greyyou_taggedTemplateLiteral(["Muscle"])))) (0,external_kolmafia_namespaceObject.use)(Math.ceil((50 - (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject175 || (_templateObject175 = greyyou_taggedTemplateLiteral(["Orange Crusher"]))))) / 10), template_string_$item(_templateObject176 || (_templateObject176 = greyyou_taggedTemplateLiteral(["pulled orange taffy"])))); //lasts for 10 turns each
+
+        if ((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject177 || (_templateObject177 = greyyou_taggedTemplateLiteral(["Mysticality"])))) (0,external_kolmafia_namespaceObject.use)(Math.ceil((50 - (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject178 || (_templateObject178 = greyyou_taggedTemplateLiteral(["Purple Reign"]))))) / 10), template_string_$item(_templateObject179 || (_templateObject179 = greyyou_taggedTemplateLiteral(["pulled violet taffy"])))); //lasts for 10 turns each
+
+        if ((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject180 || (_templateObject180 = greyyou_taggedTemplateLiteral(["Moxie"])))) (0,external_kolmafia_namespaceObject.use)(Math.ceil((50 - (0,external_kolmafia_namespaceObject.haveEffect)($effect(_templateObject181 || (_templateObject181 = greyyou_taggedTemplateLiteral(["Cinnamon Challenger"]))))) / 10), template_string_$item(_templateObject182 || (_templateObject182 = greyyou_taggedTemplateLiteral(["pulled red taffy"])))); //lasts for 10 turns each
+      },
+      limit: {
+        tries: Math.ceil(levelingTurns / 10)
+      },
+      tracking: "Leveling"
+    }, {
+      name: "Buff Mainstat",
+      completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel || (0,external_kolmafia_namespaceObject.myBuffedstat)((0,external_kolmafia_namespaceObject.myPrimestat)()) >= 11 * (0,external_kolmafia_namespaceObject.myBasestat)((0,external_kolmafia_namespaceObject.myPrimestat)()),
+      effects: $effects(_templateObject183 || (_templateObject183 = greyyou_taggedTemplateLiteral(["Trivia Master"]))),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("gain ".concat(11 * (0,external_kolmafia_namespaceObject.myBasestat)((0,external_kolmafia_namespaceObject.myPrimestat)()), " ").concat((0,external_kolmafia_namespaceObject.myPrimestat)())),
+      limit: {
+        tries: levelingTurns
+      },
+      tracking: "Leveling"
+    }, {
+      name: "Ghost Dog Chow",
+      completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= 8 || template_string_$familiar(_templateObject184 || (_templateObject184 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience > 380,
+      prepare: () => (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject185 || (_templateObject185 = greyyou_taggedTemplateLiteral(["Grey Goose"])))),
+      do: () => (0,external_kolmafia_namespaceObject.use)(Math.floor((400 - template_string_$familiar(_templateObject186 || (_templateObject186 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience) / 20), template_string_$item(_templateObject187 || (_templateObject187 = greyyou_taggedTemplateLiteral(["Ghost Dog Chow"])))),
+      tracking: "Leveling"
+    }, {
+      name: "Implement Glitch",
+      ready: () => lib_have(template_string_$item(_templateObject188 || (_templateObject188 = greyyou_taggedTemplateLiteral(["[glitch season reward name]"])))),
+      completed: () => property_get("_glitchItemImplemented"),
+      do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject189 || (_templateObject189 = greyyou_taggedTemplateLiteral(["[glitch season reward name]"]))))
+    }, {
+      name: "Fight Glitch",
+      ready: () => lib_have(template_string_$item(_templateObject190 || (_templateObject190 = greyyou_taggedTemplateLiteral(["[glitch season reward name]"])))),
+      completed: () => property_get("_glitchMonsterFights") > 0,
+      acquire: template_string_$items(_templateObject191 || (_templateObject191 = greyyou_taggedTemplateLiteral(["gas can, gas balloon, shard of double-ice"]))).map(it => ({
+        item: it,
+        price: 1000
+      })),
+      prepare: () => {
+        (0,external_kolmafia_namespaceObject.restoreHp)(0.9 * (0,external_kolmafia_namespaceObject.myHp)());
+        if (lib_have(template_string_$skill(_templateObject192 || (_templateObject192 = greyyou_taggedTemplateLiteral(["Blood Bond"]))))) (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject193 || (_templateObject193 = greyyou_taggedTemplateLiteral(["Blood Bond"]))));
+      },
+      do: () => (0,external_kolmafia_namespaceObject.visitUrl)("inv_eat.php?pwd&whichitem=10207"),
+      post: () => {
+        if (!property_get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
+      },
+      outfit: () => ({
+        familiar: bestFam(),
+        modifier: "".concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience, 5 ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience percent, 10 familiar experience, ").concat(noML())
+      }),
+      combat: new CombatStrategy().macro(() => {
+        var _Macro$tryItem$extern;
+
+        return (_Macro$tryItem$extern = Macro.tryItem(template_string_$item(_templateObject194 || (_templateObject194 = greyyou_taggedTemplateLiteral(["gas balloon"])))).externalIf(lib_have(template_string_$skill(_templateObject195 || (_templateObject195 = greyyou_taggedTemplateLiteral(["Feel Pride"])))) && property_get("_feelPrideUsed") < 3, Macro.trySkill(template_string_$skill(_templateObject196 || (_templateObject196 = greyyou_taggedTemplateLiteral(["Feel Pride"])))))).tryItem.apply(_Macro$tryItem$extern, greyyou_toConsumableArray(template_string_$items(_templateObject197 || (_templateObject197 = greyyou_taggedTemplateLiteral(["shard of double-ice, gas can"]))))).attack().repeat();
+      }),
+      tracking: "Leveling"
+    }, {
+      name: "NEP Free Fights",
+      ready: () => property_get("neverendingPartyAlways") && !!$effects(_templateObject198 || (_templateObject198 = greyyou_taggedTemplateLiteral(["HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing"]))).find(ef => lib_have(ef)),
+      completed: () => property_get("_neverendingPartyFreeTurns") < 10 || (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject199 || (_templateObject199 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
+      effects: $effects(_templateObject200 || (_templateObject200 = greyyou_taggedTemplateLiteral(["Heart of White"]))),
+      acquire: () => lib_have(template_string_$skill(_templateObject201 || (_templateObject201 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))) ? [] : [{
+        item: template_string_$item(_templateObject202 || (_templateObject202 = greyyou_taggedTemplateLiteral(["electronics kit"]))),
+        price: 500
+      }],
+      outfit: () => ({
+        familiar: template_string_$familiar(_templateObject203 || (_templateObject203 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
+        modifier: "0.125 ".concat((0,external_kolmafia_namespaceObject.myPrimestat)(), ", ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience, 5 ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience percent, 10 familiar experience, ").concat(noML())
+      }),
+      prepare: () => {
+        (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
+        (0,external_kolmafia_namespaceObject.restoreMp)(8);
+      },
+      do: $location(_templateObject204 || (_templateObject204 = greyyou_taggedTemplateLiteral(["The Neverending Party"]))),
+      post: () => {
+        if (!property_get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
+      },
+      choices: {
+        1322: 2,
+        //don't take NEP quest
+        1324: 5 //fight a partier
+
+      },
+      combat: new CombatStrategy().macro(() => {
+        var _Macro$step$externalI;
+
+        return (_Macro$step$externalI = Macro.step("pickpocket").externalIf(lib_have(template_string_$skill(_templateObject205 || (_templateObject205 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))), Macro.trySkill(template_string_$skill(_templateObject206 || (_templateObject206 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))), Macro.tryItem(template_string_$item(_templateObject207 || (_templateObject207 = greyyou_taggedTemplateLiteral(["electronics kit"]))))).externalIf(template_string_$familiar(_templateObject208 || (_templateObject208 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience >= 400, Macro.trySkill((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject209 || (_templateObject209 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$skill(_templateObject210 || (_templateObject210 = greyyou_taggedTemplateLiteral(["Convert Matter to Protein"]))) : (0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject211 || (_templateObject211 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$skill(_templateObject212 || (_templateObject212 = greyyou_taggedTemplateLiteral(["Convert Matter to Energy"]))) : template_string_$skill(_templateObject213 || (_templateObject213 = greyyou_taggedTemplateLiteral(["Convert Matter to Pomade"])))))).tryItem.apply(_Macro$step$externalI, greyyou_toConsumableArray(template_string_$items(_templateObject214 || (_templateObject214 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun, HOA citation pad"]))))).trySkill(template_string_$skill(_templateObject215 || (_templateObject215 = greyyou_taggedTemplateLiteral(["Sing Along"])))).attack().repeat();
+      }),
+      limit: {
+        tries: 13
+      },
+      //+3 for unaccounted for wanderers, etc.
+      tracking: "Leveling"
+    }, {
+      name: "Gators",
+      ready: () => !!$effects(_templateObject216 || (_templateObject216 = greyyou_taggedTemplateLiteral(["HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing"]))).find(ef => lib_have(ef)),
+      completed: () => (0,external_kolmafia_namespaceObject.myClass)() !== $class(_templateObject217 || (_templateObject217 = greyyou_taggedTemplateLiteral(["Grey Goo"]))) && (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
+      effects: $effects(_templateObject218 || (_templateObject218 = greyyou_taggedTemplateLiteral(["Heart of White, Expert Vacationer"]))),
+      acquire: () => lib_have(template_string_$skill(_templateObject219 || (_templateObject219 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))) ? [] : [{
+        item: template_string_$item(_templateObject220 || (_templateObject220 = greyyou_taggedTemplateLiteral(["electronics kit"]))),
+        price: 500
+      }],
+      outfit: () => ({
+        familiar: template_string_$familiar(_templateObject221 || (_templateObject221 = greyyou_taggedTemplateLiteral(["Grey Goose"]))),
+        modifier: "0.125 ".concat((0,external_kolmafia_namespaceObject.myPrimestat)(), ", ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience, 5 ").concat((0,external_kolmafia_namespaceObject.myPrimestat)(), " experience percent, 10 familiar experience, ").concat(noML())
+      }),
+      prepare: () => {
+        (0,external_kolmafia_namespaceObject.restoreHp)(0.75 * (0,external_kolmafia_namespaceObject.myMaxhp)());
+        (0,external_kolmafia_namespaceObject.restoreMp)(8);
+      },
+      do: $location(_templateObject222 || (_templateObject222 = greyyou_taggedTemplateLiteral(["Uncle Gator's Country Fun-Time Liquid Waste Sluice"]))),
+      post: () => {
+        if (!property_get("_lastCombatWon")) throw new Error("Lost Combat - Check to see what went wrong.");
+      },
+      combat: new CombatStrategy().macro(() => Macro.step("pickpocket").externalIf(lib_have(template_string_$skill(_templateObject223 || (_templateObject223 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))), Macro.trySkill(template_string_$skill(_templateObject224 || (_templateObject224 = greyyou_taggedTemplateLiteral(["Curse of Weaksauce"])))), Macro.tryItem(template_string_$item(_templateObject225 || (_templateObject225 = greyyou_taggedTemplateLiteral(["electronics kit"]))))).externalIf(template_string_$familiar(_templateObject226 || (_templateObject226 = greyyou_taggedTemplateLiteral(["Grey Goose"]))).experience >= 400, Macro.trySkill((0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject227 || (_templateObject227 = greyyou_taggedTemplateLiteral(["Muscle"]))) ? template_string_$skill(_templateObject228 || (_templateObject228 = greyyou_taggedTemplateLiteral(["Convert Matter to Protein"]))) : (0,external_kolmafia_namespaceObject.myPrimestat)() === $stat(_templateObject229 || (_templateObject229 = greyyou_taggedTemplateLiteral(["Mysticality"]))) ? template_string_$skill(_templateObject230 || (_templateObject230 = greyyou_taggedTemplateLiteral(["Convert Matter to Energy"]))) : template_string_$skill(_templateObject231 || (_templateObject231 = greyyou_taggedTemplateLiteral(["Convert Matter to Pomade"]))))).tryItem(template_string_$item(_templateObject232 || (_templateObject232 = greyyou_taggedTemplateLiteral(["porquoise-handled sixgun"])))).trySkill(template_string_$skill(_templateObject233 || (_templateObject233 = greyyou_taggedTemplateLiteral(["Sing Along"])))).attack().repeat()),
+      limit: {
+        tries: levelingTurns + 3
+      },
+      //+3 for unaccounted for wanderers, etc.
+      tracking: "Leveling"
+    }, {
+      name: "Alert-Leveling Failed",
+      completed: () => (0,external_kolmafia_namespaceObject.myLevel)() >= args.targetlevel,
+      do: () => {
+        throw new Error("Finished Leveling Tasks, but only reached level ".concat((0,external_kolmafia_namespaceObject.myLevel)(), "/").concat(args.targetlevel));
+      }
+    }, {
+      name: "Gold Wedding Ring",
+      completed: () => !lib_have(template_string_$skill(_templateObject234 || (_templateObject234 = greyyou_taggedTemplateLiteral(["Comprehensive Cartography"])))) || (0,external_kolmafia_namespaceObject.myAscensions)() === property_get("lastCartographyBooPeak"),
+      choices: {
+        1430: 3,
+        606: 4,
+        610: 1,
+        1056: 1
+      },
+      do: $location(_templateObject235 || (_templateObject235 = greyyou_taggedTemplateLiteral(["A-Boo Peak"]))),
+      outfit: {
+        modifier: "initiative 40 min 40 max, -tie"
+      }
+    }, {
+      name: "Breakfast",
+      completed: () => property_get("breakfastCompleted"),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("breakfast")
+    }, {
+      name: "Garbo",
+      ready: () => property_get("_stenchAirportToday") || property_get("stenchAirportAlways"),
+      completed: () => (0,external_kolmafia_namespaceObject.myAdventures)() === 0 && !canDiet() || stooperDrunk(),
+      prepare: () => uneffect($effect(_templateObject236 || (_templateObject236 = greyyou_taggedTemplateLiteral(["Beaten Up"])))),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)(args.garbo),
+      post: () => $effects(_templateObject237 || (_templateObject237 = greyyou_taggedTemplateLiteral(["Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance"]))).filter(ef => lib_have(ef)).forEach(ef => uneffect(ef)),
+      tracking: "Garbo"
+    }, {
+      name: "Turn in FunFunds",
+      ready: () => property_get("_stenchAirportToday") && (0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject238 || (_templateObject238 = greyyou_taggedTemplateLiteral(["FunFunds\u2122"])))) >= 20,
+      completed: () => lib_have(template_string_$item(_templateObject239 || (_templateObject239 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
+      do: () => (0,external_kolmafia_namespaceObject.buy)($coinmaster(_templateObject240 || (_templateObject240 = greyyou_taggedTemplateLiteral(["The Dinsey Company Store"]))), 1, template_string_$item(_templateObject241 || (_templateObject241 = greyyou_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))),
+      tracking: "Garbo"
+    }, {
+      name: "PvP",
+      ready: () => readyForBed(),
+      completed: () => (0,external_kolmafia_namespaceObject.pvpAttacksLeft)() === 0 || !(0,external_kolmafia_namespaceObject.hippyStoneBroken)(),
+      do: () => {
+        (0,external_kolmafia_namespaceObject.cliExecute)("unequip");
+        (0,external_kolmafia_namespaceObject.cliExecute)("UberPvPOptimizer");
+        (0,external_kolmafia_namespaceObject.cliExecute)("swagger");
+      }
+    }, {
+      name: "Nightcap",
+      ready: () => readyForBed(),
+      completed: () => stooperDrunk(),
+      do: () => {
+        if (lib_have(template_string_$familiar(_templateObject242 || (_templateObject242 = greyyou_taggedTemplateLiteral(["Stooper"])))) && lib_have(template_string_$item(_templateObject243 || (_templateObject243 = greyyou_taggedTemplateLiteral(["tiny stillsuit"]))))) {
+          (0,external_kolmafia_namespaceObject.useFamiliar)(template_string_$familiar(_templateObject244 || (_templateObject244 = greyyou_taggedTemplateLiteral(["Stooper"]))));
+          if ((0,external_kolmafia_namespaceObject.myInebriety)() < (0,external_kolmafia_namespaceObject.inebrietyLimit)() && property_get("familiarSweat") >= 300) (0,external_kolmafia_namespaceObject.cliExecute)("drink stillsuit distillate");
+        }
+
+        (0,external_kolmafia_namespaceObject.cliExecute)("CONSUME NIGHTCAP");
+      }
+    }, {
+      name: "Pajamas",
+      completed: () => (0,external_kolmafia_namespaceObject.getCampground)()[template_string_$item(_templateObject245 || (_templateObject245 = greyyou_taggedTemplateLiteral(["clockwork maid"]))).name] === 1,
+      acquire: [{
+        item: template_string_$item(_templateObject246 || (_templateObject246 = greyyou_taggedTemplateLiteral(["clockwork maid"]))),
+        price: 7 * property_get("valueOfAdventure")
+      }],
+      do: () => (0,external_kolmafia_namespaceObject.use)(template_string_$item(_templateObject247 || (_templateObject247 = greyyou_taggedTemplateLiteral(["clockwork maid"])))),
+      outfit: () => ({
+        familiar: $familiars(_templateObject248 || (_templateObject248 = greyyou_taggedTemplateLiteral(["Trick-or-Treating Tot, Left-Hand Man, Disembodied Hand, Grey Goose"]))).find(fam => lib_have(fam)),
+        modifier: "adventures".concat(args.pvp ? ", 0.3 fites" : "")
+      })
+    }, {
+      name: "Summon Soap Knife",
+      completed: () => !lib_have(template_string_$skill(_templateObject249 || (_templateObject249 = greyyou_taggedTemplateLiteral(["That's Not a Knife"])))) || property_get("_discoKnife"),
+      prepare: () => (0,external_kolmafia_namespaceObject.putCloset)((0,external_kolmafia_namespaceObject.itemAmount)(template_string_$item(_templateObject250 || (_templateObject250 = greyyou_taggedTemplateLiteral(["soap knife"])))), template_string_$item(_templateObject251 || (_templateObject251 = greyyou_taggedTemplateLiteral(["soap knife"])))),
+      do: () => (0,external_kolmafia_namespaceObject.useSkill)(template_string_$skill(_templateObject252 || (_templateObject252 = greyyou_taggedTemplateLiteral(["That's Not a Knife"])))),
+      post: () => (0,external_kolmafia_namespaceObject.takeCloset)((0,external_kolmafia_namespaceObject.closetAmount)(template_string_$item(_templateObject253 || (_templateObject253 = greyyou_taggedTemplateLiteral(["soap knife"])))), template_string_$item(_templateObject254 || (_templateObject254 = greyyou_taggedTemplateLiteral(["soap knife"]))))
+    }, {
+      name: "Tip the Author",
+      //disabled by default - must manually discover and enable the flag
+      ready: () => args.tip,
+      completed: () => !lib_have(template_string_$item(_templateObject255 || (_templateObject255 = greyyou_taggedTemplateLiteral(["soap knife"])))),
+      do: () => (0,external_kolmafia_namespaceObject.cliExecute)("csend * soap knife to sketchysolid || Thanks for the script!")
+    }, {
+      name: "Alert-No Nightcap",
+      ready: () => !readyForBed(),
+      completed: () => stooperDrunk(),
+      do: () => {
+        var targetAdvs = 100 - (0,external_kolmafia_namespaceObject.numericModifier)("adventures");
+        (0,external_kolmafia_namespaceObject.print)("goorbo completed, but did not overdrink.", "red");
+        if (targetAdvs < (0,external_kolmafia_namespaceObject.myAdventures)() && targetAdvs > 0) (0,external_kolmafia_namespaceObject.print)("Rerun with fewer than ".concat(targetAdvs, " adventures for goorbo to handle your diet"), "red");else (0,external_kolmafia_namespaceObject.print)("Something went wrong.", "red");
+      }
+    }]
+  };
+}
 ;// CONCATENATED MODULE: ./src/engine/engine.ts
 function engine_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -11055,29 +11120,32 @@ var ProfitTrackingEngine = /*#__PURE__*/function (_Engine) {
 
       // Save regular combat macro
       var macro = task_combat.compile(task_resources, (_this$options = this.options) === null || _this$options === void 0 ? void 0 : _this$options.combat_defaults, task.do instanceof external_kolmafia_namespaceObject.Location ? task.do : undefined);
-      macro.save();
 
-      if (!this.options.ccs) {
-        // Use the macro through a CCS file
-        var otherCCSEntries = task_combat.compileCcs();
-        var ccsContents = ["[default]", "\"".concat(ccsAbortString).concat(macro.toString(), "\"")].concat(engine_engine_toConsumableArray(otherCCSEntries)).join("\n"); // Log Macro + other CCS
+      if (macro.toString().length > 1) {
+        macro.save();
 
-        (0,external_kolmafia_namespaceObject.logprint)("CCS: ".concat(ccsContents.replace("\n", "\\n ")));
+        if (!this.options.ccs) {
+          // Use the macro through a CCS file
+          var otherCCSEntries = task_combat.compileCcs();
+          var ccsContents = ["[default]", "\"".concat(ccsAbortString).concat(macro.toString(), "\"")].concat(engine_engine_toConsumableArray(otherCCSEntries)).join("\n"); // Log Macro + other CCS
 
-        if (ccsContents !== this.cachedCcsContents) {
-          (0,external_kolmafia_namespaceObject.writeCcs)(ccsContents, engine_grimoireCCS);
-          (0,external_kolmafia_namespaceObject.cliExecute)("ccs ".concat(engine_grimoireCCS)); // force Mafia to reparse the ccs
+          (0,external_kolmafia_namespaceObject.logprint)("CCS: ".concat(ccsContents.replace("\n", "\\n ")));
 
-          var autoattack = task_combat.compileAutoattack().step(macro);
+          if (ccsContents !== this.cachedCcsContents) {
+            (0,external_kolmafia_namespaceObject.writeCcs)(ccsContents, engine_grimoireCCS);
+            (0,external_kolmafia_namespaceObject.cliExecute)("ccs ".concat(engine_grimoireCCS)); // force Mafia to reparse the ccs
 
-          if (autoattack.toString().length > 1) {
-            autoattack.save();
-            autoattack.setAutoAttack();
-          } else {
-            (0,external_kolmafia_namespaceObject.setAutoAttack)(0);
+            var autoattack = task_combat.compileAutoattack().step(macro);
+
+            if (autoattack.toString().length > 1) {
+              autoattack.save();
+              autoattack.setAutoAttack();
+            } else {
+              (0,external_kolmafia_namespaceObject.setAutoAttack)(0);
+            }
+
+            this.cachedCcsContents = ccsContents;
           }
-
-          this.cachedCcsContents = ccsContents;
         }
       }
     }
@@ -11134,7 +11202,7 @@ function main_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.sl
 
 
 
-var version = "0.4.7";
+var version = "0.4.8";
 var args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a classe for you to learn guild skills, and to perm learned skills upon ascension.", {
   version: Args.flag({
     help: "Output script version number and exit."
@@ -11177,6 +11245,9 @@ var args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #422389
     help: "Choose the class to choose at prism break. If set, will override any class that might be desired for skill-perming purposes",
     default: $class(main_templateObject3 || (main_templateObject3 = main_taggedTemplateLiteral(["none"])))
   }, external_kolmafia_namespaceObject.toClass, "CLASS"),
+  clan: Args.string({
+    help: "Your VIP Clan. Goorbo will whitelist into it at the beginning of your day. Requires clan whitelist."
+  }),
   targetlevel: Args.number({
     help: "What level to target via adventuring in Uncle Gator's after breaking the prism",
     default: 13
@@ -11227,7 +11298,7 @@ function main(command) {
     return;
   }
 
-  var tasks = getTasks([AftercoreQuest, GyouQuest]); // Abort during the prepare() step of the specified task
+  var tasks = getTasks([AftercoreQuest(), GyouQuest()]); // Abort during the prepare() step of the specified task
 
   if (args.abort) {
     var to_abort = tasks.find(task => task.name === args.abort);
