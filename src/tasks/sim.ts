@@ -9,7 +9,16 @@ import {
   Skill,
   storageAmount,
 } from "kolmafia";
-import { $class, $familiar, $familiars, $item, $skill, CombatLoversLocket, have } from "libram";
+import {
+  $class,
+  $familiar,
+  $familiars,
+  $item,
+  $skill,
+  CombatLoversLocket,
+  get,
+  have,
+} from "libram";
 import { defaultPermList, permTiers, targetClass, targetPerms } from "./perm";
 
 type SpecialThing = {
@@ -42,12 +51,32 @@ const generalList: Requirement[] = [
   },
 ];
 const levelList: Requirement[] = [
-  { thing: $item`January's Garbage Tote`, why: "aftercore leveling (all)", optional: true },
-  { thing: $item`familiar scrapbook`, why: "aftercore leveling (all)", optional: true },
-  { thing: $item`trench lighter`, why: "aftercore leveling (all)", optional: true },
-  { thing: $skill`Feel Pride`, why: "aftercore leveling (all)", optional: true },
-  { thing: $item`[glitch season reward name]`, why: "aftercore leveling (all)", optional: true },
-  // { thing: $item`cosmic bowling ball`, why: "aftercore leveling (all)", optional: true },
+  { thing: $item`January's Garbage Tote`, why: "aftercore leveling", optional: true },
+  {
+    thing: {
+      have: () => get("getawayCampsiteUnlocked"),
+      name: $item`Distant Woods Getaway Brochure`.name,
+    },
+    why: "aftercore leveling",
+    optional: true,
+  },
+  {
+    thing: {
+      have: () => get("neverendingPartyAlways"),
+      name: $item`Neverending Party invitation envelope`.name,
+    },
+    why: "scaling free fights",
+    optional: true,
+  },
+  // { thing: $item`Clan VIP Lounge key`, why: "aftercore leveling", optional: true },
+  // { thing: $skill`Sweet Synthesis`, why: "aftercore leveling", optional: true },
+  // { thing: $familiar`Vampire Vintner`, why: "goose charging", optional: true },
+  { thing: $item`familiar scrapbook`, why: "aftercore leveling", optional: true },
+  // { thing: $item`defective Game Grid token`, why: "aftercore leveling", optional: true },
+  { thing: $item`trench lighter`, why: "aftercore leveling", optional: true },
+  { thing: $skill`Feel Pride`, why: "aftercore leveling", optional: true },
+  { thing: $item`[glitch season reward name]`, why: "aftercore leveling", optional: true },
+  // { thing: $item`cosmic bowling ball`, why: "aftercore leveling", optional: true },
   { thing: $item`fake washboard`, why: "aftercore leveling (mus)", optional: true },
   { thing: $skill`Inscrutable Gaze`, why: "aftercore leveling (mys)", optional: true },
   { thing: $item`basaltamander buckler`, why: "aftercore leveling (mys)", optional: true },
@@ -60,18 +89,27 @@ const profitList: Requirement[] = [
   { thing: $item`Asdon Martin keyfob`, why: "in-run farming profits", optional: true },
   { thing: $item`June cleaver`, why: "in-run farming profits", optional: true },
   { thing: $item`tiny stillsuit`, why: "rollover adventures", optional: true },
+  { thing: $item`mime army shotglass`, why: "extra size-1 booze/day", optional: true },
   { thing: $familiar`Stooper`, why: "rollover adventures", optional: true },
   { thing: $item`Drunkula's wineglass`, why: "overdrunk farming", optional: true },
-  { thing: $item`carnivorous potted plant`, why: "turnsave", optional: true },
   {
     thing: $item`infinite BACON machine`,
-    why: "source of renewable Fat Loot Tokens",
+    why: "daily Dungeon Malware",
     optional: true,
   },
 ];
 const marginalList: Requirement[] = [
-  { thing: $item`The Jokester's gun`, why: "turnsave", optional: true },
+  { thing: $item`carnivorous potted plant`, why: "occasional free kill", optional: true },
+  // { thing: $item`The Jokester's gun`, why: "free kill", optional: true },
+  // { thing: $skill`Gingerbread Mob Hit`, why: "free kill", optional: true },
+  // { thing: $skill`Shattering Punch`, why: "free kills", optional: true },
+  // { thing: $item`Lil' Doctor™ bag`, why: "free kills", optional: true },
   { thing: $item`hewn moon-rune spoon`, why: "easier perming of gnome skills", optional: true },
+  {
+    thing: $skill`Comprehensive Cartography`,
+    why: "gold wedding ring",
+    optional: true,
+  },
 ];
 
 function checkThing(thing: Thing): [boolean, string] {
