@@ -77,12 +77,7 @@ export const AftercoreQuest: Quest = {
         get("dailyDungeonDone") ||
         getWorkshed() !== $item`Asdon Martin keyfob` ||
         haveEffect($effect`Driving Observantly`) >= 800,
-      do: () =>
-        AsdonMartin.drive(
-          $effect`Driving Observantly`,
-          810 - haveEffect($effect`Driving Observantly`),
-          false
-        ),
+      do: () => AsdonMartin.drive($effect`Driving Observantly`, 810, false),
     },
     {
       name: "Install CMC",
