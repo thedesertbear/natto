@@ -232,6 +232,31 @@ export function AftercoreQuest(): Quest {
         limit: { tries: 15 },
       },
       {
+        name: "Train Gnome Skills",
+        ready: () => myMeat() >= 5000 && gnomadsAvailable(),
+        completed: () =>
+          !targetPerms(false).find(
+            (sk) =>
+              !have(sk) &&
+              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+                sk
+              )
+          ),
+        do: () =>
+          targetPerms(false)
+            .filter(
+              (sk) =>
+                !have(sk) &&
+                $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
+                  sk
+                )
+            )
+            .forEach((sk) =>
+              visitUrl(`gnomes.php?action=trainskill&whichskill=${toInt(sk)}`, true)
+            ),
+        limit: { tries: 5 },
+      },
+      {
         name: "Unlock Guild",
         ready: () =>
           //ready if you find a skill in your perm plan that is guild-trainable that you don't know, or if you need to buy seal summoning supplies
@@ -318,31 +343,6 @@ export function AftercoreQuest(): Quest {
           num: 500,
         })),
         do: () => false,
-      },
-      {
-        name: "Train Gnome Skills",
-        ready: () => myMeat() >= 5000 && gnomadsAvailable(),
-        completed: () =>
-          !targetPerms(false).find(
-            (sk) =>
-              !have(sk) &&
-              $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
-                sk
-              )
-          ),
-        do: () =>
-          targetPerms(false)
-            .filter(
-              (sk) =>
-                !have(sk) &&
-                $skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.includes(
-                  sk
-                )
-            )
-            .forEach((sk) =>
-              visitUrl(`gnomes.php?action=trainskill&whichskill=${toInt(sk)}`, true)
-            ),
-        limit: { tries: 5 },
       },
       {
         name: "Garbo",
