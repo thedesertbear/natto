@@ -201,9 +201,11 @@ export function AftercoreQuest(): Quest {
           modifier: `${maxBase()}, 250 bonus carnivorous potted plant`,
         }),
         prepare: (): void => {
-          if (have($item`daily dungeon malware`) && get("_dailyDungeonMalwareUsed"))
-            putCloset($item`daily dungeon malware`);
-          if (!get("_dailyDungeonMalwareUsed") && itemAmount($item`fat loot token`) < 3) {
+          if (
+            !get("_dailyDungeonMalwareUsed") &&
+            itemAmount($item`fat loot token`) < 3 &&
+            itemAmount($item`daily dungeon malware`) === 0
+          ) {
             if (availableAmount($item`BACON`) >= 150)
               buy($coinmaster`internet meme shop`, 1, $item`daily dungeon malware`);
             else retrieveItem(1, $item`daily dungeon malware`);
