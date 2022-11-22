@@ -166,7 +166,8 @@ export function GyouQuest(): Quest {
       },
       {
         name: "June Cleaver",
-        completed: () => !have($item`June cleaver`) || get("_juneCleaverFightsLeft") > 0,
+        completed: () =>
+          !have($item`June cleaver`) || get("_juneCleaverFightsLeft") > 0 || myAdventures() === 0,
         choices: {
           793: 4, //The Shore -> Gift Shop
           1467: 3, //Poetic Justice
