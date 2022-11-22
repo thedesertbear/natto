@@ -53,6 +53,7 @@ import {
   ascend,
   AsdonMartin,
   get,
+  getTodaysHolidayWanderers,
   have,
   Lifestyle,
   Macro,
@@ -292,12 +293,27 @@ export function AftercoreQuest(): Quest {
             myPrimestat() === $stat`Muscle` ? "100 combat rate 20 max" : "-100 combat rate"
           }, 250 bonus carnivorous potted plant`,
         }),
-        combat: new CombatStrategy().macro(() =>
-          Macro.step("pickpocket")
-            .tryItem($item`porquoise-handled sixgun`)
-            .attack()
-            .repeat()
-        ),
+        combat: new CombatStrategy()
+          .macro(
+            () =>
+              Macro.step("pickpocket")
+                .externalIf(
+                  have($skill`Curse of Weaksauce`),
+                  Macro.trySkill($skill`Curse of Weaksauce`),
+                  Macro.tryItem($item`electronics kit`)
+                )
+                .tryItem($item`porquoise-handled sixgun`)
+                .trySkill($skill`Sing Along`)
+                .attack()
+                .repeat(),
+            getTodaysHolidayWanderers()
+          )
+          .macro(() =>
+            Macro.step("pickpocket")
+              .tryItem($item`porquoise-handled sixgun`)
+              .attack()
+              .repeat()
+          ),
       },
       {
         name: "Guild Skill Training",

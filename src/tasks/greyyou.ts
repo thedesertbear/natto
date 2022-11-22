@@ -65,6 +65,7 @@ import {
   $stat,
   ensureEffect,
   get,
+  getTodaysHolidayWanderers,
   have,
   Macro,
   set,
@@ -212,23 +213,25 @@ export function GyouQuest(): Quest {
           ),
           modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
         },
-        combat: new CombatStrategy().macro(
-          Macro.trySkill($skill`Bowl Straight Up`)
-            .trySkill($skill`Sing Along`)
-            .trySkill($skill`Extract Jelly`)
-            .tryItem($item`porquoise-handled sixgun`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .trySkill($skill`Double Nanovision`)
-            .attack()
-            .repeat()
-        ),
+        combat: new CombatStrategy()
+          .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
+          .macro(
+            Macro.trySkill($skill`Bowl Straight Up`)
+              .trySkill($skill`Sing Along`)
+              .trySkill($skill`Extract Jelly`)
+              .tryItem($item`porquoise-handled sixgun`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .trySkill($skill`Double Nanovision`)
+              .attack()
+              .repeat()
+          ),
         limit: { tries: 550 },
         tracking: "GooFarming",
       },
@@ -284,15 +287,17 @@ export function GyouQuest(): Quest {
           691: 2, //dd chest 2: boring door
           693: 2, //dd trap: skip
         },
-        combat: new CombatStrategy().macro(() =>
-          Macro.externalIf(
-            !get("_dailyDungeonMalwareUsed"),
-            Macro.tryItem($item`daily dungeon malware`)
-          )
-            .tryItem($item`porquoise-handled sixgun`)
-            .attack()
-            .repeat()
-        ),
+        combat: new CombatStrategy()
+          .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
+          .macro(() =>
+            Macro.externalIf(
+              !get("_dailyDungeonMalwareUsed"),
+              Macro.tryItem($item`daily dungeon malware`)
+            )
+              .tryItem($item`porquoise-handled sixgun`)
+              .attack()
+              .repeat()
+          ),
         limit: { tries: 15 },
       },
       {
@@ -325,12 +330,14 @@ export function GyouQuest(): Quest {
           familiar: bestFam(),
           modifier: `${maxBase()}, 100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
         }),
-        combat: new CombatStrategy().macro(
-          Macro.tryItem($item`porquoise-handled sixgun`)
-            .trySkill($skill`Double Nanovision`)
-            .attack()
-            .repeat()
-        ),
+        combat: new CombatStrategy()
+          .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
+          .macro(
+            Macro.tryItem($item`porquoise-handled sixgun`)
+              .trySkill($skill`Double Nanovision`)
+              .attack()
+              .repeat()
+          ),
         limit: { tries: 15 },
       },
       {
@@ -365,11 +372,13 @@ export function GyouQuest(): Quest {
           familiar: bestFam(),
           modifier: `${maxBase()}, -100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
         }),
-        combat: new CombatStrategy().macro(
-          Macro.tryItem($item`porquoise-handled sixgun`)
-            .trySkill($skill`Double Nanovision`)
-            .repeat()
-        ),
+        combat: new CombatStrategy()
+          .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
+          .macro(
+            Macro.tryItem($item`porquoise-handled sixgun`)
+              .trySkill($skill`Double Nanovision`)
+              .repeat()
+          ),
         limit: { tries: 15 },
       },
       {
@@ -442,23 +451,25 @@ export function GyouQuest(): Quest {
           ),
           modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
         }),
-        combat: new CombatStrategy().macro(
-          Macro.trySkill($skill`Bowl Straight Up`)
-            .trySkill($skill`Sing Along`)
-            .trySkill($skill`Extract Jelly`)
-            .tryItem($item`porquoise-handled sixgun`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .tryItem($item`seal tooth`)
-            .trySkill($skill`Double Nanovision`)
-            .attack()
-            .repeat()
-        ),
+        combat: new CombatStrategy()
+          .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
+          .macro(
+            Macro.trySkill($skill`Bowl Straight Up`)
+              .trySkill($skill`Sing Along`)
+              .trySkill($skill`Extract Jelly`)
+              .tryItem($item`porquoise-handled sixgun`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .tryItem($item`seal tooth`)
+              .trySkill($skill`Double Nanovision`)
+              .attack()
+              .repeat()
+          ),
         limit: { tries: 150 },
         tracking: "GooFarming",
       },
