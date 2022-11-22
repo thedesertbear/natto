@@ -364,27 +364,22 @@ export function AftercoreQuest(): Quest {
         do: () => false,
       },
       {
-        name: "Garbo",
-        completed: () =>
-          (!canDiet() && myAdventures() <= (args.voatest ? 100 : 0)) || stooperDrunk(),
+        name: "Garbo Pre-VoA",
+        completed: () => !args.voatest || stooperDrunk() || (!canDiet() && myAdventures() <= 100),
         prepare: () => uneffect($effect`Beaten Up`),
-        do: () => cliExecute(`${args.garboascend} ${args.voatest && "-100"}`),
-        post: () =>
-          $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
-            .filter((ef) => have(ef))
-            .forEach((ef) => uneffect(ef)),
+        do: () => cliExecute(`${args.garboascend} -100`),
         tracking: "Garbo",
       },
       {
-        name: "Garbo VoA",
-        completed: () => (!canDiet() && myAdventures() === 0) || stooperDrunk(),
+        name: args.voatest ? "Garbo VoA" : "Garbo",
+        completed: () => stooperDrunk() || (!canDiet() && myAdventures() === 0),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => cliExecute(`${args.garboascend}`),
         post: () =>
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
             .forEach((ef) => uneffect(ef)),
-        tracking: "VoA Test",
+        tracking: args.voatest ? "VoA Test" : "Garbo",
       },
       {
         name: "Stooper",
