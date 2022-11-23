@@ -26,6 +26,7 @@ import {
   myBasestat,
   myBuffedstat,
   myClass,
+  myFamiliar,
   myHp,
   myInebriety,
   myLevel,
@@ -63,15 +64,20 @@ import {
   $item,
   $items,
   $location,
+  $monsters,
+  $phylum,
   $skill,
   $stat,
   AsdonMartin,
   ensureEffect,
   get,
+  getBanishedMonsters,
   getTodaysHolidayWanderers,
   have,
   Macro,
+  Robortender,
   set,
+  Snapper,
   SongBoom,
   uneffect,
 } from "libram";
@@ -228,12 +234,76 @@ export function GyouQuest(): Quest {
       //     getWorkshed() !== $item`Little Geneticis` || ,
       //   do: () => ,
       // },
-      // {
-      //   name: "Prep Robortender",
-      // 	ready: () => availableAmount($item`boxed wine`) > 0,
-      //   completed: () => !have($familiar`Robortender`) || meatFam() !== $familiar`Robortender` || get("_roboDrinks").includes(),
-      //   do: () => ,
-      // },
+      {
+        name: "Robort Collect Fish Head",
+        ready: () => have($item`boxed wine`) && meatFam() === $familiar`Robortender`,
+        completed: () =>
+          !have($item`miniature crystal ball`) ||
+          !have($familiar`Robortender`) ||
+          Robortender.currentDrinks().includes($item`drive-by shooting`) ||
+          have($item`fish head`) ||
+          have($item`piscatini`) ||
+          have($item`drive-by shooting`),
+        outfit: {
+          familiar: get("crystalBallPredictions").includes(":The Copperhead Club:Mob Penguin Capo")
+            ? $familiar`Robortender`
+            : have($familiar`Red-Nosed Snapper`)
+            ? $familiar`Red-Nosed Snapper`
+            : bestFam(),
+          famequip: $item`miniature crystal ball`,
+          // ...(have($item`latte lovers member's mug`) &&
+          // !get("_latteCopyUsed") &&
+          // get("crystalBallPredictions").includes(":The Copperhead Club:Mob Penguin Capo")
+          //   ? { offhand: $item`latte lovers member's mug` }
+          //   : {}),
+          modifier: `${maxBase()}`,
+        },
+        prepare: (): void => {
+          if (
+            myFamiliar() === $familiar`Red-Nosed Snapper` &&
+            Snapper.getTrackedPhylum() !== $phylum`penguin`
+          )
+            Snapper.trackPhylum($phylum`penguin`);
+          restoreHp(0.75 * myMaxhp());
+          restoreMp(20);
+        },
+        do: $location`The Copperhead Club`,
+        combat: new CombatStrategy()
+          .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
+          // .macro(Macro.trySkill($skill`Offer Latte to Opponent`), $monster`Mob Penguin Capo`)
+          .macro(
+            () =>
+              Macro.externalIf(
+                !$monsters`Copperhead Club bartender, fan dancer, ninja dressed as a waiter, waiter dressed as a ninja`.find(
+                  (mob) => mob === getBanishedMonsters().get($skill`System Sweep`) //get("banishedMonsters").includes(`${mob.name}:System Sweep`)
+                ),
+                Macro.trySkill($skill`System Sweep`)
+              ),
+            $monsters`Copperhead Club bartender, fan dancer, ninja dressed as a waiter, waiter dressed as a ninja`
+          )
+          .macro(
+            Macro.tryItem($item`porquoise-handled sixgun`)
+              .trySkill($skill`Sing Along`)
+              .attack()
+              .repeat()
+          ),
+        limit: { tries: 10 },
+      },
+      {
+        name: "Feed Robortender",
+        ready: () =>
+          (have($item`boxed wine`) && have($item`fish head`)) ||
+          have($item`piscatini`) ||
+          have($item`drive-by shooting`),
+        completed: () =>
+          !have($familiar`Robortender`) ||
+          Robortender.currentDrinks().includes($item`drive-by shooting`),
+        do: () => {
+          retrieveItem($item`drive-by shooting`);
+          useFamiliar($familiar`Robortender`);
+          Robortender.feed($item`drive-by shooting`);
+        },
+      },
       {
         name: "In-Run Farm Initial",
         completed: () => myTurncount() >= 1000,
@@ -241,8 +311,6 @@ export function GyouQuest(): Quest {
         prepare: (): void => {
           if (have($item`How to Avoid Scams`)) ensureEffect($effect`How to Scam Tourists`);
           retrieveItem($item`seal tooth`);
-          if (have($item`SongBoom™ BoomBox`) && get("boomBoxSong") !== "Total Eclipse of Your Meat")
-            cliExecute("boombox meat");
           restoreHp(0.75 * myMaxhp());
           restoreMp(20);
         },
@@ -479,8 +547,6 @@ export function GyouQuest(): Quest {
         prepare: (): void => {
           if (have($item`How to Avoid Scams`)) ensureEffect($effect`How to Scam Tourists`);
           retrieveItem($item`seal tooth`);
-          if (have($item`SongBoom™ BoomBox`) && get("boomBoxSong") !== "Total Eclipse of Your Meat")
-            cliExecute("boombox meat");
           restoreHp(0.75 * myMaxhp());
           restoreMp(20);
         },
