@@ -208,6 +208,14 @@ export function GyouQuest(): Quest {
         limit: undefined,
       },
       {
+        name: "Meat Boombox",
+        completed: () =>
+          !have($item`SongBoom™ BoomBox`) ||
+          get("boomBoxSong") === "Total Eclipse of Your Meat" ||
+          get("_boomBoxSongsLeft") === 0,
+        do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
+      },
+      {
         name: "Drive Observantly",
         completed: () =>
           getWorkshed() !== $item`Asdon Martin keyfob` ||
