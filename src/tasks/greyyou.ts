@@ -12,11 +12,13 @@ import {
   getCampground,
   getClanName,
   getDwelling,
+  getWorkshed,
   gnomadsAvailable,
   handlingChoice,
   haveEffect,
   hippyStoneBroken,
   inebrietyLimit,
+  Item,
   itemAmount,
   maximize,
   myAdventures,
@@ -63,6 +65,7 @@ import {
   $location,
   $skill,
   $stat,
+  AsdonMartin,
   ensureEffect,
   get,
   getTodaysHolidayWanderers,
@@ -86,7 +89,12 @@ import {
 } from "./utils";
 import { targetClass } from "./perm";
 
-const myPulls = $items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring, Asdon Martin keyfob`;
+const myPulls: Item[] = [
+  ...$items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`,
+  ...$items`Asdon Martin keyfob` //, Little Geneticist DNA-Splicing Lab`
+    .filter((it) => have(it))
+    .slice(0, 1),
+];
 const levelingTurns = 30;
 let fireworksPrepped = false;
 
@@ -197,6 +205,19 @@ export function GyouQuest(): Quest {
         outfit: () => ({ equip: $items`June cleaver` }),
         limit: undefined,
       },
+      {
+        name: "Drive Observantly",
+        completed: () =>
+          getWorkshed() !== $item`Asdon Martin keyfob` ||
+          haveEffect($effect`Driving Observantly`) >= 30,
+        do: () => AsdonMartin.drive($effect`Driving Observantly`, 30, false),
+      },
+      // {
+      //   name: "Constellation Genes",
+      //   completed: () =>
+      //     getWorkshed() !== $item`Little Geneticis` || ,
+      //   do: () => ,
+      // },
       {
         name: "In-Run Farm Initial",
         completed: () => myTurncount() >= 1000,
