@@ -72,6 +72,7 @@ import {
   have,
   Macro,
   set,
+  SongBoom,
   uneffect,
 } from "libram";
 import { args } from "../main";
@@ -82,6 +83,7 @@ import {
   canDiet,
   haveAll,
   maxBase,
+  meatFam,
   noML,
   readyForBed,
   stooperDrunk,
@@ -218,6 +220,12 @@ export function GyouQuest(): Quest {
       //     getWorkshed() !== $item`Little Geneticis` || ,
       //   do: () => ,
       // },
+      // {
+      //   name: "Prep Robortender",
+      // 	ready: () => availableAmount($item`boxed wine`) > 0,
+      //   completed: () => !have($familiar`Robortender`) || meatFam() !== $familiar`Robortender` || get("_roboDrinks").includes(),
+      //   do: () => ,
+      // },
       {
         name: "In-Run Farm Initial",
         completed: () => myTurncount() >= 1000,
@@ -231,9 +239,7 @@ export function GyouQuest(): Quest {
           restoreMp(20);
         },
         outfit: {
-          familiar: $familiars`Space Jellyfish, Robortender, Hobo Monkey, Leprechaun`.find((f) =>
-            have(f)
-          ),
+          familiar: meatFam(),
           modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
         },
         combat: new CombatStrategy()
@@ -471,9 +477,7 @@ export function GyouQuest(): Quest {
           restoreMp(20);
         },
         outfit: () => ({
-          familiar: $familiars`Space Jellyfish, Robortender, Hobo Monkey, Leprechaun`.find((f) =>
-            have(f)
-          ),
+          familiar: meatFam(),
           modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
         }),
         combat: new CombatStrategy()

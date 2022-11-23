@@ -108,6 +108,13 @@ function famValue(fam: Familiar, mob?: Monster) {
   return 0;
 }
 
+export function meatFam() {
+  return (
+    $familiars`Space Jellyfish, Robortender, Hobo Monkey, Cat Burglar`.find((fam) => have(fam)) ||
+    $familiar`Leprechaun`
+  );
+}
+
 export function bestFam(mob?: Monster) {
   const fams = $familiars`Grey Goose, Red-Nosed Snapper, Cookbookbat, Shorter-Order Cook`
     .filter((fam) => have(fam))
