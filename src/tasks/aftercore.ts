@@ -89,6 +89,17 @@ export function AftercoreQuest(): Quest {
         completed: () => get("breakfastCompleted"),
         do: () => cliExecute("breakfast"),
       },
+      // {
+      //   name: "Harvest Garden",
+      //   completed: () => myGardenType() === "grass",
+      //   do: () => {
+      //     cliExecute("garden pick");
+      //     use($item`packet of tall grass seeds`);
+      //     use($item`cold medicine cabinet`);
+      //     // cliExecute("cmc pill");
+      //   },
+      //   tracking: "Dailies",
+      // },
       {
         name: "Drive Observantly",
         completed: () =>

@@ -213,7 +213,7 @@ export function checkPerms() {
   let count = 0;
   defaultPermList().forEach((sks) =>
     printHtml(
-      `~ ${permTiers[count++]} ~<br> ${sks
+      `<br>~ ${permTiers[count++]} ~<br> ${sks
         .map((sk) => coloredSkill(sk, nPerms, nClass))
         .join(", ")}`,
       false

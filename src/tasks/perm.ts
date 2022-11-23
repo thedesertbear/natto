@@ -5,6 +5,7 @@ import {
   inCasual,
   inHardcore,
   myClass,
+  print,
   printHtml,
   Skill,
   toClass,
@@ -169,6 +170,7 @@ export function printPermPlan() {
   const cPerms = targetPerms(false);
   const nClass = targetClass(true);
   const nPerms = targetPerms(true);
+  print();
   printHtml(
     `Current ${planHelper(
       cPerms.map((sk) => coloredSkill(sk, cPerms, cClass)),
