@@ -82,6 +82,7 @@ import {
   noML,
   readyForBed,
   stooperDrunk,
+  totallyDrunk,
 } from "./utils";
 import { targetClass } from "./perm";
 
@@ -892,17 +893,22 @@ export function GyouQuest(): Quest {
         },
       },
       {
+        name: "Stooper",
+        ready: () =>
+          myInebriety() === inebrietyLimit() &&
+          have($item`tiny stillsuit`) &&
+          get("familiarSweat") >= 300,
+        completed: () => !have($familiar`Stooper`) || stooperDrunk(),
+        do: () => {
+          useFamiliar($familiar`Stooper`);
+          cliExecute("drink stillsuit distillate");
+        },
+      },
+      {
         name: "Nightcap",
         ready: () => readyForBed(),
-        completed: () => stooperDrunk(),
-        do: () => {
-          if (have($familiar`Stooper`) && have($item`tiny stillsuit`)) {
-            useFamiliar($familiar`Stooper`);
-            if (myInebriety() < inebrietyLimit() && get("familiarSweat") >= 300)
-              cliExecute("drink stillsuit distillate");
-          }
-          cliExecute("CONSUME NIGHTCAP");
-        },
+        completed: () => totallyDrunk(),
+        do: () => cliExecute("CONSUME NIGHTCAP"),
       },
       {
         name: "Pajamas",
