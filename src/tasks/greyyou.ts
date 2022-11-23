@@ -728,10 +728,19 @@ export function GyouQuest(): Quest {
           get("_neverendingPartyFreeTurns") >= 10 ||
           (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
         effects: $effects`Heart of White`,
-        acquire: () =>
-          have($skill`Curse of Weaksauce`) ? [] : [{ item: $item`electronics kit`, price: 500 }],
+        acquire: () => [
+          ...(have($skill`Curse of Weaksauce`)
+            ? []
+            : [{ item: $item`electronics kit`, price: 500 }]),
+          ...(have($item`January's Garbage Tote`)
+            ? [{ item: $item`makeshift garbage shirt` }]
+            : []),
+        ],
         outfit: () => ({
           familiar: $familiar`Grey Goose`,
+          ...(have($item`makeshift garbage shirt`)
+            ? { shirt: $item`makeshift garbage shirt` }
+            : {}),
           modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
         }),
         prepare: (): void => {
@@ -780,10 +789,19 @@ export function GyouQuest(): Quest {
           ),
         completed: () => myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel,
         effects: $effects`Heart of White, Expert Vacationer`,
-        acquire: () =>
-          have($skill`Curse of Weaksauce`) ? [] : [{ item: $item`electronics kit`, price: 500 }],
+        acquire: () => [
+          ...(have($skill`Curse of Weaksauce`)
+            ? []
+            : [{ item: $item`electronics kit`, price: 500 }]),
+          ...(have($item`January's Garbage Tote`)
+            ? [{ item: $item`makeshift garbage shirt` }]
+            : []),
+        ],
         outfit: () => ({
           familiar: $familiar`Grey Goose`,
+          ...(have($item`makeshift garbage shirt`)
+            ? { shirt: $item`makeshift garbage shirt` }
+            : {}),
           modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
         }),
         prepare: (): void => {
