@@ -371,15 +371,26 @@ export function AftercoreQuest(): Quest {
         tracking: "Garbo",
       },
       {
-        name: args.voatest ? "Garbo VoA" : "Garbo",
-        completed: () => stooperDrunk() || (!canDiet() && myAdventures() === 0),
+        name: "Garbo VoA Test",
+        completed: () => !args.voatest || stooperDrunk() || (!canDiet() && myAdventures() === 0),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => cliExecute(`${args.garboascend}`),
         post: () =>
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
             .forEach((ef) => uneffect(ef)),
-        tracking: args.voatest ? "VoA Test" : "Garbo",
+        tracking: "VoA Test",
+      },
+      {
+        name: "Garbo",
+        completed: () => args.voatest || stooperDrunk() || (!canDiet() && myAdventures() === 0),
+        prepare: () => uneffect($effect`Beaten Up`),
+        do: () => cliExecute(`${args.garboascend}`),
+        post: () =>
+          $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+            .filter((ef) => have(ef))
+            .forEach((ef) => uneffect(ef)),
+        tracking: "Garbo",
       },
       {
         name: "Stooper",
