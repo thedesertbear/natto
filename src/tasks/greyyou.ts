@@ -725,7 +725,7 @@ export function GyouQuest(): Quest {
             have(ef)
           ),
         completed: () =>
-          get("_neverendingPartyFreeTurns") < 10 ||
+          get("_neverendingPartyFreeTurns") >= 10 ||
           (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
         effects: $effects`Heart of White`,
         acquire: () =>
