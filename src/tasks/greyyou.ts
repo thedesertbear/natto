@@ -99,11 +99,15 @@ import { targetClass } from "./perm";
 
 const myPulls: Item[] = [
   ...$items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`,
-  ...$items`Asdon Martin keyfob` //, Little Geneticist DNA-Splicing Lab`
+  ...$items`Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab`
     .filter((it) => have(it))
     .slice(0, 1),
 ];
 const levelingTurns = 30;
+const workshed2 =
+  $items`Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine`.find(
+    (it) => have(it) || getWorkshed() === it
+  );
 
 export function GyouQuest(): Quest {
   return {
@@ -219,6 +223,13 @@ export function GyouQuest(): Quest {
           get("boomBoxSong") === "Total Eclipse of Your Meat" ||
           get("_boomBoxSongsLeft") === 0,
         do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
+      },
+      {
+        name: "Install Alternate Workshed",
+        completed: () => !workshed2 || get("_workshedItemUsed") || getWorkshed() === workshed2,
+        do: () => {
+          if (workshed2) use(workshed2);
+        },
       },
       {
         name: "Make Soda Bread",
