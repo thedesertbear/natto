@@ -895,6 +895,37 @@ export function GyouQuest(): Quest {
         tracking: "Leveling",
       },
       {
+        name: "Fight Seals",
+        ready: () =>
+          have($item`figurine of a wretched-looking seal`) && have($item`seal-blubber candle`),
+        completed: () =>
+          myClass() !== $class`Seal Clubber` ||
+          get("_sealsSummoned") >= 10 ||
+          (!have($item`Claw of the Infernal Seal`) && get("_sealsSummoned") >= 5),
+        outfit: () => ({
+          familiar: $familiar`Grey Goose`,
+          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
+        }),
+        do: () => visitUrl("inv_use.php?pwd&checked=1&whichitem=3902"),
+        combat: new CombatStrategy().macro(() =>
+          Macro.externalIf(
+            $familiar`Grey Goose`.experience >= 400,
+            Macro.trySkill(
+              myPrimestat() === $stat`Muscle`
+                ? $skill`Convert Matter to Protein`
+                : myPrimestat() === $stat`Mysticality`
+                ? $skill`Convert Matter to Energy`
+                : $skill`Convert Matter to Pomade`
+            )
+          )
+            .trySkill($skill`Sing Along`)
+            .tryItem($item`porquoise-handled sixgun`)
+            .attack()
+            .repeat()
+        ),
+        tracking: "Leveling",
+      },
+      {
         name: "Buff Mainstat",
         completed: () =>
           myLevel() >= args.targetlevel ||
