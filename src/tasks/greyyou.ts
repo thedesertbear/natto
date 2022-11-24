@@ -829,16 +829,6 @@ export function GyouQuest(): Quest {
         tracking: "Leveling",
       },
       {
-        name: "Buff Mainstat",
-        completed: () =>
-          myLevel() >= args.targetlevel ||
-          myBuffedstat(myPrimestat()) >= 11 * myBasestat(myPrimestat()),
-        effects: $effects`Trivia Master`,
-        do: () => cliExecute(`gain ${11 * myBasestat(myPrimestat())} ${myPrimestat()}`),
-        limit: { tries: levelingTurns },
-        tracking: "Leveling",
-      },
-      {
         name: "Ghost Dog Chow",
         completed: () => myLevel() >= 8 || $familiar`Grey Goose`.experience > 380,
         prepare: () => useFamiliar($familiar`Grey Goose`),
@@ -923,6 +913,24 @@ export function GyouQuest(): Quest {
             .attack()
             .repeat()
         ),
+        tracking: "Leveling",
+      },
+      {
+        name: "Ball Pit",
+        completed: () => get("_ballpit"),
+        do: () => cliExecute(`ballpit`),
+        tracking: "Leveling",
+      },
+      {
+        name: "Get Lyle Favored",
+        completed: () => get("_lyleFavored"),
+        do: () => cliExecute("monorail"),
+        tracking: "Leveling",
+      },
+      {
+        name: "Telescope Buff",
+        completed: () => get("telescopeLookedHigh"),
+        do: () => cliExecute("telescope high"),
         tracking: "Leveling",
       },
       {
