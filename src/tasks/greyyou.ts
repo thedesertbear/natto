@@ -69,6 +69,7 @@ import {
   $skill,
   $stat,
   AsdonMartin,
+  DNALab,
   ensureEffect,
   get,
   getBanishedMonsters,
@@ -250,12 +251,37 @@ export function GyouQuest(): Quest {
           getWorkshed() !== $item`Asdon Martin keyfob` || have($effect`Driving Observantly`),
         do: () => AsdonMartin.drive($effect`Driving Observantly`, 30, false),
       },
-      // {
-      //   name: "Constellation Genes",
-      //   completed: () =>
-      //     getWorkshed() !== $item`Little Geneticis` || ,
-      //   do: () => ,
-      // },
+      {
+        name: "Sample Constellation DNA",
+        ready: () => have($item`DNA extraction syringe`),
+        completed: () =>
+          !DNALab.installed() ||
+          DNALab.isHybridized($phylum`Constellation`) ||
+          get("dnaSyringe") === $phylum`Constellation`,
+        outfit: {
+          familiar: bestFam(),
+          modifier: `${maxBase()}`,
+        },
+        do: $location`The Hole in the Sky`,
+        combat: new CombatStrategy()
+          .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
+          .macro(Macro.tryItem($item`DNA extraction syringe`))
+          .macro(
+            Macro.tryItem($item`porquoise-handled sixgun`)
+              .trySkill($skill`Sing Along`)
+              .attack()
+              .repeat()
+          ),
+      },
+      {
+        name: "Hybridize Constellation",
+        ready: () => get("dnaSyringe") === $phylum`Constellation`,
+        completed: () => !DNALab.installed() || DNALab.isHybridized($phylum`Constellation`),
+        do: () => {
+          DNALab.hybridize();
+          DNALab.makeTonic(3);
+        },
+      },
       {
         name: "Robort Collect Fish Head",
         ready: () => have($item`boxed wine`) && meatFam() === $familiar`Robortender`,

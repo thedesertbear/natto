@@ -47,11 +47,13 @@ import {
   $items,
   $location,
   $path,
+  $phylum,
   $skill,
   $skills,
   $stat,
   ascend,
   AsdonMartin,
+  DNALab,
   get,
   getTodaysHolidayWanderers,
   have,
@@ -106,6 +108,37 @@ export function AftercoreQuest(): Quest {
           getWorkshed() !== $item`Asdon Martin keyfob` ||
           haveEffect($effect`Driving Observantly`) >= 800,
         do: () => AsdonMartin.drive($effect`Driving Observantly`, 810, false),
+      },
+      {
+        name: "Sample Constellation DNA",
+        ready: () => have($item`DNA extraction syringe`),
+        completed: () =>
+          !DNALab.installed() ||
+          DNALab.isHybridized($phylum`Constellation`) ||
+          get("dnaSyringe") === $phylum`Constellation`,
+        outfit: {
+          familiar: bestFam(),
+          modifier: `${maxBase()}`,
+        },
+        do: $location`The Hole in the Sky`,
+        combat: new CombatStrategy()
+          .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
+          .macro(Macro.tryItem($item`DNA extraction syringe`))
+          .macro(
+            Macro.tryItem($item`porquoise-handled sixgun`)
+              .trySkill($skill`Sing Along`)
+              .attack()
+              .repeat()
+          ),
+      },
+      {
+        name: "Hybridize Constellation",
+        ready: () => get("dnaSyringe") === $phylum`Constellation`,
+        completed: () => !DNALab.installed() || DNALab.isHybridized($phylum`Constellation`),
+        do: () => {
+          DNALab.hybridize();
+          DNALab.makeTonic(3);
+        },
       },
       {
         name: "Install CMC",
