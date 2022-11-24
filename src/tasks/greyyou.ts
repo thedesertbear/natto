@@ -847,6 +847,18 @@ export function GyouQuest(): Quest {
         tracking: "Leveling",
       },
       {
+        name: "Restore HP",
+        completed: () => myHp() > 0.5 * myMaxhp(),
+        do: () => restoreHp(0.5 * myMaxhp()),
+        tracking: "Leveling",
+      },
+      {
+        name: "Cast Blood Bubble",
+        completed: () => !have($skill`Blood Bubble`) || have($effect`Blood Bubble`),
+        do: () => useSkill($skill`Blood Bubble`),
+        tracking: "Leveling",
+      },
+      {
         name: "Implement Glitch",
         ready: () => have($item`[glitch season reward name]`),
         completed: () => get("_glitchItemImplemented"),
@@ -860,10 +872,7 @@ export function GyouQuest(): Quest {
           item: it,
           price: 1000,
         })),
-        prepare: () => {
-          restoreHp(0.9 * myHp());
-          if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
-        },
+        prepare: () => restoreHp(0.9 * myHp()),
         do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
         post: () => {
           if (!get("_lastCombatWon"))
@@ -897,10 +906,7 @@ export function GyouQuest(): Quest {
           familiar: $familiar`Grey Goose`,
           modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
         }),
-        prepare: () => {
-          restoreHp(0.9 * myHp());
-          if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
-        },
+        prepare: () => restoreHp(0.9 * myHp()),
         do: () => {
           visitUrl("place.php?whichplace=forestvillage&action=fv_scientist");
           runChoice(1);
