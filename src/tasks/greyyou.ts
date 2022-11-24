@@ -104,7 +104,6 @@ const myPulls: Item[] = [
     .slice(0, 1),
 ];
 const levelingTurns = 30;
-let fireworksPrepped = false;
 
 export function GyouQuest(): Quest {
   return {
@@ -118,10 +117,10 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Prep Fireworks Shop",
-        completed: () => !have($item`Clan VIP Lounge key`) || fireworksPrepped,
+        completed: () => !have($item`Clan VIP Lounge key`) || get("_goorboFireworksPrepped", false),
         do: () => {
           visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2");
-          fireworksPrepped = true;
+          set("_goorboFireworksPrepped", true);
         },
       },
       {

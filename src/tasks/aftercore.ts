@@ -57,14 +57,13 @@ import {
   have,
   Lifestyle,
   Macro,
+  set,
   uneffect,
 } from "libram";
 import { getCurrentLeg, Leg, Quest } from "./structure";
 import { bestFam, canDiet, maxBase, noML, stooperDrunk, toMoonSign, totallyDrunk } from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
-
-let fireworksPrepped = false;
 
 export function AftercoreQuest(): Quest {
   return {
@@ -78,10 +77,10 @@ export function AftercoreQuest(): Quest {
       },
       {
         name: "Prep Fireworks Shop",
-        completed: () => !have($item`Clan VIP Lounge key`) || fireworksPrepped,
+        completed: () => !have($item`Clan VIP Lounge key`) || get("_goorboFireworksPrepped", false),
         do: () => {
           visitUrl("clan_viplounge.php?action=fwshop&whichfloor=2");
-          fireworksPrepped = true;
+          set("_goorboFireworksPrepped", true);
         },
       },
       {
