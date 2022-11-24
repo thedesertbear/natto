@@ -105,10 +105,13 @@ const myPulls: Item[] = [
     .slice(0, 1),
 ];
 const levelingTurns = 30;
-const workshed2 =
-  $items`Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine`.find(
-    (it) => have(it) || getWorkshed() === it
+function altWorkshed() {
+  return (
+    $items`Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine`.find(
+      (it) => have(it) || getWorkshed() === it || storageAmount(it) > 0
+    ) || $item`none`
   );
+}
 
 export function GyouQuest(): Quest {
   return {
@@ -227,10 +230,12 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Install Alternate Workshed",
-        completed: () => !workshed2 || get("_workshedItemUsed") || getWorkshed() === workshed2,
-        do: () => {
-          if (workshed2) use(workshed2);
-        },
+        ready: () => have(altWorkshed()),
+        completed: () =>
+          altWorkshed() === $item`none` ||
+          get("_workshedItemUsed") ||
+          getWorkshed() === altWorkshed(),
+        do: () => use(altWorkshed()),
       },
       {
         name: "Make Soda Bread",
