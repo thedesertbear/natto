@@ -347,7 +347,16 @@ export function GyouQuest(): Quest {
           cliExecute("pull all");
           cliExecute("refresh all");
         },
-        tracking: "Run",
+      },
+      {
+        name: "Get Amulet Coin",
+        ready: () => have($familiar`Cornbeefadon`),
+        completed: () => have($item`amulet coin`),
+        acquire: [{ item: $item`box of Familiar Jacks`, price: 15000 }],
+        do: (): void => {
+          useFamiliar($familiar`Cornbeefadon`);
+          use($item`box of Familiar Jacks`);
+        },
       },
       {
         name: "Tower",
