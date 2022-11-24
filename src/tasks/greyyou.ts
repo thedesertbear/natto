@@ -705,6 +705,11 @@ export function GyouQuest(): Quest {
         },
       },
       {
+        name: "April Shower",
+        completed: () => get("_aprilShower"),
+        do: () => cliExecute(`shower ${myPrimestat()}`),
+      },
+      {
         name: "Campaway",
         completed: () =>
           !get("getawayCampsiteUnlocked") ||
