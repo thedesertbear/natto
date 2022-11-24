@@ -895,6 +895,16 @@ export function GyouQuest(): Quest {
         tracking: "Leveling",
       },
       {
+        name: "Buff Mainstat",
+        completed: () =>
+          myLevel() >= args.targetlevel ||
+          myBuffedstat(myPrimestat()) >= 11 * myBasestat(myPrimestat()),
+        effects: $effects`Trivia Master`,
+        do: () => cliExecute(`gain ${11 * myBasestat(myPrimestat())} ${myPrimestat()}`),
+        limit: { tries: levelingTurns },
+        tracking: "Leveling",
+      },
+      {
         name: "Fight Tentacle",
         completed: () => get("_eldritchTentacleFought"),
         acquire: () => [
