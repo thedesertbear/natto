@@ -43,6 +43,7 @@ import {
   restoreHp,
   restoreMp,
   retrieveItem,
+  runChoice,
   spleenLimit,
   storageAmount,
   takeCloset,
@@ -879,6 +880,49 @@ export function GyouQuest(): Quest {
               Macro.trySkill($skill`Feel Pride`)
             )
             .tryItem(...$items`shard of double-ice, gas can`)
+            .attack()
+            .repeat()
+        ),
+        tracking: "Leveling",
+      },
+      {
+        name: "Fight Tentacle",
+        completed: () => get("_eldritchTentacleFought"),
+        acquire: () => [
+          ...(have($skill`Curse of Weaksauce`)
+            ? []
+            : [{ item: $item`electronics kit`, price: 500 }]),
+        ],
+        outfit: () => ({
+          familiar: $familiar`Grey Goose`,
+          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
+        }),
+        prepare: () => {
+          restoreHp(0.9 * myHp());
+          if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
+        },
+        do: () => {
+          visitUrl("place.php?whichplace=forestvillage&action=fv_scientist");
+          runChoice(1);
+        },
+        combat: new CombatStrategy().macro(() =>
+          Macro.externalIf(
+            have($skill`Curse of Weaksauce`),
+            Macro.trySkill($skill`Curse of Weaksauce`),
+            Macro.tryItem($item`electronics kit`)
+          )
+            .externalIf(
+              $familiar`Grey Goose`.experience >= 400,
+              Macro.trySkill(
+                myPrimestat() === $stat`Muscle`
+                  ? $skill`Convert Matter to Protein`
+                  : myPrimestat() === $stat`Mysticality`
+                  ? $skill`Convert Matter to Energy`
+                  : $skill`Convert Matter to Pomade`
+              )
+            )
+            .tryItem($item`porquoise-handled sixgun`)
+            .trySkill($skill`Sing Along`)
             .attack()
             .repeat()
         ),
