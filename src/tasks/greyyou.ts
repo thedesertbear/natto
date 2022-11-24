@@ -711,6 +711,11 @@ export function GyouQuest(): Quest {
         do: () => cliExecute(`shower ${myPrimestat()}`),
       },
       {
+        name: "Game Grid Token",
+        completed: () => get("_defectiveTokenUsed"),
+        do: () => use($item`defective Game Grid token`),
+      },
+      {
         name: "Campaway",
         completed: () =>
           !get("getawayCampsiteUnlocked") ||
