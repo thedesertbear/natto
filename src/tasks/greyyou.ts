@@ -221,10 +221,22 @@ export function GyouQuest(): Quest {
         do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
       },
       {
-        name: "Drive Observantly",
+        name: "Make Soda Bread",
         completed: () =>
           getWorkshed() !== $item`Asdon Martin keyfob` ||
-          haveEffect($effect`Driving Observantly`) >= 30,
+          have($effect`Driving Observantly`) ||
+          have($item`loaf of soda bread`) ||
+          have($item`wad of dough`),
+        do: () => {
+          buy($item`all-purpose flower`);
+          use($item`all-purpose flower`);
+          retrieveItem($item`loaf of soda bread`);
+        },
+      },
+      {
+        name: "Drive Observantly",
+        completed: () =>
+          getWorkshed() !== $item`Asdon Martin keyfob` || have($effect`Driving Observantly`),
         do: () => AsdonMartin.drive($effect`Driving Observantly`, 30, false),
       },
       // {
