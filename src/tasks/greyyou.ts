@@ -712,7 +712,7 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Game Grid Token",
-        completed: () => get("_defectiveTokenUsed"),
+        completed: () => !have($item`defective Game Grid token`) || get("_defectiveTokenUsed"),
         do: () => use($item`defective Game Grid token`),
       },
       {
