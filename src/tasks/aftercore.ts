@@ -183,6 +183,12 @@ export function AftercoreQuest(): Quest {
         limit: undefined,
       },
       {
+        name: "Restore HP",
+        completed: () => myHp() > 0.5 * myMaxhp(),
+        do: () => restoreHp(0.95 * myMaxhp()),
+        tracking: "Leveling",
+      },
+      {
         name: "Implement Glitch",
         ready: () => have($item`[glitch season reward name]`),
         completed: () => get("_glitchItemImplemented"),
@@ -198,7 +204,8 @@ export function AftercoreQuest(): Quest {
         })),
         prepare: () => {
           restoreHp(0.9 * myHp());
-          if (have($skill`Blood Bond`)) useSkill($skill`Blood Bond`);
+          if (have($skill`Blood Bubble`) && !have($effect`Blood Bubble`))
+            useSkill($skill`Blood Bubble`);
         },
         do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
         post: () => {

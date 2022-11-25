@@ -844,12 +844,15 @@ export function GyouQuest(): Quest {
       {
         name: "Restore HP",
         completed: () => myHp() > 0.5 * myMaxhp(),
-        do: () => restoreHp(0.5 * myMaxhp()),
+        do: () => restoreHp(0.95 * myMaxhp()),
         tracking: "Leveling",
       },
       {
         name: "Cast Blood Bubble",
-        completed: () => !have($skill`Blood Bubble`) || have($effect`Blood Bubble`),
+        completed: () =>
+          !have($skill`Blood Bubble`) ||
+          have($effect`Blood Bubble`) ||
+          myLevel() >= args.targetlevel,
         do: () => useSkill($skill`Blood Bubble`),
         tracking: "Leveling",
       },
