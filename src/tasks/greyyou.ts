@@ -707,7 +707,7 @@ export function GyouQuest(): Quest {
       },
       {
         name: "April Shower",
-        completed: () => get("_aprilShower"),
+        completed: () => !have($item`Clan VIP Lounge key`) || get("_aprilShower"),
         do: () => cliExecute(`shower ${myPrimestat()}`),
       },
       {
@@ -926,7 +926,7 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Ball Pit",
-        completed: () => get("_ballpit"),
+        completed: () => !have($item`Clan VIP Lounge key`) || get("_ballpit"),
         do: () => cliExecute(`ballpit`),
         tracking: "Leveling",
       },
@@ -938,7 +938,9 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Telescope Buff",
-        completed: () => get("telescopeLookedHigh"),
+        completed: () =>
+          getCampground()[$item`Discount Telescope Warehouse gift certificate`.name] === 0 ||
+          get("telescopeLookedHigh"),
         do: () => cliExecute("telescope high"),
         tracking: "Leveling",
       },
