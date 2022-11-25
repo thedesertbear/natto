@@ -921,6 +921,7 @@ export function GyouQuest(): Quest {
             .attack()
             .repeat()
         ),
+        limit: { tries: 10 },
         tracking: "Leveling",
       },
       {
