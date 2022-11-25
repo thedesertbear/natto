@@ -284,8 +284,8 @@ export function GyouQuest(): Quest {
         ready: () => get("dnaSyringe") === $phylum`Constellation`,
         completed: () => !DNALab.installed() || DNALab.isHybridized($phylum`Constellation`),
         do: () => {
-          DNALab.hybridize();
           DNALab.makeTonic(3);
+          DNALab.hybridize();
         },
       },
       {
