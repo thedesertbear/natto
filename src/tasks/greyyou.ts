@@ -241,14 +241,16 @@ export function GyouQuest(): Quest {
       {
         name: "Make Soda Bread",
         completed: () =>
+          myTurncount() >= 1000 ||
           getWorkshed() !== $item`Asdon Martin keyfob` ||
           have($effect`Driving Observantly`) ||
-          have($item`loaf of soda bread`) ||
-          have($item`wad of dough`),
+          availableAmount($item`loaf of soda bread`) >= 10,
         do: () => {
-          buy($item`all-purpose flower`);
-          use($item`all-purpose flower`);
-          retrieveItem($item`loaf of soda bread`);
+          if (availableAmount($item`wad of dough`) < 10) {
+            buy($item`all-purpose flower`);
+            use($item`all-purpose flower`);
+          }
+          retrieveItem(10, $item`loaf of soda bread`);
         },
       },
       {
