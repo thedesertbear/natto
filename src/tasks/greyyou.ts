@@ -939,7 +939,7 @@ export function GyouQuest(): Quest {
       {
         name: "Telescope Buff",
         completed: () =>
-          getCampground()[$item`Discount Telescope Warehouse gift certificate`.name] === 0 ||
+          $item`Discount Telescope Warehouse gift certificate`.name in getCampground() ||
           get("telescopeLookedHigh"),
         do: () => cliExecute("telescope high"),
         tracking: "Leveling",
