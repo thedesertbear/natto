@@ -1191,7 +1191,10 @@ export function GyouQuest(): Quest {
       {
         name: "Pajamas",
         completed: () => getCampground()[$item`clockwork maid`.name] === 1,
-        acquire: [{ item: $item`clockwork maid`, price: 7 * get("valueOfAdventure") }],
+        acquire: [
+          { item: $item`clockwork maid`, price: 7 * get("valueOfAdventure") },
+          { item: $item`burning cape` },
+        ],
         do: () => use($item`clockwork maid`),
         outfit: () => ({
           familiar:
