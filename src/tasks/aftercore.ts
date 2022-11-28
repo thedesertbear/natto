@@ -536,8 +536,8 @@ export function AftercoreQuest(): Quest {
             args.astralpet === $item`none` ? undefined : args.astralpet,
             { permSkills: skillsToPerm, neverAbort: false }
           );
-          if (visitUrl("main.php").includes("somewhat-human-shaped mass of grey goo nanites"))
-            runChoice(-1);
+          if (visitUrl("choice.php").includes("somewhat-human-shaped mass of grey goo nanites"))
+            runChoice(1);
           cliExecute("refresh all");
         },
       },

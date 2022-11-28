@@ -15,7 +15,17 @@ import {
   mySpleenUse,
   spleenLimit,
 } from "kolmafia";
-import { $familiar, $familiars, $item, $items, $phylum, get, have, Snapper } from "libram";
+import {
+  $familiar,
+  $familiars,
+  $item,
+  $items,
+  $phylum,
+  get,
+  getBanishedMonsters,
+  have,
+  Snapper,
+} from "libram";
 import { garboAverageValue, garboValue } from "../engine/profits";
 import { args } from "../main";
 
@@ -169,4 +179,13 @@ export function backstageItemsDone(): boolean {
 const gardens = $items`packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores`;
 export function getGarden(): Item | undefined {
   return gardens.find((it) => it.name in getCampground());
+}
+
+let banishes: Item[];
+export function nextUnusedBanishItem(): Item {
+  if (!banishes)
+    banishes = $items`human musk, tennis ball, Louder Than Bomb, divine champagne popper`.sort(
+      (a, b) => mallPrice(a) - mallPrice(b)
+    ); //sorted from cheapest to most expensive
+  return banishes.find((it) => !getBanishedMonsters().get(it)) || $item`none`; //return the cheapest free banish not currently in use
 }
