@@ -1,6 +1,7 @@
 import {
   Familiar,
   fullnessLimit,
+  getCampground,
   inebrietyLimit,
   Item,
   itemAmount,
@@ -163,4 +164,9 @@ export function backstageItemsDone(): boolean {
       itemAmount($item`sponge cake`) >=
       2
   );
+}
+
+const gardens = $items`packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores`;
+export function getGarden(): Item | undefined {
+  return gardens.find((it) => it.name in getCampground());
 }
