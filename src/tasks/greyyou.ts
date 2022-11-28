@@ -89,11 +89,11 @@ import {
   backstageItemsDone,
   bestFam,
   canDiet,
+  doneAdventuring,
   haveAll,
   maxBase,
   meatFam,
   noML,
-  readyForBed,
   stooperDrunk,
   totallyDrunk,
 } from "./utils";
@@ -1162,7 +1162,7 @@ export function GyouQuest(): Quest {
       },
       {
         name: "PvP",
-        ready: () => readyForBed(),
+        ready: () => doneAdventuring(),
         completed: () => pvpAttacksLeft() === 0 || !hippyStoneBroken(),
         do: (): void => {
           cliExecute("unequip");
@@ -1184,7 +1184,7 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Nightcap",
-        ready: () => readyForBed(),
+        ready: () => doneAdventuring(),
         completed: () => totallyDrunk(),
         do: () => cliExecute("CONSUME NIGHTCAP"),
       },
@@ -1219,7 +1219,7 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Alert-No Nightcap",
-        ready: () => !readyForBed(),
+        ready: () => !doneAdventuring(),
         completed: () => stooperDrunk(),
         do: (): void => {
           const targetAdvs = 100 - numericModifier("adventures");

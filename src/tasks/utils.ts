@@ -12,8 +12,6 @@ import {
   myInebriety,
   myLevel,
   mySpleenUse,
-  nowToString,
-  numericModifier,
   spleenLimit,
 } from "kolmafia";
 import { $familiar, $familiars, $item, $items, $phylum, get, have, Snapper } from "libram";
@@ -150,12 +148,8 @@ export function totallyDrunk(): boolean {
     : myInebriety() > inebrietyLimit();
 }
 
-export function readyForBed(): boolean {
-  return (
-    !canDiet() &&
-    myAdventures() + numericModifier("adventures") + 40 < 140 &&
-    get("garboResultsDate", "") === nowToString("YYYYMMdd")
-  );
+export function doneAdventuring(): boolean {
+  return (!canDiet() && myAdventures() === 0) || stooperDrunk();
 }
 
 export function backstageItemsDone(): boolean {
