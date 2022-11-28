@@ -14,6 +14,7 @@ import {
   $familiar,
   $familiars,
   $item,
+  $items,
   $skill,
   CombatLoversLocket,
   get,
@@ -68,11 +69,11 @@ const levelList: Requirement[] = [
     why: "scaling free fights",
     optional: true,
   },
-  // { thing: $item`Clan VIP Lounge key`, why: "aftercore leveling", optional: true },
+  { thing: $item`Clan VIP Lounge key`, why: "aftercore leveling", optional: true },
   // { thing: $skill`Sweet Synthesis`, why: "aftercore leveling", optional: true },
   // { thing: $familiar`Vampire Vintner`, why: "goose charging", optional: true },
   { thing: $item`familiar scrapbook`, why: "aftercore leveling", optional: true },
-  // { thing: $item`defective Game Grid token`, why: "aftercore leveling", optional: true },
+  { thing: $item`defective Game Grid token`, why: "aftercore leveling", optional: true },
   { thing: $item`trench lighter`, why: "aftercore leveling", optional: true },
   { thing: $skill`Feel Pride`, why: "aftercore leveling", optional: true },
   { thing: $item`[glitch season reward name]`, why: "aftercore leveling", optional: true },
@@ -86,7 +87,11 @@ const profitList: Requirement[] = [
   { thing: $item`Mr. Cheeng's spectacles`, why: "in-run farming profits", optional: true },
   { thing: $item`mafia thumb ring`, why: "in-run farming profits", optional: true },
   { thing: $item`SongBoom™ BoomBox`, why: "in-run farming profits", optional: true },
-  { thing: $item`Asdon Martin keyfob`, why: "in-run farming profits", optional: true },
+  {
+    thing: $items`Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine`,
+    why: "various profits",
+    optional: true,
+  },
   { thing: $item`June cleaver`, why: "in-run farming profits", optional: true },
   { thing: $item`tiny stillsuit`, why: "rollover adventures", optional: true },
   { thing: $item`mime army shotglass`, why: "extra size-1 booze/day", optional: true },
@@ -98,18 +103,22 @@ const profitList: Requirement[] = [
     optional: true,
   },
 ];
-const marginalList: Requirement[] = [
+const freefightList: Requirement[] = [
   { thing: $item`carnivorous potted plant`, why: "occasional free kill", optional: true },
-  // { thing: $item`The Jokester's gun`, why: "free kill", optional: true },
-  // { thing: $skill`Gingerbread Mob Hit`, why: "free kill", optional: true },
-  // { thing: $skill`Shattering Punch`, why: "free kills", optional: true },
-  // { thing: $item`Lil' Doctor™ bag`, why: "free kills", optional: true },
+  { thing: $item`cursed magnifying glass`, why: "additional free fight", optional: true },
+  { thing: $item`miniature crystal ball`, why: "additional free fight", optional: true },
+  { thing: $item`Claw of the Infernal Seal`, why: "5 additional free seals", optional: true },
+  { thing: $item`The Jokester's gun`, why: "free kill", optional: true },
+  { thing: $skill`Gingerbread Mob Hit`, why: "free kill", optional: true },
+  { thing: $skill`Shattering Punch`, why: "3 free kills", optional: true },
+  { thing: $item`Lil' Doctor™ bag`, why: "3 free kills", optional: true },
+];
+const marginalList: Requirement[] = [
+  { thing: $skill`Snokebomb`, why: "banish", optional: true },
+  { thing: $skill`Feel Hatred`, why: "banish", optional: true },
+  { thing: $item`mafia middle finger ring`, why: "banish", optional: true },
   { thing: $item`hewn moon-rune spoon`, why: "easier perming of gnome skills", optional: true },
-  {
-    thing: $skill`Comprehensive Cartography`,
-    why: "gold wedding ring",
-    optional: true,
-  },
+  { thing: $skill`Comprehensive Cartography`, why: "gold wedding ring", optional: true },
 ];
 
 function checkThing(thing: Thing): [boolean, string] {
@@ -143,9 +152,10 @@ export function checkReqs(): void {
   let missing = 0;
 
   const categories: [string, Requirement[]][] = [
-    ["Required", generalList.filter((req) => !req.optional)],
-    ["General", generalList.filter((req) => req.optional)],
+    ["Required", generalList],
+    ["General", generalList],
     ["Leveling", levelList],
+    ["Free Fights", freefightList],
     ["Profits", profitList],
     ["Marginal", marginalList],
   ];
