@@ -1015,7 +1015,7 @@ export function GyouQuest(): Quest {
       {
         name: "Telescope Buff",
         completed: () =>
-          $item`Discount Telescope Warehouse gift certificate`.name in getCampground() ||
+          !($item`Discount Telescope Warehouse gift certificate`.name in getCampground()) ||
           get("telescopeLookedHigh"),
         do: () => cliExecute("telescope high"),
         tracking: "Leveling",
