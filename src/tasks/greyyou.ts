@@ -1155,6 +1155,13 @@ export function GyouQuest(): Quest {
         ],
         outfit: () => ({
           familiar: $familiar`Grey Goose`,
+          ...(have($item`The Jokester's gun`) &&
+          myBasestat($stat`Moxie`) >= 50 &&
+          !get("_firedJokestersGun")
+            ? { weapon: $item`The Jokester's gun` }
+            : have($item`Lil' Doctor™ bag`) && get("_chestXRayUsed") < 3
+            ? { equip: [$item`Lil' Doctor™ bag`] }
+            : {}),
           ...(have($item`makeshift garbage shirt`)
             ? { shirt: $item`makeshift garbage shirt` }
             : {}),
@@ -1188,6 +1195,10 @@ export function GyouQuest(): Quest {
             )
             .tryItem($item`porquoise-handled sixgun`)
             .trySkill($skill`Sing Along`)
+            .trySkill($skill`Fire the Jokester's Gun`)
+            .trySkill($skill`Chest X-Ray`)
+            .trySkill($skill`Gingerbread Mob Hit`)
+            .trySkill($skill`Shattering Punch`)
             .attack()
             .repeat()
         ),
