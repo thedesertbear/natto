@@ -18,6 +18,7 @@ import {
   haveEffect,
   hippyStoneBroken,
   inebrietyLimit,
+  isBanished,
   Item,
   itemAmount,
   maximize,
@@ -65,6 +66,7 @@ import {
   $item,
   $items,
   $location,
+  $monster,
   $monsters,
   $phylum,
   $skill,
@@ -93,6 +95,7 @@ import {
   haveAll,
   maxBase,
   meatFam,
+  nextUnusedBanishItem,
   noML,
   stooperDrunk,
   totallyDrunk,
@@ -892,6 +895,80 @@ export function GyouQuest(): Quest {
             .attack()
             .repeat()
         ),
+        tracking: "Leveling",
+      },
+      {
+        name: "Drunk Pygmies",
+        ready: () =>
+          !!$effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.find((ef) =>
+            have(ef)
+          ),
+        completed: () =>
+          get("_drunkPygmyBanishes") >= 11 &&
+          !get("crystalBallPredictions").includes($monster`drunk pygmy`.name) &&
+          myClass() !== $class`Grey Goo` &&
+          myLevel() >= args.targetlevel,
+        acquire: [
+          { item: $item`Bowl of Scorpions`, price: 1000 },
+          ...($monsters`pygmy orderlies, pygmy bowler`.find((mob) => !isBanished(mob))
+            ? [{ item: nextUnusedBanishItem(), price: 20000 }]
+            : []),
+        ],
+        effects: $effects`Heart of White`,
+        outfit: () => ({
+          familiar: $familiar`Grey Goose`,
+          ...(have($item`cursed magnifying glass`) && $familiar`Grey Goose`.experience < 400
+            ? { offhand: $item`cursed magnifying glass` }
+            : {}),
+          ...(have($item`miniature crystal ball`) && get("_drunkPygmyBanishes") >= 10
+            ? { famequip: $item`miniature crystal ball` }
+            : {}),
+          modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
+        }),
+        prepare: (): void => {
+          restoreMp(8);
+        },
+        do: $location`The Hidden Bowling Alley`,
+        post: () => {
+          if (itemAmount($item`bowling ball`) > 0)
+            putCloset(itemAmount($item`bowling ball`), $item`bowling ball`);
+        },
+        combat: new CombatStrategy()
+          .macro(
+            () =>
+              Macro.externalIf(
+                $familiar`Grey Goose`.experience >= 400,
+                Macro.trySkill(
+                  myPrimestat() === $stat`Muscle`
+                    ? $skill`Convert Matter to Protein`
+                    : myPrimestat() === $stat`Mysticality`
+                    ? $skill`Convert Matter to Energy`
+                    : $skill`Convert Matter to Pomade`
+                ),
+                Macro.step("pickpocket")
+              ),
+            $monsters`void slab, void guy, void spider, pygmy bowler, drunk pygmy, pygmy orderlies`
+          )
+          .macro(
+            Macro.tryItem($item`porquoise-handled sixgun`)
+              .attack()
+              .repeat(),
+            $monsters`void slab, void guy, void spider`
+          )
+          .macro(
+            Macro.tryItem($item`porquoise-handled sixgun`)
+              .trySkill($skill`Show them your ring`)
+              .externalIf(
+                have($skill`Snokebomb`) && !getBanishedMonsters().get($skill`Snokebomb`),
+                Macro.trySkill($skill`Snokebomb`)
+              )
+              .externalIf(
+                have($skill`Feel Hatred`) && !getBanishedMonsters().get($skill`Feel Hatred`),
+                Macro.trySkill($skill`Feel Hatred`)
+              )
+              .tryItem(nextUnusedBanishItem())
+          ),
+        limit: { tries: 13 },
         tracking: "Leveling",
       },
       {
