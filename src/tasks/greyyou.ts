@@ -904,10 +904,9 @@ export function GyouQuest(): Quest {
             have(ef)
           ),
         completed: () =>
-          get("_drunkPygmyBanishes") >= 11 &&
-          !get("crystalBallPredictions").includes($monster`drunk pygmy`.name) &&
-          myClass() !== $class`Grey Goo` &&
-          myLevel() >= args.targetlevel,
+          myLevel() >= args.targetlevel ||
+          (get("_drunkPygmyBanishes") >= 11 &&
+            !get("crystalBallPredictions").includes($monster`drunk pygmy`.name)),
         acquire: [
           { item: $item`Bowl of Scorpions`, price: 1000 },
           ...($monsters`pygmy orderlies, pygmy bowler`.find((mob) => !isBanished(mob))
@@ -926,13 +925,11 @@ export function GyouQuest(): Quest {
           modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
         }),
         prepare: (): void => {
-          restoreMp(8);
-        },
-        do: $location`The Hidden Bowling Alley`,
-        post: () => {
+          restoreMp(50);
           if (itemAmount($item`bowling ball`) > 0)
             putCloset(itemAmount($item`bowling ball`), $item`bowling ball`);
         },
+        do: $location`The Hidden Bowling Alley`,
         combat: new CombatStrategy()
           .macro(
             () =>
@@ -955,7 +952,7 @@ export function GyouQuest(): Quest {
               .repeat(),
             $monsters`void slab, void guy, void spider`
           )
-          .macro(
+          .macro(() =>
             Macro.tryItem($item`porquoise-handled sixgun`)
               .trySkill($skill`Show them your ring`)
               .externalIf(
@@ -968,7 +965,7 @@ export function GyouQuest(): Quest {
               )
               .tryItem(nextUnusedBanishItem())
           ),
-        limit: { tries: 13 },
+        limit: { tries: 15 },
         tracking: "Leveling",
       },
       {
