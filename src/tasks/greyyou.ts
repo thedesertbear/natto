@@ -922,6 +922,9 @@ export function GyouQuest(): Quest {
           ...(have($item`miniature crystal ball`) && get("_drunkPygmyBanishes") >= 10
             ? { famequip: $item`miniature crystal ball` }
             : {}),
+          ...(have($item`mafia middle finger ring`) && !get("_mafiaMiddleFingerRingUsed")
+            ? { equip: [$item`mafia middle finger ring`] }
+            : {}),
           modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
         }),
         prepare: (): void => {
@@ -941,29 +944,29 @@ export function GyouQuest(): Quest {
                     : myPrimestat() === $stat`Mysticality`
                     ? $skill`Convert Matter to Energy`
                     : $skill`Convert Matter to Pomade`
-                ),
-                Macro.step("pickpocket")
+                )
               ),
-            $monsters`void slab, void guy, void spider, pygmy bowler, drunk pygmy, pygmy orderlies`
+            $monsters`void slab, void guy, void spider, drunk pygmy`
+          )
+          .macro(
+            () =>
+              Macro.trySkill($skill`Show them your ring`)
+                .externalIf(
+                  have($skill`Snokebomb`) && !getBanishedMonsters().get($skill`Snokebomb`),
+                  Macro.trySkill($skill`Snokebomb`)
+                )
+                .externalIf(
+                  have($skill`Feel Hatred`) && !getBanishedMonsters().get($skill`Feel Hatred`),
+                  Macro.trySkill($skill`Feel Hatred`)
+                )
+                .tryItem(nextUnusedBanishItem()),
+            $monsters`pygmy bowler, pygmy orderlies, pygmy janitor`
           )
           .macro(
             Macro.tryItem($item`porquoise-handled sixgun`)
+              .tryItem($item`spectre scepter`)
               .attack()
-              .repeat(),
-            $monsters`void slab, void guy, void spider`
-          )
-          .macro(() =>
-            Macro.tryItem($item`porquoise-handled sixgun`)
-              .trySkill($skill`Show them your ring`)
-              .externalIf(
-                have($skill`Snokebomb`) && !getBanishedMonsters().get($skill`Snokebomb`),
-                Macro.trySkill($skill`Snokebomb`)
-              )
-              .externalIf(
-                have($skill`Feel Hatred`) && !getBanishedMonsters().get($skill`Feel Hatred`),
-                Macro.trySkill($skill`Feel Hatred`)
-              )
-              .tryItem(nextUnusedBanishItem())
+              .repeat()
           ),
         limit: { tries: 15 },
         tracking: "Leveling",
