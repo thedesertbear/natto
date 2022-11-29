@@ -922,7 +922,9 @@ export function GyouQuest(): Quest {
           ...(have($item`miniature crystal ball`) && get("_drunkPygmyBanishes") >= 10
             ? { famequip: $item`miniature crystal ball` }
             : {}),
-          ...(have($item`mafia middle finger ring`) && !get("_mafiaMiddleFingerRingUsed")
+          ...(have($item`mafia middle finger ring`) &&
+          myBasestat($stat`Muscle`) >= 45 &&
+          !get("_mafiaMiddleFingerRingUsed")
             ? { equip: [$item`mafia middle finger ring`] }
             : {}),
           modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
