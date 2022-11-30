@@ -1034,6 +1034,45 @@ export function GyouQuest(): Quest {
         tracking: "Leveling",
       },
       {
+        name: "Oliver's Place",
+        ready: () => get("ownsSpeakeasy", false),
+        completed: () => get("_speakeasyFreeFights", 0) >= 3,
+        outfit: () => ({
+          familiar: $familiar`Grey Goose`,
+          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
+        }),
+        prepare: () => {
+          restoreHp(0.9 * myHp());
+          restoreMp(12);
+        },
+        // eslint-disable-next-line libram/verify-constants
+        do: $location`An Unusually Quiet Barroom Brawl`,
+        post: () => {
+          if (!get("_lastCombatWon"))
+            throw new Error("Lost Combat - Check to see what went wrong.");
+        },
+        combat: new CombatStrategy().macro(() =>
+          Macro.externalIf(
+            $familiar`Grey Goose`.experience >= 400,
+            Macro.trySkill(
+              myPrimestat() === $stat`Muscle`
+                ? $skill`Convert Matter to Protein`
+                : myPrimestat() === $stat`Mysticality`
+                ? $skill`Convert Matter to Energy`
+                : $skill`Convert Matter to Pomade`
+            )
+          )
+            .trySkill($skill`Sing Along`)
+            .tryItem($item`porquoise-handled sixgun`)
+            .trySkill($skill`Saucestorm`)
+            .trySkill($skill`Saucestorm`)
+            .attack()
+            .repeat()
+        ),
+        tracking: "Leveling",
+        limit: { tries: 3 },
+      },
+      {
         name: "Buff Mainstat",
         completed: () =>
           myLevel() >= args.targetlevel ||
