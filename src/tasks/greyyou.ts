@@ -982,6 +982,26 @@ export function GyouQuest(): Quest {
         tracking: "Leveling",
       },
       {
+        name: "Ball Pit",
+        completed: () => !have($item`Clan VIP Lounge key`) || get("_ballpit"),
+        do: () => cliExecute(`ballpit`),
+        tracking: "Leveling",
+      },
+      {
+        name: "Get Lyle Favored",
+        completed: () => get("_lyleFavored"),
+        do: () => cliExecute("monorail"),
+        tracking: "Leveling",
+      },
+      {
+        name: "Telescope Buff",
+        completed: () =>
+          !($item`Discount Telescope Warehouse gift certificate`.name in getCampground()) ||
+          get("telescopeLookedHigh"),
+        do: () => cliExecute("telescope high"),
+        tracking: "Leveling",
+      },
+      {
         name: "Fight Seals",
         ready: () =>
           have($item`figurine of a wretched-looking seal`) && have($item`seal-blubber candle`),
@@ -991,7 +1011,7 @@ export function GyouQuest(): Quest {
           (!have($item`Claw of the Infernal Seal`) && get("_sealsSummoned") >= 5),
         outfit: () => ({
           familiar: $familiar`Grey Goose`,
-          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
+          modifier: `club, 0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
         }),
         do: () => visitUrl("inv_use.php?pwd&checked=1&whichitem=3902"),
         combat: new CombatStrategy().macro(() =>
@@ -1011,26 +1031,6 @@ export function GyouQuest(): Quest {
             .repeat()
         ),
         limit: { tries: 10 },
-        tracking: "Leveling",
-      },
-      {
-        name: "Ball Pit",
-        completed: () => !have($item`Clan VIP Lounge key`) || get("_ballpit"),
-        do: () => cliExecute(`ballpit`),
-        tracking: "Leveling",
-      },
-      {
-        name: "Get Lyle Favored",
-        completed: () => get("_lyleFavored"),
-        do: () => cliExecute("monorail"),
-        tracking: "Leveling",
-      },
-      {
-        name: "Telescope Buff",
-        completed: () =>
-          !($item`Discount Telescope Warehouse gift certificate`.name in getCampground()) ||
-          get("telescopeLookedHigh"),
-        do: () => cliExecute("telescope high"),
         tracking: "Leveling",
       },
       {
