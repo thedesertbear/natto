@@ -1133,6 +1133,10 @@ export function GyouQuest(): Quest {
             )
             .tryItem(...$items`porquoise-handled sixgun, HOA citation pad`)
             .trySkill($skill`Sing Along`)
+            .externalIf(
+              have($skill`Feel Pride`) && get("_feelPrideUsed") < 3,
+              Macro.trySkill($skill`Feel Pride`)
+            )
             .attack()
             .repeat()
         ),
@@ -1197,6 +1201,10 @@ export function GyouQuest(): Quest {
             )
             .tryItem($item`porquoise-handled sixgun`)
             .trySkill($skill`Sing Along`)
+            .externalIf(
+              have($skill`Feel Pride`) && get("_feelPrideUsed") < 3,
+              Macro.trySkill($skill`Feel Pride`)
+            )
             .trySkill($skill`Fire the Jokester's Gun`)
             .trySkill($skill`Chest X-Ray`)
             .trySkill($skill`Gingerbread Mob Hit`)
