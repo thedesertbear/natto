@@ -730,6 +730,32 @@ export function GyouQuest(): Quest {
         limit: { tries: 4 },
       },
       {
+        name: "NEP Reject Quest",
+        ready: () => get("neverendingPartyAlways") && get("_questPartyFair") === "unstarted",
+        completed: () => get("_questPartyFair") === "",
+        choices: {
+          1322: 2,
+        },
+        do: $location`The Neverending Party`,
+      },
+      {
+        name: "NEP Exp Buff",
+        ready: () =>
+          get("neverendingPartyAlways") &&
+          get("_questPartyFair") !== "unstarted" &&
+          have($item`Clara's bell`),
+        completed: () => get("_claraBellUsed"),
+        choices: {
+          1324: () =>
+            myPrimestat() === $stat`Muscle` ? 2 : myPrimestat() === $stat`Mysticality` ? 1 : 4,
+          1325: 2, // Myst Exp %
+          1326: 2, // Mus Exp %
+          1328: 2, // Mox Exp %
+        },
+        prepare: () => use($item`Clara's bell`),
+        do: $location`The Neverending Party`,
+      },
+      {
         name: "Snapper Spleen Exp %",
         completed: () =>
           myLevel() >= args.targetlevel ||
