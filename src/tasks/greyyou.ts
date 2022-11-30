@@ -798,6 +798,12 @@ export function GyouQuest(): Quest {
         do: () => use($item`chest of the Bonerdagon`),
       },
       {
+        name: "Bastille Battalion",
+        ready: () => have($item`Bastille Battalion control rig`),
+        completed: () => get("_bastilleGames") !== 0,
+        do: () => cliExecute("bastille mainstat draftsman gesture"),
+      },
+      {
         name: "Steel Margarita",
         ready: () => haveAll($items`Azazel's tutu, Azazel's lollipop, Azazel's unicorn`),
         completed: () => have($skill`Liver of Steel`) || have($item`steel margarita`),
