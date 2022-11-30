@@ -1,4 +1,7 @@
 import {
+  chew,
+  cliExecute,
+  Effect,
   Familiar,
   fullnessLimit,
   getCampground,
@@ -13,7 +16,9 @@ import {
   myInebriety,
   myLevel,
   mySpleenUse,
+  retrieveItem,
   spleenLimit,
+  use,
 } from "kolmafia";
 import {
   $familiar,
@@ -188,4 +193,14 @@ export function nextUnusedBanishItem(): Item {
       (a, b) => mallPrice(a) - mallPrice(b)
     ); //sorted from cheapest to most expensive
   return banishes.find((it) => !getBanishedMonsters().get(it)) || $item`none`; //return the cheapest free banish not currently in use
+}
+
+export function chewOrWish(it: Item, ef: Effect): void {
+  if (mallPrice(it) + mallPrice($item`mojo filter`) < mallPrice($item`pocket wish`)) {
+    if (mySpleenUse() === spleenLimit()) use(1, $item`mojo filter`);
+    chew(it);
+  } else {
+    retrieveItem($item`pocket wish`);
+    cliExecute(`genie effect ${ef.name}`);
+  }
 }

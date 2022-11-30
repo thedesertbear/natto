@@ -91,6 +91,7 @@ import {
   backstageItemsDone,
   bestFam,
   canDiet,
+  chewOrWish,
   doneAdventuring,
   haveAll,
   maxBase,
@@ -738,17 +739,18 @@ export function GyouQuest(): Quest {
           ) ||
           mySpleenUse() >= spleenLimit() + 3 - get("currentMojoFilters"),
         do: (): void => {
-          if (mySpleenUse() === spleenLimit()) use(1, $item`mojo filter`);
-          chew(
-            1,
-            myClass().primestat === $stat`Muscle`
-              ? $item`vial of humanoid growth hormone`
-              : myClass().primestat === $stat`Mysticality`
-              ? $item`non-Euclidean angle`
-              : $item`Shantix™`
-          );
+          switch (myPrimestat()) {
+            case $stat`Muscle`:
+              chewOrWish($item`vial of humanoid growth hormone`, $effect`HGH-charged`);
+              break;
+            case $stat`Mysticality`:
+              chewOrWish($item`non-Euclidean angle`, $effect`Different Way of Seeing Things`);
+              break;
+            case $stat`Moxie`:
+              chewOrWish($item`Shantix™`, $effect`Thou Shant Not Sing`);
+          }
         },
-        limit: { tries: Math.ceil(levelingTurns / 30) },
+        limit: { tries: Math.ceil(levelingTurns / 20) },
         tracking: "Leveling",
       },
       {
