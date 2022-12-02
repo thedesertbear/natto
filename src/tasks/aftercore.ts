@@ -227,7 +227,7 @@ export function AftercoreQuest(): Quest {
       },
       {
         name: "Daily Dungeon",
-        completed: () => get("dailyDungeonDone"),
+        completed: () => get("dailyDungeonDone") || myAdventures() === 0 || stooperDrunk(),
         acquire: $items`eleven-foot pole, Pick-O-Matic lockpicks, ring of Detect Boring Doors`.map(
           (it) => ({ item: it, price: 1000 })
         ),
