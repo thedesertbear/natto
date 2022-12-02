@@ -94,6 +94,7 @@ import {
   canDiet,
   chewOrWish,
   doneAdventuring,
+  getGarden,
   haveAll,
   maxBase,
   meatFam,
@@ -1414,6 +1415,21 @@ export function GyouQuest(): Quest {
         ready: () => doneAdventuring(),
         completed: () => totallyDrunk(),
         do: () => cliExecute("CONSUME NIGHTCAP"),
+      },
+      {
+        name: "Plant Garden",
+        ready: () =>
+          doneAdventuring() &&
+          !!$items`packet of thanksgarden seeds, Peppermint Pip Packet, packet of winter seeds, packet of beer seeds, packet of pumpkin seeds, packet of dragon's teeth`.find(
+            (it) => have(it)
+          ),
+        completed: () => getGarden() !== $item`packet of tall grass seeds`,
+        do: () =>
+          use(
+            $items`packet of thanksgarden seeds, Peppermint Pip Packet, packet of winter seeds, packet of beer seeds, packet of pumpkin seeds, packet of dragon's teeth`.find(
+              (it) => have(it)
+            ) || $item`none`
+          ),
       },
       {
         name: "Pajamas",

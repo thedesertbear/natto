@@ -5,6 +5,7 @@ import {
   canAdventure,
   cliExecute,
   closetAmount,
+  getCampground,
   getClanName,
   getPermedSkills,
   getWorkshed,
@@ -63,7 +64,16 @@ import {
   uneffect,
 } from "libram";
 import { getCurrentLeg, Leg, Quest } from "./structure";
-import { bestFam, canDiet, maxBase, noML, stooperDrunk, toMoonSign, totallyDrunk } from "./utils";
+import {
+  bestFam,
+  canDiet,
+  getGarden,
+  maxBase,
+  noML,
+  stooperDrunk,
+  toMoonSign,
+  totallyDrunk,
+} from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
 import { args } from "../main";
 
@@ -90,17 +100,21 @@ export function AftercoreQuest(): Quest {
         completed: () => get("breakfastCompleted"),
         do: () => cliExecute("breakfast"),
       },
-      // {
-      //   name: "Harvest Garden",
-      //   completed: () => myGardenType() === "grass",
-      //   do: () => {
-      //     cliExecute("garden pick");
-      //     use($item`packet of tall grass seeds`);
-      //     use($item`cold medicine cabinet`);
-      //     // cliExecute("cmc pill");
-      //   },
-      //   tracking: "Dailies",
-      // },
+      {
+        name: "Harvest Garden",
+        completed: () => getGarden() === $item`none` || getCampground()[getGarden().name] === 0,
+        do: () => cliExecute("garden pick"),
+        tracking: "Dailies",
+        limit: { tries: 3 },
+      },
+      {
+        name: "Plant Grass",
+        completed: () =>
+          !have($item`packet of tall grass seeds`) ||
+          getGarden() === $item`packet of tall grass seeds`,
+        do: () => use($item`packet of tall grass seeds`),
+        tracking: "Dailies",
+      },
       {
         name: "Drive Observantly",
         completed: () =>

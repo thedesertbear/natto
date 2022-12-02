@@ -182,8 +182,8 @@ export function backstageItemsDone(): boolean {
 }
 
 const gardens = $items`packet of pumpkin seeds, Peppermint Pip Packet, packet of dragon's teeth, packet of beer seeds, packet of winter seeds, packet of thanksgarden seeds, packet of tall grass seeds, packet of mushroom spores`;
-export function getGarden(): Item | undefined {
-  return gardens.find((it) => it.name in getCampground());
+export function getGarden(): Item {
+  return gardens.find((it) => it.name in getCampground()) || $item`none`;
 }
 
 let banishes: Item[];
