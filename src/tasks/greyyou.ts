@@ -921,10 +921,7 @@ export function GyouQuest(): Quest {
         }),
         combat: new CombatStrategy().macro(() =>
           Macro.tryItem($item`gas balloon`)
-            .externalIf(
-              have($skill`Feel Pride`) && get("_feelPrideUsed") < 3,
-              Macro.trySkill($skill`Feel Pride`)
-            )
+            .trySkill($skill`Feel Pride`)
             .tryItem(...$items`shard of double-ice, gas can`)
             .attack()
             .repeat()
@@ -1195,6 +1192,10 @@ export function GyouQuest(): Quest {
               Macro.tryItem($item`electronics kit`)
             )
             .externalIf(
+              get("cosmicBowlingBallReturnCombats") < 1,
+              Macro.trySkill($skill`Bowl Sideways`)
+            )
+            .externalIf(
               $familiar`Grey Goose`.experience >= 400,
               Macro.trySkill(
                 myPrimestat() === $stat`Muscle`
@@ -1206,6 +1207,7 @@ export function GyouQuest(): Quest {
             )
             .tryItem(...$items`porquoise-handled sixgun, HOA citation pad`)
             .trySkill($skill`Sing Along`)
+            .externalIf(myLevel() >= args.targetlevel - 2, Macro.trySkill($skill`Feel Pride`))
             .attack()
             .repeat()
         ),
@@ -1259,6 +1261,10 @@ export function GyouQuest(): Quest {
               Macro.tryItem($item`electronics kit`)
             )
             .externalIf(
+              get("cosmicBowlingBallReturnCombats") < 1,
+              Macro.trySkill($skill`Bowl Sideways`)
+            )
+            .externalIf(
               $familiar`Grey Goose`.experience >= 400,
               Macro.trySkill(
                 myPrimestat() === $stat`Muscle`
@@ -1270,6 +1276,7 @@ export function GyouQuest(): Quest {
             )
             .tryItem($item`porquoise-handled sixgun`)
             .trySkill($skill`Sing Along`)
+            .externalIf(myLevel() >= args.targetlevel - 2, Macro.trySkill($skill`Feel Pride`))
             .trySkill($skill`Fire the Jokester's Gun`)
             .trySkill($skill`Chest X-Ray`)
             .trySkill($skill`Gingerbread Mob Hit`)
