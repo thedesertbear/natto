@@ -218,20 +218,7 @@ export function AftercoreQuest(): Quest {
         }),
         combat: new CombatStrategy().macro(() =>
           Macro.tryItem($item`gas balloon`)
-            .externalIf(
-              have($skill`Feel Pride`) && get("_feelPrideUsed") < 3,
-              Macro.trySkill($skill`Feel Pride`),
-              Macro.externalIf(
-                $familiar`Grey Goose`.experience >= 400,
-                Macro.trySkill(
-                  myPrimestat() === $stat`Muscle`
-                    ? $skill`Convert Matter to Protein`
-                    : myPrimestat() === $stat`Mysticality`
-                    ? $skill`Convert Matter to Energy`
-                    : $skill`Convert Matter to Pomade`
-                )
-              )
-            )
+            .trySkill($skill`Feel Pride`)
             .tryItem(...$items`shard of double-ice, gas can`)
             .attack()
             .repeat()
