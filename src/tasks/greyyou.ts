@@ -45,6 +45,7 @@ import {
   restoreMp,
   retrieveItem,
   runChoice,
+  runCombat,
   spleenLimit,
   storageAmount,
   takeCloset,
@@ -1209,6 +1210,68 @@ export function GyouQuest(): Quest {
             .repeat()
         ),
         limit: { tries: 13 }, //+3 for unaccounted for wanderers, etc.
+        tracking: "Leveling",
+      },
+      {
+        name: "God Lobster",
+        ready: () =>
+          myLevel() >= args.targetlevel - 1 &&
+          !!$effects`HGH-charged, Different Way of Seeing Things, Thou Shant Not Sing`.find((ef) =>
+            have(ef)
+          ),
+        completed: () =>
+          get("_godLobsterFights") >= 3 ||
+          (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
+        effects: $effects`Heart of White`,
+        acquire: () => [
+          ...(have($skill`Curse of Weaksauce`)
+            ? []
+            : [{ item: $item`electronics kit`, price: 500 }]),
+          ...(have($familiar`God Lobster`)
+            ? []
+            : [{ item: $item`Dish of Clarified Butter`, price: get("valueOfAdventure") / 2 }]),
+          ...(have($item`January's Garbage Tote`)
+            ? [{ item: $item`makeshift garbage shirt` }]
+            : []),
+        ],
+        outfit: () => ({
+          ...(have($item`makeshift garbage shirt`)
+            ? { shirt: $item`makeshift garbage shirt` }
+            : {}),
+          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, ${noML()}`,
+        }),
+        choices: {
+          1310: 2,
+        },
+        prepare: (): void => {
+          restoreHp(0.75 * myMaxhp());
+          restoreMp(8);
+        },
+        do: () => {
+          if (have($familiar`God Lobster`)) visitUrl("main.php?fightgodlobster=1");
+          else use($item`Dish of Clarified Butter`);
+          runCombat();
+          visitUrl("choice.php");
+          if (handlingChoice()) runChoice(-1);
+        },
+        post: () => {
+          if (!get("_lastCombatWon"))
+            throw new Error("Lost Combat - Check to see what went wrong.");
+        },
+        combat: new CombatStrategy().macro(() =>
+          Macro.step("pickpocket")
+            .externalIf(
+              have($skill`Curse of Weaksauce`),
+              Macro.trySkill($skill`Curse of Weaksauce`),
+              Macro.tryItem($item`electronics kit`)
+            )
+            .tryItem($item`porquoise-handled sixgun`)
+            .trySkill($skill`Sing Along`)
+            .trySkill($skill`Feel Pride`)
+            .attack()
+            .repeat()
+        ),
+        limit: { tries: 3 },
         tracking: "Leveling",
       },
       {
