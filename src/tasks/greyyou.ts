@@ -1191,10 +1191,7 @@ export function GyouQuest(): Quest {
               Macro.trySkill($skill`Curse of Weaksauce`),
               Macro.tryItem($item`electronics kit`)
             )
-            .externalIf(
-              get("cosmicBowlingBallReturnCombats") < 1,
-              Macro.trySkill($skill`Bowl Sideways`)
-            )
+            .trySkill($skill`Bowl Sideways`)
             .externalIf(
               $familiar`Grey Goose`.experience >= 400,
               Macro.trySkill(
@@ -1260,10 +1257,7 @@ export function GyouQuest(): Quest {
               Macro.trySkill($skill`Curse of Weaksauce`),
               Macro.tryItem($item`electronics kit`)
             )
-            .externalIf(
-              get("cosmicBowlingBallReturnCombats") < 1,
-              Macro.trySkill($skill`Bowl Sideways`)
-            )
+            .trySkill($skill`Bowl Sideways`)
             .externalIf(
               $familiar`Grey Goose`.experience >= 400,
               Macro.trySkill(
