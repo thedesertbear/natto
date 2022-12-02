@@ -665,7 +665,7 @@ export function GyouQuest(): Quest {
             ? [] //$items``.map((it) => ({ item: it }))
             : []),
           ...(targetClass(false).primestat === $stat`Moxie`
-            ? $items`noir fedora, KoL Con 13 T-shirt`.map((it) => ({ item: it }))
+            ? $items`noir fedora`.map((it) => ({ item: it }))
             : []),
         ],
         outfit: () => ({
