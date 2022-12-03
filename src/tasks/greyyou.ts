@@ -67,12 +67,14 @@ import {
   $item,
   $items,
   $location,
+  $locations,
   $monster,
   $monsters,
   $phylum,
   $skill,
   $stat,
   AsdonMartin,
+  AutumnAton,
   DNALab,
   ensureEffect,
   get,
@@ -226,6 +228,33 @@ export function GyouQuest(): Quest {
         },
         outfit: () => ({ equip: $items`June cleaver` }),
         limit: undefined,
+      },
+      {
+        name: "Autumnaton",
+        completed: () =>
+          !have($item`autumn-aton`) || AutumnAton.turnsForQuest() >= myAdventures() + 10,
+        do: () => {
+          if (
+            itemAmount($item`imp air`) < 5 &&
+            !have($skill`Liver of Steel`) &&
+            !have($item`steel margarita`) &&
+            !have($item`Azazel's tutu`)
+          ) {
+            AutumnAton.sendTo($location`The Laugh Floor`);
+          }
+          if (
+            itemAmount($item`bus pass`) < 5 &&
+            !have($skill`Liver of Steel`) &&
+            !have($item`steel margarita`) &&
+            !have($item`Azazel's tutu`)
+          ) {
+            AutumnAton.sendTo($location`Infernal Rackets Backstage`);
+          }
+          const autumnAtonZones = $locations`The Toxic Teacups, The Oasis, The Deep Dark Jungle, The Bubblin' Caldera, The Sleazy Back Alley`;
+          if (AutumnAton.turnsForQuest() < myAdventures() + 10) {
+            AutumnAton.sendTo(autumnAtonZones);
+          }
+        },
       },
       {
         name: "Meat Boombox",
