@@ -1201,6 +1201,7 @@ export function GyouQuest(): Quest {
             : []),
         ],
         outfit: () => ({
+          ...(have($familiar`God Lobster`) ? { familiar: $familiar`God Lobster` } : {}),
           ...(have($item`makeshift garbage shirt`)
             ? { shirt: $item`makeshift garbage shirt` }
             : {}),
