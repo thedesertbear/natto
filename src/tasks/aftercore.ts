@@ -102,7 +102,10 @@ export function AftercoreQuest(): Quest {
       },
       {
         name: "Harvest Garden",
-        completed: () => getGarden() === $item`none` || getCampground()[getGarden().name] === 0,
+        completed: () =>
+          getGarden() === $item`none` ||
+          getGarden() === $item`packet of mushroom spores` ||
+          getCampground()[getGarden().name] === 0,
         do: () => cliExecute("garden pick"),
         tracking: "Dailies",
         limit: { tries: 3 },
