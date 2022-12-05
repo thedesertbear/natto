@@ -1119,7 +1119,11 @@ export function GyouQuest(): Quest {
           familiar: $familiar`Grey Goose`,
           modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
         }),
-        prepare: () => restoreHp(0.9 * myHp()),
+        prepare: () => {
+          restoreHp(0.9 * myHp());
+          if (itemAmount($item`eldritch essence`) > 0)
+            putCloset(itemAmount($item`eldritch essence`), $item`eldritch essence`);
+        },
         do: () => {
           visitUrl("place.php?whichplace=forestvillage&action=fv_scientist");
           runChoice(1);
