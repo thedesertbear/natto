@@ -24,16 +24,16 @@
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-libram": "^0.2.21",
-    "prettier": "^2.3.2",
+    "prettier": "^2.8.0",
     "typescript": "^4.4.2",
     "webpack": "^5.61.0",
     "webpack-cli": "^4.8.0"
   },
   "dependencies": {
     "core-js": "^3.16.4",
-    "grimoire-kolmafia": "^0.3.9",
-    "kolmafia": "^5.26911.0",
-    "libram": "^0.7.4",
+    "grimoire-kolmafia": "^0.3.11",
+    "kolmafia": "^5.26990.0",
+    "libram": "^0.7.6",
     "typescript-eslint": "^0.0.1-alpha.0"
   },
   "author": "frazazel",
