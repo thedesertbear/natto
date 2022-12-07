@@ -398,32 +398,31 @@ export function GyouQuest(): Quest {
       {
         name: "In-Run Farm Initial",
         completed: () => myTurncount() >= 1000,
-        do: $location`Barf Mountain`,
+        acquire: [{ item: $item`seal tooth` }],
+        outfit: () => ({
+          familiar: meatFam(),
+          modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
+        }),
         prepare: (): void => {
           if (have($item`How to Avoid Scams`)) ensureEffect($effect`How to Scam Tourists`);
-          retrieveItem($item`seal tooth`);
           restoreHp(0.75 * myMaxhp());
           restoreMp(20);
         },
-        outfit: {
-          familiar: meatFam(),
-          modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
-        },
+        do: $location`Barf Mountain`,
         combat: new CombatStrategy()
           .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
-          .macro(
+          .macro(() =>
             Macro.trySkill($skill`Bowl Straight Up`)
               .trySkill($skill`Sing Along`)
               .trySkill($skill`Extract Jelly`)
               .tryItem($item`porquoise-handled sixgun`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
+              .externalIf(
+                myFamiliar() === $familiar`Hobo Monkey`,
+                Macro.while_(
+                  `!match "shoulder, and hands you some Meat." && !pastround 20 && !hppercentbelow 25`,
+                  Macro.item($item`seal tooth`)
+                )
+              )
               .trySkill($skill`Double Nanovision`)
               .attack()
               .repeat()
@@ -643,32 +642,31 @@ export function GyouQuest(): Quest {
       {
         name: "In-Run Farm Final",
         completed: () => myAdventures() <= 40 || myClass() !== $class`Grey Goo`,
-        do: $location`Barf Mountain`,
-        prepare: (): void => {
-          if (have($item`How to Avoid Scams`)) ensureEffect($effect`How to Scam Tourists`);
-          retrieveItem($item`seal tooth`);
-          restoreHp(0.75 * myMaxhp());
-          restoreMp(20);
-        },
+        acquire: [{ item: $item`seal tooth` }],
         outfit: () => ({
           familiar: meatFam(),
           modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
         }),
+        prepare: (): void => {
+          if (have($item`How to Avoid Scams`)) ensureEffect($effect`How to Scam Tourists`);
+          restoreHp(0.75 * myMaxhp());
+          restoreMp(20);
+        },
+        do: $location`Barf Mountain`,
         combat: new CombatStrategy()
           .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
-          .macro(
+          .macro(() =>
             Macro.trySkill($skill`Bowl Straight Up`)
               .trySkill($skill`Sing Along`)
               .trySkill($skill`Extract Jelly`)
               .tryItem($item`porquoise-handled sixgun`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
-              .tryItem($item`seal tooth`)
+              .externalIf(
+                myFamiliar() === $familiar`Hobo Monkey`,
+                Macro.while_(
+                  `!match "shoulder, and hands you some Meat." && !pastround 20 && !hppercentbelow 25`,
+                  Macro.item($item`seal tooth`)
+                )
+              )
               .trySkill($skill`Double Nanovision`)
               .attack()
               .repeat()
