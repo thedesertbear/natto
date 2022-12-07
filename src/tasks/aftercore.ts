@@ -158,14 +158,6 @@ export function AftercoreQuest(): Quest {
         },
       },
       {
-        name: "Install CMC",
-        completed: () =>
-          getWorkshed() === $item`cold medicine cabinet` ||
-          !have($item`cold medicine cabinet`) ||
-          get("_workshedItemUsed"),
-        do: () => use($item`cold medicine cabinet`),
-      },
-      {
         name: "LGR Seed",
         completed: () =>
           get("_stenchAirportToday") || get("stenchAirportAlways") || !have($item`lucky gold ring`),
@@ -421,14 +413,30 @@ export function AftercoreQuest(): Quest {
         name: "Garbo Pre-VoA",
         completed: () => !args.voatest || stooperDrunk() || (!canDiet() && myAdventures() <= 100),
         prepare: () => uneffect($effect`Beaten Up`),
-        do: () => cliExecute(`${args.garboascend} -100`),
+        do: () => {
+          if (
+            getWorkshed() === $item`cold medicine cabinet` ||
+            !have($item`cold medicine cabinet`) ||
+            get("_workshedItemUsed")
+          )
+            cliExecute(`${args.garboascend} -100`);
+          else cliExecute(`${args.garboascend} -200`);
+        },
         tracking: "Garbo",
       },
       {
         name: "Garbo VoA Test",
         completed: () => !args.voatest || stooperDrunk() || (!canDiet() && myAdventures() === 0),
         prepare: () => uneffect($effect`Beaten Up`),
-        do: () => cliExecute(`${args.garboascend}`),
+        do: () => {
+          if (
+            getWorkshed() === $item`cold medicine cabinet` ||
+            !have($item`cold medicine cabinet`) ||
+            get("_workshedItemUsed")
+          )
+            cliExecute(`${args.garboascend}`);
+          else cliExecute(`${args.garboascend} -100`);
+        },
         post: () =>
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
@@ -438,6 +446,36 @@ export function AftercoreQuest(): Quest {
       {
         name: "Garbo",
         completed: () => args.voatest || stooperDrunk() || (!canDiet() && myAdventures() === 0),
+        prepare: () => uneffect($effect`Beaten Up`),
+        do: () => {
+          if (
+            getWorkshed() === $item`cold medicine cabinet` ||
+            !have($item`cold medicine cabinet`) ||
+            get("_workshedItemUsed")
+          )
+            cliExecute(`${args.garboascend}`);
+          else cliExecute(`${args.garboascend} -100`);
+        },
+        post: () =>
+          $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+            .filter((ef) => have(ef))
+            .forEach((ef) => uneffect(ef)),
+        tracking: "Garbo",
+      },
+      {
+        name: "Install CMC",
+        completed: () =>
+          getWorkshed() === $item`cold medicine cabinet` ||
+          !have($item`cold medicine cabinet`) ||
+          get("_workshedItemUsed"),
+        do: () => use($item`cold medicine cabinet`),
+      },
+      {
+        name: "Garbo Post-CMC",
+        completed: () =>
+          getWorkshed() !== $item`cold medicine cabinet` ||
+          stooperDrunk() ||
+          (!canDiet() && myAdventures() === 0),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => cliExecute(`${args.garboascend}`),
         post: () =>
