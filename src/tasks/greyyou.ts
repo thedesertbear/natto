@@ -1101,7 +1101,7 @@ export function GyouQuest(): Quest {
         completed: () => get("_speakeasyFreeFights", 0) >= 3,
         outfit: () => ({
           familiar: $familiar`Grey Goose`,
-          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
+          modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience`,
         }),
         prepare: () => {
           restoreHp(0.9 * myHp());
@@ -1154,7 +1154,7 @@ export function GyouQuest(): Quest {
         ],
         outfit: () => ({
           familiar: $familiar`Grey Goose`,
-          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
+          modifier: `effective, 0.125 ${myPrimestat()} 400 max, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
         }),
         prepare: () => {
           restoreHp(0.9 * myHp());
@@ -1213,7 +1213,7 @@ export function GyouQuest(): Quest {
           ...(have($item`makeshift garbage shirt`)
             ? { shirt: $item`makeshift garbage shirt` }
             : {}),
-          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, ${noML()}`,
+          modifier: `effective, 0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, ${noML()}`,
         }),
         choices: {
           1310: 3,
@@ -1273,7 +1273,7 @@ export function GyouQuest(): Quest {
           ...(have($item`makeshift garbage shirt`)
             ? { shirt: $item`makeshift garbage shirt` }
             : {}),
-          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
+          modifier: `effective, 0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
         }),
         prepare: (): void => {
           restoreHp(0.75 * myMaxhp());
@@ -1343,7 +1343,7 @@ export function GyouQuest(): Quest {
           ...(have($item`makeshift garbage shirt`)
             ? { shirt: $item`makeshift garbage shirt` }
             : {}),
-          modifier: `0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
+          modifier: `effective, 0.125 ${myPrimestat()}, ${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
         }),
         prepare: (): void => {
           restoreHp(0.75 * myMaxhp());
