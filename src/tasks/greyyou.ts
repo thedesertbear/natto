@@ -936,10 +936,15 @@ export function GyouQuest(): Quest {
         name: "Fight Glitch",
         ready: () => have($item`[glitch season reward name]`),
         completed: () => get("_glitchMonsterFights") > 0,
-        acquire: $items`gas can, gas balloon, shard of double-ice`.map((it) => ({
-          item: it,
-          price: 1000,
-        })),
+        acquire: [
+          ...$items`gas can, gas balloon, shard of double-ice`.map((it) => ({
+            item: it,
+            price: 1000,
+          })),
+          ...(have($item`January's Garbage Tote`)
+            ? [{ item: $item`makeshift garbage shirt` }]
+            : []),
+        ],
         prepare: () => restoreHp(0.9 * myHp()),
         do: () => visitUrl("inv_eat.php?pwd&whichitem=10207"),
         post: () => {
@@ -948,6 +953,9 @@ export function GyouQuest(): Quest {
         },
         outfit: () => ({
           familiar: bestFam(),
+          ...(have($item`January's Garbage Tote`) && have($skill`Torso Awareness`)
+            ? { shirt: $item`makeshift garbage shirt` }
+            : {}),
           modifier: `${myPrimestat()} experience, 5 ${myPrimestat()} experience percent, 10 familiar experience, ${noML()}`,
         }),
         combat: new CombatStrategy().macro(() =>
