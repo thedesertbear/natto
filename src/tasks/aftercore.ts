@@ -116,7 +116,6 @@ export function AftercoreQuest(): Quest {
           !have($item`packet of tall grass seeds`) ||
           getGarden() === $item`packet of tall grass seeds`,
         do: () => use($item`packet of tall grass seeds`),
-        tracking: "Dailies",
       },
       {
         name: "Drive Observantly",
@@ -206,7 +205,6 @@ export function AftercoreQuest(): Quest {
         name: "Restore HP",
         completed: () => myHp() > 0.5 * myMaxhp(),
         do: () => restoreHp(0.95 * myMaxhp()),
-        tracking: "Leveling",
       },
       {
         name: "Implement Glitch",
