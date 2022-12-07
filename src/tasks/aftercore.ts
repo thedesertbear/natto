@@ -123,8 +123,19 @@ export function AftercoreQuest(): Quest {
         completed: () =>
           get("dailyDungeonDone") ||
           getWorkshed() !== $item`Asdon Martin keyfob` ||
-          haveEffect($effect`Driving Observantly`) >= 800,
-        do: () => AsdonMartin.drive($effect`Driving Observantly`, 810, false),
+          haveEffect($effect`Driving Observantly`) >=
+            (totallyDrunk() || !have($item`Drunkula's wineglass`)
+              ? myAdventures()
+              : myAdventures() + 60),
+        do: () =>
+          AsdonMartin.drive(
+            $effect`Driving Observantly`,
+            totallyDrunk() || !have($item`Drunkula's wineglass`)
+              ? myAdventures()
+              : myAdventures() + 60,
+            false
+          ),
+        limit: { tries: 5 },
       },
       {
         name: "Sample Constellation DNA",
