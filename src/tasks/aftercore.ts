@@ -525,9 +525,12 @@ export function AftercoreQuest(): Quest {
               )
               ? args.moonsign
               : nPerms.includes($skill`Torso Awareness`) ||
-                !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
-                  (sk) => !nPerms.includes(sk) //plan to perm Torso Awareness or all 4 other gnome skills
-                )
+                (!!$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+                  (sk) => nPerms.includes(sk)
+                ) &&
+                  !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+                    (sk) => !nPerms.includes(sk) && !(sk.name in getPermedSkills())
+                  )) //plan to perm Torso Awareness or (plan to perm at least 1 gnome skill and will end with all gnome skills permed)
               ? "wombat"
               : args.moonsign
           );
