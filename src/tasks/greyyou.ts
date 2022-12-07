@@ -904,6 +904,16 @@ export function GyouQuest(): Quest {
         tracking: "Leveling",
       },
       {
+        name: "Curiosity",
+        completed: () =>
+          myLevel() >= args.targetlevel ||
+          have($effect`Curiosity of Br'er Tarrypin`) ||
+          !have($skill`Curiosity of Br'er Tarrypin`),
+        do: () => useSkill($skill`Curiosity of Br'er Tarrypin`),
+        limit: { tries: Math.ceil(levelingTurns / 10) },
+        tracking: "Leveling",
+      },
+      {
         name: "Ghost Dog Chow",
         completed: () => myLevel() >= 8 || $familiar`Grey Goose`.experience > 380,
         prepare: () => useFamiliar($familiar`Grey Goose`),
