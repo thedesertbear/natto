@@ -459,10 +459,16 @@ export function AftercoreQuest(): Quest {
         },
       },
       {
-        name: "Nightcap",
+        name: "Nightcap (Wine Glass)",
         ready: () => have($item`Drunkula's wineglass`),
         completed: () => totallyDrunk(),
         do: () => cliExecute(`CONSUME NIGHTCAP VALUE ${get("valueOfAdventure") - 1000}`),
+      },
+      {
+        name: "Nightcap (Beach Comb)",
+        ready: () => have($item`Beach Comb`),
+        completed: () => totallyDrunk(),
+        do: () => cliExecute(`CONSUME NIGHTCAP VALUE 500`),
       },
       {
         name: "Garbo (Drunk)",
@@ -475,6 +481,12 @@ export function AftercoreQuest(): Quest {
             .filter((ef) => have(ef))
             .forEach((ef) => uneffect(ef)),
         tracking: "Garbo",
+      },
+      {
+        name: "Comb Beach",
+        ready: () => have($item`Beach Comb`),
+        completed: () => myAdventures() === 0,
+        do: () => cliExecute(`combo ${11 - get("_freeBeachWalksUsed") + myAdventures()}`),
       },
       {
         name: "Turn in FunFunds",
