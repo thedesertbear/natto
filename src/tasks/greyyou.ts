@@ -188,6 +188,7 @@ export function GyouQuest(): Quest {
         completed: () =>
           step("questL13Final") !== -1 && get("gooseReprocessed").split(",").length >= 69, //There are 73 total targets
         do: () => cliExecute(args.gyouscript),
+        clear: "all",
         tracking: "Run",
       },
       {
@@ -452,6 +453,7 @@ export function GyouQuest(): Quest {
         name: "Tower",
         completed: () => step("questL13Final") > 11,
         do: () => cliExecute("loopgyou delaytower chargegoose=20"),
+        clear: "all",
         tracking: "Run",
       },
       {
@@ -724,6 +726,7 @@ export function GyouQuest(): Quest {
             cliExecute("closet take * special seasoning");
           print(`Grey Goose exp at prism break: ${$familiar`Grey Goose`.experience}/400`);
         },
+        clear: "all",
       },
       {
         name: "Call Buffy",
@@ -1426,6 +1429,7 @@ export function GyouQuest(): Quest {
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
             .forEach((ef) => uneffect(ef)),
+        clear: "all",
         tracking: "Garbo",
       },
       {

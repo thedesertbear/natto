@@ -452,6 +452,7 @@ export function AftercoreQuest(): Quest {
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
             .forEach((ef) => uneffect(ef)),
+        clear: "all",
         tracking: "VoA Test",
       },
       {
@@ -471,6 +472,7 @@ export function AftercoreQuest(): Quest {
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
             .forEach((ef) => uneffect(ef)),
+        clear: "all",
         tracking: "Garbo",
       },
       {
@@ -493,6 +495,7 @@ export function AftercoreQuest(): Quest {
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
             .forEach((ef) => uneffect(ef)),
+        clear: "all",
         tracking: "Garbo",
       },
       {
@@ -529,6 +532,7 @@ export function AftercoreQuest(): Quest {
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
             .forEach((ef) => uneffect(ef)),
+        clear: "all",
         tracking: "Garbo",
       },
       {

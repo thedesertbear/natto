@@ -1,5 +1,6 @@
 import { CombatResources, CombatStrategy, Engine } from "grimoire-kolmafia";
 import { cliExecute, Location, logprint, setAutoAttack, writeCcs } from "kolmafia";
+import { clearMaximizerCache } from "libram";
 import { getCurrentLeg, Task } from "../tasks/structure";
 import { printProfits, ProfitTracker } from "./profits";
 
@@ -55,6 +56,13 @@ export class ProfitTrackingEngine extends Engine<never, Task> {
   }
 
   public checkLimits(task: Task, postcondition: (() => boolean) | undefined): void {
+    if (task.clear && !(task.clear instanceof Array))
+      task.clear = task.clear === "all" ? ["outfit", "macro"] : [task.clear]; //convert to an array of appropriate strings
+    if (task.clear && task.clear.includes("macro")) this.cachedCcsContents = "";
+    if (task.clear && task.clear.includes("outfit")) {
+      clearMaximizerCache();
+    }
+
     super.checkLimits({ limit: { tries: 1 }, ...task }, postcondition); //sets the default value of limit
   }
 

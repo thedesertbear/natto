@@ -5,6 +5,7 @@ import { $class, get } from "libram";
 export type Task = BaseTask & {
   tracking?: string;
   limit?: Limit;
+  clear?: "all" | "outfit" | "macro" | ("outfit" | "macro")[];
 };
 export type Quest = BaseQuest<Task>;
 
