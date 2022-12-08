@@ -507,10 +507,24 @@ export function AftercoreQuest(): Quest {
         do: () => cliExecute(`CONSUME NIGHTCAP VALUE ${get("valueOfAdventure") - 1000}`),
       },
       {
-        name: "Nightcap (Beach Comb)",
-        ready: () => have($item`Beach Comb`),
+        name: "Nightcap (Marginal)",
+        ready: () => have($item`Beach Comb`) || have($item`Map to Safety Shelter Grimace Prime`),
         completed: () => totallyDrunk(),
         do: () => cliExecute(`CONSUME NIGHTCAP VALUE 500`),
+      },
+      {
+        name: "Grimace Maps",
+        completed: () => myAdventures() === 0 || !have($item`Map to Safety Shelter Grimace Prime`),
+        effects: $effects`Transpondent`,
+        choices: {
+          536: () =>
+            availableAmount($item`distention pill`) <
+            availableAmount($item`synthetic dog hair pill`) +
+              availableAmount($item`Map to Safety Shelter Grimace Prime`)
+              ? 1
+              : 2,
+        },
+        do: () => use($item`Map to Safety Shelter Grimace Prime`),
       },
       {
         name: "Garbo (Drunk)",
