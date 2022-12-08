@@ -8,7 +8,7 @@ import { permTiers, printPermPlan } from "./tasks/perm";
 import { $class, $item } from "libram";
 import { toMoonSign } from "./tasks/utils";
 
-const version = "0.4.23";
+const version = "0.4.24";
 
 export const args = Args.create(
   "goorbo",
