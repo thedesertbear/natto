@@ -67,6 +67,7 @@ import { getCurrentLeg, Leg, Quest } from "./structure";
 import {
   bestFam,
   canDiet,
+  expectCMC,
   getGarden,
   maxBase,
   noML,
@@ -420,31 +421,27 @@ export function AftercoreQuest(): Quest {
       },
       {
         name: "Garbo Pre-VoA",
-        completed: () => !args.voatest || stooperDrunk() || (!canDiet() && myAdventures() <= 100),
+        completed: () =>
+          !args.voatest ||
+          stooperDrunk() ||
+          (!canDiet() && myAdventures() <= (expectCMC() ? 200 : 100)),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => {
-          if (
-            getWorkshed() === $item`cold medicine cabinet` ||
-            !have($item`cold medicine cabinet`) ||
-            get("_workshedItemUsed")
-          )
-            cliExecute(`${args.garboascend} -100`);
-          else cliExecute(`${args.garboascend} -200`);
+          if (expectCMC()) cliExecute(`${args.garboascend} -200`);
+          else cliExecute(`${args.garboascend} -100`);
         },
         tracking: "Garbo",
       },
       {
         name: "Garbo VoA Test",
-        completed: () => !args.voatest || stooperDrunk() || (!canDiet() && myAdventures() === 0),
+        completed: () =>
+          !args.voatest ||
+          stooperDrunk() ||
+          (!canDiet() && myAdventures() <= (expectCMC() ? 100 : 0)),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => {
-          if (
-            getWorkshed() === $item`cold medicine cabinet` ||
-            !have($item`cold medicine cabinet`) ||
-            get("_workshedItemUsed")
-          )
-            cliExecute(`${args.garboascend}`);
-          else cliExecute(`${args.garboascend} -100`);
+          if (expectCMC()) cliExecute(`${args.garboascend} -100`);
+          else cliExecute(`${args.garboascend}`);
         },
         post: () =>
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
@@ -455,16 +452,14 @@ export function AftercoreQuest(): Quest {
       },
       {
         name: "Garbo",
-        completed: () => args.voatest || stooperDrunk() || (!canDiet() && myAdventures() === 0),
+        completed: () =>
+          args.voatest ||
+          stooperDrunk() ||
+          (!canDiet() && myAdventures() <= (expectCMC() ? 100 : 0)),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => {
-          if (
-            getWorkshed() === $item`cold medicine cabinet` ||
-            !have($item`cold medicine cabinet`) ||
-            get("_workshedItemUsed")
-          )
-            cliExecute(`${args.garboascend}`);
-          else cliExecute(`${args.garboascend} -100`);
+          if (expectCMC()) cliExecute(`${args.garboascend} -100`);
+          else cliExecute(`${args.garboascend}`);
         },
         post: () =>
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
@@ -475,10 +470,7 @@ export function AftercoreQuest(): Quest {
       },
       {
         name: "Install CMC",
-        completed: () =>
-          getWorkshed() === $item`cold medicine cabinet` ||
-          !have($item`cold medicine cabinet`) ||
-          get("_workshedItemUsed"),
+        completed: () => !expectCMC(),
         do: () => use($item`cold medicine cabinet`),
       },
       {
