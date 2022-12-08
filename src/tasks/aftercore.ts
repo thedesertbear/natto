@@ -412,7 +412,7 @@ export function AftercoreQuest(): Quest {
             ...$items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) =>
               availableAmount(it)
             )
-          ) >= 20,
+          ) >= 40,
         acquire: $items`figurine of a wretched-looking seal, seal-blubber candle`.map((it) => ({
           item: it,
           num: 500,
