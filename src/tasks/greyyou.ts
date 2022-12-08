@@ -192,6 +192,12 @@ export function GyouQuest(): Quest {
         tracking: "Run",
       },
       {
+        name: "Uncloset Special Seasoning",
+        completed: () => myTurncount() >= 1000 || closetAmount($item`Special Seasoning`) === 0,
+        do: () => takeCloset(closetAmount($item`Special Seasoning`), $item`Special Seasoning`),
+        tracking: "Run",
+      },
+      {
         name: "Train Gnome Skills",
         ready: () => myMeat() >= 5000 && gnomadsAvailable(),
         completed: () => have($skill`Torso Awareness`),
@@ -722,8 +728,6 @@ export function GyouQuest(): Quest {
           set("_freshOutOfGreyYou", true);
           set("goorboNextClass", "");
           cliExecute("pull all; refresh all"); //if we somehow didn't already pull everything.
-          if (closetAmount($item`Special Seasoning`) > 0)
-            cliExecute("closet take * special seasoning");
           print(`Grey Goose exp at prism break: ${$familiar`Grey Goose`.experience}/400`);
         },
         clear: "all",
