@@ -3,4 +3,4 @@ github Loathing-Associates-Scripting-Society/garbage-collector release
 github Kasekopf/loop-casual release
 https://github.com/soolar/CONSUME.ash/trunk/RELEASE/
 github Loathing-Associates-Scripting-Society/UberPvPOptimizer
-github Loathing-Associates-Scripting-Society/combo.git release
+github Loathing-Associates-Scripting-Society/combo release
