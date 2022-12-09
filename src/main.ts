@@ -12,7 +12,7 @@ const version = "0.4.24";
 
 export const args = Args.create(
   "goorbo",
-  `Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a classe for you to learn guild skills, and to perm learned skills upon ascension.`,
+  `Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a class for you to learn guild skills, and to perm learned skills upon ascension.`,
   {
     version: Args.flag({
       help: "Output script version number and exit.",
@@ -89,11 +89,11 @@ export const args = Args.create(
       default: "garbo",
     }),
     garboascend: Args.string({
-      help: `The command that will be used to diet and use all your adventures in Day 2 aftercore. Goorbo will append " -100" to this string in some cases, expecting this script to stop when you have 100 adventures remaining, and may call it again.`,
+      help: `The command that will be used to diet and use all your adventures in Day 2 aftercore. If it is detected to be a garbo script call, it will function with voatest and CMC will be installed in last 100 turns. If it is not, then voatest will be ignored, and CMC will be installed prior to running this script.`,
       default: "garbo ascend",
     }),
     voatest: Args.boolean({
-      help: `If set, will run your d2 garbo turns just like normal, but will separately track the last 100 turns, to give you an estimate of what your real-world valueOfAdventure is. Divide your total "VoA Test" profit by 100 for your VoA estimate. Note that it might show > 100 adventures spent, if garbo equipped the mafia thumb ring, June cleaver, or other adventure gaining equipment. CAUTION: This flag may not be compatible with custom settings of garboascend`,
+      help: `If set, will run your d2 garbo turns just like normal, but will separately track the last 100 turns, to give you an estimate of what your real-world valueOfAdventure is. Divide your total "VoA Test" profit by 100 for your VoA estimate. Note that it might show > 100 adventures spent, if garbo equipped the mafia thumb ring, June cleaver, or other adventure gaining equipment. This flag may be ignored if a custom setting of garboascend is used`,
       default: true,
     }),
 

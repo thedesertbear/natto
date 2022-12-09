@@ -69,6 +69,7 @@ import {
   canDiet,
   expectCMC,
   getGarden,
+  isGoodGarboScript,
   maxBase,
   noML,
   stooperDrunk,
@@ -420,21 +421,31 @@ export function AftercoreQuest(): Quest {
         do: () => false,
       },
       {
-        name: "Garbo Pre-VoA",
+        name: "Garbo",
         completed: () =>
-          !args.voatest ||
+          !isGoodGarboScript(args.garboascend) ||
           stooperDrunk() ||
-          (!canDiet() && myAdventures() <= (expectCMC() ? 200 : 100)),
+          (!canDiet() && myAdventures() <= (expectCMC() ? 100 : 0) + (args.voatest ? 100 : 0)),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => {
-          if (expectCMC()) cliExecute(`${args.garboascend} -200`);
-          else cliExecute(`${args.garboascend} -100`);
+          const adv2keep = (expectCMC() ? 100 : 0) + (args.voatest ? 100 : 0);
+          if (adv2keep > 0) cliExecute(`${args.garboascend} -${adv2keep}`);
+          else cliExecute(`${args.garboascend}`);
         },
+        post: () => {
+          if (myAdventures() === 0)
+            $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+              .filter((ef) => have(ef))
+              .forEach((ef) => uneffect(ef));
+        },
+        clear: "all",
         tracking: "Garbo",
+        limit: { tries: 2 }, //this will run again after installing CMC, by magic
       },
       {
         name: "Garbo VoA Test",
         completed: () =>
+          !isGoodGarboScript(args.garboascend) ||
           !args.voatest ||
           stooperDrunk() ||
           (!canDiet() && myAdventures() <= (expectCMC() ? 100 : 0)),
@@ -443,30 +454,15 @@ export function AftercoreQuest(): Quest {
           if (expectCMC()) cliExecute(`${args.garboascend} -100`);
           else cliExecute(`${args.garboascend}`);
         },
-        post: () =>
-          $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
-            .filter((ef) => have(ef))
-            .forEach((ef) => uneffect(ef)),
+        post: () => {
+          args.voatest = false;
+          if (myAdventures() === 0)
+            $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+              .filter((ef) => have(ef))
+              .forEach((ef) => uneffect(ef));
+        },
         clear: "all",
         tracking: "VoA Test",
-      },
-      {
-        name: "Garbo",
-        completed: () =>
-          args.voatest ||
-          stooperDrunk() ||
-          (!canDiet() && myAdventures() <= (expectCMC() ? 100 : 0)),
-        prepare: () => uneffect($effect`Beaten Up`),
-        do: () => {
-          if (expectCMC()) cliExecute(`${args.garboascend} -100`);
-          else cliExecute(`${args.garboascend}`);
-        },
-        post: () =>
-          $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
-            .filter((ef) => have(ef))
-            .forEach((ef) => uneffect(ef)),
-        clear: "all",
-        tracking: "Garbo",
       },
       {
         name: "Install CMC",
@@ -474,11 +470,8 @@ export function AftercoreQuest(): Quest {
         do: () => use($item`cold medicine cabinet`),
       },
       {
-        name: "Garbo Post-CMC",
-        completed: () =>
-          getWorkshed() !== $item`cold medicine cabinet` ||
-          stooperDrunk() ||
-          (!canDiet() && myAdventures() === 0),
+        name: "Custom Farm Script", //this should only run if args.garboascend isn't a basic garbo script call
+        completed: () => stooperDrunk() || (!canDiet() && myAdventures() === 0),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => cliExecute(`${args.garboascend}`),
         post: () =>

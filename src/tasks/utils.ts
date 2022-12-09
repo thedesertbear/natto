@@ -213,3 +213,8 @@ export function expectCMC() {
     !get("_workshedItemUsed")
   );
 }
+
+export function isGoodGarboScript(scr: string): boolean {
+  // Returns true if scr includes "garbo", and doesn't include a semicolon
+  return scr.includes("garbo") && !scr.includes(";");
+}
