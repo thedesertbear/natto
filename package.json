@@ -34,6 +34,7 @@
     "grimoire-kolmafia": "^0.3.11",
     "kolmafia": "^5.26990.0",
     "libram": "^0.7.6",
+    "mafia-shared-relay": "^0.0.7",
     "typescript-eslint": "^0.0.1-alpha.0"
   },
   "author": "frazazel",
