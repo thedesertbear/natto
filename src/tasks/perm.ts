@@ -12,7 +12,7 @@ import {
 } from "kolmafia";
 import { $class, $classes, $item, $skills, get, have, set } from "libram";
 import { coloredSkill } from "./sim";
-import { args } from "../main";
+import { args } from "../args";
 
 export function getClass(property: string, _default: Class): Class {
   return toClass(get(property, _default.toString()));

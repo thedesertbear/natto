@@ -88,7 +88,7 @@ import {
   SongBoom,
   uneffect,
 } from "libram";
-import { args } from "../main";
+import { args } from "../args";
 import { getCurrentLeg, Leg, Quest } from "./structure";
 import {
   backstageItemsDone,

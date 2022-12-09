@@ -77,7 +77,7 @@ import {
   totallyDrunk,
 } from "./utils";
 import { printPermPlan, setClass, targetClass, targetPerms } from "./perm";
-import { args } from "../main";
+import { args } from "../args";
 
 export function AftercoreQuest(): Quest {
   return {
