@@ -7576,6 +7576,14 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
     help: "What level to target via adventuring in Uncle Gator's after breaking the prism",
     default: 13
   }),
+  noticket: Args.flag({
+    help: "Run with this flag to skip buying a one-day pass to Dinseylandfill at the beginning of each day. No effect for Dinsey charter owners",
+    default: false
+  }),
+  ascend: Args.flag({
+    help: "Run with this flag to skip tasks that prepare you for rollover, including steel liver.",
+    default: false
+  }),
   gyouscript: Args.string({
     help: "The command that will do your Grey You run for you. Include any arguments desired.",
     default: "loopgyou delaytower tune=wombat chargegoose=20"
@@ -7583,6 +7591,12 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
   garbo: Args.string({
     help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
     default: "garbo"
+  }),
+  roninfarm: Args.string({
+    help: "A command to be run at the start of ronin-farming. For best effect, make sure that it stops when your turncount reaches 1000."
+  }),
+  postroninfarm: Args.string({
+    help: "A command to be run at the start of post-ronin-farming. For best effect, make sure that it stops when your remaining adventures are 40."
   }),
   garboascend: Args.string({
     help: "The command that will be used to diet and use all your adventures in Day 2 aftercore. If it is detected to be a garbo script call, it will function with voatest and CMC will be installed in last 100 turns. If it is not, then voatest will be ignored, and CMC will be installed prior to running this script.",
