@@ -2241,10 +2241,10 @@ kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kolmafia@^5.26990.0:
-  version "5.26990.0"
-  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.26990.0.tgz#a7529f00e9dfc8f51a65d19d49d57a44cd9e77f2"
-  integrity sha512-EKJ22DeeZmmqoXZqf4K0lZxRK1cAVkNL2Uws3hFabkN14WWC2PlitmyFIbYQc8BtEtgoiHjpe2WP8VezazV7QQ==
+kolmafia@^5.26994.0:
+  version "5.26994.0"
+  resolved "https://registry.yarnpkg.com/kolmafia/-/kolmafia-5.26994.0.tgz#d61ef126f71d4f08eeaf15fa271dcb5a0bbbf113"
+  integrity sha512-KdmaFJIz6Sd1gOlrTxxjhcwKrg00SWlv8gbo+DiRbWO2mm94uBFtoH9LvS8xGNCVcAkSsP9VvMfMXXswHbPlrA==
 
 levn@^0.4.1:
   version "0.4.1"
@@ -2526,10 +2526,10 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.0.tgz#c7df58393c9ba77d6fba3921ae01faf994fb9dc9"
-  integrity sha512-9Lmg8hTFZKG0Asr/kW9Bp8tJjRVluO8EJQVfY2T7FMw9T5jy4I/Uvx0Rca/XWf50QQ1/SS48+6IJWnrb+2yemA==
+prettier@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.1.tgz#4e1fd11c34e2421bc1da9aea9bd8127cd0a35efc"
+  integrity sha512-lqGoSJBQNJidqCHE80vqZJHWHRFoNYsSpP9AjFhlhi9ODCJA541svILes/+/1GM3VaL/abZi7cpFzOpdR9UPKg==
 
 punycode@^2.1.0:
   version "2.1.1"

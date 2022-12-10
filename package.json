@@ -24,7 +24,7 @@
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-libram": "^0.2.21",
-    "prettier": "^2.8.0",
+    "prettier": "^2.8.1",
     "typescript": "^4.4.2",
     "webpack": "^5.61.0",
     "webpack-cli": "^4.8.0"
@@ -32,7 +32,7 @@
   "dependencies": {
     "core-js": "^3.16.4",
     "grimoire-kolmafia": "^0.3.11",
-    "kolmafia": "^5.26990.0",
+    "kolmafia": "^5.26994.0",
     "libram": "^0.7.6",
     "mafia-shared-relay": "^0.0.7",
     "typescript-eslint": "^0.0.1-alpha.0"
