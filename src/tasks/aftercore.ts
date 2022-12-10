@@ -13,6 +13,7 @@ import {
   guildStoreAvailable,
   handlingChoice,
   haveEffect,
+  haveEquipped,
   hippyStoneBroken,
   inebrietyLimit,
   itemAmount,
@@ -495,6 +496,41 @@ export function AftercoreQuest(): Quest {
           useFamiliar($familiar`Stooper`);
           cliExecute("drink stillsuit distillate");
         },
+      },
+      {
+        name: "Barfing Drunk with Stooper",
+        ready: () =>
+          stooperDrunk() && have($familiar`Stooper`) && !have($item`Drunkula's wineglass`),
+        completed: () => myAdventures() === 0 || totallyDrunk(),
+        acquire: [{ item: $item`seal tooth` }],
+        outfit: () => ({
+          familiar: $familiar`Stooper`,
+          modifier: `${maxBase()}, 2.5 meat, 0.6 items`,
+        }),
+        effects: $effects`How to Scam Tourists`, //need to add meat buffs that we can cast
+        prepare: (): void => {
+          restoreHp(0.75 * myMaxhp());
+          restoreMp(20);
+        },
+        do: $location`Barf Mountain`,
+        combat: new CombatStrategy()
+          .macro(Macro.trySkill($skill`Curse of Weaksauce`), getTodaysHolidayWanderers())
+          .macro(() =>
+            Macro.step("pickpocket")
+              .trySkill($skill`Bowl Straight Up`)
+              .trySkill($skill`Sing Along`)
+              .tryItem($item`porquoise-handled sixgun`)
+              .externalIf(
+                haveEquipped($item`mafia pointer finger ring`),
+                Macro.trySkill($skill`Furious Wallop`)
+                  .trySkill($skill`Summer Siesta`)
+                  .trySkill($skill`Throw Shield`)
+                  .trySkill($skill`Precision Shot`)
+              )
+              .attack()
+              .repeat()
+          ),
+        limit: { tries: 30 },
       },
       {
         name: "Nightcap (Wine Glass)",
