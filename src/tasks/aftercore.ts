@@ -172,7 +172,10 @@ export function AftercoreQuest(): Quest {
       {
         name: "LGR Seed",
         completed: () =>
-          get("_stenchAirportToday") || get("stenchAirportAlways") || !have($item`lucky gold ring`),
+          args.noticket ||
+          get("_stenchAirportToday") ||
+          get("stenchAirportAlways") ||
+          !have($item`lucky gold ring`),
         do: () => use($item`one-day ticket to Dinseylandfill`),
       },
       {

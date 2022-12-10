@@ -153,7 +153,7 @@ export function GyouQuest(): Quest {
       },
       {
         name: "LGR Seed",
-        completed: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
+        completed: () => args.noticket || get("_stenchAirportToday") || get("stenchAirportAlways"),
         do: (): void => {
           if (!have($item`one-day ticket to Dinseylandfill`)) {
             if (storageAmount($item`one-day ticket to Dinseylandfill`) === 0)
