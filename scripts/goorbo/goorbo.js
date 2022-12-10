@@ -11734,7 +11734,7 @@ function GyouQuest() {
       }
     }, {
       name: "Farming Pulls",
-      completed: () => myPulls.reduce((b, it) => b && (lib_have(it) || (0,external_kolmafia_namespaceObject.storageAmount)(it) === 0), true),
+      completed: () => (0,external_kolmafia_namespaceObject.pullsRemaining)() === 0 || myPulls.reduce((b, it) => b && (lib_have(it) || (0,external_kolmafia_namespaceObject.storageAmount)(it) === 0), true),
       //for each, you either pulled it, or you don't own it
       do: () => myPulls.forEach(it => {
         if ((0,external_kolmafia_namespaceObject.storageAmount)(it) !== 0 && !lib_have(it)) (0,external_kolmafia_namespaceObject.cliExecute)("pull ".concat(it));
@@ -12905,7 +12905,7 @@ function main_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) 
 
 
 
-var version = "0.5.1";
+var version = "0.5.2";
 function main(command) {
   Args.fill(args, command);
 
