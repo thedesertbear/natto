@@ -40,6 +40,7 @@ import {
   myTurncount,
   numericModifier,
   print,
+  pullsRemaining,
   putCloset,
   pvpAttacksLeft,
   restoreHp,
@@ -146,6 +147,7 @@ export function GyouQuest(): Quest {
       {
         name: "Farming Pulls",
         completed: () =>
+          pullsRemaining() === 0 ||
           myPulls.reduce((b, it) => b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
         do: () =>
           myPulls.forEach((it) => {
