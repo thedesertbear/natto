@@ -10,6 +10,8 @@ export const args = Args.create(
   {
     version: Args.flag({
       help: "Output script version number and exit.",
+      default: false,
+      setting: "",
     }),
     actions: Args.number({
       help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time.",
@@ -20,11 +22,13 @@ export const args = Args.create(
     sim: Args.flag({
       help: "If set, see the recommended items and skills, then return without taking any actions.",
       default: false,
+      setting: "",
     }),
 
     simperms: Args.flag({
       help: "If set, see your current and available perms, as well as the plan for this run, then return without taking any actions.",
       default: false,
+      setting: "",
     }),
     permtier: Args.number({
       help: `Target perming all skills in the given tier and all better tiers. Choose 0 to only perm non-gnome, non-guild skills that you may have manually learned`,
