@@ -518,6 +518,7 @@ export function AftercoreQuest(): Quest {
               : 2,
         },
         do: () => use($item`Map to Safety Shelter Grimace Prime`),
+        limit: { tries: 30 },
       },
       {
         name: "Garbo (Drunk)",
