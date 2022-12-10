@@ -405,6 +405,16 @@ export function GyouQuest(): Quest {
         },
       },
       {
+        name: "Custom Ronin Farm",
+        completed: () =>
+          !args.roninfarm || args.roninfarm === "" || get("_goorbo_roninfarmComplete", false),
+        do: () => {
+          if (args.roninfarm) cliExecute(args.roninfarm);
+          set("_goorbo_roninfarmComplete", true);
+        },
+        tracking: "GooFarming",
+      },
+      {
         name: "In-Run Farm Initial",
         completed: () => myTurncount() >= 1000,
         acquire: [{ item: $item`seal tooth` }],
@@ -653,6 +663,18 @@ export function GyouQuest(): Quest {
           })),
         do: () => cliExecute("panda moan"),
         limit: { tries: 3 },
+      },
+      {
+        name: "Custom Post-Ronin Farm",
+        completed: () =>
+          !args.postroninfarm ||
+          args.postroninfarm === "" ||
+          get("_goorbo_postroninfarmComplete", false),
+        do: () => {
+          if (args.postroninfarm) cliExecute(args.postroninfarm);
+          set("_goorbo_postroninfarmComplete", true);
+        },
+        tracking: "GooFarming",
       },
       {
         name: "In-Run Farm Final",
