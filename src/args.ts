@@ -1,6 +1,6 @@
 import { Args } from "grimoire-kolmafia";
 import { Item, toClass } from "kolmafia";
-import { $class, $item } from "libram";
+import { $class, $classes, $item, $items } from "libram";
 import { permTiers } from "./tasks/perm";
 import { toMoonSign } from "./tasks/utils";
 
@@ -27,16 +27,25 @@ export const args = Args.create(
       default: false,
     }),
     permtier: Args.number({
-      help: `Target perming all skills in the given tier and all better tiers. To disable, choose 0 to only perm non-gnome, non-guild skills that you may have learned, or -1 for not perming any skills under any circumstances \n ${permTiers.join(
-        "\n "
-      )}`,
+      help: `Target perming all skills in the given tier and all better tiers. Choose 0 to only perm non-gnome, non-guild skills that you may have manually learned`,
+      options: [[-1, "Do not perm anything"] as [number, (string | undefined)?]].concat(
+        permTiers.map((str, num) => [
+          num,
+          str.length < 40 ? str.substring(9) : `${str.substring(9, 37)}...`,
+        ])
+      ),
+      // options: [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8].map((num) => [num]),
       default: 6,
     }),
 
     pvp: Args.flag({ help: "If true, break hippy stone and do pvp.", default: false }),
     astralpet: Args.custom(
       {
-        help: "Choose the astral pet you want to buy in valhalla. Recommended: one of [astral pet sweater, astral mask, astral belt, none]",
+        help: "Choose the astral pet you want to buy in valhalla",
+        options:
+          $items`astral bludgeon, astral shield, astral chapeau, astral bracer, astral longbow, astral shorts, astral mace, astral trousers, astral ring, astral statuette, astral pistol, astral mask, astral pet sweater, astral shirt, astral belt, none`.map(
+            (it) => [it]
+          ),
         default: $item`astral pet sweater`,
       },
       Item.get,
@@ -44,7 +53,18 @@ export const args = Args.create(
     ),
     moonsign: Args.custom(
       {
-        help: "Choose the moonsign you want to ascend into: [mongoose, wallaby, vole, platypus, opossum, marmot, wombat, blender, packrat]",
+        help: "Choose the moonsign you want to ascend into",
+        options: [
+          "mongoose",
+          "wallaby",
+          "vole",
+          "platypus",
+          "opossum",
+          "marmot",
+          "wombat",
+          "blender",
+          "packrat",
+        ].map((str) => [toMoonSign(str)]),
         default: toMoonSign("vole"),
       },
       toMoonSign,
@@ -53,6 +73,10 @@ export const args = Args.create(
     defaultclass: Args.custom(
       {
         help: "Choose your default class, if goorbo doesn't have any other goals this run",
+        options:
+          $classes`Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief`.map(
+            (cl) => [cl]
+          ),
         default: $class`Seal Clubber`,
       },
       toClass,
@@ -61,6 +85,10 @@ export const args = Args.create(
     class: Args.custom(
       {
         help: "Choose the class to choose at prism break. If set, will override any class that might be desired for skill-perming purposes",
+        options:
+          $classes`none, Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief`.map(
+            (cl) => [cl]
+          ),
         default: $class`none`,
       },
       toClass,
