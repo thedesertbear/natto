@@ -110,6 +110,10 @@ export const args = Args.create(
       help: "Run with this flag to skip buying a one-day pass to Dinseylandfill at the beginning of each day. No effect for Dinsey charter owners",
       default: false,
     }),
+    ascend: Args.flag({
+      help: "Run with this flag to skip tasks that prepare you for rollover, including steel liver.",
+      default: false,
+    }),
     gyouscript: Args.string({
       help: "The command that will do your Grey You run for you. Include any arguments desired.",
       default: "loopgyou delaytower tune=wombat chargegoose=20",

@@ -522,6 +522,7 @@ export function GyouQuest(): Quest {
           (myClass() === $class`Grey Goo` && myAdventures() > 40) ||
           (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
         completed: () =>
+          args.ascend ||
           have($skill`Liver of Steel`) ||
           have($item`steel margarita`) ||
           have($item`Azazel's lollipop`) ||
@@ -562,6 +563,7 @@ export function GyouQuest(): Quest {
           (myClass() === $class`Grey Goo` && myAdventures() > 40) ||
           (myClass() !== $class`Grey Goo` && myLevel() >= args.targetlevel),
         completed: () =>
+          args.ascend ||
           have($skill`Liver of Steel`) ||
           have($item`steel margarita`) ||
           have($item`Azazel's unicorn`) ||
@@ -601,6 +603,7 @@ export function GyouQuest(): Quest {
         name: "Mourn",
         ready: () => have($item`observational glasses`),
         completed: () =>
+          args.ascend ||
           have($skill`Liver of Steel`) ||
           have($item`steel margarita`) ||
           have($item`Azazel's lollipop`),
@@ -613,6 +616,7 @@ export function GyouQuest(): Quest {
         name: "Sven Golly",
         ready: () => backstageItemsDone(),
         completed: () =>
+          args.ascend ||
           have($skill`Liver of Steel`) ||
           have($item`steel margarita`) ||
           have($item`Azazel's unicorn`),
@@ -637,6 +641,7 @@ export function GyouQuest(): Quest {
         name: "Moaning Panda",
         ready: () => haveAll($items`Azazel's lollipop, Azazel's unicorn`),
         completed: () =>
+          args.ascend ||
           have($skill`Liver of Steel`) ||
           have($item`steel margarita`) ||
           have($item`Azazel's tutu`),
@@ -872,14 +877,15 @@ export function GyouQuest(): Quest {
       {
         name: "Steel Margarita",
         ready: () => haveAll($items`Azazel's tutu, Azazel's lollipop, Azazel's unicorn`),
-        completed: () => have($skill`Liver of Steel`) || have($item`steel margarita`),
+        completed: () =>
+          args.ascend || have($skill`Liver of Steel`) || have($item`steel margarita`),
         do: () => cliExecute("panda temple"),
       },
       {
         name: "Liver of Steel",
         ready: () =>
           myClass() !== $class`Grey Goo` && have($item`steel margarita`) && myLevel() >= 5,
-        completed: () => have($skill`Liver of Steel`),
+        completed: () => args.ascend || have($skill`Liver of Steel`),
         do: () => drink(1, $item`steel margarita`),
       },
       {
@@ -1471,8 +1477,55 @@ export function GyouQuest(): Quest {
       {
         name: "Nightcap",
         ready: () => doneAdventuring(),
-        completed: () => totallyDrunk(),
+        completed: () => args.ascend || totallyDrunk(),
         do: () => cliExecute("CONSUME NIGHTCAP"),
+      },
+      {
+        name: "Nightcap (Wine Glass)",
+        ready: () => have($item`Drunkula's wineglass`),
+        completed: () => !args.ascend || totallyDrunk(),
+        do: () => cliExecute(`CONSUME NIGHTCAP VALUE ${get("valueOfAdventure") - 1000}`),
+      },
+      {
+        name: "Nightcap (Marginal)",
+        ready: () => have($item`Beach Comb`) || have($item`Map to Safety Shelter Grimace Prime`),
+        completed: () => !args.ascend || totallyDrunk(),
+        do: () => cliExecute(`CONSUME NIGHTCAP VALUE 500`),
+      },
+      {
+        name: "Grimace Maps",
+        completed: () =>
+          !args.ascend || myAdventures() === 0 || !have($item`Map to Safety Shelter Grimace Prime`),
+        effects: $effects`Transpondent`,
+        choices: {
+          536: () =>
+            availableAmount($item`distention pill`) <
+            availableAmount($item`synthetic dog hair pill`) +
+              availableAmount($item`Map to Safety Shelter Grimace Prime`)
+              ? 1
+              : 2,
+        },
+        do: () => use($item`Map to Safety Shelter Grimace Prime`),
+        limit: { tries: 30 },
+      },
+      {
+        name: "Garbo (Drunk)",
+        ready: () => have($item`Drunkula's wineglass`),
+        prepare: () => uneffect($effect`Beaten Up`),
+        completed: () => !args.ascend || myAdventures() === 0,
+        do: () => cliExecute(args.garboascend),
+        post: () =>
+          $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
+            .filter((ef) => have(ef))
+            .forEach((ef) => uneffect(ef)),
+        clear: "all",
+        tracking: "Garbo",
+      },
+      {
+        name: "Comb Beach",
+        ready: () => have($item`Beach Comb`),
+        completed: () => !args.ascend || myAdventures() === 0,
+        do: () => cliExecute(`combo ${11 - get("_freeBeachWalksUsed") + myAdventures()}`),
       },
       {
         name: "Plant Garden",
@@ -1482,16 +1535,18 @@ export function GyouQuest(): Quest {
             (it) => have(it)
           ),
         completed: () => getGarden() !== $item`packet of tall grass seeds`,
-        do: () =>
+        do: () => {
           use(
             $items`packet of thanksgarden seeds, Peppermint Pip Packet, packet of winter seeds, packet of beer seeds, packet of pumpkin seeds, packet of dragon's teeth`.find(
               (it) => have(it)
             ) || $item`none`
-          ),
+          );
+          if (args.ascend) cliExecute("garden pick");
+        },
       },
       {
         name: "Pajamas",
-        completed: () => getCampground()[$item`clockwork maid`.name] === 1,
+        completed: () => args.ascend || getCampground()[$item`clockwork maid`.name] === 1,
         acquire: [
           { item: $item`clockwork maid`, price: 7 * get("valueOfAdventure") },
           { item: $item`burning cape` },
