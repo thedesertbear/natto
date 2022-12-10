@@ -109,14 +109,16 @@ import { targetClass } from "./perm";
 
 const myPulls: Item[] = [
   ...$items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`,
-  ...$items`Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab`
+  // eslint-disable-next-line libram/verify-constants
+  ...$items`model train set, Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab`
     .filter((it) => have(it) || getWorkshed() === it || storageAmount(it) > 0)
     .slice(0, 1),
 ];
 const levelingTurns = 30;
 function altWorkshed() {
   return (
-    $items`Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine`.find(
+    // eslint-disable-next-line libram/verify-constants
+    $items`model train set, Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine`.find(
       (it) => have(it) || getWorkshed() === it || storageAmount(it) > 0
     ) || $item`none`
   );
