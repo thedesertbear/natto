@@ -30,6 +30,8 @@ export function main(command?: string): void {
     return;
   }
 
+  print(`Running: goorbo v${version}`);
+
   const tasks = getTasks([AftercoreQuest(), GyouQuest()]);
 
   // Abort during the prepare() step of the specified task
