@@ -268,9 +268,13 @@ export function AftercoreQuest(): Quest {
             itemAmount($item`fat loot token`) < 3 &&
             itemAmount($item`daily dungeon malware`) === 0
           ) {
-            if (availableAmount($item`BACON`) >= 150)
+            if (
+              availableAmount($item`BACON`) >= 150 &&
+              !get("_internetDailyDungeonMalwareBought")
+            ) {
+              retrieveItem(150, $item`BACON`);
               buy($coinmaster`internet meme shop`, 1, $item`daily dungeon malware`);
-            else retrieveItem(1, $item`daily dungeon malware`);
+            } else retrieveItem(1, $item`daily dungeon malware`);
           }
           restoreHp(0.75 * myMaxhp());
           restoreMp(8);
