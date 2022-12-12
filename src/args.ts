@@ -106,6 +106,10 @@ export const args = Args.create(
       default: 13,
     }),
 
+    buffy: Args.boolean({
+      help: "Set this to false to stop asking Buffy for buffs.",
+      default: true,
+    }),
     noticket: Args.flag({
       help: "Run with this flag to skip buying a one-day pass to Dinseylandfill at the beginning of each day. No effect for Dinsey charter owners",
       default: false,

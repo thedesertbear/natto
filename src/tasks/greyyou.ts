@@ -546,18 +546,18 @@ export function GyouQuest(): Quest {
           have($item`observational glasses`),
         prepare: (): void => {
           //add casting of +com skills here. Also request buffs from buffy?
-          if (!have($effect`Carlweather's Cantata of Confrontation`)) {
+          if (args.buffy && !have($effect`Carlweather's Cantata of Confrontation`)) {
             cliExecute("kmail to Buffy || 10 Cantata of Confrontation");
             wait(15);
             cliExecute("refresh effects");
-            restoreHp(0.75 * myMaxhp());
-            restoreMp(20);
           }
           if (have($skill`Piezoelectric Honk`) && !have($effect`Hooooooooonk!`))
             useSkill($skill`Piezoelectric Honk`);
           $effects`The Sonata of Sneakiness, Darkened Photons, Shifted Phase`.forEach(
             (ef: Effect) => cliExecute(`uneffect ${ef}`)
           );
+          restoreHp(0.75 * myMaxhp());
+          restoreMp(20);
         },
         do: $location`The Laugh Floor`,
         outfit: () => ({
@@ -587,12 +587,10 @@ export function GyouQuest(): Quest {
           backstageItemsDone(),
         prepare: (): void => {
           //add casting of -com skills here. Also request buffs from buffy?
-          if (!have($effect`The Sonata of Sneakiness`)) {
+          if (args.buffy && !have($effect`The Sonata of Sneakiness`)) {
             cliExecute("kmail to Buffy || 10 Sonata of Sneakiness");
             wait(15);
             cliExecute("refresh effects");
-            restoreHp(0.75 * myMaxhp());
-            restoreMp(20);
           }
           if (have($skill`Photonic Shroud`) && !have($effect`Darkened Photons`))
             useSkill($skill`Photonic Shroud`);
@@ -601,6 +599,8 @@ export function GyouQuest(): Quest {
           $effects`Carlweather's Cantata of Confrontation, Hooooooooonk!`.forEach((ef: Effect) =>
             cliExecute(`uneffect ${ef}`)
           );
+          restoreHp(0.75 * myMaxhp());
+          restoreMp(20);
         },
         do: $location`Infernal Rackets Backstage`,
         outfit: () => ({
@@ -770,7 +770,8 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Call Buffy",
-        completed: () => 0 !== haveEffect($effect`Ghostly Shell`) || myLevel() >= args.targetlevel,
+        completed: () =>
+          !args.buffy || 0 !== haveEffect($effect`Ghostly Shell`) || myLevel() >= args.targetlevel,
         prepare: () =>
           $effects`Carlweather's Cantata of Confrontation, The Sonata of Sneakiness, Polka of Plenty, Fat Leon's Phat Loot Lyric`.forEach(
             (ef) => cliExecute(`uneffect ${ef}`)
