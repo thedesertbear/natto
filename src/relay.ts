@@ -8,17 +8,23 @@ import {
   RelayPage,
 } from "mafia-shared-relay";
 import { args } from "./args";
-import { checkReqs } from "./tasks/sim";
+import { checkPerms, checkReqs } from "./tasks/sim";
 
 function convertArgsToHtml(): RelayPage[] {
   const metadata = Args.getMetadata(args);
-  const simPerms: ComponentHtml = {
+  const sim: ComponentHtml = {
     type: "html",
     data: checkReqs(false),
   };
+  const simPerms: ComponentHtml = {
+    type: "html",
+    data: checkPerms(false),
+  };
+
   const pages: RelayPage[] = [
     { page: metadata.options.defaultGroupName ?? "Options", components: [] },
-    { page: "Sim", components: [simPerms] },
+    { page: "Requirements", components: [sim] },
+    { page: "Perms", components: [simPerms] },
   ];
 
   metadata.traverse(
@@ -41,7 +47,7 @@ function convertArgsToHtml(): RelayPage[] {
           return { display: desc ?? k, value: k };
         });
       }
-      pages[pages.length - 1].components.push(component);
+      pages[0].components.push(component);
     },
     (group, name: string) => {
       pages.push({ page: name, components: [] });

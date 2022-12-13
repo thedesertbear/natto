@@ -161,19 +161,19 @@ export function checkReqs(printout = true): string {
   ];
 
   out = out.concat(
-    "<p>Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional </p>"
+    "<p>Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional </font></p>"
   );
   for (const [name, requirements] of categories) {
     if (requirements.length === 0) continue;
 
     const requirements_info: [boolean, string, Requirement][] = requirements.map(check);
-    out = out.concat(`<p><span color="blue">`, name, "</span></p>");
+    out = out.concat(`<p><font color="blue">${name}</font></p>`);
     for (const [have_it, name, req] of requirements_info.sort((a, b) => a[1].localeCompare(b[1]))) {
       const color = have_it ? "#888888" : req.optional ? "black" : "red";
       const symbol = have_it ? "✓" : "X";
       if (!have_it && req.optional) missing_optional++;
       if (!have_it && !req.optional) missing++;
-      out = out.concat(`<div color="${color}">`, `${symbol} ${name} - ${req.why}`, "</div>");
+      out = out.concat(`<div><font color="${color}">${symbol} ${name} - ${req.why}</font></div>`);
     }
     if (printout) printHtml(out);
   }
@@ -181,9 +181,7 @@ export function checkReqs(printout = true): string {
   // Print the count of missing things
   if (missing > 0) {
     out = out.concat(
-      `<p><span color="red">`,
-      `You are missing ${missing} required things. This script will not yet work for you.`,
-      "</span></p>"
+      `<p><font color="red">You are missing ${missing} required things. This script will not yet work for you.</font></p>`
     );
     if (missing_optional > 0)
       out = out.concat(`<div>You are also missing ${missing_optional} optional things.</div>`);
@@ -198,16 +196,16 @@ export function checkReqs(printout = true): string {
       );
     }
   }
-  if (printout) printHtml(out);
+  if (printout) printHtml(out, false);
   return out;
 }
 
 function spanWrap(text: string, color: string): string {
-  return `<span color="${color}">${text}</span>`;
+  return `<font color="${color}">${text}</font>`;
 }
 export function coloredSkill(sk: Skill, nPerms: Skill[], nClass: Class): string {
   return sk.name in getPermedSkills()
-    ? spanWrap(sk.name, "black")
+    ? spanWrap(sk.name, "#888")
     : nPerms.includes(sk) && have(sk)
     ? spanWrap(sk.name, "fuchsia")
     : nPerms.includes(sk)
@@ -216,24 +214,26 @@ export function coloredSkill(sk: Skill, nPerms: Skill[], nClass: Class): string 
     ? spanWrap(sk.name, "purple")
     : nClass && nClass === sk.class && nClass !== $class`none`
     ? spanWrap(sk.name, "navy")
-    : spanWrap(sk.name, "gray");
+    : spanWrap(sk.name, "black");
 }
 
-export function checkPerms() {
+export function checkPerms(printout = true): string {
   const nPerms = targetPerms(false);
   const nClass = targetClass(false);
-  printHtml("~~ Default Perm List ~~", false);
-  printHtml(
-    `Legend: <span color="black">[permed]</span>, <span color="fuchsia">[targeted/known]</span>, <span color="blue">[targeted/unknown]</span>, <span color="purple">[known]</span>, <span color="navy">[class skills]</span>, <span color="gray">[other]</span>`,
-    false
+  let out = "";
+  out = out.concat(`<p>Default Perm List</p>`);
+  out = out.concat(
+    `<div>Legend: <font color="#888">[permed]</font>, <font color="fuchsia">[targeted/known]</font>, <font color="blue">[targeted/unknown]</font>, <font color="purple">[known]</font>, <font color="navy">[class skills]</font>, <font color="black">[other]</font></div>`
   );
   let count = 0;
-  defaultPermList().forEach((sks) =>
-    printHtml(
-      `<br>~ ${permTiers[count++]} ~<br> ${sks
-        .map((sk) => coloredSkill(sk, nPerms, nClass))
-        .join(", ")}`,
-      false
-    )
+  defaultPermList().forEach(
+    (sks) =>
+      (out = out.concat(
+        `<p><font color="blue">${permTiers[count++]}</font></p> ${sks
+          .map((sk) => coloredSkill(sk, nPerms, nClass))
+          .join(", ")}`
+      ))
   );
+  if (printout) printHtml(out, false);
+  return out;
 }
