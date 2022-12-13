@@ -240,7 +240,7 @@ export class ProfitTracker {
     );
   }
 
-  record(tag: string): void {
+  record(tag: string, taskName: string): void {
     if (this.ascensions < myAscensions()) {
       // Session tracking is not accurate across ascensions
       this.reset();
@@ -270,7 +270,7 @@ export class ProfitTracker {
     this.records[tag].turns += myTurncount() - this.turns;
     this.records[tag].hours += gametimeToInt() / (1000 * 60 * 60) - this.hours;
     print(
-      `Profit: ${value.meat}, ${value.items}, ${myTurncount() - this.turns}, ${
+      `Profit for ${taskName}:${value.meat}, ${value.items}, ${myTurncount() - this.turns}, ${
         gametimeToInt() / (1000 * 60 * 60) - this.hours
       }`
     );
