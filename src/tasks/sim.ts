@@ -4,7 +4,6 @@ import {
   getPermedSkills,
   Item,
   Monster,
-  print,
   printHtml,
   Skill,
   storageAmount,
@@ -147,52 +146,60 @@ function check(req: Requirement): [boolean, string, Requirement] {
   }
 }
 
-export function checkReqs(): void {
+export function checkReqs(printout = true): string {
   let missing_optional = 0;
   let missing = 0;
+  let out = "";
 
   const categories: [string, Requirement[]][] = [
-    ["Required", generalList],
-    ["General", generalList],
+    ["Required", generalList.filter((req) => !req.optional)],
+    ["General", generalList.filter((req) => req.optional)],
     ["Leveling", levelList],
     ["Free Fights", freefightList],
     ["Profits", profitList],
     ["Marginal", marginalList],
   ];
-  printHtml(
-    "Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional"
+
+  out = out.concat(
+    "<p>Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional </p>"
   );
   for (const [name, requirements] of categories) {
     if (requirements.length === 0) continue;
 
     const requirements_info: [boolean, string, Requirement][] = requirements.map(check);
-    print(name, "blue");
+    out = out.concat(`<p><span color="blue">`, name, "</span></p>");
     for (const [have_it, name, req] of requirements_info.sort((a, b) => a[1].localeCompare(b[1]))) {
       const color = have_it ? "#888888" : req.optional ? "black" : "red";
       const symbol = have_it ? "✓" : "X";
       if (!have_it && req.optional) missing_optional++;
       if (!have_it && !req.optional) missing++;
-      print(`${symbol} ${name} - ${req.why}`, color);
+      out = out.concat(`<div color="${color}">`, `${symbol} ${name} - ${req.why}`, "</div>");
     }
-    print("");
+    if (printout) printHtml(out);
   }
 
   // Print the count of missing things
   if (missing > 0) {
-    print(
+    out = out.concat(
+      `<p><span color="red">`,
       `You are missing ${missing} required things. This script will not yet work for you.`,
-      "red"
+      "</span></p>"
     );
-    if (missing_optional > 0) print(`You are also missing ${missing_optional} optional things.`);
+    if (missing_optional > 0)
+      out = out.concat(`<div>You are also missing ${missing_optional} optional things.</div>`);
   } else {
     if (missing_optional > 0) {
-      print(
-        `You are missing ${missing_optional} optional things. This script should work, but it could do better.`
+      out = out.concat(
+        `<p>You are missing ${missing_optional} optional things. This script should work, but it could do better.</p>`
       );
     } else {
-      print(`You have everything! You are the shiniest star. This script should work great.`);
+      out = out.concat(
+        `<p>You have everything! You are the shiniest star. This script should work great.</p>`
+      );
     }
   }
+  if (printout) printHtml(out);
+  return out;
 }
 
 function spanWrap(text: string, color: string): string {

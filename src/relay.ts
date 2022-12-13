@@ -8,11 +8,17 @@ import {
   RelayPage,
 } from "mafia-shared-relay";
 import { args } from "./args";
+import { checkReqs } from "./tasks/sim";
 
 function convertArgsToHtml(): RelayPage[] {
   const metadata = Args.getMetadata(args);
+  const simPerms: ComponentHtml = {
+    type: "html",
+    data: checkReqs(false),
+  };
   const pages: RelayPage[] = [
     { page: metadata.options.defaultGroupName ?? "Options", components: [] },
+    { page: "Sim", components: [simPerms] },
   ];
 
   metadata.traverse(
