@@ -5561,7 +5561,7 @@ function parseNumber(n) {
  * @param max Upper bound.
  */
 
-function clamp(n, min, max) {
+function utils_clamp(n, min, max) {
   return Math.max(min, Math.min(max, n));
 }
 /**
@@ -6004,393 +6004,10 @@ var $path = createSingleConstant(external_kolmafia_.Path);
  */
 
 var $paths = createPluralConstant(external_kolmafia_.Path);
-;// CONCATENATED MODULE: ./src/tasks/sim.ts
-var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20, sim_templateObject21, sim_templateObject22, sim_templateObject23, sim_templateObject24, sim_templateObject25, sim_templateObject26, sim_templateObject27, sim_templateObject28, sim_templateObject29, sim_templateObject30, _templateObject31, _templateObject32, _templateObject33, _templateObject34, _templateObject35, _templateObject36, _templateObject37, _templateObject38, _templateObject39, _templateObject40, _templateObject41, _templateObject42;
-
-function sim_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = sim_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function sim_slicedToArray(arr, i) { return sim_arrayWithHoles(arr) || sim_iterableToArrayLimit(arr, i) || sim_unsupportedIterableToArray(arr, i) || sim_nonIterableRest(); }
-
-function sim_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function sim_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return sim_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return sim_arrayLikeToArray(o, minLen); }
-
-function sim_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function sim_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function sim_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function sim_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-
-
-
-/**
- * Return: a list of all things required to run the script.
- */
-var generalList = [{
-  thing: template_string_$familiar(sim_templateObject || (sim_templateObject = sim_taggedTemplateLiteral(["Grey Goose"]))),
-  why: "Running Grey You Path"
-}, {
-  thing: template_string_$skill(sim_templateObject2 || (sim_templateObject2 = sim_taggedTemplateLiteral(["Curse of Weaksauce"]))),
-  why: "aftercore combat"
-}, {
-  thing: template_string_$familiars(sim_templateObject3 || (sim_templateObject3 = sim_taggedTemplateLiteral(["Robortender, Space Jellyfish, Hobo Monkey, Leprechaun"]))),
-  why: "in-run farming familiar"
-}, {
-  thing: template_string_$skill(sim_templateObject4 || (sim_templateObject4 = sim_taggedTemplateLiteral(["Torso Awareness"]))),
-  why: "general purpose",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject5 || (sim_templateObject5 = sim_taggedTemplateLiteral(["porquoise-handled sixgun"]))),
-  why: "mp maintenance (20-30 free mp / combat)",
-  optional: true
-}];
-var levelList = [{
-  thing: template_string_$item(sim_templateObject6 || (sim_templateObject6 = sim_taggedTemplateLiteral(["January's Garbage Tote"]))),
-  why: "aftercore leveling",
-  optional: true
-}, {
-  thing: {
-    have: () => property_get("getawayCampsiteUnlocked"),
-    name: template_string_$item(sim_templateObject7 || (sim_templateObject7 = sim_taggedTemplateLiteral(["Distant Woods Getaway Brochure"]))).name
-  },
-  why: "aftercore leveling",
-  optional: true
-}, {
-  thing: {
-    have: () => property_get("neverendingPartyAlways"),
-    name: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["Neverending Party invitation envelope"]))).name
-  },
-  why: "scaling free fights",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["Clan VIP Lounge key"]))),
-  why: "aftercore leveling",
-  optional: true
-}, // { thing: $skill`Sweet Synthesis`, why: "aftercore leveling", optional: true },
-// { thing: $familiar`Vampire Vintner`, why: "goose charging", optional: true },
-{
-  thing: template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["familiar scrapbook"]))),
-  why: "aftercore leveling",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["defective Game Grid token"]))),
-  why: "aftercore leveling",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["trench lighter"]))),
-  why: "aftercore leveling",
-  optional: true
-}, {
-  thing: template_string_$skill(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["Feel Pride"]))),
-  why: "aftercore leveling",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["[glitch season reward name]"]))),
-  why: "aftercore leveling",
-  optional: true
-}, // { thing: $item`cosmic bowling ball`, why: "aftercore leveling", optional: true },
-{
-  thing: template_string_$item(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["fake washboard"]))),
-  why: "aftercore leveling (mus)",
-  optional: true
-}, {
-  thing: template_string_$skill(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
-  why: "aftercore leveling (mys)",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["basaltamander buckler"]))),
-  why: "aftercore leveling (mys)",
-  optional: true
-}];
-var profitList = [{
-  thing: template_string_$item(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["lucky gold ring"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["Mr. Cheeng's spectacles"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["mafia thumb ring"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject21 || (sim_templateObject21 = sim_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$items(sim_templateObject22 || (sim_templateObject22 = sim_taggedTemplateLiteral(["Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine"]))),
-  why: "various profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject23 || (sim_templateObject23 = sim_taggedTemplateLiteral(["June cleaver"]))),
-  why: "in-run farming profits",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject24 || (sim_templateObject24 = sim_taggedTemplateLiteral(["tiny stillsuit"]))),
-  why: "rollover adventures",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject25 || (sim_templateObject25 = sim_taggedTemplateLiteral(["mime army shotglass"]))),
-  why: "extra size-1 booze/day",
-  optional: true
-}, {
-  thing: template_string_$familiar(sim_templateObject26 || (sim_templateObject26 = sim_taggedTemplateLiteral(["Stooper"]))),
-  why: "rollover adventures",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject27 || (sim_templateObject27 = sim_taggedTemplateLiteral(["Drunkula's wineglass"]))),
-  why: "overdrunk farming",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject28 || (sim_templateObject28 = sim_taggedTemplateLiteral(["infinite BACON machine"]))),
-  why: "daily Dungeon Malware",
-  optional: true
-}];
-var freefightList = [{
-  thing: template_string_$item(sim_templateObject29 || (sim_templateObject29 = sim_taggedTemplateLiteral(["carnivorous potted plant"]))),
-  why: "occasional free kill",
-  optional: true
-}, {
-  thing: template_string_$item(sim_templateObject30 || (sim_templateObject30 = sim_taggedTemplateLiteral(["cursed magnifying glass"]))),
-  why: "additional free fight",
-  optional: true
-}, {
-  thing: template_string_$item(_templateObject31 || (_templateObject31 = sim_taggedTemplateLiteral(["miniature crystal ball"]))),
-  why: "additional free fight",
-  optional: true
-}, {
-  thing: template_string_$item(_templateObject32 || (_templateObject32 = sim_taggedTemplateLiteral(["Claw of the Infernal Seal"]))),
-  why: "5 additional free seals",
-  optional: true
-}, {
-  thing: template_string_$item(_templateObject33 || (_templateObject33 = sim_taggedTemplateLiteral(["The Jokester's gun"]))),
-  why: "free kill",
-  optional: true
-}, {
-  thing: template_string_$skill(_templateObject34 || (_templateObject34 = sim_taggedTemplateLiteral(["Gingerbread Mob Hit"]))),
-  why: "free kill",
-  optional: true
-}, {
-  thing: template_string_$skill(_templateObject35 || (_templateObject35 = sim_taggedTemplateLiteral(["Shattering Punch"]))),
-  why: "3 free kills",
-  optional: true
-}, {
-  thing: template_string_$item(_templateObject36 || (_templateObject36 = sim_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
-  why: "3 free kills",
-  optional: true
-}];
-var marginalList = [{
-  thing: template_string_$skill(_templateObject37 || (_templateObject37 = sim_taggedTemplateLiteral(["Snokebomb"]))),
-  why: "banish",
-  optional: true
-}, {
-  thing: template_string_$skill(_templateObject38 || (_templateObject38 = sim_taggedTemplateLiteral(["Feel Hatred"]))),
-  why: "banish",
-  optional: true
-}, {
-  thing: template_string_$item(_templateObject39 || (_templateObject39 = sim_taggedTemplateLiteral(["mafia middle finger ring"]))),
-  why: "banish",
-  optional: true
-}, {
-  thing: template_string_$item(_templateObject40 || (_templateObject40 = sim_taggedTemplateLiteral(["hewn moon-rune spoon"]))),
-  why: "easier perming of gnome skills",
-  optional: true
-}, {
-  thing: template_string_$skill(_templateObject41 || (_templateObject41 = sim_taggedTemplateLiteral(["Comprehensive Cartography"]))),
-  why: "gold wedding ring",
-  optional: true
-}];
-
-function checkThing(thing) {
-  if ("have" in thing && "name" in thing && thing.have instanceof Function) return [thing.have(), thing.name]; //if this is a SpecialThing
-
-  if (thing instanceof Familiar) return [have(thing), thing.hatchling.name];
-  if (thing instanceof Skill) return [thing.name in getPermedSkills(), thing.name];
-  if (thing instanceof Monster) return [new Set(CombatLoversLocket.unlockedLocketMonsters()).has(thing), thing.name];
-  if (thing instanceof Item) return [have(thing) || storageAmount(thing) > 0, thing.name];
-  return [false, thing.name];
-}
-
-function check(req) {
-  if (Array.isArray(req.thing)) {
-    var checks = req.thing.map(checkThing);
-    return [checks.find(res => res[0]) !== undefined, checks.map(res => res[1]).join(" OR "), req];
-  } else {
-    var res = checkThing(req.thing);
-    return [res[0], res[1], req];
-  }
-}
-
-function checkReqs() {
-  var missing_optional = 0;
-  var missing = 0;
-  var categories = [["Required", generalList], ["General", generalList], ["Leveling", levelList], ["Free Fights", freefightList], ["Profits", profitList], ["Marginal", marginalList]];
-  printHtml("Checking your character... Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional");
-
-  for (var _i = 0, _categories = categories; _i < _categories.length; _i++) {
-    var _categories$_i = sim_slicedToArray(_categories[_i], 2),
-        name = _categories$_i[0],
-        requirements = _categories$_i[1];
-
-    if (requirements.length === 0) continue;
-    var requirements_info = requirements.map(check);
-    print(name, "blue");
-
-    var _iterator = sim_createForOfIteratorHelper(requirements_info.sort((a, b) => a[1].localeCompare(b[1]))),
-        _step;
-
-    try {
-      for (_iterator.s(); !(_step = _iterator.n()).done;) {
-        var _step$value = sim_slicedToArray(_step.value, 3),
-            have_it = _step$value[0],
-            _name = _step$value[1],
-            req = _step$value[2];
-
-        var color = have_it ? "#888888" : req.optional ? "black" : "red";
-        var symbol = have_it ? "✓" : "X";
-        if (!have_it && req.optional) missing_optional++;
-        if (!have_it && !req.optional) missing++;
-        print("".concat(symbol, " ").concat(_name, " - ").concat(req.why), color);
-      }
-    } catch (err) {
-      _iterator.e(err);
-    } finally {
-      _iterator.f();
-    }
-
-    print("");
-  } // Print the count of missing things
-
-
-  if (missing > 0) {
-    print("You are missing ".concat(missing, " required things. This script will not yet work for you."), "red");
-    if (missing_optional > 0) print("You are also missing ".concat(missing_optional, " optional things."));
-  } else {
-    if (missing_optional > 0) {
-      print("You are missing ".concat(missing_optional, " optional things. This script should work, but it could do better."));
-    } else {
-      print("You have everything! You are the shiniest star. This script should work great.");
-    }
-  }
-}
-
-function spanWrap(text, color) {
-  return "<span color=\"".concat(color, "\">").concat(text, "</span>");
-}
-
-function sim_coloredSkill(sk, nPerms, nClass) {
-  return sk.name in getPermedSkills() ? spanWrap(sk.name, "black") : nPerms.includes(sk) && have(sk) ? spanWrap(sk.name, "fuchsia") : nPerms.includes(sk) ? spanWrap(sk.name, "blue") : have(sk) ? spanWrap(sk.name, "purple") : nClass && nClass === sk.class && nClass !== $class(_templateObject42 || (_templateObject42 = sim_taggedTemplateLiteral(["none"]))) ? spanWrap(sk.name, "navy") : spanWrap(sk.name, "gray");
-}
-function checkPerms() {
-  var nPerms = targetPerms(false);
-  var nClass = targetClass(false);
-  printHtml("~~ Default Perm List ~~", false);
-  printHtml("Legend: <span color=\"black\">[permed]</span>, <span color=\"fuchsia\">[targeted/known]</span>, <span color=\"blue\">[targeted/unknown]</span>, <span color=\"purple\">[known]</span>, <span color=\"navy\">[class skills]</span>, <span color=\"gray\">[other]</span>", false);
-  var count = 0;
-  defaultPermList().forEach(sks => printHtml("<br>~ ".concat(permTiers[count++], " ~<br> ").concat(sks.map(sk => sim_coloredSkill(sk, nPerms, nClass)).join(", ")), false));
-}
-;// CONCATENATED MODULE: ./src/tasks/perm.ts
-var perm_templateObject, perm_templateObject2, perm_templateObject3, perm_templateObject4, perm_templateObject5, perm_templateObject6, perm_templateObject7, perm_templateObject8, perm_templateObject9, perm_templateObject10, perm_templateObject11, perm_templateObject12, perm_templateObject13, perm_templateObject14, perm_templateObject15, perm_templateObject16;
-
-function perm_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-
-
-
-function perm_getClass(property, _default) {
-  return toClass(get(property, _default.toString()));
-}
-function setClass(property, value) {
-  set(property, value.toString());
-}
-var baseClasses = $classes(perm_templateObject || (perm_templateObject = perm_taggedTemplateLiteral(["Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief"])));
-var gnomeSkills = $skills(perm_templateObject2 || (perm_templateObject2 = perm_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"])));
-var permBlockList = $skills(perm_templateObject3 || (perm_templateObject3 = perm_taggedTemplateLiteral(["CLEESH, Chronic Indigestion"])));
-var perm_permTiers = ["Tier 0 - All permable non-guild, non-gnome skills (never target these, but perm them if you know them)", "Tier 1 - Needed for the script to run at its best", "Tier 2 - Great skills", "Tier 3 - Good skills", "Tier 4 - QoL skills", "Tier 5 - Ascension-relevant skills", "Tier 6 - Skills with non-zero utility", "Tier 7 - All other guild skills", "Tier 8 - Otherwise-blocked skills"];
-var permList = [//tier 0
-$skills(perm_templateObject4 || (perm_templateObject4 = perm_taggedTemplateLiteral([""]))).filter(sk => sk.permable && sk.level === -1 && !permBlockList.includes(sk) && !gnomeSkills.includes(sk)), //tier 1
-$skills(perm_templateObject5 || (perm_templateObject5 = perm_taggedTemplateLiteral(["Curse of Weaksauce, Itchy Curse Finger, Torso Awareness, Cannelloni Cocoon"]))), //tier 2
-$skills(perm_templateObject6 || (perm_templateObject6 = perm_taggedTemplateLiteral(["Nimble Fingers, Amphibian Sympathy, Leash of Linguini, Thief Among the Honorable, Expert Panhandling, Disco Leer, Wrath of the Wolverine, Furious Wallop, Five Finger Discount, Double-Fisted Skull Smashing, Impetuous Sauciness, Tao of the Terrapin, Saucestorm"]))), //tier 3
-$skills(perm_templateObject7 || (perm_templateObject7 = perm_taggedTemplateLiteral(["Tongue of the Walrus, Mad Looting Skillz, Smooth Movement, Musk of the Moose, The Polka of Plenty, The Sonata of Sneakiness, Carlweather's Cantata of Confrontation, Mariachi Memory"]))), //tier 4
-$skills(perm_templateObject8 || (perm_templateObject8 = perm_taggedTemplateLiteral(["Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding, Ambidextrous Funkslinging, The Long View, Wisdom of the Elder Tortoises, Inner Sauce, Springy Fusilli, Overdeveloped Sense of Self Preservation, Pulverize"]))), //tier 5
-$skills(perm_templateObject9 || (perm_templateObject9 = perm_taggedTemplateLiteral(["Pastamastery, Advanced Cocktailcrafting, The Ode to Booze, The Magical Mojomuscular Melody, Advanced Saucecrafting, Saucemaven, The Way of Sauce, Fat Leon's Phat Loot Lyric, Empathy of the Newt, The Moxious Madrigal, Stuffed Mortar Shell, Flavour of Magic, Elemental Saucesphere, Spirit of Ravioli, Lunging Thrust-Smack, Entangling Noodles, Cold-Blooded Fearlessness, Northern Exposure, Diminished Gag Reflex, Tolerance of the Kitchen, Heart of Polyester, Irrepressible Spunk, Saucegeyser, Scarysauce, Ire of the Orca, Batter Up!, Disco Fever, Rage of the Reindeer, Testudinal Teachings, Disco Nap, Adventurer of Leisure, Armorcraftiness"]))), //tier 6
-$skills(perm_templateObject10 || (perm_templateObject10 = perm_taggedTemplateLiteral(["Superhuman Cocktailcrafting, Transcendental Noodlecraft, Super-Advanced Meatsmithing, Patient Smile, Wry Smile, Knowing Smile, Aloysius' Antiphon of Aptitude, Pride of the Puffin, Ur-Kel's Aria of Annoyance, Sensitive Fingers, Master Accordion Master Thief, Skin of the Leatherback, Hide of the Walrus, Astral Shell, Ghostly Shell, Subtle and Quick to Anger, Master Saucier, Hero of the Half-Shell, Shield of the Pastalord, Saucy Salve, The Power Ballad of the Arrowsmith, Jalape\xF1o Saucesphere, Claws of the Walrus, Shell Up, Brawnee's Anthem of Absorption, Reptilian Fortitude, The Psalm of Pointiness, Spiky Shell, Stiff Upper Lip, Blubber Up, Disco Smirk, Blood Sugar Sauce Magic, Cletus's Canticle of Celerity, Suspicious Gaze, Icy Glare, Dirge of Dreadfulness, Snarl of the Timberwolf, Stevedave's Shanty of Superiority, Northern Explosion, That's Not a Knife"]))), //tier 7
-$skills(perm_templateObject11 || (perm_templateObject11 = perm_taggedTemplateLiteral([""]))).filter(sk => sk.permable && sk.level >= 0), //tier 8
-permBlockList];
-var perm_defaultPermList = () => permList.slice(0, args.permtier + 1);
-function permOptions(planning) {
-  //planning = true: next run, false: this run
-  var classChoices = planning ? baseClasses : baseClasses.includes(myClass()) ? [myClass()] : [perm_getClass("goorboNextClass", args.defaultclass)];
-  var ctPerms = planning ? perm_targetPerms(false) : [];
-  return !planning //current run
-  ? perm_defaultPermList().map(sks => sks.filter(sk => !(sk.name in getPermedSkills()) && (have(sk) || gnomeSkills.includes(sk) && gnomadsAvailable() || classChoices.includes(sk.class) && sk.level > 0))) //for current run, include skills that we know or that we can train in this run.
-  : perm_defaultPermList().map(sks => sks.filter(sk => !(sk.name in getPermedSkills() || ctPerms.includes(sk)) && (gnomeSkills.includes(sk) || classChoices.includes(sk.class) && sk.level >= 0))); //for next run, exclude all skills that we are planning to perm this run, and allow all guild and gnome skills.
-}
-function permTier(planning) {
-  // the highest tier of unpermed skills available. Returns 0 if no non-tier 0 skills are available
-  return permOptions(planning).slice(1).findIndex(sks => sks.length !== 0) + 1;
-}
-function expectedKarma(planning) {
-  return (!planning ? get("bankedKarma") + (inHardcore() ? 200 : inCasual() ? 0 : 100) : expectedKarma(false) - perm_targetPerms(false).length * 100 + (inHardcore() ? 200 : inCasual() ? 0 : 100)) + (args.astralpet === $item(perm_templateObject12 || (perm_templateObject12 = perm_taggedTemplateLiteral(["none"]))) ? 10 : 0);
-}
-
-function shouldBankKarma(planning) {
-  var tier = permTier(planning);
-  return expectedKarma(planning) / 100 < tier || tier === 0;
-}
-
-function perm_targetClass(planning) {
-  if (myClass() === $class(perm_templateObject13 || (perm_templateObject13 = perm_taggedTemplateLiteral(["Grey Goo"])))) {
-    if (args.class && args.class !== $class(perm_templateObject14 || (perm_templateObject14 = perm_taggedTemplateLiteral(["none"])))) return args.class;
-    return perm_getClass("goorboNextClass", args.defaultclass);
-  }
-
-  if (planning && args.class && args.class !== $class(perm_templateObject15 || (perm_templateObject15 = perm_taggedTemplateLiteral(["none"])))) return args.class; //can't access permed skill status in grey goo
-
-  if (shouldBankKarma(planning)) return args.defaultclass; //if we will be banking skills
-
-  var sk = permOptions(planning).flat().find(sk => baseClasses.includes(sk.class));
-  return sk ? sk.class : args.defaultclass;
-}
-function perm_targetPerms(planning) {
-  var pOptions = permOptions(planning);
-  var tier = permTier(planning);
-  var maxQty = Math.floor(expectedKarma(planning) / 100);
-  if (tier > maxQty || tier === 0) //don't perm anything (bank karma), but do perm high-tier skills you happen to already know (probably due to Big Book or manually used skillbooks)
-    return !planning ? pOptions.slice(0, tier + 1) //skills in tiers <= your current best perm target
-    .flat().filter(sk => have(sk)).slice(0, maxQty) //don't plan to perm more than we have karma for
-    : []; //don't plan to perm anything next run if we plan to bank karma
-
-  var qty = Math.min(maxQty, tier + Math.ceil(Math.sqrt(Math.max(0, maxQty - tier))));
-  var tClass = planning ? perm_targetClass(true) : $class(perm_templateObject16 || (perm_templateObject16 = perm_taggedTemplateLiteral(["none"])));
-  return (!planning ? pOptions.flat().filter(sk => !gnomeSkills.includes(sk) || gnomadsAvailable()) : //filter out gnome skills if not available (non-targetClass skills filtered out in permOptions already, for current run)
-  pOptions.flat().filter(sk => sk.class === tClass || gnomeSkills.includes(sk)) //filter out non-targetClass skills
-  ).slice(0, qty);
-}
-
-function planHelper(perms, cls, karma) {
-  if (perms.length > 0) return "Perm plan: [".concat(perms.join(", "), "] - Class: <span color=\"blue\">").concat(cls, "</span>, Expected Karma: ").concat(karma);else return "Perm Plan: bank karma - Class: <span color=\"blue\">".concat(cls, "</span>, Expected Karma: ").concat(karma);
-}
-
-function printPermPlan() {
-  var cClass = perm_targetClass(false);
-  var cPerms = perm_targetPerms(false);
-  var nClass = perm_targetClass(true);
-  var nPerms = perm_targetPerms(true);
-  print();
-  printHtml("Current ".concat(planHelper(cPerms.map(sk => coloredSkill(sk, cPerms, cClass)), cClass, expectedKarma(false))), true);
-  printHtml("Next ".concat(planHelper(nPerms.map(sk => coloredSkill(sk, nPerms, nClass)), nClass, expectedKarma(true))), true);
-}
 // EXTERNAL MODULE: ./node_modules/core-js/features/array/flat.js
 var flat = __webpack_require__(1755);
 ;// CONCATENATED MODULE: ./node_modules/libram/dist/lib.js
-var lib_templateObject, lib_templateObject2, lib_templateObject3, lib_templateObject4, lib_templateObject5, lib_templateObject6, lib_templateObject7, lib_templateObject8, lib_templateObject9, lib_templateObject10, lib_templateObject11, lib_templateObject12, lib_templateObject13, lib_templateObject14, lib_templateObject15, lib_templateObject16, lib_templateObject17, lib_templateObject18, lib_templateObject19, lib_templateObject20, lib_templateObject21, lib_templateObject22, lib_templateObject23, lib_templateObject24, lib_templateObject25, lib_templateObject26, lib_templateObject27, lib_templateObject28, lib_templateObject29, lib_templateObject30, lib_templateObject31, lib_templateObject32, lib_templateObject33, lib_templateObject34;
+var lib_templateObject, lib_templateObject2, lib_templateObject3, lib_templateObject4, lib_templateObject5, lib_templateObject6, lib_templateObject7, lib_templateObject8, lib_templateObject9, lib_templateObject10, lib_templateObject11, lib_templateObject12, lib_templateObject13, lib_templateObject14, lib_templateObject15, lib_templateObject16, lib_templateObject17, lib_templateObject18, lib_templateObject19, lib_templateObject20, lib_templateObject21, lib_templateObject22, lib_templateObject23, lib_templateObject24, lib_templateObject25, lib_templateObject26, lib_templateObject27, lib_templateObject28, lib_templateObject29, lib_templateObject30, _templateObject31, _templateObject32, _templateObject33, _templateObject34;
 
 function lib_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -6551,28 +6168,28 @@ function getRemainingSpleen() {
 function lib_have(thing) {
   var quantity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-  if (thing instanceof Effect) {
-    return haveEffect(thing) >= quantity;
+  if (thing instanceof external_kolmafia_.Effect) {
+    return (0,external_kolmafia_.haveEffect)(thing) >= quantity;
   }
 
-  if (thing instanceof Familiar) {
-    return haveFamiliar(thing);
+  if (thing instanceof external_kolmafia_.Familiar) {
+    return (0,external_kolmafia_.haveFamiliar)(thing);
   }
 
-  if (thing instanceof Item) {
-    return availableAmount(thing) >= quantity;
+  if (thing instanceof external_kolmafia_.Item) {
+    return (0,external_kolmafia_.availableAmount)(thing) >= quantity;
   }
 
-  if (thing instanceof Servant) {
-    return haveServant(thing);
+  if (thing instanceof external_kolmafia_.Servant) {
+    return (0,external_kolmafia_.haveServant)(thing);
   }
 
-  if (thing instanceof Skill) {
-    return haveSkill(thing);
+  if (thing instanceof external_kolmafia_.Skill) {
+    return (0,external_kolmafia_.haveSkill)(thing);
   }
 
-  if (thing instanceof Thrall) {
-    var thrall = myThrall();
+  if (thing instanceof external_kolmafia_.Thrall) {
+    var thrall = (0,external_kolmafia_.myThrall)();
     return thrall.id === thing.id && thrall.level >= quantity;
   }
 
@@ -7098,7 +6715,7 @@ var telescopeStats = new Map([["standing around flexing their muscles and using 
 var telescopeElements = new Map([["people, all of whom appear to be on fire", $element(lib_templateObject15 || (lib_templateObject15 = lib_taggedTemplateLiteral(["hot"])))], ["people, surrounded by a cloud of eldritch mist", $element(lib_templateObject16 || (lib_templateObject16 = lib_taggedTemplateLiteral(["spooky"])))], ["greasy-looking people furtively skulking around", $element(lib_templateObject17 || (lib_templateObject17 = lib_taggedTemplateLiteral(["sleaze"])))], ["people, surrounded by garbage and clouds of flies", $element(lib_templateObject18 || (lib_templateObject18 = lib_taggedTemplateLiteral(["stench"])))], ["people, clustered around a group of igloos", $element(lib_templateObject19 || (lib_templateObject19 = lib_taggedTemplateLiteral(["cold"])))]]);
 var hedgeTrap1 = new Map([["smoldering bushes on the outskirts of a hedge maze", $element(lib_templateObject20 || (lib_templateObject20 = lib_taggedTemplateLiteral(["hot"])))], ["creepy-looking black bushes on the outskirts of a hedge maze", $element(lib_templateObject21 || (lib_templateObject21 = lib_taggedTemplateLiteral(["spooky"])))], ["purplish, greasy-looking hedges", $element(lib_templateObject22 || (lib_templateObject22 = lib_taggedTemplateLiteral(["sleaze"])))], ["nasty-looking, dripping green bushes on the outskirts of a hedge maze", $element(lib_templateObject23 || (lib_templateObject23 = lib_taggedTemplateLiteral(["stench"])))], ["frost-rimed bushes on the outskirts of a hedge maze", $element(lib_templateObject24 || (lib_templateObject24 = lib_taggedTemplateLiteral(["cold"])))]]);
 var hedgeTrap2 = new Map([["smoke rising from deeper within the maze", $element(lib_templateObject25 || (lib_templateObject25 = lib_taggedTemplateLiteral(["hot"])))], ["a miasma of eldritch vapors rising from deeper within the maze", $element(lib_templateObject26 || (lib_templateObject26 = lib_taggedTemplateLiteral(["spooky"])))], ["a greasy purple cloud hanging over the center of the maze", $element(lib_templateObject27 || (lib_templateObject27 = lib_taggedTemplateLiteral(["sleaze"])))], ["a cloud of green gas hovering over the maze", $element(lib_templateObject28 || (lib_templateObject28 = lib_taggedTemplateLiteral(["stench"])))], ["wintry mists rising from deeper within the maze", $element(lib_templateObject29 || (lib_templateObject29 = lib_taggedTemplateLiteral(["cold"])))]]);
-var hedgeTrap3 = new Map([["with lava slowly oozing out of it", $element(lib_templateObject30 || (lib_templateObject30 = lib_taggedTemplateLiteral(["hot"])))], ["surrounded by creepy black mist", $element(lib_templateObject31 || (lib_templateObject31 = lib_taggedTemplateLiteral(["spooky"])))], ["that occasionally vomits out a greasy ball of hair", $element(lib_templateObject32 || (lib_templateObject32 = lib_taggedTemplateLiteral(["sleaze"])))], ["disgorging a really surprising amount of sewage", $element(lib_templateObject33 || (lib_templateObject33 = lib_taggedTemplateLiteral(["stench"])))], ["occasionally disgorging a bunch of ice cubes", $element(lib_templateObject34 || (lib_templateObject34 = lib_taggedTemplateLiteral(["cold"])))]]);
+var hedgeTrap3 = new Map([["with lava slowly oozing out of it", $element(lib_templateObject30 || (lib_templateObject30 = lib_taggedTemplateLiteral(["hot"])))], ["surrounded by creepy black mist", $element(_templateObject31 || (_templateObject31 = lib_taggedTemplateLiteral(["spooky"])))], ["that occasionally vomits out a greasy ball of hair", $element(_templateObject32 || (_templateObject32 = lib_taggedTemplateLiteral(["sleaze"])))], ["disgorging a really surprising amount of sewage", $element(_templateObject33 || (_templateObject33 = lib_taggedTemplateLiteral(["stench"])))], ["occasionally disgorging a bunch of ice cubes", $element(_templateObject34 || (_templateObject34 = lib_taggedTemplateLiteral(["cold"])))]]);
 /**
  * @returns An object with all information the telescope gives you about the sorceress's contests and maze
  */
@@ -7111,6 +6728,507 @@ function telescope() {
     hedge2: hedgeTrap2.get(get("telescope4")),
     hedge3: hedgeTrap3.get(get("telescope5"))
   };
+}
+;// CONCATENATED MODULE: ./node_modules/libram/dist/resources/2022/CombatLoversLocket.js
+var CombatLoversLocket_templateObject;
+
+function CombatLoversLocket_slicedToArray(arr, i) { return CombatLoversLocket_arrayWithHoles(arr) || CombatLoversLocket_iterableToArrayLimit(arr, i) || CombatLoversLocket_unsupportedIterableToArray(arr, i) || CombatLoversLocket_nonIterableRest(); }
+
+function CombatLoversLocket_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function CombatLoversLocket_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return CombatLoversLocket_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return CombatLoversLocket_arrayLikeToArray(o, minLen); }
+
+function CombatLoversLocket_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function CombatLoversLocket_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function CombatLoversLocket_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function CombatLoversLocket_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+ // eslint-disable-next-line libram/verify-constants
+
+var locket = template_string_$item(CombatLoversLocket_templateObject || (CombatLoversLocket_templateObject = CombatLoversLocket_taggedTemplateLiteral(["Combat Lover's Locket"])));
+function CombatLoversLocket_have() {
+  return haveItem(locket);
+}
+/**
+ * Filters the set of all unlocked locket monsters to only the ones available to be locketed right now.
+ * @returns An array consisting of all Monsters you can fight with your locket right now.
+ */
+
+function availableLocketMonsters() {
+  if (reminiscesLeft() === 0) return [];
+  return Object.entries(getLocketMonsters()).filter(_ref => {
+    var _ref2 = CombatLoversLocket_slicedToArray(_ref, 2),
+        unused = _ref2[1];
+
+    return unused;
+  }).map(_ref3 => {
+    var _ref4 = CombatLoversLocket_slicedToArray(_ref3, 1),
+        name = _ref4[0];
+
+    return toMonster(name);
+  });
+}
+/**
+ * Parses getLocketMonsters and returns the collection of all Monsters as an Array.
+ * @returns An array consisting of all Monsters you can hypothetically fight, regardless of whether they've been fought today.
+ */
+
+function unlockedLocketMonsters() {
+  return Object.entries((0,external_kolmafia_.getLocketMonsters)()).map(_ref5 => {
+    var _ref6 = CombatLoversLocket_slicedToArray(_ref5, 1),
+        name = _ref6[0];
+
+    return (0,external_kolmafia_.toMonster)(name);
+  });
+}
+
+function parseLocketProperty() {
+  return get("_locketMonstersFought").split(",").filter(id => id.trim().length > 0);
+}
+/**
+ * Determines how many reminisces remain by parsing the _locketMonstersFought property.
+ * @returns The number of reminisces a player has available; 0 if they lack the Locket.
+ */
+
+
+function reminiscesLeft() {
+  return CombatLoversLocket_have() ? clamp(3 - parseLocketProperty().length, 0, 3) : 0;
+}
+/**
+ * Determines which monsters were reminisced today by parsing the _locketMonstersFought property.
+ * @returns An array consisting of the Monsters reminisced today.
+ */
+
+function monstersReminisced() {
+  return parseLocketProperty().map(id => toMonster(id));
+}
+/**
+ * Fight a Monster using the Combat Lover's Locket
+ * @param monster The Monster to fight
+ * @returns false if we are unable to reminisce about this monster. Else, returns whether, at the end of all things, we have reminisced about this monster.
+ */
+
+function reminisce(monster) {
+  if (!CombatLoversLocket_have() || reminiscesLeft() === 0 || !getLocketMonsters()[monster.name]) {
+    return false;
+  }
+
+  cliExecute("reminisce ".concat(monster));
+  runCombat();
+  return monstersReminisced().includes(monster);
+}
+/**
+ * This function efficiently evaluates all of an adventurer's possibly reminiscable monsters, placing them through a filtering criteria and evaluating them based on a passed function.
+ * @param criteria A filtering function for delineating which monsters are "fair game" for the search, such as "is this monster free".
+ * @param value A function for deciding which monsters are "better" than others.
+ * @returns A singular monster that fulfills the criteria function and maximizes the value function.
+ */
+
+function findMonster(criteria) {
+  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : () => 1;
+  if (!CombatLoversLocket_have() || reminiscesLeft() === 0) return null;
+  var options = availableLocketMonsters().filter(criteria);
+  if (!options.length) return null;
+  return options.reduce((a, b) => value(a) > value(b) ? a : b);
+}
+;// CONCATENATED MODULE: ./src/tasks/sim.ts
+var sim_templateObject, sim_templateObject2, sim_templateObject3, sim_templateObject4, sim_templateObject5, sim_templateObject6, sim_templateObject7, sim_templateObject8, sim_templateObject9, sim_templateObject10, sim_templateObject11, sim_templateObject12, sim_templateObject13, sim_templateObject14, sim_templateObject15, sim_templateObject16, sim_templateObject17, sim_templateObject18, sim_templateObject19, sim_templateObject20, sim_templateObject21, sim_templateObject22, sim_templateObject23, sim_templateObject24, sim_templateObject25, sim_templateObject26, sim_templateObject27, sim_templateObject28, sim_templateObject29, sim_templateObject30, sim_templateObject31, sim_templateObject32, sim_templateObject33, sim_templateObject34, _templateObject35, _templateObject36, _templateObject37, _templateObject38, _templateObject39, _templateObject40, _templateObject41, _templateObject42;
+
+function sim_createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = sim_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function sim_slicedToArray(arr, i) { return sim_arrayWithHoles(arr) || sim_iterableToArrayLimit(arr, i) || sim_unsupportedIterableToArray(arr, i) || sim_nonIterableRest(); }
+
+function sim_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function sim_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return sim_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return sim_arrayLikeToArray(o, minLen); }
+
+function sim_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function sim_iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function sim_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function sim_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+/**
+ * Return: a list of all things required to run the script.
+ */
+var generalList = [{
+  thing: template_string_$familiar(sim_templateObject || (sim_templateObject = sim_taggedTemplateLiteral(["Grey Goose"]))),
+  why: "Running Grey You Path"
+}, {
+  thing: template_string_$skill(sim_templateObject2 || (sim_templateObject2 = sim_taggedTemplateLiteral(["Curse of Weaksauce"]))),
+  why: "aftercore combat"
+}, {
+  thing: template_string_$familiars(sim_templateObject3 || (sim_templateObject3 = sim_taggedTemplateLiteral(["Robortender, Space Jellyfish, Hobo Monkey, Leprechaun"]))),
+  why: "in-run farming familiar"
+}, {
+  thing: template_string_$skill(sim_templateObject4 || (sim_templateObject4 = sim_taggedTemplateLiteral(["Torso Awareness"]))),
+  why: "general purpose",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject5 || (sim_templateObject5 = sim_taggedTemplateLiteral(["porquoise-handled sixgun"]))),
+  why: "mp maintenance (20-30 free mp / combat)",
+  optional: true
+}];
+var levelList = [{
+  thing: template_string_$item(sim_templateObject6 || (sim_templateObject6 = sim_taggedTemplateLiteral(["January's Garbage Tote"]))),
+  why: "aftercore leveling",
+  optional: true
+}, {
+  thing: {
+    have: () => property_get("getawayCampsiteUnlocked"),
+    name: template_string_$item(sim_templateObject7 || (sim_templateObject7 = sim_taggedTemplateLiteral(["Distant Woods Getaway Brochure"]))).name
+  },
+  why: "aftercore leveling",
+  optional: true
+}, {
+  thing: {
+    have: () => property_get("neverendingPartyAlways"),
+    name: template_string_$item(sim_templateObject8 || (sim_templateObject8 = sim_taggedTemplateLiteral(["Neverending Party invitation envelope"]))).name
+  },
+  why: "scaling free fights",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject9 || (sim_templateObject9 = sim_taggedTemplateLiteral(["Clan VIP Lounge key"]))),
+  why: "aftercore leveling",
+  optional: true
+}, // { thing: $skill`Sweet Synthesis`, why: "aftercore leveling", optional: true },
+// { thing: $familiar`Vampire Vintner`, why: "goose charging", optional: true },
+{
+  thing: template_string_$item(sim_templateObject10 || (sim_templateObject10 = sim_taggedTemplateLiteral(["familiar scrapbook"]))),
+  why: "aftercore leveling",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject11 || (sim_templateObject11 = sim_taggedTemplateLiteral(["defective Game Grid token"]))),
+  why: "aftercore leveling",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject12 || (sim_templateObject12 = sim_taggedTemplateLiteral(["trench lighter"]))),
+  why: "aftercore leveling",
+  optional: true
+}, {
+  thing: template_string_$skill(sim_templateObject13 || (sim_templateObject13 = sim_taggedTemplateLiteral(["Feel Pride"]))),
+  why: "aftercore leveling",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject14 || (sim_templateObject14 = sim_taggedTemplateLiteral(["[glitch season reward name]"]))),
+  why: "aftercore leveling",
+  optional: true
+}, // { thing: $item`cosmic bowling ball`, why: "aftercore leveling", optional: true },
+{
+  thing: template_string_$item(sim_templateObject15 || (sim_templateObject15 = sim_taggedTemplateLiteral(["fake washboard"]))),
+  why: "aftercore leveling (mus)",
+  optional: true
+}, {
+  thing: template_string_$skill(sim_templateObject16 || (sim_templateObject16 = sim_taggedTemplateLiteral(["Inscrutable Gaze"]))),
+  why: "aftercore leveling (mys)",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject17 || (sim_templateObject17 = sim_taggedTemplateLiteral(["basaltamander buckler"]))),
+  why: "aftercore leveling (mys)",
+  optional: true
+}];
+var profitList = [{
+  thing: template_string_$item(sim_templateObject18 || (sim_templateObject18 = sim_taggedTemplateLiteral(["lucky gold ring"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject19 || (sim_templateObject19 = sim_taggedTemplateLiteral(["Mr. Cheeng's spectacles"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject20 || (sim_templateObject20 = sim_taggedTemplateLiteral(["mafia thumb ring"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject21 || (sim_templateObject21 = sim_taggedTemplateLiteral(["SongBoom\u2122 BoomBox"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$items(sim_templateObject22 || (sim_templateObject22 = sim_taggedTemplateLiteral(["Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine"]))),
+  why: "various profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject23 || (sim_templateObject23 = sim_taggedTemplateLiteral(["June cleaver"]))),
+  why: "in-run farming profits",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject24 || (sim_templateObject24 = sim_taggedTemplateLiteral(["tiny stillsuit"]))),
+  why: "rollover adventures",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject25 || (sim_templateObject25 = sim_taggedTemplateLiteral(["mime army shotglass"]))),
+  why: "extra size-1 booze/day",
+  optional: true
+}, {
+  thing: template_string_$familiar(sim_templateObject26 || (sim_templateObject26 = sim_taggedTemplateLiteral(["Stooper"]))),
+  why: "rollover adventures",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject27 || (sim_templateObject27 = sim_taggedTemplateLiteral(["Drunkula's wineglass"]))),
+  why: "overdrunk farming",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject28 || (sim_templateObject28 = sim_taggedTemplateLiteral(["infinite BACON machine"]))),
+  why: "daily Dungeon Malware",
+  optional: true
+}];
+var freefightList = [{
+  thing: template_string_$item(sim_templateObject29 || (sim_templateObject29 = sim_taggedTemplateLiteral(["carnivorous potted plant"]))),
+  why: "occasional free kill",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject30 || (sim_templateObject30 = sim_taggedTemplateLiteral(["cursed magnifying glass"]))),
+  why: "additional free fight",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject31 || (sim_templateObject31 = sim_taggedTemplateLiteral(["miniature crystal ball"]))),
+  why: "additional free fight",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject32 || (sim_templateObject32 = sim_taggedTemplateLiteral(["Claw of the Infernal Seal"]))),
+  why: "5 additional free seals",
+  optional: true
+}, {
+  thing: template_string_$item(sim_templateObject33 || (sim_templateObject33 = sim_taggedTemplateLiteral(["The Jokester's gun"]))),
+  why: "free kill",
+  optional: true
+}, {
+  thing: template_string_$skill(sim_templateObject34 || (sim_templateObject34 = sim_taggedTemplateLiteral(["Gingerbread Mob Hit"]))),
+  why: "free kill",
+  optional: true
+}, {
+  thing: template_string_$skill(_templateObject35 || (_templateObject35 = sim_taggedTemplateLiteral(["Shattering Punch"]))),
+  why: "3 free kills",
+  optional: true
+}, {
+  thing: template_string_$item(_templateObject36 || (_templateObject36 = sim_taggedTemplateLiteral(["Lil' Doctor\u2122 bag"]))),
+  why: "3 free kills",
+  optional: true
+}];
+var marginalList = [{
+  thing: template_string_$skill(_templateObject37 || (_templateObject37 = sim_taggedTemplateLiteral(["Snokebomb"]))),
+  why: "banish",
+  optional: true
+}, {
+  thing: template_string_$skill(_templateObject38 || (_templateObject38 = sim_taggedTemplateLiteral(["Feel Hatred"]))),
+  why: "banish",
+  optional: true
+}, {
+  thing: template_string_$item(_templateObject39 || (_templateObject39 = sim_taggedTemplateLiteral(["mafia middle finger ring"]))),
+  why: "banish",
+  optional: true
+}, {
+  thing: template_string_$item(_templateObject40 || (_templateObject40 = sim_taggedTemplateLiteral(["hewn moon-rune spoon"]))),
+  why: "easier perming of gnome skills",
+  optional: true
+}, {
+  thing: template_string_$skill(_templateObject41 || (_templateObject41 = sim_taggedTemplateLiteral(["Comprehensive Cartography"]))),
+  why: "gold wedding ring",
+  optional: true
+}];
+
+function checkThing(thing) {
+  if ("have" in thing && "name" in thing && thing.have instanceof Function) return [thing.have(), thing.name]; //if this is a SpecialThing
+
+  if (thing instanceof external_kolmafia_.Familiar) return [lib_have(thing), thing.hatchling.name];
+  if (thing instanceof external_kolmafia_.Skill) return [thing.name in (0,external_kolmafia_.getPermedSkills)(), thing.name];
+  if (thing instanceof external_kolmafia_.Monster) return [new Set(unlockedLocketMonsters()).has(thing), thing.name];
+  if (thing instanceof external_kolmafia_.Item) return [lib_have(thing) || (0,external_kolmafia_.storageAmount)(thing) > 0, thing.name];
+  return [false, thing.name];
+}
+
+function check(req) {
+  if (Array.isArray(req.thing)) {
+    var checks = req.thing.map(checkThing);
+    return [checks.find(res => res[0]) !== undefined, checks.map(res => res[1]).join(" OR "), req];
+  } else {
+    var res = checkThing(req.thing);
+    return [res[0], res[1], req];
+  }
+}
+
+function checkReqs() {
+  var printout = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  var missing_optional = 0;
+  var missing = 0;
+  var out = "";
+  var categories = [["Required", generalList.filter(req => !req.optional)], ["General", generalList.filter(req => req.optional)], ["Leveling", levelList], ["Free Fights", freefightList], ["Profits", profitList], ["Marginal", marginalList]];
+  out = out.concat("<p>Legend: <font color='#888888'>✓ Have</font> / <font color='red'>X Missing & Required</font> / <font color='black'>X Missing & Optional </font></p>");
+
+  for (var _i = 0, _categories = categories; _i < _categories.length; _i++) {
+    var _categories$_i = sim_slicedToArray(_categories[_i], 2),
+        name = _categories$_i[0],
+        requirements = _categories$_i[1];
+
+    if (requirements.length === 0) continue;
+    var requirements_info = requirements.map(check);
+    out = out.concat("<p><font color=\"blue\">".concat(name, "</font></p>"));
+
+    var _iterator = sim_createForOfIteratorHelper(requirements_info.sort((a, b) => a[1].localeCompare(b[1]))),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var _step$value = sim_slicedToArray(_step.value, 3),
+            have_it = _step$value[0],
+            _name = _step$value[1],
+            req = _step$value[2];
+
+        var color = have_it ? "#888888" : req.optional ? "black" : "red";
+        var symbol = have_it ? "✓" : "X";
+        if (!have_it && req.optional) missing_optional++;
+        if (!have_it && !req.optional) missing++;
+        out = out.concat("<div><font color=\"".concat(color, "\">").concat(symbol, " ").concat(_name, " - ").concat(req.why, "</font></div>"));
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    if (printout) (0,external_kolmafia_.printHtml)(out);
+  } // Print the count of missing things
+
+
+  if (missing > 0) {
+    out = out.concat("<p><font color=\"red\">You are missing ".concat(missing, " required things. This script will not yet work for you.</font></p>"));
+    if (missing_optional > 0) out = out.concat("<div>You are also missing ".concat(missing_optional, " optional things.</div>"));
+  } else {
+    if (missing_optional > 0) {
+      out = out.concat("<p>You are missing ".concat(missing_optional, " optional things. This script should work, but it could do better.</p>"));
+    } else {
+      out = out.concat("<p>You have everything! You are the shiniest star. This script should work great.</p>");
+    }
+  }
+
+  if (printout) (0,external_kolmafia_.printHtml)(out, false);
+  return out;
+}
+
+function spanWrap(text, color) {
+  return "<font color=\"".concat(color, "\">").concat(text, "</font>");
+}
+
+function sim_coloredSkill(sk, nPerms, nClass) {
+  return sk.name in (0,external_kolmafia_.getPermedSkills)() ? spanWrap(sk.name, "#888") : nPerms.includes(sk) && lib_have(sk) ? spanWrap(sk.name, "fuchsia") : nPerms.includes(sk) ? spanWrap(sk.name, "blue") : lib_have(sk) ? spanWrap(sk.name, "purple") : nClass && nClass === sk.class && nClass !== template_string_$class(_templateObject42 || (_templateObject42 = sim_taggedTemplateLiteral(["none"]))) ? spanWrap(sk.name, "navy") : spanWrap(sk.name, "black");
+}
+function checkPerms() {
+  var printout = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  var nPerms = targetPerms(false);
+  var nClass = targetClass(false);
+  var out = "";
+  out = out.concat("<p>Default Perm List</p>");
+  out = out.concat("<div>Legend: <font color=\"#888\">[permed]</font>, <font color=\"fuchsia\">[targeted/known]</font>, <font color=\"blue\">[targeted/unknown]</font>, <font color=\"purple\">[known]</font>, <font color=\"navy\">[class skills]</font>, <font color=\"black\">[other]</font></div>");
+  var count = 0;
+  defaultPermList().forEach(sks => out = out.concat("<p><font color=\"blue\">".concat(permTiers[count++], "</font></p> ").concat(sks.map(sk => sim_coloredSkill(sk, nPerms, nClass)).join(", "))));
+  if (printout) (0,external_kolmafia_.printHtml)(out, false);
+  return out;
+}
+;// CONCATENATED MODULE: ./src/tasks/perm.ts
+var perm_templateObject, perm_templateObject2, perm_templateObject3, perm_templateObject4, perm_templateObject5, perm_templateObject6, perm_templateObject7, perm_templateObject8, perm_templateObject9, perm_templateObject10, perm_templateObject11, perm_templateObject12, perm_templateObject13, perm_templateObject14, perm_templateObject15, perm_templateObject16;
+
+function perm_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+
+function perm_getClass(property, _default) {
+  return (0,external_kolmafia_.toClass)(property_get(property, _default.toString()));
+}
+function setClass(property, value) {
+  set(property, value.toString());
+}
+var baseClasses = $classes(perm_templateObject || (perm_templateObject = perm_taggedTemplateLiteral(["Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief"])));
+var gnomeSkills = $skills(perm_templateObject2 || (perm_templateObject2 = perm_taggedTemplateLiteral(["Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding"])));
+var permBlockList = $skills(perm_templateObject3 || (perm_templateObject3 = perm_taggedTemplateLiteral(["CLEESH, Chronic Indigestion"])));
+var permTiers = ["Tier 0 - All permable non-guild, non-gnome skills (never target these, but perm them if you know them)", "Tier 1 - Needed for the script to run at its best", "Tier 2 - Great skills", "Tier 3 - Good skills", "Tier 4 - QoL skills", "Tier 5 - Ascension-relevant skills", "Tier 6 - Skills with non-zero utility", "Tier 7 - All other guild skills", "Tier 8 - Otherwise-blocked skills"];
+var permList = [//tier 0
+$skills(perm_templateObject4 || (perm_templateObject4 = perm_taggedTemplateLiteral([""]))).filter(sk => sk.permable && sk.level === -1 && !permBlockList.includes(sk) && !gnomeSkills.includes(sk)), //tier 1
+$skills(perm_templateObject5 || (perm_templateObject5 = perm_taggedTemplateLiteral(["Curse of Weaksauce, Itchy Curse Finger, Torso Awareness, Cannelloni Cocoon"]))), //tier 2
+$skills(perm_templateObject6 || (perm_templateObject6 = perm_taggedTemplateLiteral(["Nimble Fingers, Amphibian Sympathy, Leash of Linguini, Thief Among the Honorable, Expert Panhandling, Disco Leer, Wrath of the Wolverine, Furious Wallop, Five Finger Discount, Double-Fisted Skull Smashing, Impetuous Sauciness, Tao of the Terrapin, Saucestorm"]))), //tier 3
+$skills(perm_templateObject7 || (perm_templateObject7 = perm_taggedTemplateLiteral(["Tongue of the Walrus, Mad Looting Skillz, Smooth Movement, Musk of the Moose, The Polka of Plenty, The Sonata of Sneakiness, Carlweather's Cantata of Confrontation, Mariachi Memory"]))), //tier 4
+$skills(perm_templateObject8 || (perm_templateObject8 = perm_taggedTemplateLiteral(["Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding, Ambidextrous Funkslinging, The Long View, Wisdom of the Elder Tortoises, Inner Sauce, Springy Fusilli, Overdeveloped Sense of Self Preservation, Pulverize"]))), //tier 5
+$skills(perm_templateObject9 || (perm_templateObject9 = perm_taggedTemplateLiteral(["Pastamastery, Advanced Cocktailcrafting, The Ode to Booze, The Magical Mojomuscular Melody, Advanced Saucecrafting, Saucemaven, The Way of Sauce, Fat Leon's Phat Loot Lyric, Empathy of the Newt, The Moxious Madrigal, Stuffed Mortar Shell, Flavour of Magic, Elemental Saucesphere, Spirit of Ravioli, Lunging Thrust-Smack, Entangling Noodles, Cold-Blooded Fearlessness, Northern Exposure, Diminished Gag Reflex, Tolerance of the Kitchen, Heart of Polyester, Irrepressible Spunk, Saucegeyser, Scarysauce, Ire of the Orca, Batter Up!, Disco Fever, Rage of the Reindeer, Testudinal Teachings, Disco Nap, Adventurer of Leisure, Armorcraftiness"]))), //tier 6
+$skills(perm_templateObject10 || (perm_templateObject10 = perm_taggedTemplateLiteral(["Superhuman Cocktailcrafting, Transcendental Noodlecraft, Super-Advanced Meatsmithing, Patient Smile, Wry Smile, Knowing Smile, Aloysius' Antiphon of Aptitude, Pride of the Puffin, Ur-Kel's Aria of Annoyance, Sensitive Fingers, Master Accordion Master Thief, Skin of the Leatherback, Hide of the Walrus, Astral Shell, Ghostly Shell, Subtle and Quick to Anger, Master Saucier, Hero of the Half-Shell, Shield of the Pastalord, Saucy Salve, The Power Ballad of the Arrowsmith, Jalape\xF1o Saucesphere, Claws of the Walrus, Shell Up, Brawnee's Anthem of Absorption, Reptilian Fortitude, The Psalm of Pointiness, Spiky Shell, Stiff Upper Lip, Blubber Up, Disco Smirk, Blood Sugar Sauce Magic, Cletus's Canticle of Celerity, Suspicious Gaze, Icy Glare, Dirge of Dreadfulness, Snarl of the Timberwolf, Stevedave's Shanty of Superiority, Northern Explosion, That's Not a Knife"]))), //tier 7
+$skills(perm_templateObject11 || (perm_templateObject11 = perm_taggedTemplateLiteral([""]))).filter(sk => sk.permable && sk.level >= 0), //tier 8
+permBlockList];
+var defaultPermList = () => permList.slice(0, args_args.permtier + 1);
+function permOptions(planning) {
+  //planning = true: next run, false: this run
+  var classChoices = planning ? baseClasses : baseClasses.includes((0,external_kolmafia_.myClass)()) ? [(0,external_kolmafia_.myClass)()] : [perm_getClass("goorboNextClass", args_args.defaultclass)];
+  var ctPerms = planning ? targetPerms(false) : [];
+  return !planning //current run
+  ? defaultPermList().map(sks => sks.filter(sk => !(sk.name in (0,external_kolmafia_.getPermedSkills)()) && (lib_have(sk) || gnomeSkills.includes(sk) && (0,external_kolmafia_.gnomadsAvailable)() || classChoices.includes(sk.class) && sk.level > 0))) //for current run, include skills that we know or that we can train in this run.
+  : defaultPermList().map(sks => sks.filter(sk => !(sk.name in (0,external_kolmafia_.getPermedSkills)() || ctPerms.includes(sk)) && (gnomeSkills.includes(sk) || classChoices.includes(sk.class) && sk.level >= 0))); //for next run, exclude all skills that we are planning to perm this run, and allow all guild and gnome skills.
+}
+function permTier(planning) {
+  // the highest tier of unpermed skills available. Returns 0 if no non-tier 0 skills are available
+  return permOptions(planning).slice(1).findIndex(sks => sks.length !== 0) + 1;
+}
+function expectedKarma(planning) {
+  return (!planning ? property_get("bankedKarma") + ((0,external_kolmafia_.inHardcore)() ? 200 : (0,external_kolmafia_.inCasual)() ? 0 : 100) : expectedKarma(false) - targetPerms(false).length * 100 + ((0,external_kolmafia_.inHardcore)() ? 200 : (0,external_kolmafia_.inCasual)() ? 0 : 100)) + (args_args.astralpet === template_string_$item(perm_templateObject12 || (perm_templateObject12 = perm_taggedTemplateLiteral(["none"]))) ? 10 : 0);
+}
+
+function shouldBankKarma(planning) {
+  var tier = permTier(planning);
+  return expectedKarma(planning) / 100 < tier || tier === 0;
+}
+
+function targetClass(planning) {
+  if ((0,external_kolmafia_.myClass)() === template_string_$class(perm_templateObject13 || (perm_templateObject13 = perm_taggedTemplateLiteral(["Grey Goo"])))) {
+    if (args_args["class"] && args_args["class"] !== template_string_$class(perm_templateObject14 || (perm_templateObject14 = perm_taggedTemplateLiteral(["none"])))) return args_args["class"];
+    return perm_getClass("goorboNextClass", args_args.defaultclass);
+  }
+
+  if (planning && args_args["class"] && args_args["class"] !== template_string_$class(perm_templateObject15 || (perm_templateObject15 = perm_taggedTemplateLiteral(["none"])))) return args_args["class"]; //can't access permed skill status in grey goo
+
+  if (shouldBankKarma(planning)) return args_args.defaultclass; //if we will be banking skills
+
+  var sk = permOptions(planning).flat().find(sk => baseClasses.includes(sk.class));
+  return sk ? sk.class : args_args.defaultclass;
+}
+function targetPerms(planning) {
+  var pOptions = permOptions(planning);
+  var tier = permTier(planning);
+  var maxQty = Math.floor(expectedKarma(planning) / 100);
+  if (tier > maxQty || tier === 0) //don't perm anything (bank karma), but do perm high-tier skills you happen to already know (probably due to Big Book or manually used skillbooks)
+    return !planning ? pOptions.slice(0, tier + 1) //skills in tiers <= your current best perm target
+    .flat().filter(sk => lib_have(sk)).slice(0, maxQty) //don't plan to perm more than we have karma for
+    : []; //don't plan to perm anything next run if we plan to bank karma
+
+  var qty = Math.min(maxQty, tier + Math.ceil(Math.sqrt(Math.max(0, maxQty - tier))));
+  var tClass = planning ? targetClass(true) : template_string_$class(perm_templateObject16 || (perm_templateObject16 = perm_taggedTemplateLiteral(["none"])));
+  return (!planning ? pOptions.flat().filter(sk => !gnomeSkills.includes(sk) || (0,external_kolmafia_.gnomadsAvailable)()) : //filter out gnome skills if not available (non-targetClass skills filtered out in permOptions already, for current run)
+  pOptions.flat().filter(sk => sk.class === tClass || gnomeSkills.includes(sk)) //filter out non-targetClass skills
+  ).slice(0, qty);
+}
+
+function planHelper(perms, cls, karma) {
+  if (perms.length > 0) return "Perm plan: [".concat(perms.join(", "), "] - Class: <span color=\"blue\">").concat(cls, "</span>, Expected Karma: ").concat(karma);else return "Perm Plan: bank karma - Class: <span color=\"blue\">".concat(cls, "</span>, Expected Karma: ").concat(karma);
+}
+
+function printPermPlan() {
+  var cClass = targetClass(false);
+  var cPerms = targetPerms(false);
+  var nClass = targetClass(true);
+  var nPerms = targetPerms(true);
+  print();
+  printHtml("Current ".concat(planHelper(cPerms.map(sk => coloredSkill(sk, cPerms, cClass)), cClass, expectedKarma(false))), true);
+  printHtml("Next ".concat(planHelper(nPerms.map(sk => coloredSkill(sk, nPerms, nClass)), nClass, expectedKarma(true))), true);
 }
 ;// CONCATENATED MODULE: ./src/engine/profits.ts
 var profits_templateObject, profits_templateObject2, profits_templateObject3, profits_templateObject4, profits_templateObject5, profits_templateObject6, profits_templateObject7, profits_templateObject8, profits_templateObject9, profits_templateObject10, profits_templateObject11, profits_templateObject12, profits_templateObject13, profits_templateObject14, profits_templateObject15, profits_templateObject16, profits_templateObject17, profits_templateObject18, profits_templateObject19, profits_templateObject20, profits_templateObject21, profits_templateObject22, profits_templateObject23, profits_templateObject24, profits_templateObject25, profits_templateObject26, profits_templateObject27, profits_templateObject28, profits_templateObject29, profits_templateObject30, profits_templateObject31, profits_templateObject32, profits_templateObject33, profits_templateObject34, profits_templateObject35, profits_templateObject36, profits_templateObject37, profits_templateObject38, profits_templateObject39, profits_templateObject40, profits_templateObject41, profits_templateObject42, _templateObject43, _templateObject44, _templateObject45;
@@ -7541,7 +7659,7 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
   }),
   permtier: Args.number({
     help: "Target perming all skills in the given tier and all better tiers. Choose 0 to only perm non-gnome, non-guild skills that you may have manually learned",
-    options: [[-1, "Do not perm anything"]].concat(perm_permTiers.map((str, num) => [num, str.length < 40 ? str.substring(9) : "".concat(str.substring(9, 37), "...")])),
+    options: [[-1, "Do not perm anything"]].concat(permTiers.map((str, num) => [num, str.length < 40 ? str.substring(9) : "".concat(str.substring(9, 37), "...")])),
     // options: [-1, 0, 1, 2, 3, 4, 5, 6, 7, 8].map((num) => [num]),
     default: 6
   }),
@@ -7575,6 +7693,10 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
   targetlevel: Args.number({
     help: "What level to target via adventuring in Uncle Gator's after breaking the prism",
     default: 13
+  }),
+  buffy: Args.boolean({
+    help: "Set this to false to stop asking Buffy for buffs.",
+    default: true
   }),
   noticket: Args.flag({
     help: "Run with this flag to skip buying a one-day pass to Dinseylandfill at the beginning of each day. No effect for Dinsey charter owners",
@@ -7629,13 +7751,28 @@ function relay_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function convertArgsToHtml() {
   var _metadata$options$def;
 
   var metadata = Args.getMetadata(args_args);
+  var sim = {
+    type: "html",
+    data: checkReqs(false)
+  };
+  var simPerms = {
+    type: "html",
+    data: checkPerms(false)
+  };
   var pages = [{
     page: (_metadata$options$def = metadata.options.defaultGroupName) !== null && _metadata$options$def !== void 0 ? _metadata$options$def : "Options",
     components: []
+  }, {
+    page: "Requirements",
+    components: [sim]
+  }, {
+    page: "Perms",
+    components: [simPerms]
   }];
   metadata.traverse((key, name) => {
     var _key$key, _key$setting, _key$key2;
@@ -7665,7 +7802,7 @@ function convertArgsToHtml() {
       });
     }
 
-    pages[pages.length - 1].components.push(component);
+    pages[0].components.push(component);
   }, (group, name) => {
     pages.push({
       page: name,
@@ -7675,14 +7812,9 @@ function convertArgsToHtml() {
   pages.filter(p => p.components.length > 0).forEach(p => {
     var html = {
       type: "html",
-      data: "<h1 style=\"text-align: center;\">Goorbo ".concat(p.page, "</h1><div class=\"meat\"> <div> <img src=\"https://i.imgur.com/Otj39Jg.png\" height=\"75px\" width=\"75px\"></img></div><div><img src=\"https://i.imgur.com/Otj39Jg.png\" height=\"75px\" width=\"75px\"></img></div><div> <img src=\"https://i.imgur.com/Otj39Jg.png\" height=\"75px\" width=\"75px\" ></img></div><div><img src=\"https://i.imgur.com/Otj39Jg.png\" height=\"75px\" width=\"75px\"></img></div><div> <img src=\"https://i.imgur.com/Otj39Jg.png\" height=\"75px\" width=\"75px\"></img></div><div> <img src=\"https://i.imgur.com/Otj39Jg.png\" height=\"75px\" width=\"75px\"></div><div><img src=\"https://i.imgur.com/Otj39Jg.png\" height=\"75px\" width=\"75px\"></div>")
-    };
-    var meat = {
-      type: "html",
-      data: "<div class=\"meat\">".concat("<div style=\"background-image: https://i.imgur.com/Otj39Jg.png\" height=\"75px\" width=\"75px\"/>".repeat(7), "</div>")
+      data: "<h1 style=\"text-align: center;\">Goorbo ".concat(p.page, "</h1><div class=\"meat\">").concat("<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"75px\" height=\"75px\" viewBox=\"0 0 191.386 191.386\" style=\"enable-background:new 0 0 191.386 191.386\" xml:space=\"preserve\"><path d=\"M191.192 43.137a26.009 26.009 0 0 0-4.721-14.391c-5.474-7.834-13.97-12.104-23.691-11.534-12.158.756-27.56 5.953-42.455 10.975l-7.405 2.48c-6.121 2.036-11.972 2.326-19.38 2.695-9.618.479-21.574 1.068-38.429 5.941-25.421 7.364-42.966 20.081-50.72 36.764C1.508 82.253.151 88.919.105 95.745L0 95.843v20.67c-.038 7.466 1.611 15.148 4.931 22.639 8.893 19.993 34.636 35.072 59.889 35.072 17.61 0 33.963-6.977 47.293-20.185 11.67-11.554 15.861-19 20.33-26.878 3.09-5.458 6.255-11.085 12.451-18.631 5.306-6.47 12.098-9.632 19.287-12.978 10.184-4.743 20.715-9.648 25.916-23.888a21.472 21.472 0 0 0 1.238-8.299l.049-20.025c-.059-.095-.143-.143-.192-.203zM13.762 80.426c6.464-13.896 21.754-24.682 44.22-31.19 15.693-4.546 26.507-5.079 36.059-5.558 7.875-.385 14.683-.729 22.129-3.206l7.454-2.495c14.258-4.811 29.001-9.79 39.793-10.458l1.082-.03c5.398 0 10.304 2.615 13.493 7.175 2.85 4.076 3.763 8.966 2.385 12.757-3.735 10.211-11.157 13.68-20.578 18.062-7.542 3.519-16.098 7.506-22.906 15.797-6.745 8.233-10.167 14.262-13.461 20.111-4.256 7.546-7.951 14.062-18.605 24.61-11.353 11.261-25.183 17.195-40.014 17.195-23.52 0-44.12-14.719-50.438-28.934-3.641-8.216-6.704-20.725-.613-33.836z\"/><path d=\"M64.821 132.848c12.216 0 23.229-4.77 32.734-14.207 9.618-9.514 12.82-15.166 16.86-22.319 3.357-5.949 7.152-12.671 14.49-21.61 8.3-10.113 18.422-14.824 26.541-18.607 9.795-4.57 13.145-6.524 15.217-12.232.092-.399-.133-1.859-1.143-3.288-.721-1.036-2.344-2.771-5.013-2.771-9.875.605-23.953 5.354-37.55 9.946l-7.514 2.519c-8.801 2.921-16.595 3.308-24.862 3.723-9.021.447-19.194.958-33.717 5.158-19.515 5.65-32.563 14.504-37.737 25.612-4.45 9.588-2.078 19.045.701 25.284 4.872 10.965 21.933 22.792 40.993 22.792zm-.916-57.371c13.469 0 24.389 7.662 24.389 17.132 0 9.452-10.92 17.127-24.389 17.127-13.481 0-24.403-7.676-24.403-17.127 0-9.47 10.922-17.132 24.403-17.132z\"/></svg></div>".repeat(7), "</div>")
     };
     p.components.splice(0, 0, html);
-    p.components.push(meat);
   });
   return pages.filter(page => page.components.length > 0);
 }
