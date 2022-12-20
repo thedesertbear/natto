@@ -336,7 +336,7 @@ export function AftercoreQuest(): Quest {
                 availableAmount(it)
               )
             ) < 20),
-        completed: () => guildStoreAvailable(),
+        completed: () => guildStoreAvailable() || myAdventures() === 0 || stooperDrunk(),
         do: () => cliExecute("guild"),
         choices: {
           //sleazy back alley
@@ -378,6 +378,7 @@ export function AftercoreQuest(): Quest {
           )
           .macro(() =>
             Macro.step("pickpocket")
+              .trySkill($skill`Sing Along`)
               .tryItem($item`porquoise-handled sixgun`)
               .attack()
               .repeat()
