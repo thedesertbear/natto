@@ -7,7 +7,7 @@ import { checkPerms, checkReqs } from "./tasks/sim";
 import { args } from "./args";
 import { printPermPlan } from "./tasks/perm";
 
-const version = "0.5.3";
+const version = "0.5.4";
 
 export function main(command?: string): void {
   Args.fill(args, command);
