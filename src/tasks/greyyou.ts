@@ -1611,12 +1611,16 @@ export function GyouQuest(): Quest {
       },
       {
         name: "Pajamas",
-        completed: () => args.ascend || getCampground()[$item`clockwork maid`.name] === 1,
+        completed: () => args.ascend || have($item`burning cape`),
         acquire: [
-          { item: $item`clockwork maid`, price: 7 * get("valueOfAdventure") },
+          { item: $item`clockwork maid`, price: 7 * get("valueOfAdventure"), optional: true },
           { item: $item`burning cape` },
         ],
-        do: () => use($item`clockwork maid`),
+        do: () => {
+          if (have($item`clockwork maid`)) {
+            use($item`clockwork maid`);
+          }
+        },
         outfit: () => ({
           familiar:
             $familiars`Trick-or-Treating Tot, Left-Hand Man, Disembodied Hand, Grey Goose`.find(
