@@ -45,6 +45,11 @@ export function main(command?: string): void {
 
   const engine = new ProfitTrackingEngine(tasks, "loop_profit_tracker");
   try {
+    if (args.list) {
+      listTasks(engine);
+      return;
+    }
+
     engine.run(args.actions);
 
     // Print the next task that will be executed, if it exists
@@ -66,5 +71,19 @@ export function main(command?: string): void {
     }
   } finally {
     engine.destruct();
+  }
+}
+
+function listTasks(engine: ProfitTrackingEngine): void {
+  for (const task of engine.tasks) {
+    if (task.completed()) {
+      print(`${task.name}: Done`, "blue");
+    } else {
+      if (engine.available(task)) {
+        print(`${task.name}: Available`);
+      } else {
+        print(`${task.name}: Not Available`, "red");
+      }
+    }
   }
 }
