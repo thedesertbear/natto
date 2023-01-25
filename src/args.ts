@@ -24,6 +24,10 @@ export const args = Args.create(
       default: false,
       setting: "",
     }),
+    list: Args.flag({
+      help: "Show the status of all tasks and exit.",
+      setting: "",
+    }),
 
     simperms: Args.flag({
       help: "If set, see your current and available perms, as well as the plan for this run, then return without taking any actions.",
