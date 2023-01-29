@@ -899,6 +899,19 @@ export function GyouQuest(): Quest {
         do: () => use($item`chest of the Bonerdagon`),
       },
       {
+        name: "Strange Stalagmite",
+        completed: () => !have($item`strange stalagmite`) || get("_strangeStalagmiteUsed"),
+        do: () => use($item`strange stalagmite`),
+        choices: {
+          1491: () =>
+            myClass().primestat === $stat`Muscle`
+              ? 1
+              : myClass().primestat === $stat`Mysticality`
+              ? 2
+              : 3,
+        },
+      },
+      {
         name: "Bastille Battalion",
         ready: () => have($item`Bastille Battalion control rig`),
         completed: () => get("_bastilleGames") !== 0,
