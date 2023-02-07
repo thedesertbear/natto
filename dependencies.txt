@@ -4,3 +4,4 @@ github Kasekopf/loop-casual release
 https://github.com/soolar/CONSUME.ash/trunk/RELEASE/
 github Loathing-Associates-Scripting-Society/UberPvPOptimizer
 github Loathing-Associates-Scripting-Society/combo release
+github frazazel/levelup release
