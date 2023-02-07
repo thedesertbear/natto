@@ -541,7 +541,7 @@ export function GyouQuests(): Quest[] {
       ],
     },
     {
-      name: "Grey You Leveling",
+      name: "Post-Grey You Leveling",
       completed: () => getCurrentLeg() !== Leg.GreyYou || myLevel() >= args.targetlevel,
       tasks: [
         {
@@ -553,7 +553,7 @@ export function GyouQuests(): Quest[] {
       ],
     },
     {
-      name: "Grey You Aftercore",
+      name: "Post-Grey You Aftercore",
       completed: () => getCurrentLeg() !== Leg.GreyYou,
       tasks: [
         {
