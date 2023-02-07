@@ -1,7 +1,7 @@
 import { print } from "kolmafia";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { AftercoreQuest } from "./tasks/aftercore";
-import { GyouQuest } from "./tasks/greyyou";
+import { GyouQuests } from "./tasks/greyyou";
 import { ProfitTrackingEngine } from "./engine/engine";
 import { checkPerms, checkReqs } from "./tasks/sim";
 import { args } from "./args";
@@ -32,7 +32,7 @@ export function main(command?: string): void {
 
   print(`Running: goorbo v${version}`);
 
-  const tasks = getTasks([AftercoreQuest(), GyouQuest()]);
+  const tasks = getTasks([AftercoreQuest(), ...GyouQuests()]);
 
   // Abort during the prepare() step of the specified task
   if (args.abort) {
