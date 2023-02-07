@@ -504,12 +504,6 @@ export function GyouQuests(): Quest[] {
           limit: { tries: 550 },
           tracking: "GooFarming",
         },
-        // {
-        //   name: "Hatter Buff",
-        //   completed: () => get("_madTeaParty"),
-        //   acquire: $items`oil cap, "DRINK ME" potion`.map((it) => ({ item: it, price: 1000 })),
-        //   do: () => cliExecute(`hatter ${$item`oil cap`}`),
-        // },
       ],
     },
     {
