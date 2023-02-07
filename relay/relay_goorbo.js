@@ -7420,7 +7420,7 @@ var ProfitTracker = /*#__PURE__*/(/* unused pure expression or super */ null && 
     }
   }, {
     key: "record",
-    value: function record(tag) {
+    value: function record(tag, taskName) {
       if (this.ascensions < myAscensions()) {
         // Session tracking is not accurate across ascensions
         this.reset();
@@ -7460,7 +7460,7 @@ var ProfitTracker = /*#__PURE__*/(/* unused pure expression or super */ null && 
       this.records[tag].items += value.items;
       this.records[tag].turns += myTurncount() - this.turns;
       this.records[tag].hours += gametimeToInt() / (1000 * 60 * 60) - this.hours;
-      print("Profit: ".concat(value.meat, ", ").concat(value.items, ", ").concat(myTurncount() - this.turns, ", ").concat(gametimeToInt() / (1000 * 60 * 60) - this.hours));
+      print("Profit for ".concat(taskName, ": ").concat(value.meat, ", ").concat(value.items, ", ").concat(myTurncount() - this.turns, ", ").concat(gametimeToInt() / (1000 * 60 * 60) - this.hours));
       this.reset();
     }
   }, {
@@ -7636,16 +7636,11 @@ function args_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.sl
 
 
 var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a class for you to learn guild skills, and to perm learned skills upon ascension.", {
+  //alternate-run flags
   version: Args.flag({
     help: "Output script version number and exit.",
     default: false,
     setting: ""
-  }),
-  actions: Args.number({
-    help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time."
-  }),
-  abort: Args.string({
-    help: "If given, abort during the prepare() step for the task with matching name."
   }),
   sim: Args.flag({
     help: "If set, see the recommended items and skills, then return without taking any actions.",
@@ -7657,6 +7652,18 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
     default: false,
     setting: ""
   }),
+  list: Args.flag({
+    help: "Show the status of all tasks and exit.",
+    setting: ""
+  }),
+  //partial run args
+  actions: Args.number({
+    help: "Maximum number of actions to perform, if given. Can be used to execute just a few steps at a time."
+  }),
+  abort: Args.string({
+    help: "If given, abort during the prepare() step for the task with matching name."
+  }),
+  //configuration args
   permtier: Args.number({
     help: "Target perming all skills in the given tier and all better tiers. Choose 0 to only perm non-gnome, non-guild skills that you may have manually learned",
     options: [[-1, "Do not perm anything"]].concat(permTiers.map((str, num) => [num, str.length < 40 ? str.substring(9) : "".concat(str.substring(9, 37), "...")])),
@@ -7708,7 +7715,7 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
   }),
   gyouscript: Args.string({
     help: "The command that will do your Grey You run for you. Include any arguments desired.",
-    default: "loopgyou delaytower tune=wombat chargegoose=20"
+    default: "loopgyou tune=wombat chargegoose=20"
   }),
   garbo: Args.string({
     help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
@@ -7716,9 +7723,6 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
   }),
   roninfarm: Args.string({
     help: "A command to be run at the start of ronin-farming. For best effect, make sure that it stops when your turncount reaches 1000."
-  }),
-  postroninfarm: Args.string({
-    help: "A command to be run at the start of post-ronin-farming. For best effect, make sure that it stops when your remaining adventures are 40."
   }),
   garboascend: Args.string({
     help: "The command that will be used to diet and use all your adventures in Day 2 aftercore. If it is detected to be a garbo script call, it will function with voatest and CMC will be installed in last 100 turns. If it is not, then voatest will be ignored, and CMC will be installed prior to running this script.",
