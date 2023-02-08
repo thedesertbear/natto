@@ -92,12 +92,49 @@ import {
 import { targetClass } from "./perm";
 
 const myPulls: Item[] = [...$items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`];
-function altWorkshed() {
+function firstWorkshed() {
   return (
-    $items`model train set, Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine`.find(
+    $items`model train set, Asdon Martin keyfob, cold medicine cabinet, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic`.find(
       (it) => have(it) || getWorkshed() === it || storageAmount(it) > 0
     ) || $item`none`
   );
+}
+function altWorkshed() {
+  const ws = getWorkshed();
+  switch (ws) {
+    case $item`model train set`:
+      return (
+        $items`cold medicine cabinet, Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic`.find(
+          (it) => have(it) || getWorkshed() === it || storageAmount(it) > 0
+        ) || ws
+      );
+    case $item`Asdon Martin keyfob`:
+      return (
+        $items`cold medicine cabinet, model train set, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic`.find(
+          (it) => have(it) || getWorkshed() === it || storageAmount(it) > 0
+        ) || ws
+      );
+    case $item`cold medicine cabinet`:
+      return (
+        $items`Asdon Martin keyfob, model train set, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic, warbear induction oven, snow machine`.find(
+          (it) => have(it) || getWorkshed() === it || storageAmount(it) > 0
+        ) || ws
+      );
+    case $item`Little Geneticist DNA-Splicing Lab`:
+      return (
+        $items`cold medicine cabinet, Asdon Martin keyfob, model train set, portable Mayo Clinic`.find(
+          (it) => have(it) || getWorkshed() === it || storageAmount(it) > 0
+        ) || ws
+      );
+    case $item`portable Mayo Clinic`:
+      return (
+        $items`cold medicine cabinet, model train set, Asdon Martin keyfob, Little Geneticist DNA-Splicing Lab`.find(
+          (it) => have(it) || getWorkshed() === it || storageAmount(it) > 0
+        ) || ws
+      );
+    default:
+      return $item`none`;
+  }
 }
 
 export function GyouQuests(): Quest[] {
@@ -145,6 +182,15 @@ export function GyouQuests(): Quest[] {
             }
             use($item`one-day ticket to Dinseylandfill`);
           },
+        },
+        {
+          name: "Install First Workshed",
+          ready: () => have(firstWorkshed()),
+          completed: () =>
+            firstWorkshed() === $item`none` ||
+            get("_workshedItemUsed") ||
+            getWorkshed() !== $item`none`,
+          do: () => use(firstWorkshed()),
         },
         {
           name: "Break Stone",
@@ -261,15 +307,6 @@ export function GyouQuests(): Quest[] {
             get("boomBoxSong") === "Total Eclipse of Your Meat" ||
             get("_boomBoxSongsLeft") === 0,
           do: () => SongBoom.setSong("Total Eclipse of Your Meat"),
-        },
-        {
-          name: "Install Alternate Workshed",
-          ready: () => have(altWorkshed()),
-          completed: () =>
-            altWorkshed() === $item`none` ||
-            get("_workshedItemUsed") ||
-            getWorkshed() === altWorkshed(),
-          do: () => use(altWorkshed()),
         },
         {
           name: "Make Soda Bread",
@@ -551,6 +588,15 @@ export function GyouQuests(): Quest[] {
       name: "Post-Grey You Aftercore",
       completed: () => getCurrentLeg() !== Leg.GreyYou,
       tasks: [
+        {
+          name: "Install Alternate Workshed",
+          ready: () => have(altWorkshed()),
+          completed: () =>
+            altWorkshed() === $item`none` ||
+            get("_workshedItemUsed") ||
+            getWorkshed() === altWorkshed(),
+          do: () => use(altWorkshed()),
+        },
         {
           name: "Gold Wedding Ring",
           completed: () =>
