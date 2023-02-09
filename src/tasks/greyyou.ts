@@ -580,7 +580,7 @@ export function GyouQuests(): Quest[] {
           completed: () => myLevel() >= args.targetlevel,
           do: () => cliExecute(`levelup targetlevel=${args.targetlevel}`),
           clear: "all",
-          tracking: "leveling",
+          tracking: "Leveling",
         },
       ],
     },
