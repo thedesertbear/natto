@@ -13,7 +13,6 @@ import {
   toInt,
 } from "kolmafia";
 import { $item, $items, get, getSaleValue, Session, set, sumNumbers } from "libram";
-import { args } from "../args";
 
 function currency(...items: Item[]): () => number {
   const unitCost: [Item, number][] = items.map((i) => {
@@ -323,19 +322,19 @@ export function printProfits(records: Records): void {
     sum(records, (key) => key.startsWith("0")),
     "blue"
   );
-  printProfitSegment("* Garbo", records["0@Garbo"], "green");
-  if (args.voatest) printProfitSegment("* VoA Test", records["0@VoA Test"], "green");
-  printProfitSegment("* Other", records["0@Other"], "green");
+  for (const key in records) {
+    if (key.startsWith("0")) printProfitSegment(key.substring(2), records[key], "green");
+  }
+
   printProfitSegment(
     "Grey You",
     sum(records, (key) => key.startsWith("1")),
     "blue"
   );
-  printProfitSegment("* Run", records["1@Run"], "green");
-  printProfitSegment("* GooFarming", records["1@GooFarming"], "green");
-  printProfitSegment("* Garbo", records["1@Garbo"], "green");
-  printProfitSegment("* Leveling", records["1@Leveling"], "green");
-  printProfitSegment("* Other", records["1@Other"], "green");
+  for (const key in records) {
+    if (key.startsWith("1")) printProfitSegment(key.substring(2), records[key], "green");
+  }
+
   printProfitSegment(
     "Total",
     sum(records, () => true),
