@@ -578,7 +578,10 @@ export function GyouQuests(): Quest[] {
         {
           name: "Level Up",
           completed: () => myLevel() >= args.targetlevel,
-          do: () => cliExecute(`levelup targetlevel=${args.targetlevel}`),
+          do: () =>
+            cliExecute(
+              `levelup targetlevel=${args.targetlevel} clan=${args.clan} buffy=${args.buffy}`
+            ),
           clear: "all",
           tracking: "Leveling",
         },
