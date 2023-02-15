@@ -7268,7 +7268,6 @@ function profits_arrayLikeToArray(arr, len) { if (len == null || len > arr.lengt
 
 
 
-
 function currency() {
   for (var _len = arguments.length, items = new Array(_len), _key = 0; _key < _len; _key++) {
     items[_key] = arguments[_key];
@@ -7508,15 +7507,17 @@ function printProfits(records) {
   print("");
   print("== Daily Loop Profit ==");
   printProfitSegment("Aftercore", profits_sum(records, key => key.startsWith("0")), "blue");
-  printProfitSegment("* Garbo", records["0@Garbo"], "green");
-  if (args.voatest) printProfitSegment("* VoA Test", records["0@VoA Test"], "green");
-  printProfitSegment("* Other", records["0@Other"], "green");
+
+  for (var _key4 in records) {
+    if (_key4.startsWith("0")) printProfitSegment(_key4.substring(2), records[_key4], "green");
+  }
+
   printProfitSegment("Grey You", profits_sum(records, key => key.startsWith("1")), "blue");
-  printProfitSegment("* Run", records["1@Run"], "green");
-  printProfitSegment("* GooFarming", records["1@GooFarming"], "green");
-  printProfitSegment("* Garbo", records["1@Garbo"], "green");
-  printProfitSegment("* Leveling", records["1@Leveling"], "green");
-  printProfitSegment("* Other", records["1@Other"], "green");
+
+  for (var _key5 in records) {
+    if (_key5.startsWith("1")) printProfitSegment(_key5.substring(2), records[_key5], "green");
+  }
+
   printProfitSegment("Total", profits_sum(records, () => true), "black");
 }
 ;// CONCATENATED MODULE: ./src/tasks/utils.ts
@@ -7626,7 +7627,19 @@ function isGoodGarboScript(scr) {
   return scr.includes("garbo") && !scr.includes(";");
 }
 ;// CONCATENATED MODULE: ./src/args.ts
-var args_templateObject, args_templateObject2, args_templateObject3, args_templateObject4, args_templateObject5, args_templateObject6;
+var args_templateObject, args_templateObject2, args_templateObject3, args_templateObject4, args_templateObject5, args_templateObject6, args_templateObject7, args_templateObject8;
+
+function args_toConsumableArray(arr) { return args_arrayWithoutHoles(arr) || args_iterableToArray(arr) || src_args_unsupportedIterableToArray(arr) || args_nonIterableSpread(); }
+
+function args_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function src_args_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return src_args_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return src_args_arrayLikeToArray(o, minLen); }
+
+function args_iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function args_arrayWithoutHoles(arr) { if (Array.isArray(arr)) return src_args_arrayLikeToArray(arr); }
+
+function src_args_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function args_taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -7705,9 +7718,9 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
     help: "Set this to false to stop asking Buffy for buffs.",
     default: true
   }),
-  noticket: Args.flag({
-    help: "Run with this flag to skip buying a one-day pass to Dinseylandfill at the beginning of each day. No effect for Dinsey charter owners",
-    default: false
+  pulls: Args.items({
+    help: "A list of items to pull at the start of the Grey You run.",
+    default: [].concat(args_toConsumableArray(template_string_$items(args_templateObject7 || (args_templateObject7 = args_taggedTemplateLiteral(["mafia thumb ring, lucky gold ring"])))), args_toConsumableArray(property_get("stenchAirportAlways") || property_get("_stenchAirportToday") ? [] : template_string_$items(args_templateObject8 || (args_templateObject8 = args_taggedTemplateLiteral(["one-day ticket to Dinseylandfill"])))))
   }),
   ascend: Args.flag({
     help: "Run with this flag to skip tasks that prepare you for rollover, including steel liver.",
