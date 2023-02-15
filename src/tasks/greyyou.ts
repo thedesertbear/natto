@@ -1000,7 +1000,7 @@ export function GyouQuests(): Quest[] {
           name: "Tip the Author", //disabled by default - must manually discover and enable the flag
           ready: () => args.tip,
           completed: () => !have($item`soap knife`),
-          do: () => cliExecute(`csend * soap knife to sketchysolid || Thanks for the script!`),
+          do: () => cliExecute(`csend * soap knife to sketchysolid || Thanks for writing goorbo!`),
         },
         {
           name: "Alert-No Nightcap",
