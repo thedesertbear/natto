@@ -15,7 +15,6 @@ import {
   haveEquipped,
   hippyStoneBroken,
   inebrietyLimit,
-  Item,
   itemAmount,
   maximize,
   myAdventures,
@@ -90,8 +89,8 @@ import {
   totallyDrunk,
 } from "./utils";
 import { targetClass } from "./perm";
+import { version } from "../main";
 
-const myPulls: Item[] = [...$items`lucky gold ring, Mr. Cheeng's spectacles, mafia thumb ring`];
 function firstWorkshed() {
   return (
     $items`model train set, Asdon Martin keyfob, cold medicine cabinet, Little Geneticist DNA-Splicing Lab, portable Mayo Clinic`.find(
@@ -161,27 +160,27 @@ export function GyouQuests(): Quest[] {
           },
         },
         {
-          name: "Farming Pulls",
+          name: "Pre-Pulls",
           completed: () =>
             pullsRemaining() === 0 ||
-            myPulls.reduce((b, it) => b && (have(it) || storageAmount(it) === 0), true), //for each, you either pulled it, or you don't own it
+            !args.pulls.find(
+              (it) => !have(it) && !get("_roninStoragePulls").includes(toInt(it).toString())
+            ), //can't find a pull that (we dont have and it hasn't been pulled today)
           do: () =>
-            myPulls.forEach((it) => {
-              if (storageAmount(it) !== 0 && !have(it)) cliExecute(`pull ${it}`);
+            args.pulls.forEach((it) => {
+              if (!have(it) && !get("_roninStoragePulls").includes(toInt(it).toString())) {
+                if (storageAmount(it) === 0) buyUsingStorage(it); //should respect autoBuyPriceLimit
+                cliExecute(`pull ${it}`);
+              }
             }),
         },
         {
           name: "LGR Seed",
-          completed: () =>
-            args.noticket || get("_stenchAirportToday") || get("stenchAirportAlways"),
-          do: (): void => {
-            if (!have($item`one-day ticket to Dinseylandfill`)) {
-              if (storageAmount($item`one-day ticket to Dinseylandfill`) === 0)
-                buyUsingStorage($item`one-day ticket to Dinseylandfill`);
-              cliExecute(`pull ${$item`one-day ticket to Dinseylandfill`}`);
-            }
-            use($item`one-day ticket to Dinseylandfill`);
-          },
+          ready: () =>
+            have($item`lucky gold ring`) && have($item`one-day ticket to Dinseylandfill`),
+          completed: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
+          do: () => use($item`one-day ticket to Dinseylandfill`),
+          tracking: "Garbo",
         },
         {
           name: "Install First Workshed",

@@ -1,6 +1,6 @@
 import { Args } from "grimoire-kolmafia";
 import { Item, toClass } from "kolmafia";
-import { $class, $classes, $item, $items } from "libram";
+import { $class, $classes, $item, $items, get } from "libram";
 import { permTiers } from "./tasks/perm";
 import { toMoonSign } from "./tasks/utils";
 
@@ -116,9 +116,14 @@ export const args = Args.create(
       help: "Set this to false to stop asking Buffy for buffs.",
       default: true,
     }),
-    noticket: Args.flag({
-      help: "Run with this flag to skip buying a one-day pass to Dinseylandfill at the beginning of each day. No effect for Dinsey charter owners",
-      default: false,
+    pulls: Args.items({
+      help: "A list of items to pull at the start of the Grey You run.",
+      default: [
+        ...$items`mafia thumb ring, lucky gold ring`,
+        ...(get("stenchAirportAlways") || get("_stenchAirportToday")
+          ? []
+          : $items`one-day ticket to Dinseylandfill`),
+      ],
     }),
     ascend: Args.flag({
       help: "Run with this flag to skip tasks that prepare you for rollover, including steel liver.",
