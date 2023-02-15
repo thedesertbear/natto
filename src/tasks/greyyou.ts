@@ -89,7 +89,6 @@ import {
   totallyDrunk,
 } from "./utils";
 import { targetClass } from "./perm";
-import { version } from "../main";
 
 function firstWorkshed() {
   return (
