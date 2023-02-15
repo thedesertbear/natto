@@ -184,11 +184,12 @@ export function AftercoreQuest(): Quest {
       },
       {
         name: "LGR Seed",
+        ready: () =>
+          //best guess if we're going to Dinseylandfill later in the day
+          isGoodGarboScript(args.garboascend) ||
+          args.pulls.includes($item`one-day ticket to Dinseylandfill`),
         completed: () =>
-          args.noticket ||
-          get("_stenchAirportToday") ||
-          get("stenchAirportAlways") ||
-          !have($item`lucky gold ring`),
+          !have($item`lucky gold ring`) || get("_stenchAirportToday") || get("stenchAirportAlways"),
         do: () => use($item`one-day ticket to Dinseylandfill`),
       },
       {
