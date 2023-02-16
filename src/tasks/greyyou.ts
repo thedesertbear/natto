@@ -709,16 +709,14 @@ export function GyouQuests(): Quest[] {
           do: $location`The Laugh Floor`,
           outfit: () => ({
             familiar: bestFam(),
-            modifier: `${maxBase()}, 100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
+            modifier: `${maxBase()}, 100 combat rate, 3 item, 250 bonus carnivorous potted plant`,
           }),
-          combat: new CombatStrategy()
-            .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
-            .macro(
-              Macro.tryItem($item`porquoise-handled sixgun`)
-                .trySkill($skill`Double Nanovision`)
-                .attack()
-                .repeat()
-            ),
+          combat: new CombatStrategy().macro(
+            Macro.trySkill($skill`Curse of Weaksauce`)
+              .tryItem($item`porquoise-handled sixgun`)
+              .attack()
+              .repeat()
+          ),
           limit: { tries: 15 },
         },
         {
@@ -748,15 +746,14 @@ export function GyouQuests(): Quest[] {
           do: $location`Infernal Rackets Backstage`,
           outfit: () => ({
             familiar: bestFam(),
-            modifier: `${maxBase()}, -100 combat rate, 3 item, 250 bonus carnivorous potted plant, 100 familiar experience`,
+            modifier: `${maxBase()}, -100 combat rate, 3 item, 250 bonus carnivorous potted plant`,
           }),
-          combat: new CombatStrategy()
-            .macro(Macro.skill($skill`Infinite Loop`), getTodaysHolidayWanderers())
-            .macro(
-              Macro.tryItem($item`porquoise-handled sixgun`)
-                .trySkill($skill`Double Nanovision`)
-                .repeat()
-            ),
+          combat: new CombatStrategy().macro(
+            Macro.trySkill($skill`Curse of Weaksauce`)
+              .tryItem($item`porquoise-handled sixgun`)
+              .attack()
+              .repeat()
+          ),
           limit: { tries: 15 },
         },
         {
