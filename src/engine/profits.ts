@@ -323,7 +323,7 @@ export function printProfits(records: Records): void {
     "blue"
   );
   for (const key in records) {
-    if (key.startsWith("0")) printProfitSegment(key.substring(2), records[key], "green");
+    if (key.startsWith("0")) printProfitSegment(`* ${key.substring(2)}`, records[key], "green");
   }
 
   printProfitSegment(
@@ -332,7 +332,7 @@ export function printProfits(records: Records): void {
     "blue"
   );
   for (const key in records) {
-    if (key.startsWith("1")) printProfitSegment(key.substring(2), records[key], "green");
+    if (key.startsWith("1")) printProfitSegment(`* ${key.substring(2)}`, records[key], "green");
   }
 
   printProfitSegment(
