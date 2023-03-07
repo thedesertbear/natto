@@ -76,7 +76,7 @@ export const args = Args.create(
           "blender",
           "packrat",
         ].map((str) => [toMoonSign(str)]),
-        default: toMoonSign("vole"),
+        default: toMoonSign("blender"),
       },
       toMoonSign,
       "MOONSIGN"
@@ -131,7 +131,7 @@ export const args = Args.create(
     }),
     gyouscript: Args.string({
       help: "The command that will do your Grey You run for you. Include any arguments desired.",
-      default: "loopgyou tune=wombat chargegoose=20",
+      default: "loopgyou chargegoose=20",
     }),
     garbo: Args.string({
       help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
