@@ -25,6 +25,7 @@ import {
   myLevel,
   myMaxhp,
   myMeat,
+  mySign,
   myTurncount,
   numericModifier,
   print,
@@ -585,6 +586,25 @@ export function GyouQuests(): Quest[] {
       name: "Post-Grey You Leveling",
       completed: () => getCurrentLeg() !== Leg.GreyYou || myLevel() >= args.targetlevel,
       tasks: [
+        // {
+        //   name: "Drink Pre-Tune",
+        //   ready: () =>
+        //     have($item`mime army shotglass`) &&
+        //     myPrimestat() === $stat`Muscle` &&
+        //     mySign().toLowerCase() === "blender",
+        //   completed: () =>
+        //     get("_mimeArmyShotglassUsed") || !have($item`hewn moon-rune spoon`) || get("moonTuned"),
+        //   do: () => drink(1, $item`Boris's beer`),
+        // },
+        // {
+        //   name: "Moon Spoon",
+        //   ready: () => myPrimestat() === $stat`Muscle`,
+        //   completed: () =>
+        //     !have($item`hewn moon-rune spoon`) ||
+        //     get("moonTuned") ||
+        //     mySign().toLowerCase() === "wombat",
+        //   do: () => cliExecute("spoon wombat"),
+        // },
         {
           name: "Level Up",
           completed: () => myLevel() >= args.targetlevel,
@@ -603,6 +623,28 @@ export function GyouQuests(): Quest[] {
       name: "Post-Grey You Aftercore",
       completed: () => getCurrentLeg() !== Leg.GreyYou,
       tasks: [
+        {
+          name: "Drink Pre-Tune",
+          ready: () =>
+            mySign().toLowerCase() === "blender" &&
+            myLevel() >= 7 &&
+            have($item`mime army shotglass`) &&
+            (have($item`astral pilsner`) || have($item`astral six-pack`)),
+          completed: () =>
+            get("_mimeArmyShotglassUsed") || !have($item`hewn moon-rune spoon`) || get("moonTuned"),
+          prepare: () => {
+            if (have($item`astral six-pack`)) use($item`astral six-pack`);
+          },
+          do: () => drink(1, $item`astral pilsner`),
+        },
+        {
+          name: "Moon Spoon",
+          completed: () =>
+            !have($item`hewn moon-rune spoon`) ||
+            get("moonTuned") ||
+            mySign().toLowerCase() === "wombat",
+          do: () => cliExecute("spoon wombat"),
+        },
         {
           name: "Install Alternate Workshed",
           ready: () => have(altWorkshed()),
