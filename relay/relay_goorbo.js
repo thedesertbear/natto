@@ -7509,13 +7509,13 @@ function printProfits(records) {
   printProfitSegment("Aftercore", profits_sum(records, key => key.startsWith("0")), "blue");
 
   for (var _key4 in records) {
-    if (_key4.startsWith("0")) printProfitSegment(_key4.substring(2), records[_key4], "green");
+    if (_key4.startsWith("0")) printProfitSegment("* ".concat(_key4.substring(2)), records[_key4], "green");
   }
 
   printProfitSegment("Grey You", profits_sum(records, key => key.startsWith("1")), "blue");
 
   for (var _key5 in records) {
-    if (_key5.startsWith("1")) printProfitSegment(_key5.substring(2), records[_key5], "green");
+    if (_key5.startsWith("1")) printProfitSegment("* ".concat(_key5.substring(2)), records[_key5], "green");
   }
 
   printProfitSegment("Total", profits_sum(records, () => true), "black");
@@ -7695,7 +7695,7 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
   moonsign: Args.custom({
     help: "Choose the moonsign you want to ascend into",
     options: ["mongoose", "wallaby", "vole", "platypus", "opossum", "marmot", "wombat", "blender", "packrat"].map(str => [toMoonSign(str)]),
-    default: toMoonSign("vole")
+    default: toMoonSign("blender")
   }, toMoonSign, "MOONSIGN"),
   defaultclass: Args.custom({
     help: "Choose your default class, if goorbo doesn't have any other goals this run",
@@ -7728,7 +7728,7 @@ var args_args = Args.create("goorbo", "Written by frazazel (ign: SketchySolid #4
   }),
   gyouscript: Args.string({
     help: "The command that will do your Grey You run for you. Include any arguments desired.",
-    default: "loopgyou tune=wombat chargegoose=20"
+    default: "loopgyou chargegoose=20"
   }),
   garbo: Args.string({
     help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
