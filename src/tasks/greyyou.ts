@@ -611,7 +611,7 @@ export function GyouQuests(): Quest[] {
           do: () =>
             cliExecute(
               `levelup targetlevel=${args.targetlevel} buffy=${args.buffy}${
-                args.clan ? ` clan=${args.clan}` : ""
+                args.clan ? ` clan="${args.clan}`" : ""
               }`
             ),
           clear: "all",
