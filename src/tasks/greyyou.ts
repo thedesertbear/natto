@@ -228,7 +228,7 @@ export function GyouQuests(): Quest[] {
         {
           name: "Run",
           completed: () => step("questL13Final") > 11,
-          do: () => cliExecute(args.gyouscript),
+          do: () => cliExecute(args.inrun),
           clear: "all",
           tracking: "Run",
         },
@@ -873,7 +873,7 @@ export function GyouQuests(): Quest[] {
           ready: () => get("_stenchAirportToday") || get("stenchAirportAlways"),
           completed: () => (myAdventures() === 0 && !canDiet()) || stooperDrunk(),
           prepare: () => uneffect($effect`Beaten Up`),
-          do: () => cliExecute(args.garbo),
+          do: () => cliExecute(args.garbopostascend),
           post: () =>
             $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
               .filter((ef) => have(ef))
@@ -987,7 +987,7 @@ export function GyouQuests(): Quest[] {
           ready: () => have($item`Drunkula's wineglass`),
           prepare: () => uneffect($effect`Beaten Up`),
           completed: () => !args.ascend || myAdventures() === 0,
-          do: () => cliExecute(args.garboascend),
+          do: () => cliExecute(args.garbopreascend),
           post: () =>
             $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
               .filter((ef) => have(ef))
