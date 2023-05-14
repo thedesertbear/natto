@@ -1,7 +1,7 @@
 {
   "name": "natto",
   "version": "0.1.0",
-  "description": "A half-loop script that does farms and ascends, optimized for low-shiny accounts.",
+  "description": "A half-loop script that farms and ascends into (Grey You | Community Service), optimized for low-shiny accounts.",
   "main": "scripts/natto/natto.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

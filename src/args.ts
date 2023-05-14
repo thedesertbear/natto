@@ -5,7 +5,7 @@ import { permTiers } from "./tasks/perm";
 import { toMoonSign } from "./tasks/utils";
 
 export const args = Args.create(
-  "goorbo",
+  "natto",
   `Written by frazazel (ign: SketchySolid #422389). This is a full-day script for half-glooping. It aims to be a single-press script that will take you through your Aftercore and Grey You legs, collecting fat loot tokens, getting a Steel Liver, and leveling up to level 13 before running garbo. It chooses a class for you to learn guild skills, and to perm learned skills upon ascension.`,
   {
     //alternate-run flags
@@ -117,32 +117,32 @@ export const args = Args.create(
       default: true,
     }),
     pulls: Args.items({
-      help: "A list of items to pull at the start of the Grey You run.",
+      help: "A list of items to pull at the start of the CS run.",
       default: [
-        ...$items`mafia thumb ring, lucky gold ring`,
-        ...(get("stenchAirportAlways") || get("_stenchAirportToday")
-          ? []
-          : $items`one-day ticket to Dinseylandfill`),
+        // ...$items`mafia thumb ring, lucky gold ring`,
+        // ...(get("stenchAirportAlways") || get("_stenchAirportToday")
+        //   ? []
+        //   : $items`one-day ticket to Dinseylandfill`),
       ],
     }),
     ascend: Args.flag({
       help: "Run with this flag to skip tasks that prepare you for rollover, including steel liver.",
       default: false,
     }),
-    gyouscript: Args.string({
-      help: "The command that will do your Grey You run for you. Include any arguments desired.",
-      default: "loopgyou chargegoose=20",
+    garbopreascend: Args.string({
+      help: `The command that will be used to diet and use all your adventures in Day 2 aftercore. If it is detected to be a garbo script call, it will function with voatest and CMC will be installed in last 100 turns. If it is not, then voatest will be ignored, and CMC will be installed prior to running this script.`,
+      default: "garbo ascend",
     }),
-    garbo: Args.string({
-      help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
-      default: "garbo",
+    inrun: Args.string({
+      help: "The command that will do your (Grey You | Community Service) run for you. Include any arguments desired.",
+      default: "instantsccs",
     }),
     roninfarm: Args.string({
       help: "A command to be run at the start of ronin-farming. For best effect, make sure that it stops when your turncount reaches 1000.",
     }),
-    garboascend: Args.string({
-      help: `The command that will be used to diet and use all your adventures in Day 2 aftercore. If it is detected to be a garbo script call, it will function with voatest and CMC will be installed in last 100 turns. If it is not, then voatest will be ignored, and CMC will be installed prior to running this script.`,
-      default: "garbo ascend",
+    garbopostascend: Args.string({
+      help: "The command that will be used to diet and use all your adventures after reaching level 13 in Day 1 aftercore.",
+      default: "garbo",
     }),
     voatest: Args.boolean({
       help: `If set, will run your d2 garbo turns just like normal, but will separately track the last 100 turns, to give you an estimate of what your real-world valueOfAdventure is. Divide your total "VoA Test" profit by 100 for your VoA estimate. Note that it might show > 100 adventures spent, if garbo equipped the mafia thumb ring, June cleaver, or other adventure gaining equipment. This flag may be ignored if a custom setting of garboascend is used`,

@@ -418,11 +418,11 @@ export function AftercoreQuest(): Quest {
           guildStoreAvailable() &&
           (myClass().primestat === $stat`Mysticality` ||
             (myClass() === $class`Accordion Thief` && myLevel() >= 9)),
-        completed: () => availableAmount($item`magical mystery juice`) >= 500,
+        completed: () => availableAmount($item`magical mystery juice`) >= 1000,
         acquire: [
           {
             item: $item`magical mystery juice`,
-            num: 500,
+            num: 1000,
           },
         ],
         do: () => false,
@@ -445,14 +445,14 @@ export function AftercoreQuest(): Quest {
       {
         name: "Garbo",
         completed: () =>
-          !isGoodGarboScript(args.garboascend) ||
+          !isGoodGarboScript(args.garbopostascend) ||
           stooperDrunk() ||
           (!canDiet() && myAdventures() <= (expectCMC() ? 100 : 0) + (args.voatest ? 100 : 0)),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => {
           const adv2keep = (expectCMC() ? 100 : 0) + (args.voatest ? 100 : 0);
-          if (adv2keep > 0) cliExecute(`${args.garboascend} -${adv2keep}`);
-          else cliExecute(`${args.garboascend}`);
+          if (adv2keep > 0) cliExecute(`${args.garbopostascend} -${adv2keep}`);
+          else cliExecute(`${args.garbopostascend}`);
         },
         post: () => {
           if (myAdventures() === 0)
@@ -492,10 +492,10 @@ export function AftercoreQuest(): Quest {
         do: () => use($item`cold medicine cabinet`),
       },
       {
-        name: "Custom Farm Script", //this should only run if args.garboascend isn't a basic garbo script call
+        name: "Custom Farm Script", //this should only run if args.garbopostascend isn't a basic garbo script call
         completed: () => stooperDrunk() || (!canDiet() && myAdventures() === 0),
         prepare: () => uneffect($effect`Beaten Up`),
-        do: () => cliExecute(`${args.garboascend}`),
+        do: () => cliExecute(`${args.garbopostascend}`),
         post: () =>
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
@@ -582,7 +582,7 @@ export function AftercoreQuest(): Quest {
         ready: () => have($item`Drunkula's wineglass`),
         prepare: () => uneffect($effect`Beaten Up`),
         completed: () => myAdventures() === 0,
-        do: () => cliExecute(args.garboascend),
+        do: () => cliExecute(args.garbopostascend),
         post: () =>
           $effects`Power Ballad of the Arrowsmith, Stevedave's Shanty of Superiority, The Moxious Madrigal, The Magical Mojomuscular Melody, Aloysius' Antiphon of Aptitude, Ur-Kel's Aria of Annoyance`
             .filter((ef) => have(ef))
@@ -609,8 +609,10 @@ export function AftercoreQuest(): Quest {
         completed: () => pvpAttacksLeft() === 0 || !hippyStoneBroken(),
         do: (): void => {
           cliExecute("unequip");
-          cliExecute("UberPvPOptimizer");
-          cliExecute("swagger");
+          // TODO: dirty dependency
+          // cliExecute("UberPvPOptimizer");
+          // cliExecute("swagger");
+          cliExecute("PVP_MAB");
         },
       },
       {
@@ -621,8 +623,8 @@ export function AftercoreQuest(): Quest {
         post: () => takeCloset(closetAmount($item`soap knife`), $item`soap knife`),
       },
       {
-        name: "Ascend Grey You",
-        completed: () => getCurrentLeg() >= Leg.GreyYou,
+        name: "Ascend Community Service",
+        completed: () => getCurrentLeg() >= Leg.CommunityService,
         do: (): void => {
           printPermPlan();
           if (targetPerms(false).find((sk) => !have(sk)))
@@ -638,36 +640,88 @@ export function AftercoreQuest(): Quest {
           targetPerms(false).forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
           const nPerms = targetPerms(true);
 
-          const moonsign = toMoonSign(
-            have($item`hewn moon-rune spoon`) ||
-              !$skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
-                (sk) => !(sk.name in getPermedSkills()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
-              )
-              ? args.moonsign
-              : nPerms.includes($skill`Torso Awareness`) ||
-                (!!$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
-                  (sk) => nPerms.includes(sk)
-                ) &&
-                  !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
-                    (sk) => !nPerms.includes(sk) && !(sk.name in getPermedSkills())
-                  )) //plan to perm Torso Awareness or (plan to perm at least 1 gnome skill and will end with all gnome skills permed)
-              ? "wombat"
-              : args.moonsign
-          );
+          // TODO variable moonsign
+          const moonsign = toMoonSign("opossum");
+          // const moonsign = toMoonSign(
+          //   have($item`hewn moon-rune spoon`) ||
+          //     !$skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+          //       (sk) => !(sk.name in getPermedSkills()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
+          //     )
+          //     ? args.moonsign
+          //     : nPerms.includes($skill`Torso Awareness`) ||
+          //       (!!$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+          //         (sk) => nPerms.includes(sk)
+          //       ) &&
+          //         !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+          //           (sk) => !nPerms.includes(sk) && !(sk.name in getPermedSkills())
+          //         )) //plan to perm Torso Awareness or (plan to perm at least 1 gnome skill and will end with all gnome skills permed)
+          //     ? "wombat"
+          //     : args.moonsign
+          // );
           ascend(
-            $path`Grey You`,
-            $class`Grey Goo`,
+            $path`Community Service`,
+            // TODO variable class
+            $class`Sauceror`,
             Lifestyle.softcore,
             moonsign,
             $item`astral six-pack`,
             args.astralpet === $item`none` ? undefined : args.astralpet,
             { permSkills: skillsToPerm, neverAbort: false }
           );
-          if (visitUrl("choice.php").includes("somewhat-human-shaped mass of grey goo nanites"))
-            runChoice(1);
+          // TODO similar choice adventure for CS?
+          // if (visitUrl("choice.php").includes("somewhat-human-shaped mass of grey goo nanites"))
+          //   runChoice(1);
           cliExecute("refresh all");
         },
       },
+      // {
+      //   name: "Ascend Grey You",
+      //   completed: () => getCurrentLeg() >= Leg.GreyYou,
+      //   do: (): void => {
+      //     printPermPlan();
+      //     if (targetPerms(false).find((sk) => !have(sk)))
+      //       throw new Error(
+      //         `Trying to ascend, but don't have the following targeted skills: [${targetPerms(false)
+      //           .filter((sk) => !have(sk))
+      //           .join(", ")}]`
+      //       );
+      //     const nClass = targetClass(true);
+      //     setClass("goorboNextClass", nClass);
+
+      //     const skillsToPerm = new Map();
+      //     targetPerms(false).forEach((sk) => skillsToPerm.set(sk, Lifestyle.softcore));
+      //     const nPerms = targetPerms(true);
+
+      //     const moonsign = toMoonSign(
+      //       have($item`hewn moon-rune spoon`) ||
+      //         !$skills`Torso Awareness, Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+      //           (sk) => !(sk.name in getPermedSkills()) //skip checking gnomes if you have a moon spoon or have all gnome skills permed
+      //         )
+      //         ? args.moonsign
+      //         : nPerms.includes($skill`Torso Awareness`) ||
+      //           (!!$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+      //             (sk) => nPerms.includes(sk)
+      //           ) &&
+      //             !$skills`Gnefarious Pickpocketing, Powers of Observatiogn, Gnomish Hardigness, Cosmic Ugnderstanding`.find(
+      //               (sk) => !nPerms.includes(sk) && !(sk.name in getPermedSkills())
+      //             )) //plan to perm Torso Awareness or (plan to perm at least 1 gnome skill and will end with all gnome skills permed)
+      //         ? "wombat"
+      //         : args.moonsign
+      //     );
+      //     ascend(
+      //       $path`Grey You`,
+      //       $class`Grey Goo`,
+      //       Lifestyle.softcore,
+      //       moonsign,
+      //       $item`astral six-pack`,
+      //       args.astralpet === $item`none` ? undefined : args.astralpet,
+      //       { permSkills: skillsToPerm, neverAbort: false }
+      //     );
+      //     if (visitUrl("choice.php").includes("somewhat-human-shaped mass of grey goo nanites"))
+      //       runChoice(1);
+      //     cliExecute("refresh all");
+      //   },
+      // },
     ],
   };
 }

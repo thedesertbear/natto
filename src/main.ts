@@ -2,12 +2,13 @@ import { print } from "kolmafia";
 import { Args, getTasks } from "grimoire-kolmafia";
 import { AftercoreQuest } from "./tasks/aftercore";
 import { GyouQuests } from "./tasks/greyyou";
+import { CommunityServiceTasks } from "./tasks/communityservice";
 import { ProfitTrackingEngine } from "./engine/engine";
 import { checkPerms, checkReqs } from "./tasks/sim";
 import { args } from "./args";
 import { printPermPlan } from "./tasks/perm";
 
-const version = "0.6.5";
+const version = "0.1.0";
 
 export function main(command?: string): void {
   Args.fill(args, command);
@@ -26,13 +27,14 @@ export function main(command?: string): void {
     return;
   }
   if (args.version) {
-    print(`goorbo v${version}`);
+    print(`natto v${version}`);
     return;
   }
 
-  print(`Running: goorbo v${version}`);
+  print(`Running: natto v${version}`);
 
-  const tasks = getTasks([AftercoreQuest(), ...GyouQuests()]);
+  // const tasks = getTasks([AftercoreQuest(), ...GyouQuests()]);
+  const tasks = getTasks([AftercoreQuest(), ...CommunityServiceTasks()])
 
   // Abort during the prepare() step of the specified task
   if (args.abort) {

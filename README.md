@@ -1,6 +1,12 @@
 ## What is this Script?
 
-natto is a wrapper script that runs a half-loop, running daily farming with garbo, performing other helpful daily tasks for you, and also acquiring and perming skills for you automatically. It provides basic profit-tracking, and includes calls to `garbo`, `loopgyou`, `instantsccs`, `CONSUME`, `gain`, and `PVP_MAB`.
+natto is a wrapper script that runs a half-loop, running daily farming with garbo, performing other helpful daily tasks for you, and also acquiring and perming skills for you automatically. It provides basic profit-tracking, and includes calls to `garbo`, `loopgyou`, `instantsccs`, `CONSUME`, `gain`, and `UberPVPOptimizer`.
+
+## Building (optional)
+
+```text
+yarn run build
+```
 
 ## Installation
 
@@ -11,7 +17,7 @@ For in-flight development, use the main branch:
 git checkout https://github.com/thedesertbear/natto.git main
 ```
 
-You will need to `git delete goorbo` before switching branches.
+You will need to `git delete natto` before switching branches.
 
 ## How to Use
 

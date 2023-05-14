@@ -327,7 +327,7 @@ export function printProfits(records: Records): void {
   }
 
   printProfitSegment(
-    "Grey You",
+    "Community Services | Garbo",
     sum(records, (key) => key.startsWith("1")),
     "blue"
   );
