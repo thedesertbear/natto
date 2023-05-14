@@ -52,7 +52,7 @@ const entry = merge(
     entry: {
       // Define files webpack will emit, does not need to correspond 1:1 with every typescript file
       // You need an emitted file for each entrypoint into your code, e.g. the main script and the ccs or ccs consult script it calls
-      goorbo: "./src/main.ts",
+      natto: "./src/main.ts",
     },
     output: {
       path: path.resolve(__dirname, "scripts", packageData.name),
@@ -66,7 +66,7 @@ const relay = merge(
     entry: {
       // Define files webpack will emit, does not need to correspond 1:1 with every typescript file
       // You need an emitted file for each entrypoint into your code, e.g. the main script and the ccs or ccs consult script it calls
-      relay_goorbo: "./src/relay.ts",
+      relay_natto: "./src/relay.ts",
     },
     output: {
       path: path.resolve(__dirname, "relay"),

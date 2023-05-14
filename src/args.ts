@@ -83,7 +83,7 @@ export const args = Args.create(
     ),
     defaultclass: Args.custom(
       {
-        help: "Choose your default class, if goorbo doesn't have any other goals this run",
+        help: "Choose your default class, if natto doesn't have any other goals this run",
         options:
           $classes`Seal Clubber, Turtle Tamer, Pastamancer, Sauceror, Disco Bandit, Accordion Thief`.map(
             (cl) => [cl]
@@ -106,7 +106,7 @@ export const args = Args.create(
       "CLASS"
     ),
     clan: Args.string({
-      help: `Your VIP Clan. Goorbo will whitelist into it at the beginning of your day. Requires clan whitelist.`,
+      help: `Your VIP Clan. Natto will whitelist into it at the beginning of your day. Requires clan whitelist.`,
     }),
     targetlevel: Args.number({
       help: `What level to target via adventuring in Uncle Gator's after breaking the prism`,

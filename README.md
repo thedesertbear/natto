@@ -25,7 +25,7 @@ Run `natto`, with optional additional arguments (e.g.`natto permtier=2 astralpet
 
 ## Who is Natto For?
 
-It is aimed first and foremost at new players with few shinies, and it aims to complete after-prism leveling to level 13 without requiring any specific expensive or unobtainable item besides the Grey Goose, within 30 adventures, spending approximately 150k on potions, mojo filters and and spleen items with +exp% and +mainstat effects. It does support some IotMs and other expensive and/or hard-to-acquire items, and is expected to support more over time, but support for low-shiny players is the primary goal of goorbo. Shinier players may wish to fork natto and modify it for their own use.
+It is aimed first and foremost at new players with few shinies, and it aims to complete after-prism leveling to level 13 without requiring any specific expensive or unobtainable item besides the Grey Goose, within 30 adventures, spending approximately 150k on potions, mojo filters and and spleen items with +exp% and +mainstat effects. It does support some IotMs and other expensive and/or hard-to-acquire items, and is expected to support more over time, but support for low-shiny players is the primary goal of natto. Shinier players may wish to fork natto and modify it for their own use.
 
 ## Cautions/Disclaimer/Support
 
