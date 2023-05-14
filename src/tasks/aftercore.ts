@@ -186,7 +186,7 @@ export function AftercoreQuest(): Quest {
         name: "LGR Seed",
         ready: () =>
           //best guess if we're going to Dinseylandfill later in the day
-          isGoodGarboScript(args.garboascend) ||
+          isGoodGarboScript(args.garbopostascend) ||
           args.pulls.includes($item`one-day ticket to Dinseylandfill`),
         completed: () =>
           !have($item`lucky gold ring`) || get("_stenchAirportToday") || get("stenchAirportAlways"),
@@ -467,14 +467,14 @@ export function AftercoreQuest(): Quest {
       {
         name: "Garbo VoA Test",
         completed: () =>
-          !isGoodGarboScript(args.garboascend) ||
+          !isGoodGarboScript(args.garbopostascend) ||
           !args.voatest ||
           stooperDrunk() ||
           (!canDiet() && myAdventures() <= (expectCMC() ? 100 : 0)),
         prepare: () => uneffect($effect`Beaten Up`),
         do: () => {
-          if (expectCMC()) cliExecute(`${args.garboascend} -100`);
-          else cliExecute(`${args.garboascend}`);
+          if (expectCMC()) cliExecute(`${args.garbopostascend} -100`);
+          else cliExecute(`${args.garbopostascend}`);
         },
         post: () => {
           args.voatest = false;
